@@ -1,0 +1,1116 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      探索Git底层工作原理 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《探索Git底层工作原理》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/07/04/探索Git底层工作原理/" itemprop="url">
+		探索Git底层工作原理
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/07/04/探索Git底层工作原理/" itemprop="url">
+		<time datetime="2020-07-04T08:11:57.000Z" itemprop="datePublished">
+	  		2020-07-04
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/07/04/探索Git底层工作原理/" itemprop="url">
+		<time datetime="2020-07-04T08:11:57.000Z" itemprop="dateUpdated">
+	  		2020-07-04
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/Git/" class=" ">
+			Git
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="Git工作原理"><a href="#Git工作原理" class="headerlink" title="Git工作原理"></a>Git工作原理</h3><p>本周在git上踩了一个坑，以前对git只是简单地使用，知道几个命令，最多就是暂存区这些概念了，这一次好好地把Git的工作原理梳理一下，加深理解，避免再次出现这样的错误！</p>
+<p><strong>Git本质</strong></p>
+<p>git的本质是一个内容寻址的文件系统，并在此基础之上提供一个版本控制系统的用户界面，所以我们首先要明白git是一个特殊的filesystem</p>
+<p><strong>Git开始的地方</strong></p>
+<p>git init是我们用来创建一个git仓库的命令，会在当前目录下新建一个.git目录</p>
+<ul>
+<li>.git<ul>
+<li>hooks(dir)：包含客户端和服务端的钩子脚本</li>
+<li>info(dir)：包含一个全局性的排除文件，用以放置.gitignore的忽略模式</li>
+<li>objects(dir)：存储所有的数据内容</li>
+<li>refs(dir)：存储指向数据（分支、远程仓库和标签等）的提交对象的指针</li>
+<li>config：包含项目特有的配置项</li>
+<li>description：进供GitWeb程序使用，暂时不用关心</li>
+<li>HEAD：指向当前被检出的分支</li>
+</ul>
+</li>
+</ul>
+<p>还有目前尚未创建的index文件，它将会保存暂存区的信息</p>
+<p><strong>内容寻址</strong></p>
+<p>内容寻址文件系统说明了git的本质，git的核心是一个键值对的数据库，依托于objects目录，简单点说，你想git仓库插入任何内容value，git会给你返回一个key，通过这个key你可以再次取出value</p>
+<p><strong>Git对象</strong></p>
+<p>向git仓库中添加的每一个文件都会被转为一个git object对象然后存储</p>
+<p><strong><em>git hash-object -w filename</em></strong>：这个命令会将我们的文件转为一个git object然后存储到objects目录之中，这个命令会返回一个长度为40的十六进制SHA-1哈希值，这个哈希值是通过一个头部信息加上文件内容计算而来的，哈希值的前2位会用作存储这个git object的目录，剩下38位作为文件名</p>
+<p><strong><em>git cat-file -p hash</em></strong>：这个命令会从数据库(/objects目录)中取出对应的数据，并自动判断文件类型显示内容</p>
+<p><strong><em>blob object</em></strong>：上述我们的文件转为的git object成为数据对象，<strong>git cat-file -t hash</strong>可以告诉我们存储的是什么类型的对象</p>
+<p><strong><em>tree object</em></strong>：有了blob object我们的文件就有了归属，但是我们的目录还没有一个很好的表示，git中用tree object来存储目录的相关信息，tree object中主要存储指向blob object和tree object的指针</p>
+<ul>
+<li><strong>git update-index –add filename</strong>：这个命令会将我们的文件创建一个单独的暂存区</li>
+<li><strong>git write-tree</strong>：这个命令可以将暂存区的内容写入到一棵对象树</li>
+</ul>
+<p><strong>commit object</strong>：现在你有了这么多的hash值，你需要把他们都记住是不可能的，于是利用commit object来保存这些信息</p>
+<ul>
+<li><strong>git commit-tree hash</strong>：这个命令为一棵tree创建一棵commit tree</li>
+<li><strong>git log hash</strong>：这个命令可以展示我们的提交历史</li>
+</ul>
+<p><strong>example</strong></p>
+<p>以下操作在win10上完成，利用cmder这个终端工具（可以在win上使用linux风格的命令）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br><span class="line">Initialized empty Git repository in C:/Users/a/Desktop/study/git/myProject/.git/</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"hello, git!"</span> &gt; test.txt</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 从当前文件构建git objectt并写入数据库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">hash</span>-object -w test.txt</span></span><br><span class="line">e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看内容，-p参数可帮助我们推断文件类型</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840</span></span><br><span class="line">"hello, git!"</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"new version"</span> &gt; new.txt</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新暂存区，此处是添加一个文件 --cacheinfo表示是从已有的objects中添加</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 10064指明这是一个普通文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git update-index --add --cacheinfo 100644 e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840 test.txt</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git update-index --add  new.txt</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将当前暂存区的内容写入一棵tree</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git write-tree</span></span><br><span class="line">20256cd9e358ecb01f486b3e4ca0c4cb4f4ed8e8</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看这棵树的内容</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p  20256cd9e358ecb01f486b3e4ca0c4cb4f4ed8e8</span></span><br><span class="line">100644 blob c0d25443d3958ec5754b3db25c1af4da6573a11d    new.txt</span><br><span class="line">100644 blob e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840    test.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看类型，确实是一颗树</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -t  20256cd9e358ecb01f486b3e4ca0c4cb4f4ed8e8</span></span><br><span class="line">tree</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 构建提交树</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"commit test1"</span> | git commit-tree 20256cd9e358ecb01f486b3e4ca0c4cb4f4ed8e8</span></span><br><span class="line">6a40f315e69813c2e29c6fb5c2e209442f973f18</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看提交树的内容</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p  6a40f315e69813c2e29c6fb5c2e209442f973f18</span></span><br><span class="line">tree 20256cd9e358ecb01f486b3e4ca0c4cb4f4ed8e8</span><br><span class="line">author 叶行建 &lt;972763217@qq.com&gt; 1593831923 +0800</span><br><span class="line">committer 叶行建 &lt;972763217@qq.com&gt; 1593831923 +0800</span><br><span class="line"></span><br><span class="line">"commit test1"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看提交日志</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> --<span class="built_in">stat</span> 6a40f315e69813c2e29c6fb5c2e209442f973f18</span></span><br><span class="line">commit 6a40f315e69813c2e29c6fb5c2e209442f973f18</span><br><span class="line">Author: 叶行建 &lt;972763217@qq.com&gt;</span><br><span class="line">Date:   Sat Jul 4 11:05:23 2020 +0800</span><br><span class="line"></span><br><span class="line">    "commit test1"</span><br><span class="line"></span><br><span class="line"> new.txt  | 1 +</span><br><span class="line"> test.txt | 1 +</span><br><span class="line"> 2 files changed, 2 insertions(+)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Git引用</strong></p>
+<p>以上我们在使用git log查询提交日志的时候需要知道起点commit tree的hash，这显然不是人脑能够胜任的工作，还记的开始提到的refs文件夹吗？我们可以创建简单好记的引用来帮助我们记忆。</p>
+<ul>
+<li>refs(dir)<ul>
+<li>heads</li>
+<li>tags</li>
+</ul>
+</li>
+</ul>
+<p><strong>echo hash &gt; ./git/refs/head/master</strong>：我们可以将一棵commit树的hash写入refs/head中的一个文件，这个文件的名字就可以充当这棵树的引用，当然你也可以不叫master</p>
+<p><strong>git update-ref refs/head/name hash</strong>：我们更多的是使用这个命令来更新引用值，而不是直接修改文件</p>
+<p>我们只能构建commit tree的引用</p>
+<p><strong>example</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个引用</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> 6a40f315e69813c2e29c6fb5c2e209442f973f18 &gt; .git\refs\heads\master</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用这个引用</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> --pretty=oneline master</span></span><br><span class="line">6a40f315e69813c2e29c6fb5c2e209442f973f18 (HEAD -&gt; master) "commit test1"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> git update-ref</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git update-ref refs/heads/<span class="built_in">test</span> 6a40f315e69813c2e29c6fb5c2e209442f973f18</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> <span class="built_in">test</span></span></span><br><span class="line">commit 6a40f315e69813c2e29c6fb5c2e209442f973f18 (HEAD -&gt; master, test, refs/head/test)</span><br><span class="line">Author: 叶行建 &lt;972763217@qq.com&gt;</span><br><span class="line">Date:   Sat Jul 4 11:05:23 2020 +0800</span><br><span class="line"></span><br><span class="line">    "commit test1"</span><br><span class="line">    </span><br><span class="line"><span class="meta">#</span><span class="bash"> 尝试构建文件引用 test.txt，以失败告终</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git update-ref refs/heads/testtxt e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840</span></span><br><span class="line">fatal: update_ref failed for ref 'refs/heads/testtxt': cannot update ref 'refs/heads/testtxt': trying to write non-commit object e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840 to branch 'refs/heads/testtxt'</span><br></pre></td></tr></table></figure>
+
+<p><strong>HEAD引用</strong></p>
+<p>有一个问题，可以联想一下，我们创建多个指向commit tree的引用，是不是很像创建了多个分支，那么git是怎么知道你当前的分支，git branch <branch> 又是干了什么？</branch></p>
+<p>这就是HEAD文件的作用了，它一般是一个符号引用，指向目前所在的分支</p>
+<p>接着上面的例子来看，记住我这里是创建了两个commit tree的引用，所以应该是有两个分支，但是其实是一棵commit tree</p>
+<p><strong>example</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 当前所在分支，实际就是你在哪一课commit tree</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat .git\HEAD</span></span><br><span class="line">ref: refs/heads/master</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 确实有两棵树</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span><br><span class="line">* master</span><br><span class="line">  test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 切换分支，用git switch也可以</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git checkout <span class="built_in">test</span></span></span><br><span class="line">Switched to branch 'test'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当前分支已经改变</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat .git\HEAD</span></span><br><span class="line">ref: refs/heads/test</span><br></pre></td></tr></table></figure>
+
+<p><strong>Tag object</strong></p>
+<p>上文提到的git引用是指向commit tree的引用，一般我们会用指向不同commit tree的引用来作为我们的多个分支，但是如果我们想关键指向普通对象的引用该怎么办呢？</p>
+<p>这个时候就需要用到tag object，它会指明一个标签的创建者信息、一个日期、一段注释，最重要的是一个指向对象的指针，更多的时候这个指针不会移动，只是给对象取了一个友好的名字</p>
+<p>从下面的例子中你可以发现你可以告别哈希值了</p>
+<p><strong>example</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 对比刚才创建heads失败的提示信息，创建一个轻量tag</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git update-ref refs/tags/testtxt e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p testtxt</span></span><br><span class="line">"hello, git!"</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -t testtxt</span></span><br><span class="line">blob</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 看看tag object的具体内容，就是一个指针而已</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat .git\refs\tags\testtxt</span></span><br><span class="line">e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建全量tag</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git tag -a testtxt_v1 e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840 -m <span class="string">"my test tag"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat .git\refs\tags\testtxt_v1</span></span><br><span class="line">1d9b309501b0eaaade983ec0b5e0c3646463e3fc</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 现在就再也不是简单的一个引用了</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 1d9b309501b0eaaade983ec0b5e0c3646463e3fc</span></span><br><span class="line">object e65d6a4a5a1b8038ca73793edb5e7cea4b4d5840</span><br><span class="line">type blob</span><br><span class="line">tag testtxt_v1</span><br><span class="line">tagger 叶行建 &lt;972763217@qq.com&gt; 1593841928 +0800</span><br><span class="line"></span><br><span class="line">my test tag</span><br></pre></td></tr></table></figure>
+
+<p><strong>远程引用</strong></p>
+<p>如今我们用到git再也不是简单的只是在单机上使用，我们会将代码放在远程的托管平台，例如github、gitlab、gitee等等</p>
+<p>这样我们可以添加一个远程版本库，将本地的分支推上去，这时候<strong>refs/remotes</strong>目录会被创建，然后来记录最近一次推送的分支</p>
+<p>这里可以使用git add remote命令添加远程版本库，这里就不演示了，注意远程分支都是只读的，不能通过commit来管理远程分支</p>
+<p><strong>引用规范</strong></p>
+<p>我们可以通过git add remote origin …命令来添加一个一个远程版本库，远程分支到本地分支的映射也是需要研究一下的</p>
+<p>一般git add remote会自动生成配置规则，放在.git/config中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">	url = https://github.com/schacon/simplegit-progit</span><br><span class="line">	# 加号代表可快进</span><br><span class="line">	fetch = +refs/heads/*:refs/remotes/origin/*</span><br></pre></td></tr></table></figure>
+
+<p>url代表了远程版本库的地址，fetch代表的是映射规则，这代表了远程库refs/heads中的分支都会映射到本地的refs/remotes/origin中，也可以任意配置规则达到你的需求</p>
+<p>除了拉取分支你还可以配置相关的推送规则</p>
+<p>例如：<strong>push = refs/heads/master:refs/heads/test/master</strong>，这样你每次都能把master分支推到远程的test/master分支</p>
+<p>也可以使用<strong>git push origin master:refs/heads/test/master</strong>完成</p>
+<p>删除分支，就是将远程分支置空：<strong>git push origin  :[branchname]</strong></p>
+<p><strong>总结一下</strong></p>
+<p>来总结一下我们的日常概念是如何对应git底层的一些东西的</p>
+<table>
+<thead>
+<tr>
+<th align="center">repository</th>
+<th align="center">git</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">file</td>
+<td align="center">blob object</td>
+</tr>
+<tr>
+<td align="center">directory</td>
+<td align="center">tree object</td>
+</tr>
+<tr>
+<td align="center">commit</td>
+<td align="center">commit tree</td>
+</tr>
+<tr>
+<td align="center">refs/heads/</td>
+<td align="center">每一次提交的commit tree</td>
+</tr>
+<tr>
+<td align="center">refs/tags</td>
+<td align="center">tag object</td>
+</tr>
+<tr>
+<td align="center">HEAD</td>
+<td align="center">current commit tree</td>
+</tr>
+</tbody></table>
+<p>下面用一个大的example来看看git的工作方式，主要步骤如下：</p>
+<ol>
+<li>创建一个新的repository</li>
+<li>添加一个test1.txt文件，内容为test1，提交，</li>
+<li>添加一个test2.txt文件，内容为test2，提交</li>
+<li>修改test1.txt为test1 modify，提交</li>
+<li>添加文件夹dir，里面添加两个文件，分别是test3.txt =&gt; test3，test4.txt =&gt; test4</li>
+<li>最后看一看整个提交过程，以及这4次提交之间的关系</li>
+<li>新建一个branchtest分支</li>
+<li>添加test5.txt =&gt; test5并提交，看看会改变什么</li>
+</ol>
+<p>为了方便大家对应，我先把这几次commit tree的hash对应表贴出来，注意啊这不是我未卜先知，是后面帮你们填的，这里的hash都是前几位，这已经可以确定一个git object（提醒：$是shell的输入提示，我当年犯过这个愚蠢的错误）</p>
+<table>
+<thead>
+<tr>
+<th align="center">commit</th>
+<th align="center">hash</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">commit1</td>
+<td align="center"><strong>3a2e19d</strong></td>
+</tr>
+<tr>
+<td align="center">commit2</td>
+<td align="center"><strong>bb9837c</strong></td>
+</tr>
+<tr>
+<td align="center">commit3</td>
+<td align="center"><strong>b7f2da3</strong></td>
+</tr>
+<tr>
+<td align="center">commit4</td>
+<td align="center"><strong>c261cc9</strong></td>
+</tr>
+<tr>
+<td align="center">commit5</td>
+<td align="center"><strong>5e42938</strong></td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir git_study</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> git_study</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br><span class="line">Initialized empty Git repository in C:/Users/a/Desktop/study/git/git_study/.git/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> commit1</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"test1"</span> &gt; test1.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add test1.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"commit1"</span></span></span><br><span class="line">[master (root-commit) 3a2e19d] commit1</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 test1.txt</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span><span class="bash"> commit2</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"test2"</span> &gt; test2.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add test2.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"commit2"</span></span></span><br><span class="line">[master bb9837c] commit2</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 test2.txt</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span><span class="bash"> commit3</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"test1 modify"</span> &gt; test1.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add test1.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"commit3"</span></span></span><br><span class="line">[master b7f2da3] commit3</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span><span class="bash"> commit4</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mkdir dir &amp; <span class="built_in">cd</span> dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"test3"</span> &gt; test3.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"test4"</span> &gt; test4.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ../</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"commit4"</span></span></span><br><span class="line">[master c261cc9] commit4</span><br><span class="line"> 2 files changed, 2 insertions(+)</span><br><span class="line"> create mode 100644 dir/test3.txt</span><br><span class="line"> create mode 100644 dir/test4.txt</span><br></pre></td></tr></table></figure>
+
+<p>好了所有操作已经完成，来逐一看一看commit tree</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 我把多余的作者信息去掉了</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> commit1</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 3a2e19d</span></span><br><span class="line">tree 53655e6fdb6169b46a0ff3e231fed679b593feba</span><br><span class="line"></span><br><span class="line">commit1</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用git上层命令会自动帮我们把文件转为git object，这条命令返回了文件类型，git object <span class="built_in">type</span>，<span class="built_in">hash</span>，filename</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 53655e6fdb6169b46a0ff3e231fed679b593feba</span></span><br><span class="line">100644 blob 6ded003ad1d4fb3cfc1686592283591ecbb81f3e    test1.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> commit2</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这次多出来了一个东西，parent，指向了上一次的commit tree</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p bb9837c</span></span><br><span class="line">tree da9d53b7b08b996217c7cb8759f659f187cef095</span><br><span class="line">parent 3a2e19d2fbfeeab2476dd989e6a6e3ac2b033057</span><br><span class="line"></span><br><span class="line">commit2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 虽然是不同的commit tree，但是底层共用test1.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p da9d53b7b08b996217c7cb8759f659f187cef095</span></span><br><span class="line">100644 blob 6ded003ad1d4fb3cfc1686592283591ecbb81f3e    test1.txt</span><br><span class="line">100644 blob 68828e202e9848d52ba5457b930a96c11919aed4    test2.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> commit3</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> parent指向commit2</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p b7f2da3</span></span><br><span class="line">tree 4dc83212c88caaa823b38037f47c52471bf73c30</span><br><span class="line">parent bb9837c872f94d9a8a4c0115f0887cdbb87a9380</span><br><span class="line"></span><br><span class="line">commit3</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 与commit2共用test2.txt，但是test1.txt已经改变</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 4dc83212c88caaa823b38037f47c52471bf73c30</span></span><br><span class="line">100644 blob b941981b72a1064712640a3490046330dbaf4797    test1.txt</span><br><span class="line">100644 blob 68828e202e9848d52ba5457b930a96c11919aed4    test2.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> commit4</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> parent指向commit4</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git  cat-file -p c261cc9</span></span><br><span class="line">tree 3a273ff24b14e010d3614a920e97e0a3b46b0b69</span><br><span class="line">parent b7f2da35249ee81310790b342fa0f589465ad874</span><br><span class="line"></span><br><span class="line">commit4</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 多出了我们添加的dir目录，显然目录类型的git object的代码是040000</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 3a273ff24b14e010d3614a920e97e0a3b46b0b69</span></span><br><span class="line">040000 tree 3dd0ab8928a11c823f4106141ebd20ee343c7dc4    dir</span><br><span class="line">100644 blob b941981b72a1064712640a3490046330dbaf4797    test1.txt</span><br><span class="line">100644 blob 68828e202e9848d52ba5457b930a96c11919aed4    test2.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 看一看吧，应该是test3.txt和test4.txt，没什么问题</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 3dd0ab8928a11c823f4106141ebd20ee343c7dc4</span></span><br><span class="line">100644 blob 371b3ff0079e760d0fafea00e43ce16925511b19    test3.txt</span><br><span class="line">100644 blob a017bea96bbc1e6ca0e4900ac48cec2dbdd37c9b    test4.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> refs/heads文件中的master文件保存了最后一次的commit</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat .git\refs\heads\master</span></span><br><span class="line">c261cc9cb802e7a69c67de51adc0357480e4cbd8</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> HEAD中保存指向当前分支的引用</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat .git\HEAD</span></span><br><span class="line">ref: refs/heads/master</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> git <span class="built_in">log</span>可以对commit tree这个数据结果操作，打印提交的历史</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> --pretty=oneline c261cc9cb802e7a69c67de51adc0357480e4cbd8</span></span><br><span class="line">c261cc9cb802e7a69c67de51adc0357480e4cbd8 (HEAD -&gt; master) commit4</span><br><span class="line">b7f2da35249ee81310790b342fa0f589465ad874 commit3</span><br><span class="line">bb9837c872f94d9a8a4c0115f0887cdbb87a9380 commit2</span><br><span class="line">3a2e19d2fbfeeab2476dd989e6a6e3ac2b033057 commit</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> commit5，此时是新建的分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch branchtest &amp; git checkout branchtest</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"test5"</span> &gt; test5.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add test5.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"commit5"</span></span></span><br><span class="line">[branchtest 5e42938] commit5</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 test5.txt</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span><span class="bash"> 看一看commit5的内容，parent指向commit4，显然，此时branchtest已经领先了master</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 5e42938</span></span><br><span class="line">tree e18970dbcdd391fdc6ae29fce4971bacf8bae072</span><br><span class="line">parent c261cc9cb802e7a69c67de51adc0357480e4cbd8</span><br><span class="line"></span><br><span class="line">commit5</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 看看多了什么，多了一条branchtest的分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ls -l .git\refs\heads\</span></span><br><span class="line">total 2</span><br><span class="line">-rw-r--r-- 1 a 197609 41 7月   4 15:21 branchtest</span><br><span class="line">-rw-r--r-- 1 a 197609 41 7月   4 14:55 master</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> HEAD也指向了branchtest</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat .git\HEAD</span></span><br><span class="line">ref: refs/heads/branchtest</span><br></pre></td></tr></table></figure>
+
+<p><strong>By the way</strong></p>
+<p>用一张图，来总结一下吧，博主自己画的，有些潦草：</p>
+<img src="http://47.102.110.56:8080/pic6.PNG">
+
+<p> 这一篇博客写了好久，这两天会再写一篇关于Git多人协作的实际工作中可能会出现的问题，周末愉快！</p>
+<p>2020.0704 16:06</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic21.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/07/05/TCP-IP层次分析/" title="TCP/IP层次分析" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/07/02/浅入浅出Docker与虚拟机/" title="浅入浅出Docker与虚拟机" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/28/漫谈http/" title="漫谈http">
+								漫谈http			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 28日, 2020				
+							</p>
+							<p class="relate-post-content">
+								与http有关的知识点http status codehttp的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

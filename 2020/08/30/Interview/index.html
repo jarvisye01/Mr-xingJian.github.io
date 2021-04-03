@@ -1,0 +1,1864 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      Interview | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《Interview》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/08/30/Interview/" itemprop="url">
+		Interview
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/08/30/Interview/" itemprop="url">
+		<time datetime="2020-08-30T12:15:42.000Z" itemprop="datePublished">
+	  		2020-08-30
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/08/30/Interview/" itemprop="url">
+		<time datetime="2020-08-30T12:15:42.000Z" itemprop="dateUpdated">
+	  		2020-10-12
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/interview/" class=" ">
+			interview
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h1 id="面试常见问题"><a href="#面试常见问题" class="headerlink" title="面试常见问题"></a>面试常见问题</h1><p>秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！</p>
+<p>说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p><strong>1.redis为什么快</strong></p>
+<p>redis作为常见的NoSQL数据库，性能非常好，但是具体的性能我们不能一概而论。现在公认的一个比较统一的说法就是单机redis可以支持10W+的qps，如果是集群性能还会更好。下面列举redis为什么这么快的原因：</p>
+<ul>
+<li>纯内存操作，不走磁盘，内存位于计算机存储体系结构的上层，读写速度很快</li>
+<li>单线程，无需线程的切换，没有锁的竞争</li>
+<li>多路复用I/O，redis采用多路复用的非阻塞I/O模型</li>
+<li>数据结构高效，redis的作者使用高效的数据结构，在coding层面已经将性能发挥到极致</li>
+</ul>
+<p><strong>2.缓存会出现的问题</strong></p>
+<p>虽然使用redis做一层缓存可以很好地帮我们去减轻数据库的压力，提供系统的并发处理能力。但是缓存并不能解决所有的问题，在缓存的使用过程中也会出现相关的问题：</p>
+<ul>
+<li>缓存穿透：当用户查询某一个DB中没有的值，这样每次查缓存的结果都是没有，所有请求还是到达DB</li>
+<li>缓存雪崩：缓存一般都会设置一个失效的时间，如果大量的hot key在同一时间失效，就会导致请求越过缓存到达DB</li>
+<li>缓存击穿：当某一个super hot key失效，导致大量需要这个key的请求到达数据库</li>
+</ul>
+<p>从宏观上来理解一下：穿透是因为查询的数据不存在，缓存不起作用；雪崩和击穿都是缓存失效的瞬间大量请求达到，雪崩是大量的hot keys失效，击穿更加关注的是每一个hot key失效带来的影响。</p>
+<p><strong>3.内存淘汰策略</strong></p>
+<p>我们知道redis的运行是基于内存的，但是内存的大小毕竟还是有限的，这样当我们使用的内存达到了上限之后就会出现相关的内存不够的问题，实际上在应对内存不足的时候redis制定了多种内存淘汰策略：</p>
+<ul>
+<li>allkeys-lru：在所有键中挑选删除，删除的策略是lru</li>
+<li>volatile-lru：从所有配置了过期时间的键中挑选删除，删除策略是lru</li>
+<li>volatile-ttl：从所有配置了过期时间的键中挑选删除，删除策略是删除离过期时间最近的</li>
+<li>volatile-random：从所有配置了过期时间的键中挑选删除，删除策略是随即删除</li>
+<li>allkeys-random：从所有的键中挑选删除，删除策略是随机删除</li>
+<li>noeviction：当内存使用超过限制的时候，不删除任何键，但是会返回错误</li>
+</ul>
+<p><strong>4.redis过期策略</strong></p>
+<p>redis中的key是可以设置过期时间的，一旦ttl到了，redis会怎样处理这些keys呢？有两种方法：</p>
+<ul>
+<li>定期删除：redis中的keys实际上也是通过hash结构来存储的，设置了ttl的keu除了放到整体的hash结构里面，还会被放进另一个hash中（这个hash全是设置了ttl的keys），redis会定期扫描这个hash，对ttl到期的keys进行删除（redis默认每100ms进行定期扫描，从过期hash中随机选出20个key，对这些keys中过期的进行删除，如果过期的key比例超过1/4，立刻再执行一次扫描）</li>
+<li>惰性删除：每次访问某个key的时候先检查有没有过期，过期就删除</li>
+</ul>
+<p>常见的定时删除（到了ttl就立即删除）不适合redis，因为在redis中时间事件需要扫描其中时间事件的链表，对性能有影响。整体而言redis的过期策略是一种惰性删除的策略。</p>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><p><strong>1.数据库的范式</strong></p>
+<ul>
+<li>第一范式：每一列的都是不可分割的基础项，属性不能重复</li>
+<li>第二范式：在第一范式的基础上，非主属性完全依赖于主属性，通俗来讲就是每一行的数据必须是唯一的，保证唯一的就是有主键</li>
+<li>第三范式：在第二范式的基础上，表中不包含已在其他表中包含的非主属性，这样就不会有数据冗余</li>
+<li>BCNF：关系模型R&lt;U, F&gt;，若<strong>每一个决定因素都包含码</strong>，则R(U, F)属于BCNF</li>
+</ul>
+<p><strong><em>函数依赖</em></strong>：R(U)中的任意一个可能的关系r，r中不存在一个元组在X属性相等时，Y也相等，称Y函数依赖于X</p>
+<p><strong><em>完全函数依赖</em></strong>：在函数以来的基础上规定对于X的任意真子集X`，都有Y不函数依赖于X`</p>
+<p>数据库范式的作用就是帮我们减少数据的冗余，尽量避免出现删除、插入、修改异常。一般来说规范到3NF就已经很严格了，但是3NF会让数据的查询变得复杂，可能需要构建相当复杂的连表sql来取数据，一般没有严格遵守。</p>
+<p><strong>2.MVCC</strong></p>
+<p>MySQL的Innodb引擎使用MVCC这个多版本控制协议，Innodb引擎内部维持了一条版本链。在Innodb的聚簇索引中，每行数据包含额外的两列，分别是trx_id（修改当前索引的事务id，版本号）和roll_pointer（指向上一条的更新记录），roll_pointer充当了一个前置指针的作用。</p>
+<p>在事务中每次读的时候选取版本链的哪一个节点与你的隔离级别相关，read committed和repeatable read的选择是不一样的，具体可以看一下这个作者的文章<a href="https://juejin.im/post/6844904193891778567" target="_blank" rel="noopener">https://juejin.im/post/6844904193891778567</a> ，你要记住的就是rc会使用最新的版本链，但是rr只会使用最开始的版本链！</p>
+<p><strong>3.MySQL的行锁</strong></p>
+<p><strong>Innodb</strong>引擎实现了两种标准的行锁，分别是共享锁（S Lock，允许事务读一行的数据）和排他锁（X Lock，允许事务删除或者更新一行数据），这其中只有S和S之间可以兼容（Lock Compatible），如果S Lock已经被某个事物持有，另外想要获取S Lock的事务可以立即获取。</p>
+<p><strong>Innodb</strong>中还有叫做意向锁的东西，这种锁是为了让Innodb的锁粒度更细，如果你想对某一行上锁，必须先对库、表、页加上意向锁。意向锁也是两种，分别是意向共享锁（IS Lock，事务想要获取一张表中某几行数据的共享锁）和意向排他锁（IX Lock，事务想要获取一张表中某几行数据的排他锁），意向锁之间兼容。</p>
+<p><strong>Innodb</strong>行锁的三种算法：</p>
+<p><strong><em>Record Lock</em></strong>：对单个行记录上锁</p>
+<p><strong><em>Gap Lock</em></strong>：间隙锁，锁定一个范围，不包含记录边界</p>
+<p><strong><em>Next-Key Lock</em></strong>：上述二者的结合，锁定一个范围，并且锁定边界记录本身，Next-Key Lock可以解决幻读问题</p>
+<p><strong>幻读</strong>：幻读是一个很经典的问题，一般会问Innodb是怎么在repeatable read级别的隔离之下解决幻读问题的。首先我们要明白幻读的原因，幻读一般是一个事务读取一个范围的数据，另一个事务向这个范围插入了数据，前一个事务第二次读的时候就会多出来数据。想一下是为什么，其实说到底还是数据库的行锁策略，例如你读出了[1, 2, 5]三行数据，那么你只是对这三行数据加了锁，这个行锁保证1,2,5行数据这期间不能被别人修改，但是这个锁不能保证其他的事务向其中插入数据3,4，因为行锁的使命仅仅是保护某一行的数据而已。</p>
+<p>如果有了这个认识就会很容易理解Next-Key Lock（间隙锁）的作用，间隙锁将[1,5]这个范围锁起来，相当于一个段锁，其余的事务自然就不能对这一段的数据动手，也就不会发生幻读问题。</p>
+<p>这里稍微拓展一下，还有两种情况<strong>不会出现幻读</strong>：</p>
+<ul>
+<li>当存储引擎直接使用表锁，这是最大段的段锁（应该可以理解为什么serializable可以解决幻读了吧？也能很容易明白为什么间隙锁性能优于表锁）</li>
+<li>当你取的范围是主键，并且主键是自增的，此时也不会幻读，因为主键已经到了5，你可不能再插入3,4</li>
+</ul>
+<p><strong>4.慢SQL的优化</strong></p>
+<p>如果出现了慢sql，我们要怎么定位，怎么解决(话说实习的时候连DB的修改权限都没有，卑微)，这个也很重要！我们需要了解一些慢sql的处理方法。</p>
+<p>首先，数据库是可以记录一些执行缓慢的sql语句的，MySQL中有slow_query_log来记录相关的慢sql，你可以使用<strong>show variables like ‘slow_query%’</strong>来查看是否开启了慢sql日志以及日志的位置。</p>
+<p>其次，你还可以自己定义慢查询的时间，也就是超过了多长时间才算是慢查询，<strong>show variables like ‘long_query%’</strong>可以查看慢查询的时间，一般是10秒钟以上就定义为慢sql。其实你还可以查看慢查询的次数，<strong>show status like ‘slow_queries</strong>可以查询慢查询的次数。</p>
+<p>关于慢查询日志是很重要的，我们可以看一下相关的内容，慢查询日志会展示我们查询的时间sql语句以及锁的等待时间，我们可以从中找出一些端倪。</p>
+<p>然而定位到一个慢sql语句之后我们还需要对这条sql进行更加细致的分析，找出慢的原因所在，这个时候就需要用到<strong>explain</strong>命令分析sql语句的执行情况。explain得出的数据主要有以下几个比较重要的字段：</p>
+<ul>
+<li>id：表示多个表的查询顺序</li>
+<li>type：type字段表示sql查询的时候扫描的方式，由快到慢有这样的顺序：system&gt;const&gt;eq_ref&gt;ref&gt;range&gt;index&gt;all，具体的内容推荐看这篇blog： <a href="https://juejin.im/post/6844904149864169486#heading-4" target="_blank" rel="noopener">https://juejin.im/post/6844904149864169486#heading-4</a> </li>
+<li>select_type：表示查询的类型，主要包括simple（不包含subquery和union），primary（包含子查询的外层标记为primary，基本查询的意思），subquery（包含子查询的sql中的子查询部分标记为subquery），derived（衍生查询，from中包含子查询，结果被放到临时表中），union（包含union查询），union result（union的结果）</li>
+<li>table：查询的表格</li>
+<li>possible_keys：查询字段涉及索引，表示可能用到了，但是不一定</li>
+<li>key：此次查询实际用到的索引</li>
+<li>key_len：索引中使用的字节数，可以知道查询中使用的索引长度，可能是最大长度而不是实际长度</li>
+<li>ref：显示关联的字段</li>
+<li>rows：根据表信息统计以及索引的使用情况，估算此次查询可能需要读取的行数，自然是越小越好</li>
+<li>extra：其它优化信息，这篇blog有详细介绍 <a href="https://juejin.im/post/6847902221183483917#heading-18" target="_blank" rel="noopener">https://juejin.im/post/6847902221183483917#heading-18</a> </li>
+</ul>
+<p>响应时间、扫描的行数以及返回的行数是数据库查询重要的指标，要尽量避免对大表的全表扫描，</p>
+<p>另外在写sql的时候也要注意相关的条件：</p>
+<ul>
+<li>limit：使用limit帮助我们避免取出不必要的行，MySQL的客户端和服务器之间的网络通信时半双工的，冗余数据会浪费传输通道</li>
+<li>*：尽量避免使用，特别是多个进行join的时候，很容易取出不必要的列</li>
+<li>避免循环查询：避免在代码的循环结构中使用db操作</li>
+<li>索引覆盖：如果可能的话将需要的列加入索引，避免回表的过程</li>
+<li>切分查询：不要一次进行大范围甚至是全表的操作，一旦导致锁表性能会受到影响，尽可能的将查询切分为小范围</li>
+<li>分解关联查询：分解关联查询为小的单个查询，这样可以避免大范围表锁，但是有时候会增加业务的复杂性</li>
+</ul>
+<p><strong>5.MySQL排序</strong></p>
+<p>很所时候我们需要对结果进行排序，如果排序字段是索引那么我们其实不需要额外的排序，索引本身就是有顺序的。一旦是在非索引的字段进行排序的时候，需要MySQL执行额外的排序过程，排序一般是在内存中完成的，如果文件太大的话还需要使用磁盘。</p>
+<p>当排序数据量过大的时候MySQL会对文件进行分块，对每一块进行快排，最后归并一下，大量的数据排序消耗的空间是非常大的。</p>
+<p><strong>6.数据库的内联接与外连接</strong></p>
+<p>在数据库查询的时候经常需要进行连表操作，这里就会涉及到相关的概念，那就是内连接和外连接，先搞清楚各种定义：</p>
+<ul>
+<li>内连接：连接结果仅包含符合连接条件的行，两张表都要符合（inner join）</li>
+<li>外连接：不仅包含符合连接条件的行，也包括不符合条件的行</li>
+</ul>
+<p>外连接又分为多种，主要如下：</p>
+<ul>
+<li>左外连接：左表数据行全部保留，右表只保留符合条件的行（left outer join | left join）</li>
+<li>右外连接：右表数据行全部保留，左表只保留符合条件的行（right outer join | right join）</li>
+<li>全外连接：左外和右外的联合版本（full outer join | full join）</li>
+</ul>
+<p>实质上，开发中用到的大多还是外连接，占到90以上。</p>
+<p><strong>7.InnoDB与MyIsam的区别</strong></p>
+<p>这就是常说的数据库存储引擎之间的差别，我自身更加熟悉的可能是InnoDB引擎，但是我们还是要小小的了解这二者的主要差别！</p>
+<table>
+<thead>
+<tr>
+<th align="center">Engine</th>
+<th align="center">InnoDB</th>
+<th align="center">MyIsam</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">事务</td>
+<td align="center">从支持</td>
+<td align="center">不支持</td>
+</tr>
+<tr>
+<td align="center">锁</td>
+<td align="center">行锁设计，Next-Key Lock</td>
+<td align="center">表锁设计</td>
+</tr>
+<tr>
+<td align="center">存储</td>
+<td align="center">B+ Tree，数据本身以主键为索引存储（聚簇）</td>
+<td align="center">数据按行存储</td>
+</tr>
+<tr>
+<td align="center">索引</td>
+<td align="center">B+ Tree形式的索引（聚簇、非聚簇）</td>
+<td align="center">B+ Tree（非聚簇）</td>
+</tr>
+<tr>
+<td align="center">回表</td>
+<td align="center">主键或者覆盖索引不回表，其余需回表</td>
+<td align="center">按行直接取数据，不回表</td>
+</tr>
+<tr>
+<td align="center">外键</td>
+<td align="center">支持</td>
+<td align="center">不支持</td>
+</tr>
+<tr>
+<td align="center">hash</td>
+<td align="center">不支持hash index（底层还是B+ Tree）</td>
+<td align="center">同</td>
+</tr>
+</tbody></table>
+<p>有时候面试官会问市面上还有哪些主流数据库存储引擎，这个时候其实只是想要看你了解没有，你能说几个自然是更好：</p>
+<ul>
+<li>BDB：源子Berkeley DB，支持事务</li>
+<li>CSV：这个无需多说</li>
+<li>Memery：基于内存的数据库存储引擎，速度快，内存代价高</li>
+<li>Archive：支持高插入速度，查询速度较慢</li>
+<li>Merge：将一定数量的MyIsam表联合成一个整体</li>
+<li>Federated：将不同的MySQL服务器联合起来，组成逻辑整体，有点分布式的意思</li>
+</ul>
+<p><strong>8.MySQL日志</strong></p>
+<p>MySQL中有几个很重要的日志文件，我们在学习DB的时候一定要搞清楚这个日志文件的作用和区别（这里我以InnoDB为例）：</p>
+<ul>
+<li>binlog：这是MySQL Service级别的日志记录，用于记录修改数据库的所有语句。binlog在任何存储引擎下都会有，主要可以用于数据库数据的恢复，还有就是做数据库集群的时候可以使用binlog完成主从同步</li>
+<li>undolog：这是InnoDB存储引擎级别的日志，主要用于事务的回滚操作，主要是记录事务开始的数据，InnoDB中还非常巧妙地利用undo实现了MVCC</li>
+<li>redolog：记录新数据的备份，记录事务执行的过程中数据的变化，在事务完成时候持久化redolog也能在数据丢失之后恢复数据</li>
+</ul>
+<p>binlog和redolog都有恢复数据的能力，但是要记住的是二者有如下区别：</p>
+<ul>
+<li>binlog属于MySQL Server层，redolog是InnoDB才有的</li>
+<li>binlog记录的是数据的逻辑修改，也就是你使用了什么语句，而redolog记录的是物理修改，也就是你在哪一页上修改了什么地方</li>
+<li>redolog是循环写，也就是写redolog的地方就是一块地方（例如1G），写到结尾自然会覆盖之前的内容，binlog是追加写，一块地方沾满之后换一个地方继续写（现在你能想象二者的恢复数据能力是有差异的吗？）</li>
+</ul>
+<h2 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h2><p><strong>1.三次握手</strong></p>
+<p>tcp三次握手是tcp连接建立的重要过程，也是面试中必问的一些东西，我们一定要搞清楚三次握手的过程以及为什么要三次握手等等知识点！</p>
+<p><strong><em>三次握手的过程</em></strong>:</p>
+<ul>
+<li>client发起请求，发送请求（SYN=1，seq=x）到sever，之后进入SYNC_SEND状态</li>
+<li>server收到请求，发送相应（SYN=1，ACK1，seq=y，ack=x+1）到client，之后进入到SYNC_RECEIVED状态</li>
+<li>client收到请求，发送（ACK=1，seq=x+1，ack=y+1）到server，之后进入到ESTABLISHED状态</li>
+<li>server收到请求，同样进入ESTABLISHED状态</li>
+</ul>
+<p>这里需要注意的知识有，SYN是TCP的header中六个标志之一的同步位，表示这个过程是建立连接同步序号的过程，ACK是六个标志之一的确认位，表示这是一个确认信号。</p>
+<p><strong><em>为什么要三次握手</em></strong>：保证连接的可靠性，如果只有两次握手，那么等于说只要server收到一个请求连接它就回送一个请求并认为连接建立，可会导致client发送的请求延迟到达之后仍会被server接收，server会进入连接态，这是不合理的地方。三次握手可以保证client和server在进入连接态之前有一个过度状态，方式出现两次握手连接判断错误的问题。</p>
+<p><strong><em>超时问题</em></strong>：主要是server在向client发送第二次握手请求之后未收到第三次握手响应，server会不断地重发直到超时</p>
+<p><strong><em>泛洪攻击</em></strong>：恶意的程序会不断地向server发送请求，但是不响应，也就是不进行第三次握手，导致server大量资源处于半连接状态</p>
+<p><strong><em>保活机制</em></strong>：tcp连接建立之后如果client发生故障，server这边会定时地向client发送探测报文，当发送的探测报文超过上限仍未收到响应则断开连接。通常规定的是server在2小时没有收到client的任何数据（只要收到数据，时间就会刷新到2小时）就会发送探测报文，每个75分钟发送一次，10个探测报文未响应则server会自动关闭。</p>
+<p><strong><em>第三次握手</em></strong>：第三次握手的时候其实已经可以开始携带数据了。</p>
+<p><strong>2.四次挥手</strong></p>
+<p>四次挥手是tcp连接断开时的步骤，也有许多的知识点！</p>
+<p><strong><em>四次挥手的过程</em></strong>:</p>
+<ul>
+<li>client -&gt; server：FIN=1，seq=x</li>
+<li>server -&gt; client：ACK=1，seq=y，ack=x+1（这个成功之后通知上层应用client-&gt;server这条通道已经关闭）</li>
+<li>server -&gt; client：FIN=1，ACK=1，seq=y+1，ack=x+1</li>
+<li>client -&gt; server：ACK=1，seq=x+1，ack=y+2</li>
+</ul>
+<p>同样，FIN属于六个标志位之一的结束位，表示这是一个断开连接的请求，ACK仍然是确认位。</p>
+<p><strong><em>client等待</em></strong>：这里要知道是client在发送最后一个ACK确认时候要等待一定的时间才关闭，因为client要确保server会受到这个确认请求并正常关闭，如果server指定时间内未收到client的关闭确认，会再一次发送关闭请求。这里的等待的时长为2∗MSL（最长报文段寿命），每收到server的关闭请求，这是时间就会刷新。</p>
+<p><strong><em>为什么要等待2MSL</em></strong>：</p>
+<ul>
+<li>确认最后client发送的ACK报文可以到达server，以及如果超时，client也能接收到server重传的FIN报文</li>
+<li>让本次连接的报文全部消失，避免连接关闭之后还有本次连接的超时或者失效报文在网络上中消失</li>
+</ul>
+<p><strong><em>RTO（Retransmission TimeOut）</em></strong>：RTO超时重传时间并不固定，是根据RTT来计算的，简单点理解就是RTO是在RTT上的一个估值，具体算法很复杂。</p>
+<p><strong><em>为什要四次挥手</em></strong>：tcp是一个双向的可靠协议，可以互相发送数据，因此每一个主体发起FIN请求指示代表自己没有数据可发送，但是另外一个主体仍有权利继续向本主体发送数据。</p>
+<p><strong><em>为什么要有CLOSE_WAIT</em></strong>：sever收到client的结束请求之后会返回一个确认消息，这之后会进入CLOSE_WAIT状态，这个过程server-&gt;client这条通道没有关闭，如果server数据没有发送完毕可以在这个时间段进行发送</p>
+<p><strong>3.tcp如何保证可靠性</strong></p>
+<p>tcp是面向连接的传输控制协议，tcp是一种可靠的、基于字节流的传输层通信协议，tcp是在下层不可靠的ip协议之上实现了可靠性。</p>
+<p>tcp拥有差错检验，报文切片排序、消息确认机制、超时重传机制来保证报文传输的可靠性：</p>
+<ul>
+<li>差错校验：在tcp的头部字段中有16位的checksum，checksum是基于头部数据以及tcp携带的数据计算而来的，接收方可以通过checksuum校验</li>
+<li>序号：在将大的数据进行切分之后，每一段的tcp报文都会有一个seq序号，有了序号接收方可以保证组合报文的顺序，并且还不会冗余</li>
+<li>确认机制：接收方接收数据之后需要返回确认报文（ack会指明期望收到的下一个报文段的序号）</li>
+<li>超时重传：如果发送方在指定的时间未收到相关的确认就会重传报文</li>
+</ul>
+<p>tcp的以上机制都会是整个报文的传输变得可靠，同时tcp还有流量控制以及拥塞控制来适应网络的变化情况，及时调整发送数据的速率，是整个传输过程更加可靠，同时也更加的稳定！</p>
+<p><strong>4.ICMP</strong></p>
+<p>ICMP是网际报文控制协议，ICMP报文有很多种不同的类型，一旦我们的网络传输过程中出错就会将ICMP报文回给发送方。在我们日常使用的工具中有两个用到了ICMP协议：</p>
+<ul>
+<li>ping：ping协议主要是为报文设置错误的目的端口，使得目的主机会发送不可达的ICMP报文给方发送方</li>
+<li>traceroute：traceroute主要是利用报文的生命周期做文章，traceroute会将每次的报文从TTL=1开始递增，最终报文的声明周期足以到达目的主机</li>
+</ul>
+<p><strong>5.SACK机制</strong></p>
+<p>停止等待协议是tcp可靠性的重要保证，接收方并不会对每一次的报文都立即执行确认，而是有可能会累积一定的数量之后再统一确认，这样确认报文就能尽量少的占用网络资源。同时也会存在一个问题，如果接收方收到一大段报文，但是仅仅中间确实了一小部分，这样就需要重传确实之后的所有报文，例如[1, 500], [502, 1000]，仅仅确实501处的报文，导致[501, 1000]全部重传，显然这并不是一个明智的选择，这就是我们所说的Go-back N的问题。</p>
+<p>SACK机制的全名是Selective ACK，也就是选择确认，我们可以通过协商在tcp的首选项中加入SACK项（TLV形式存储），然后传输我们收到报文的边界，避免全部重传。例如[1, 500]的边界就是[1, 501]， [501, 1000]的边界就是[501, 1001]，这样重传的时候只需要传输500处的内容即可。</p>
+<p>我们来讨论一下SACK的限制，首先是TLV的存储形式，T（type）与L（length）各占一个字节，V还剩38个字节，一个边界两个数字实际占了8字节，38个字节最多存储4个边界，这就是SACK的限制，只能一定程度的解决GO-back N问题！</p>
+<p><strong>6.窗口问题</strong></p>
+<p>接收方需要通过窗口来控制发送方的发送速率，这是很典型的flow control。接收方如果自己的缓存满了，就会向发送方发送一个确认报文，说明自己的窗口为0，这个时候发送方不在发送数据，进入等待状态。加入现在有这么一个情况，接收方有了空间，发一个报文告诉发送方新的窗口大小，但是这个报文在网络中丢失了，这时候就会有如下问题：</p>
+<ul>
+<li>发送方等待接收方说明新窗口的报文</li>
+<li>接收方等待发送方继续发数据过来</li>
+</ul>
+<p>这是一个典型的出现死锁的场景，为了解决这个问题，tcp为每一个连接设置一个持续计数器，如果一方收到对方的0窗口通知就会启动计时器，计时器时间到了之后就会发送一个0窗口探测报文（仅仅携带1字节的数据），对方收到这个探测报文之后会回复现在的窗口值。如果窗口值仍然是0，重置计时器开始计时，如果不是0，死锁就打破了！</p>
+<p><strong>7.Nagle算法</strong></p>
+<p>发送方如果每次只发送1个字节的数据，需要加上20字节的tcp首部和20字节的ip首部，这是十分浪费的，因此有了Nagle算法来解决！</p>
+<p>当发送方逐个把数据送到tcp缓存的时候，先把发送方的第一个字节的数据发出去，后面的字节数据缓存起来，当收到发送方的确认之后把剩余的数据发出去。收到确认之后才会发送下一个报文段，在网络情况不好的时候可以较少使用的带宽。</p>
+<p>Nagle还规定，当数据缓存达到窗口的一般或者是MSS的时候，就立即发送这个报文段。</p>
+<p><strong>8.糊涂窗口综合征</strong></p>
+<p>如果tcp接收方缓存满了，上层应用又是一个一个字节的读取数据，那么tcp每次协调的窗口就是1个字节，发送方同样面临每次只发1字节数据的情况，这就是糊涂窗口综合征。</p>
+<p>为了解决这个问题，可以让接收方等待一定的时间，知道出现以下情况再回复自己窗口的大小：</p>
+<ul>
+<li>接收缓存已有一般的空闲时间</li>
+<li>空闲部分足以容纳一个MSS</li>
+</ul>
+<p>这样也避免了发送方每次只发送很少的数据，导致网络利用率不高的情况！</p>
+<p><strong>8.随机早期检测RED</strong></p>
+<p>在路由器中也会出现网络拥塞的情况，这个时候因为路由器是先进先出的模型， 如果路由器的缓存满了，后续到达的分组都会被丢弃。尾部丢弃策略会使得一连串的分组丢失，tcp的发送方会判断网络严重拥塞，重新执行慢开始算法，使得很多tcp的发送速率骤降，网络的通信量下降很多。</p>
+<p>为了避免缓存满了之后大量丢包，路由器采用随机早期检测来避免。RED会计算队列的平均长度，并且根据路由器的缓存维护一个最小门限和最大门限：</p>
+<ul>
+<li>平均长度小于最小门限，不丢弃</li>
+<li>平均长度大于最大门限，全部丢弃</li>
+<li>平均长度在二者之间，按概率p丢弃，p在0到1之间</li>
+</ul>
+<p>这种策略实质是把丢弃的分组尽可能的平分到整个时段经过路由器的分组！</p>
+<p><strong>9.UDP如何实现可靠性</strong></p>
+<p>UDP是用户数据包协议，传输时无需建立连接，没有确认，也没有重传，所以相对于tcp它只能尽可能的实现交付，但是正是因为没有一系列的可靠性保证，UDP具有极高的性能。在一些音频、视频等不需要百分之百可靠的场景下，UDP是一个很好的选择。通常我们在利用UDP高性能的时候也想对UDP实现相关的稳定和可靠，这就需要我们自己在用户层做出努力。</p>
+<p>我们可以学习tcp的机制，在用户层完成数据分片、编号和确认，这个确实很复杂。目前已经有一些的可靠性UDP协议的实现，例如RUDP（Reliable UDP），RTP，UDT等等。</p>
+<p>UDP的可靠性的实现实际也是依赖于重传：</p>
+<ul>
+<li>定时重传：发送发超过一定的时间没有收到确认就重传</li>
+<li>请求重传：接收方主动要求重传丢失的数据</li>
+<li>FEC分组重传：发送的时候顺便加上冗余数据，即使丢失之后接收方也有一定的恢复能力</li>
+</ul>
+<p><strong>10.RTT与RTO</strong></p>
+<p>两个很经典的概念，需要搞明白！</p>
+<p>RTT：Round Trip Time，网络环路延时，主要是发送方发送数据包到收到确认包的时间差，RTT是一个时间点的计量，随时间和网络情况有很大的波动，还有种计算平滑RTT的方法，SRTT = (a * SRTT) + (1 - a) * RTT，采用历史数据和当前数据，计算平滑的RTT</p>
+<p>RTO：RTO包括了报文的重传时间，RTO = SRTT + TIMEOUT(超时时间)</p>
+<p><strong>11.粘包以及粘包问题的解决方案</strong></p>
+<p>粘包是因为tcp在在分片的时候片与片之间没有相应的边界才会出现的问题，像UDP这种不分片的协议就不存在什么粘包问题。其实在计网的下层IP层和数据链路层也会对数据进行分片，所以也是存在粘包的问题。</p>
+<p><strong>拆包</strong>：tcp在发送数据的时候是有分片的功能的，如果一个数据包太长或者是tcp的发送缓存太小，就会对用户的数据包进行拆解</p>
+<p><strong>粘包</strong>：由于两个包的数据过小，发送方会先把两个包放在发送缓冲区，等待一定的时机之后再次发送，接收方也可能因为接收的数据包过小，先把包放在接收缓冲区，等待一定的时机上层应用再读取</p>
+<p>拆包与粘包问题的原因都是因为tcp是流式传输，流式传输最大的问题就是没有边界，我们可以通过以下方式来防止粘包问题：</p>
+<ul>
+<li>上层协议：在上层协议规定数据边界，例如http协议就是以换行为边界</li>
+<li>固定长度：发送的数据包都是以固定长度发送，不足的可以填充特殊符号</li>
+<li>边界符号：如果执意要直接使用tcp协议传输，可以选择一个边界，接收的时候可以确定边界</li>
+</ul>
+<p>当然这个粘包问题其实更多出现在你要用tcp发送多条数据，这些数据之间可能会出现粘包，如果你只是发送一条数据无论数据会不会分片都不影响你的读取。</p>
+<p><strong>12.RST包</strong></p>
+<p>tcp的报文header中有六个重要的标志位，其中一个就是RST，这是为了处理tcp异常连接的手段。RST标志亦称为复位标志，发送rst报文关闭连接时，不必等待缓冲区的数据都发送出去，直接丢弃缓冲区中的数据。接收方收到了rst报文之后也不用发回ack确认包。通常产生rst报文的情况有以下几种：</p>
+<ul>
+<li>目标端口没有监听：client去连接server但是server没有监听该端口的时候就会返回rst报文</li>
+<li>防火墙拦截：如果目的主机或者是网络路径中出现防火墙拦截也会返回rst报文</li>
+<li>向已经关闭的socket发送数据：如果client向server上已经关闭的socket发送数据时也会产生rst报文</li>
+<li>向已消逝的连接中发送数据</li>
+</ul>
+<p>具体的详细内容推荐看这篇blog： <a href="https://zhuanlan.zhihu.com/p/30791159" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/30791159</a></p>
+<h2 id="Http"><a href="#Http" class="headerlink" title="Http"></a>Http</h2><p><strong>1.GET与POST的区别</strong></p>
+<p>GET与POST是两种http常见的请求资源的方法，二者有一些差别也有一些相同点，容易被问到！</p>
+<p>直观区别：</p>
+<ul>
+<li>GET一般用于获取数据，POST一般用于提交数据，</li>
+<li>GET参数有长度限制（放在url之后，这个限制主要来自浏览器和服务器），POST无限制（可以放在Body中）</li>
+<li>GET是明文传输（数据放在url之后），POST不是明文（放在请求体中），这个区别见仁见智，只是一个F12就能搞定的东西（二者本质都是明文传输）</li>
+<li>浏览器一般会缓存GET的数据，一般不会缓存POST的数据</li>
+</ul>
+<p>总而言之，GET与POST都是使用的http这个明文协议，基于tcp协议，所以在底层GET与POST是没有区别的（你同样可以在POST的url里面加参数，只要你的服务端提供解析就行了），更多的是来自于浏览器和服务器的限制。</p>
+<p>另外还有一种说法就是GET是幂等性的，其实这个也不尽然，如果你的某个GET请求用url传递参数并且修改了后面的数据，那么其实也不是幂等的，对于POST也是同样的道理。</p>
+<p>为了验证我说的，我来尝试一个故意将GET与POST反用的demo：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment"> * @Descripttion:</span></span><br><span class="line"><span class="comment"> * @version: 1.0.0</span></span><br><span class="line"><span class="comment"> * @Author: jarvaiye</span></span><br><span class="line"><span class="comment"> * @Date: 2020-08-28 07:41:12</span></span><br><span class="line"><span class="comment"> * @LastEditors: sueRimn</span></span><br><span class="line"><span class="comment"> * @LastEditTime: 2020-08-28 07:42:43</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>GET and POST<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">        function getCount() &#123;</span><br><span class="line">            let body = &#123;</span><br><span class="line">                num: 2</span><br><span class="line">            &#125;</span><br><span class="line">            var xhr = new XMLHttpRequest()</span><br><span class="line">            xhr.open("get", "http://localhost:9000/get", false);</span><br><span class="line">            console.log(JSON.stringify(body))</span><br><span class="line">            xhr.send(JSON.stringify(body));</span><br><span class="line">            let res = JSON.parse(xhr.responseText)</span><br><span class="line">            let e = document.getElementById("count")</span><br><span class="line">            e.innerText = res.count</span><br><span class="line">            // fetch('http://localhost:9000/get', &#123;</span><br><span class="line">            //     method: 'GET',</span><br><span class="line">            //     body: JSON.stringify(param)</span><br><span class="line">            // &#125;)</span><br><span class="line">            // .then(res =&gt; res.json())</span><br><span class="line">            // .then(res =&gt; &#123;</span><br><span class="line">            //     let e = document.getElementById("count")</span><br><span class="line">            //     e.innerText = res.count</span><br><span class="line">            // &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        function getLang() &#123;</span><br><span class="line">            fetch('http://localhost:9000' + '/post?lang=php', &#123;</span><br><span class="line">                method: 'POST',</span><br><span class="line">            &#125;)</span><br><span class="line">            .then(res =&gt; res.json())</span><br><span class="line">            .then(res =&gt; &#123;</span><br><span class="line">                let e = document.getElementById("lang")</span><br><span class="line">                e.innerText = res.message</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span> = <span class="string">"root"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span>hello from golang!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Count: <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span> = <span class="string">"count"</span> /&gt;</span><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Lang: <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span> = <span class="string">"lang"</span> /&gt;</span><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"getCount()"</span>&gt;</span>GET<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"getLang()"</span>&gt;</span>POST<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> m  = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">    <span class="string">"php"</span>: <span class="string">"hello, this is php!"</span>,</span><br><span class="line">    <span class="string">"golang"</span>: <span class="string">"hello, this is golang"</span>,</span><br><span class="line">    <span class="string">"java"</span>: <span class="string">"hello, this is java"</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> GetParam <span class="keyword">struct</span> &#123;</span><br><span class="line">    Num <span class="keyword">int</span> <span class="string">`json:"num"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Index</span><span class="params">(res http.ResponseWriter, req *http.Request)</span></span> &#123;</span><br><span class="line">    res.Header().Set(<span class="string">"Content-type"</span>, <span class="string">"text/html"</span>)</span><br><span class="line">    res.WriteHeader(http.StatusOK)</span><br><span class="line">    p, _ := os.Getwd()</span><br><span class="line">    basePath := path.Join(p, <span class="string">"/mydemo"</span>, <span class="string">"/demo1"</span>)</span><br><span class="line"></span><br><span class="line">    file, _ := os.Open(path.Join(basePath, <span class="string">"/index.html"</span>))</span><br><span class="line">    data, _ := ioutil.ReadAll(file)</span><br><span class="line">    res.Write(data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Get</span><span class="params">(res http.ResponseWriter, req *http.Request)</span></span> &#123;</span><br><span class="line">    b, e := ioutil.ReadAll(req.Body)</span><br><span class="line">    <span class="keyword">if</span> e != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(e)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(<span class="keyword">string</span>(b))</span><br><span class="line">    </span><br><span class="line">    param := GetParam&#123;&#125;</span><br><span class="line">    json.Unmarshal(b, &amp;param)</span><br><span class="line">    count += param.Num</span><br><span class="line"></span><br><span class="line">    result := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;</span><br><span class="line">        <span class="string">"count"</span>: count,</span><br><span class="line">    &#125;</span><br><span class="line">    bytes, _ := json.Marshal(result)</span><br><span class="line">    res.WriteHeader(http.StatusOK)</span><br><span class="line">    res.Write(bytes)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Post</span><span class="params">(res http.ResponseWriter, req *http.Request)</span></span> &#123;</span><br><span class="line">    url := req.URL</span><br><span class="line">    query := url.Query()</span><br><span class="line"></span><br><span class="line">    lang := query.Get(<span class="string">"lang"</span>)</span><br><span class="line">    result := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">        <span class="string">"message"</span>: m[lang],</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    b, _ := json.Marshal(result)</span><br><span class="line">    res.Header().Set(<span class="string">"Context-type"</span>, <span class="string">"application/json"</span>)</span><br><span class="line">    res.WriteHeader(http.StatusOK)</span><br><span class="line">    res.Write(b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    http.HandleFunc(<span class="string">"/index"</span>, Index)</span><br><span class="line">    http.HandleFunc(<span class="string">"/get"</span>, Get)</span><br><span class="line">    http.HandleFunc(<span class="string">"/post"</span>, Post)</span><br><span class="line">    http.ListenAndServe(<span class="string">":9000"</span>, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终的结果是我们不能使用GET携带Body数据，原因主要是这里的fetch和xhr均不支持GET携带Body。POST是显然可以在url中添加参数的，没有任何问题。</p>
+<p>考虑到这里的GET不让携带Body是受到fetch和xhr的影响，另外我没有查到可以让GET携带Body的js库，所以用其它工具试一下，这里使用curl和postman，话不多说直接看一下结果：</p>
+<p><strong>使用curl</strong></p>
+<img src="http://47.102.110.56:8080/pic11.JPG" alt="curl发送带body的get请求">
+
+<p><strong>使用postman</strong></p>
+<img src="http://47.102.110.56:8080/pic10.JPG" alt="postman发送带body的get请求">
+
+<p>如图咱们的请求是完全成功的，所以我们可以得出结论，GET同样可以在Body中携带数据，取决于你发http请求的那个库是不是支持，我们也要思考一下为什么阻止我们在GET中携带数据，因为我们本身设计GET就是希望大家用这个来获取资源，尽量使GET成为一个幂等性的API，这样我们就可以对GET的数据进行缓存，GET和POST背负着不同的使命！</p>
+<p><strong>2.http状态码</strong></p>
+<p>这个之前的博客已经有了主要记住以下规律：</p>
+<ul>
+<li>1xx：与请求过程有关，例如正常、协议升级</li>
+<li>2xx：返回正常</li>
+<li>3xx：重定向相关</li>
+<li>4xx：客户端请求错误</li>
+<li>5xx：服务器错误</li>
+</ul>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p><strong>1.block IO and non-block IO</strong></p>
+<p>阻塞IO与非阻塞IO是很常见的两种IO模型，但是之前一直没有搞懂，特别是这两个东西与同步和异步混到一起的时候确实很难理解。从阻塞的本质上来看，我们可以想一想那些情况会发生阻塞？</p>
+<ul>
+<li>线程要读取一个文件，但是文件的锁被其它线程占领，那么此线程就要等待直到获取到锁，然后读取内容并返回</li>
+<li>线程向一个socket中写入数据，但是缓冲区满了，需要等待</li>
+</ul>
+<p>同时你还要注意区别以上阻塞是我们不能立刻执行想要的操作，而不是线程把数据写入磁盘的“阻塞“（线程已经在做想要的事情，只是这个过程需要时间），我们需要有一个意识的是前者所带来的延迟会远远高于后者。</p>
+<p>加入现在有一个read函数，去读一个被加锁的文件，block IO与non-block IO的区别如下：</p>
+<p><strong><em>block IO</em></strong>：阻塞等待，直到获取锁并且读到内容返回</p>
+<p><strong><em>no-block IO</em></strong>：立即返回一个错误，表示现在无法读取</p>
+<p>如果你有了解异步与同步的相关知识，不难发现这里与异步同步没有半毛钱关系！</p>
+<p><strong>2.进程与线程</strong></p>
+<p>这个其实是老生常谈了，但是之前一直没有好好组织，导致每次面试的时候都是回答的不是很流畅，这里总结一下！</p>
+<p><strong><em>进程</em></strong>：进程的出现就是为了让我们在单个（数量有限）CPU上同时运行多个程序，我们希望将每一道程序抽象成一个实体，这些实体相互独立地运行（但是底层共用操作系统的内核），利用相关技术将这些实体不断的切换上CPU，造成多个程序同时运行的错觉。关于面试这里面的知识点可能会包括以下一些：</p>
+<ol>
+<li><strong>进程内存布局</strong>：进程是对虚拟存储器（memory + I/O设备）和指令集（cpu）的抽象，进程的常见内存布局主要包括code segment、program data segment、heap、stack，这些内存段的管理都是利用相关的寄存器（BP， SP， DP…）记录它们的首地址或者是偏移地址。进程空间的主要内容： <a href="https://www.cnblogs.com/clover-toeic/p/3754433.html" target="_blank" rel="noopener">https://www.cnblogs.com/clover-toeic/p/3754433.html</a> ，这篇blog很好。</li>
+<li><strong>进程的上下文</strong>：进程的上下文就是进程某一个运行时刻的现场，有了这个现场信息使得进程在CPU上的切换成为可能。context主要包括寄存器信息、PC指针、打开的文件列表、相关的段地址、堆栈信息、进程空间等等，这个现场信息比较多，所以切换的开销其实很大。</li>
+<li><strong>PCB控制块</strong>：PCB控制块就是进程实体的表现，进程上下文信息也就是存储在这个结构体中。</li>
+<li><strong>进程的状态</strong>：new（新建），ready（就绪），wait（等待），run（运行），exit（退出），wait状态的进程获取相应的执行资格之后会流转到ready状态</li>
+</ol>
+<p><strong><em>线程</em></strong>：进程为我们带来了很好的隔离性，这种隔离性使得进程之间可以很好地独立运行，但是这也导致进程之间想要通信或者是共享数据就只能通过内核完成，这会带来巨大的开销，同时进程的context信息繁杂，切换的时候也会消耗大量的性能，为了解决这个问题提出了线程这个概念。有了线程之后，不再以进程为单位位调度，进程成为资源分配的单位，线程成为OS调度的实体。相关知识点：</p>
+<ol>
+<li><strong>线程的内存布局</strong>：一个进程中可以有多个线程，线程独立拥有PC指针、寄存器集合和堆栈段，但是共有进程的代码段、数据段、文件和进程空间等信息，这样使得线程之间的数据共享十分方便，不再需要通过一道内核。</li>
+<li><strong>线程的状态</strong>：new（新建），ready（就绪），block（等待），run（运行），exit（退出），这里要明白的是阻塞状态获取运行资格之后不能直接进入运行状态，需要进入ready状态。</li>
+</ol>
+<p><strong>3.进程之间通信的方式</strong></p>
+<p>之前整理过blog，如果想看详细的大家可以自己去回看，主要有以下几种方式：</p>
+<ul>
+<li>管道：又分为有名管道和无名管道</li>
+<li>信号量：主要用于同步控制</li>
+<li>消息队列</li>
+<li>共享内存</li>
+<li>unix套接字：用于不同的主机之间的通信</li>
+</ul>
+<p><strong>4.同步IO和异步IO</strong></p>
+<p>同步IO和异步IO也是两种很经典的IO模型，二者之间的区分主要是在IO的一个执行流程之上。同步IO操作在发起IO的时候会自己亲自去执行这次IO操作，将数据从内核区读到用区；而异步IO的线程会发送一个IO信号给内核，可能还会注册相关的回调函数，这次的IO实际上是通过内核完成的，内核会把指定的数据从内核区复制到用户区，完成之后会通知用户线程。</p>
+<p>所以这里我们应该清楚地理解到底什么同步，什么是异步，这二者与阻塞和非阻塞并没有什么直接的关系。显然同步IO需要等到这次数据读完之后才会进行下一步，这时候IO一定完成了；而异步IO会把IO工作跌丢给内核，自己直接运行下一步，IO什么时候完成是不确定的。</p>
+<p><strong>5.多路复用IO</strong></p>
+<p>上面已经说过了IO的四种基本模型，可以看出的是常规的IO操作一旦需要阻塞我们的线程那将是一件非常可怕的事情，CPU的性能会受到巨大的损耗。特别当我们需要处理的任务是IO密集型的话是非常可怕的。在redis中我们经常会提到多路复用IO这一点，想一想为什么？redis的服务器可能会接收成千上万的连接来与redis服务器交互，那么每一个到redis服务器上的请求都需要redis去监听（对于socket的监听也是一种IO操作），需要等待连接中有数据（client发来的数据），这就是一种经典的阻塞。显然redis如果是使用阻塞IO的话根本就不可能达到那么高的性能，redis的作者使用了多路复用IO。我们知道监听socket连接其实就是监听一个文件描述符fd，能不能让一个专门的线程来监听这个fd，而不是大家都在那守着自己的那一个fd呢？当然有，而这就是多路复用IO！</p>
+<p>在Linux中有几种种非常典型的多路复用IO模型，这些模型利用内核来监听一系列的fd集合，如果一个线程需要的fd未就绪（不可读或写）时，内核就会将这些线程阻塞（<strong><em>By the way</em></strong>：我们在这里说的阻塞跟上文的阻塞IO不太一样，上文的阻塞是线程会一直等待（占着CPU不干事），这里的阻塞是指线程进入阻塞状态（五个状态之一），从CPU上切换下来），从而让出CPU的资源，当这些集合中存在fd可以进行文件操作的时候，会做出相应举措。Linux中经典的IO复用模型包括：</p>
+<ul>
+<li>select：select对fd_set的存储使用array完成的，导致fd_set的最大容量为1024，每次调用select都要将fd_set从用户态复制到内核态，另外select对于fd_set的监控扫描是线性的，效率也不高。select的返回值是整个fd_set，我们还要判断哪些fd有事件发生。</li>
+<li>poll：同样是需要将fd_set从用户态拷贝到内核态，监控扫描也是线性的。poll同样返回整个fd_set，需要我们自己遍历找到哪些已经就绪。poll相对于select的提升是poll不再限制fd_set的长度。</li>
+<li>epoll：epoll采用的是红黑树和双链表的数据结构，会有一条链表专门存放就绪的fd，并且只返回就绪的fd，我们不需要每一次都去遍历整个fd_set。缺点就是epoll暂时只能适配Linux系统。大名鼎鼎的redis和nginx都是使用到了这种多路复用IO。</li>
+</ul>
+<p>另外，在epoll中还有两种不同的触发方式，也很值得我们去思考：</p>
+<ul>
+<li><strong>LT</strong>（水平触发）：这个模式之下只要fd还有数据可读（可能是上一次剩余的），就会返回这个fd</li>
+<li><strong>ET</strong>（边缘触发）：这个模式之下只有fd有新进入的数据才会返回，要求更加严格，是一种高速模式</li>
+</ul>
+<p>多路复用IO可以使得单个进程具有处理多个Socket事件的能力，在高并发的场景之下无需为每个Socket创建一个事件去处理，监听线程从Socket中读取数据然后分发到相应的处理线程即可！</p>
+<p>另外需要注意的是，每次调用select和poll监听相应的fd_set都会需要将fd_set从用户进程复制到内核，返回的时候需要将fd_set从内核复制到用户进程，而epoll并不需要，epoll可以通过epoll_create创建一个红黑树结构在内核中（每一个这样的结构有一个epfd），之后我们可以通过epoll_ctl函数来操作某个epfd，动态的修改我们的fd_set中的fd，这也是epoll效率更高的体现！</p>
+<p><strong>6.死锁及其发生条件和解决方法</strong></p>
+<p><strong>概念</strong>：死锁是操作系统中重要的概念，死锁是指在多个进程（线程）在争夺资源的时候因为相互等待造成的僵局，如果没有外力的打破的话，这个僵局将一直持续下去。例如进程a，b分别持有自己的锁的同时又在等待对方释放锁，这就是一种典型的死锁。</p>
+<p><strong>产生条件</strong>：并不是所有的场景都会出现死锁，有以下4个必要条件</p>
+<ul>
+<li>互斥：进程需要的资源必须是互斥的，占领之后其余的线程不能使用</li>
+<li>请求等待：进程因为请求资源而阻塞的时候也不会释放自己的资源</li>
+<li>非剥夺：进程只能主动释放自己的资源，外界不可能剥夺它的资源</li>
+<li>循环等待：进程等待资源的时候出现了一条环路</li>
+</ul>
+<p><strong>解决方法：</strong>死锁的解决方法其实也是围绕死锁出现的原因来制定的，主要的方向是死锁出现之前的预防以及死锁出现之后的破解。</p>
+<ul>
+<li>资源一次性分配：这样就不会出现既占有资源又去请求资源的情况</li>
+<li>主动释放：进程获取不到相应的资源的时候主动放弃自己已经占有的资源</li>
+<li>资源有序分配：对资源进行编号，进程请求资源按顺序请求，这样就不会出现环路等待</li>
+<li>超时放弃：一定时间得不到锁之后放弃等待，主动释放之前持有的锁，避免了永久相互等待</li>
+<li>优先级：为线程指定优先级，优先级高的进程可以剥夺优先级低的资源</li>
+</ul>
+<p><strong>如何检测</strong>：可以将资源编号，建立已经分配给进程的资源和进程等待资源的表格（可以使用图算法），如果出环则说明有死锁</p>
+<p><strong>7.PCB</strong></p>
+<p>PCB是进程控制块，是操作系统核心数据结构之一，也是进程实体性的体现之一，通常来说PCB主要包括以下内容：</p>
+<ul>
+<li>进程状态：new，ready，running，waiting，blocked</li>
+<li>PC：程序技术器</li>
+<li>CPU Registers：各种寄存器的集合，这就是我们常说的CPU的运行现场</li>
+<li>调度信息：例如进程优先级，调度队列等等</li>
+<li>存储器管理：例如标签页表（也就是我们说的虚拟内存的页表）等等</li>
+<li>统计信息：进程CPU的使用时间等运行统计信息</li>
+<li>输入输出状态：例如进程使用的IO设备</li>
+</ul>
+<p><strong>8.僵尸进程与孤儿进程</strong></p>
+<p>僵尸进程：一个进程已经终止，但是其父进程没有对其进行善后处理，这个进程就是僵尸进程。僵尸进程在Linux中也有相应的数据结构，它放弃了几乎所有内存空间，没有可执行代码，也不能调度，仅仅包含自身的一些状态信息等供其他进程收集。</p>
+<p>如何避免僵尸进程：</p>
+<ul>
+<li>杀掉父进程：杀掉父进程之后，这些僵尸进程变成孤儿进程，init接管，init将负责清除僵尸进程</li>
+<li>改写父进程：子进程死后会向父进程发送SIGCHLD信号，父进程可以注册相关的handler完成善后；父进程调用wait或者waitpid等待子进程结束，这个会使父进程挂起；父进程利用signal信号通知内核，自己对子进程不感兴趣，内核将完成回收；还可有fork两次，产生孙子进程，再把自己进程杀掉，让init接管孙子进程</li>
+</ul>
+<p>孤儿进程：一个父进程退出了，但是子进程还没有退出，那么这些个子进程成为孤儿进程，将会由init进程收养，init进程对他们完成状态收集工作。</p>
+<p><strong>9.硬链接与软连接</strong></p>
+<p><strong>10.CPU调度算法</strong></p>
+<p>计算机中的CPU的数量是有限的，但是需要执行的进程（线程）是很多的，怎么做到让我们感觉好像有很多任务在同时执行呢？那就是OS进行调度，将进程（线程）在CPU上进行切换，让每个进程或者是线程都有自己的调度时间。那么这个调度的过程要考虑的东西是很多，优先级、公平性都是需要考虑的，常见的调度算法有如下：</p>
+<ul>
+<li>FCFS（先来先服务）：类似于一个队列，按照任务到来的时间顺序进行执行</li>
+<li>SJF（短作业优先）：需要CPU时间越短的作业越优先执行</li>
+<li>SRTN（最短剩余时间优先）：短作业优先的抢占版本，新作业到达之后如果比正在执行的任务剩余时间短就抢占CPU</li>
+<li>HRRN（最高响应比优先算法）：这里有一个系数R，R = (等待时间 + 处理时间) / (处理时间)，R越大优先级越高</li>
+<li>RR（时间片算法）：每个线程执行一个时间片，时间片到了就放弃CPU的使用权</li>
+<li>HPF（最高优先级算法）：每个进程都有自己的优先级，优先级高的优先执行，并且可以抢占优先级低的CPU使用权</li>
+<li>多级反馈队列：使用多个队列，每个队列的优先级依次降低，但是分到的时间增多，进程在不同的队列上进行切换</li>
+</ul>
+<p><strong>11.字节序</strong></p>
+<p>字节序也是跟计算机硬件紧密相关的一个知识点，如果你平时没有了解被问到就会很懵。通常来说，字节序跟我们存的内容从高地址还是低地址开始相关：</p>
+<ul>
+<li>小字节序：低字节内容存放在地地址</li>
+<li>大字节序：低字节内容存放在高地址</li>
+</ul>
+<p>这里我们想要搞清楚一个问题，12345678这个int类型的数字那边的是低字节？一般来说我们认为1这边的是低字节。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> number = <span class="number">0x12345678</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> *ch = (<span class="keyword">char</span> *) &amp;number;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%p: %02x \n"</span>, ch, (<span class="keyword">unsigned</span> <span class="keyword">char</span>)*ch++);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line"><span class="number">0x7ffd86d4f8c1</span>: <span class="number">78</span> </span><br><span class="line"><span class="number">0x7ffd86d4f8c2</span>: <span class="number">56</span> </span><br><span class="line"><span class="number">0x7ffd86d4f8c3</span>: <span class="number">34</span> </span><br><span class="line"><span class="number">0x7ffd86d4f8c4</span>: <span class="number">12</span></span><br></pre></td></tr></table></figure>
+
+<p>这个demo可以帮助我们搞清楚机器的字节序，显然我这台机器的12存在了高地址，机器的字节序是大字节序！</p>
+<h2 id="Concurrency"><a href="#Concurrency" class="headerlink" title="Concurrency"></a>Concurrency</h2><p><strong>1.Java synchronized锁升级原理</strong></p>
+<p>synchronized是Java虚拟机级别支持的同步机制，底层是调用操作系统的Mutex机制实现的，需要执行用户态到核心态的转换，显而易见如果每次都需要去陷入内核态的话性能是很差的。但是我们实际使用的synchronized是经过了很多优化的，锁有一个升级的过程，不会直接开始就使用Mutex。</p>
+<p>synchronized实现的锁主要有以下几种状态，关于这些锁的详细介绍有很多好的文章，我这里主要介绍一下每种锁的获取需要什么工作，工作量如何：</p>
+<ul>
+<li>偏向锁：在对象头中记录线程的ID，持有锁的线程每次只需要检查该对象头中的线程ID是不是自己的线程ID即可，显然获取锁只需要读取一个ID就行了</li>
+<li>轻量级锁：将对象头的Mark Word复制到线程的内部，利用CAS将Mark Word修改为指向刚刚复制的内容，这时候主要是一次复制操作和CAS</li>
+<li>重量级锁：使用monitor模式，陷入内核态获取锁，这里做了一次用户态到内核态的转换，这是非常可怕的工作量</li>
+</ul>
+<p>偏向锁只需要检查一次线程ID，这几乎是与无锁状态的速度一样，性能最好；轻量级锁涉及到一次复制和CAS，但是都是在用户态完成的，性能也不错；重量级锁每次都要切换内核状态，最次。（同样的i++操作，CAS的性能肯定要好于重量级锁）</p>
+<p>除此之外，还有一些对锁的优化措施也能提高synchronized的性能：</p>
+<ul>
+<li>自旋锁：轻量级锁CAS获取失败后，自旋一定的时间（等待一定的时间），避免了线程的休眠和唤醒带来的开销</li>
+<li>适应性自旋锁：根据之前的经验自旋，自旋锁将自旋次数写死，但是一旦等待的时间大于自选时间那么还是要休眠，等于白白自旋了，如果等待时间远小于自旋时间，大量的线程自旋同样影响性能，适应性自旋会根据前一次自旋的情况动态调整每一次的自旋次数</li>
+<li>锁消除：当JVM检测到你有锁是没有意义的（例如你在不会发生竞争的地方加了一把锁），就会把这个锁给剔除</li>
+</ul>
+<p><strong>2.Java 线程池</strong></p>
+<p>问到了Java并发，这能这些会跟着问一下，之前因为是投的Golang岗位，但是上面写了会Java，被问到了关于线程池的东西，这里继续总结一下！</p>
+<p>首先我们要理解为什么要有线程池这个东西，线程本身的创建和销毁并不是没有代价的，对于很多但是很简单任务如果每一个都去创建线程那么会是巨大的消耗，而且虽然我们可以创建很多的线程，但是限于CPU的数量同一时刻运行的线程数量是有限的，线程池可以帮助我们控制这个数量，既不让线程过少CPU闲置，也不会说线程太多超出上限。</p>
+<p>线程池的好处：对资源进行池化之后可以更加方便管理，提高响应速度，进行统一分配和监控，利于调优，以及带来延迟、定时执行等多种扩展。</p>
+<p>Java中的主要线程池类别，Executor这个工具类可以非常方便的帮助我们创建不同种类的线程池：</p>
+<ul>
+<li>FixedThreadPool：池中线程数量固定的线程池</li>
+<li>CachedThreadPool：池中线程数量不限，有新任务但是线程数不足时创建新线程，线程用完之后存活60秒</li>
+<li>ScheduledThreadPool：计划任务线程池，用户可以制定任务的执行计划</li>
+<li>SingleThreadPool：单一容量的线程池，不具备线程池的很多能力</li>
+<li>ForkJoinPool：分支合并线程池，可以递归完成复杂的任务，但是这里的任务必须是其规定的形式</li>
+</ul>
+<p>线程池的主要参数（<strong>ThreadPoolExecutor</strong>）：</p>
+<ul>
+<li>corePoolSize：池中核心线程的数量</li>
+<li>maximumPoolSize：池中允许的最大线程</li>
+<li>keepAliveTIme：线程存活时间，线程空闲超过这个时间就会标记为可回收，一旦线程数量超过corePoolSize就会回收这些线程</li>
+<li>unit：keepAliveTime的时间单位</li>
+<li>workQueue：用来保存等待被执行的任务的队列</li>
+<li>threadFactory：线程工厂，通过这个玩意儿来创建线程</li>
+<li>handler：饱和之后的处理策略</li>
+</ul>
+<p>饱和策略，当线程池没有额外的资源进行相关处理之后遇到新加入的任务就需要执行饱和策略（<strong>RejectedExecutionHandler</strong>）：</p>
+<ul>
+<li>AbortPolicy：default，这个策略会抛出RejectedExecutionException这个运行时异常</li>
+<li>DiscardPolicy：直接抛弃任务</li>
+<li>CallerRunsPolicy：在caller的线程中执行这个任务</li>
+<li>DiscardOldestPolicy：丢弃工作队列中的第一个任务（这是最早加入的），将新任务加入线程池</li>
+</ul>
+<p>饱和之后的处理实际上跟你的BlockingQueue队列的性质也有很大的关系，当你的工作队列满了之后才会触发饱和策略，我这里使用两种不同的阻塞队列试了一下，利用<strong>LinkedBlockingDeque</strong>充当工作队列，分别制定长度和不指定长度（无限长，不会出现饱和），只有长度工作队列长度有限才会执行饱和策略（这里是抛出异常），代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThreadPool</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shuffing</span><span class="params">(<span class="keyword">int</span>[] ts)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = ts.length;</span><br><span class="line">        <span class="keyword">long</span> seed = System.currentTimeMillis();</span><br><span class="line">        Random r = <span class="keyword">new</span> Random(seed);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ts.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> k = r.nextInt(N - i);</span><br><span class="line">            <span class="keyword">int</span> t = ts[i];</span><br><span class="line">            ts[i] = ts[k];</span><br><span class="line">            ts[k] = t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] getArr(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            res[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> taskNum = <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        CountDownLatch count = <span class="keyword">new</span> CountDownLatch(taskNum);</span><br><span class="line">        Runnable r = () -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"start execute!"</span>);</span><br><span class="line">                Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">                <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">                <span class="keyword">int</span>[] arr = getArr(<span class="number">100000</span>);</span><br><span class="line">                shuffing(arr);</span><br><span class="line">                Arrays.sort(arr);</span><br><span class="line">                <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">                System.out.println(<span class="string">"execute time: "</span> + (end - start));</span><br><span class="line">                count.countDown();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        BlockingQueue&lt;Runnable&gt; q = <span class="keyword">new</span> LinkedBlockingDeque&lt;&gt;();</span><br><span class="line"><span class="comment">//        BlockingQueue&lt;Runnable&gt; q = new LinkedBlockingDeque&lt;&gt;(10);</span></span><br><span class="line">        ThreadPoolExecutor pool = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">10</span>, <span class="number">15</span>, <span class="number">10</span>, TimeUnit.SECONDS, q);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; taskNum; i++) &#123;</span><br><span class="line">            pool.execute(r);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        pool.shutdown();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            count.await();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"done!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>线程池的几种状态：</p>
+<ul>
+<li>RUNNING：线程池正常运行，可以接收新任务并且执行任务</li>
+<li>SHUTDOWN：线程池已经关闭，不会接收新的任务，但是会接收之前的工作队列中的任务</li>
+<li>STOP：停止（中断状态），不接收新任务也不执行工作队列的任务，并且将正在执行的任务中断</li>
+<li>TIDYING：线程池关闭并且任务执行完成，这是到达TERMINATED的一个中间流转状态</li>
+<li>TERMINATED：结束状态</li>
+</ul>
+<p><strong>3.协程（Coroutine）</strong></p>
+<p>目前对于协程的概念定义通常是：协程不是进程，也不是线程，而是一个特殊的函数，这个函数可以在某个地方挂起，并且可以在这个地方重新开始运行。这个定义从侧面表明了协程的轻量化，开一个协程十分类似于开一个函数，协程在跑的过程中的主要上下文只涉及到寄存器集合以及协程的栈空间（完全可以类比函数），这就是的协程的切换十分的轻量化，并且可以在用户空间完成。要注意的是协程不能直接切换到CPU上运行，它也是在线程中运行的，并且线程中的协程的运行是串行化的。</p>
+<p>协程不同于进程和线程，协程是完全在用户空间实现的，所以我们上面说的协程的切换其实需要用户自己实现的，也就是说你需要自己写一个程序去完成协程的调度。以Java和Golang为例，Java中我们从来没有提到scheduler这个概念，因为Java的线程都是OS来调度的，但是Golang是自己实现了scheduler来调度goroutine，调度也是Golang中重要的话题。</p>
+<p>一个线程中某个时刻只能运行一个协程，那么说明协程并不适合CPU密集的任务，因为协程本身不能很好地利用多核CPU，线程可以在OS的调度之下利用多核CPU的性能。协程非常适合IO密集型的任务，特别是阻塞IO，如果不使用协程，一个阻塞IO会直接阻塞一个线程。现在有了协程，这个协程阻塞之后可以切换另一个协程继续执行。并且当任务的并发量很大的时候，OS的线程数量是有限的，很容易就会处理不过来，协程因为自身的轻量化，轻轻松松就可以创建出成千上万个协程来处理任务，这个也使得协程更加适合高并发的场景。</p>
+<p><strong>4.Java中线程安全的集合</strong></p>
+<p>这应该还算是比较使用的知识了，本科应该很难接触到与高并发相关的业务，估计真要我去处理相关高并发的业务我也是个菜鸡。这些线程安全的集合是很多人智慧的结晶，可以让我们更快地上手高并发，所以新手好好搞清楚这个线程安全的集合是很有必要的，想一想如果没有这些东西让你去处理高并发业务你不是要疯掉！</p>
+<p>面试大多数时候面试官会问一下Java中怎么获得一个线程安全的集合，其实主要是两种方法：</p>
+<ul>
+<li>使用Collections的synchronized…包装方法进行包装</li>
+<li>使用原生的线程安全集合</li>
+</ul>
+<p><strong>原生线程安全的集合</strong>：JUC包中有一些原生的线程安全的集合，这是我们有力的工具</p>
+<ul>
+<li>Vector：所有的操作均加锁，现在很少使用，性能有点差</li>
+<li>HashTable：同上，ConcurrentHashMap用得较多</li>
+<li>ConcurrentHashMap：注意1.7和1.8之间的不同点，清除1.8有哪些提升</li>
+<li>CopyOnWriteArrayList（ArraySet）：写时复制技术</li>
+<li>ConcurrentSkipListMap（ListSet，SkipListSet，LinkedQueue，Dequeue）</li>
+</ul>
+<p><strong>5.ConcurrentHashMap</strong></p>
+<p>Java中关于并发的知识一定会涉及到ConcurrentHashMap这个点，既然是必问的知识，还是要看一下！</p>
+<p>关于ConcurrentHashMap比较常问包括是怎样保证线程安全，以及并发扩容的过程，</p>
+<h2 id="Java相关"><a href="#Java相关" class="headerlink" title="Java相关"></a>Java相关</h2><p><strong>1.数据类型和大小</strong></p>
+<p>Java共有八种基本数据类型：</p>
+<table>
+<thead>
+<tr>
+<th align="center">type</th>
+<th align="center">size(字节)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">1（一般，与具体实现有关）</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+</tbody></table>
+<p><strong>2.数据的常量池</strong></p>
+<p>基本类型都有自己的一个包装类型，基本类型与包装类型之间有一个拆箱和装箱的过程，前六种都实现了缓存：</p>
+<ul>
+<li>Byte: [-128, 127]</li>
+<li>Char: [0, 127]</li>
+<li>Boolean: [TRUE, FALSE]</li>
+<li>Short: [-128, 127]</li>
+<li>Integer: [-128, 127]</li>
+<li>Long: [-128, 127]</li>
+</ul>
+<p>注意，Float与Double并没有实现常量池。</p>
+<p><strong>3.重载与重写</strong></p>
+<p>这是Java中比较有意思的两个概念，很好理解，但是容易说不清楚：</p>
+<p><strong><em>重载</em></strong>：发生在同一个类中，可以通过方法的参数签名来区分同名函数（参数签名包括参数的类型，个数以及顺序），主要用于同名方法根据参数的不同来执行不同的逻辑</p>
+<p><strong><em>重写</em></strong>：发生在运行期间，子类覆写父类中的方法，可以实现多态。重写的方法的返回值、方法名以及参数必须完全相同，子类的抛出异常必须小于父类的范围，访问权限必须大于父类</p>
+<p>注意构造器是不能重写的，只能重载，通过super调用</p>
+<p><strong>4.Java的Object方法</strong></p>
+<p>Java的Object对象是所有对象的父对象，其中定义了一些非常通用的方法，需要我们主动去掌握：</p>
+<table>
+<thead>
+<tr>
+<th align="center">method</th>
+<th align="center">function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">getClass</td>
+<td align="center">获取Class对象</td>
+</tr>
+<tr>
+<td align="center">hashCode</td>
+<td align="center">获取哈希码</td>
+</tr>
+<tr>
+<td align="center">clone</td>
+<td align="center">clone对象</td>
+</tr>
+<tr>
+<td align="center">notify</td>
+<td align="center">唤醒一个在此对象的监听器上等待的线程</td>
+</tr>
+<tr>
+<td align="center">notifyAll</td>
+<td align="center">唤醒所有等待的线程</td>
+</tr>
+<tr>
+<td align="center">wait</td>
+<td align="center">释放锁，线程进入等待状态</td>
+</tr>
+<tr>
+<td align="center">finalize</td>
+<td align="center">对象被回收之前的钩子函数</td>
+</tr>
+</tbody></table>
+<p><strong>5.String</strong></p>
+<p>String是Java中非常重要的数据结构，几乎在我们程序的任意一个地方都能找到String的影子。String有一个很重要的特点，那就是String被设计为一个不可变的class，这是怎么做到的呢？为什么要这么做呢？</p>
+<p>首先解释一下怎么做到的：</p>
+<ul>
+<li>String类被声明为final：String不能被继承，保证用户不会因为继承String而破坏String是最终类的事实</li>
+<li>value（[]char）声明为final：String中的字符都是存储在内部的一个char数组中，这个数值声明为final，导致初始化内容之后不可更改</li>
+<li>未提供修改value（[]char）的函数：value限制为private，没有提供修改的该数组内容的方法</li>
+</ul>
+<p>再说明一下String为什么要被设定为不可变：</p>
+<ul>
+<li>可以使用常量池：使用常量池之后内容相同的字符串可以放心的共用一个常量（整个JVM中大量的常量字符串可以节省很多空间）</li>
+<li>缓存hashCode：因为String设计为不可变，那么就可以缓存String的hashCode，避免重复计算</li>
+<li>促进使用其他对象：例如可以放心的使用String作为HashSet或者是HashMap的key</li>
+<li>线程安全：不可变对象（Immutable Object）是天生线程安全的对象</li>
+</ul>
+<p><strong>6.OOM</strong></p>
+<p>OOM（内存溢出）是Java中很常见的一种错误，JVM的多个区域都会发生这样的错误，那么怎样的情况会出现OOM呢？面试官有时候喜欢问怎么让堆出现OOM错误这种问题，下面就总结一下这种问题：</p>
+<ul>
+<li>Heap：heap中主要存储的是对象和数组，只需要不停的new出新的对象，heap就会出现OOM的错误</li>
+<li>Stack：栈主要就是用于函数调用，一般来说只需要无限递归就好了，这个时候产生的其实是StackOverflowError</li>
+<li>Constant Pool：运行时常量池想要溢出就需要我们主动向常量池中添加内容，例如String.intern()这个Native方法</li>
+<li>Method Area：方法区主要是存放Class的相关信息，可以利用CGLib直接操作字节码，生成动态类使之溢出</li>
+<li>本机内存直接溢出：JVM本质是一个进程，可以利用unsafe.allocateMemory()申请内存使本机内存溢出</li>
+</ul>
+<h2 id="JVM相关"><a href="#JVM相关" class="headerlink" title="JVM相关"></a>JVM相关</h2><p>JVM中的相关知识点也是面试的常客，这些东西是我们必须要尽快熟悉的。像阿里、美团、网易这样的以Java为主的公司，如果你对Java不是很熟悉，对JVM没有一定的了解那么会是一件很吃亏的事情，我因为实习的技术栈不是Java，学校里面做的项目也不是Java，导致面试的时候是真的虚！</p>
+<p><strong>1.CMS</strong></p>
+<p>CMS是一个优秀的老生代垃圾收集器，它的设计目标是获取最短的回收停顿时间。在垃圾收集算法上CMS选择了最省事的标记清除算法，这符合它的最短的停顿时间的设计目标。</p>
+<p>CMS垃圾收集器主要有以下的清理过程：</p>
+<ul>
+<li>初始标记：仅仅是标记GC Roots能够直接关联到的对象（STW），过程很快</li>
+<li>并发标记：执行GC Roots Tracing的过程，沿着GC Roots搜索标记</li>
+<li>重新标记：修正并发标记期间用户程序改动了的对象（STW）</li>
+<li>并发清理：清理垃圾</li>
+</ul>
+<p>可以看到最消耗时间的并发标记和并发清除都没有STW，所以CMS是达到了相关低延迟的设计需求的！虽然CMS的并发和低延迟虽然带给我们很多甜蜜，但是也会有一些缺点：</p>
+<ul>
+<li>对CPU十分敏感：CMS在垃圾收集的时候GC线程和用户线程同时运行，CPU的负载会进一步增加</li>
+<li>无法处理浮动垃圾：因为收集过程中用户线程也在运行，同时也会产生垃圾，标记完成之后这些垃圾将无法处理。另外由于收集的时候用户线程还在运行，所以CMS不能等待老生代填满才开始</li>
+<li>标记清除算法：CMS选择标记清除来满足低延时，使得内存的碎片化问题有暴露出来</li>
+</ul>
+<p>正因为CMS并不完美，所以我们一般会把Serial结合CMS一起使用，Serial作为CMS的后备收集器，充当兜底的角色！</p>
+<p><strong>2.G1</strong></p>
+<p>G1（Garbage First）收集器是一款更加先进的垃圾收集器，G1使用了标记整理算法使内存的管理更加高效，G1还能非常精确地进行停顿控制。G1可以在基本不牺牲吞吐量的前提下完成地停顿的回收，这一切主要是基于一套创新的垃圾收集理论–垃圾收集区域分块。</p>
+<p><strong>3.Full GC</strong></p>
+<p>Full GC是因为堆区内存不够了，需要进行全局的内存回收，包括新生代和老生代。常见来说，触发Full GC的时机有如下几个：</p>
+<ul>
+<li>主动调用System.gc()，此方法知识建议JVM进行Full GC，但是JVM未必一定会执行</li>
+<li>老生代空间不足：新生代存活对象转入或者是大对象、大数组的创建出现老生代空间不足</li>
+<li>永久代空间不足：永久代存放了一些class信息，这些信息一般是系统需要的，如果内容过多也会出现Full GC</li>
+<li>新生代存活过多：新生代Eden，From Survivor向To Survivor转移的时候，如果To Survivo空间不足，则需要老生代进行担保分配，当老生代内存不足的时候就会进行一次Full GC</li>
+<li>通过Minor GC之后晋升的新生代平均大小大于老生代的可用内存</li>
+</ul>
+<p><strong>4.GC Roots</strong></p>
+<p>GC Roots是垃圾收集器进行扫描的起点，一般会沿着这些起点扫描，最后没有扫描到的就是垃圾对象！</p>
+<p>常见的问题就是可以作为GC root的地方有哪些：</p>
+<ul>
+<li>虚拟机栈中引用的对象，例如各种本地变量表（参数、局部变量、临时变量）</li>
+<li>方法区中类的静态属性引用的对象，例如Java类的引用类型静态变量</li>
+<li>方法区中常量引用的对象，例如字符串常量池中的引用</li>
+<li>本地方法栈中（JNI）引用的对象</li>
+<li>JVM内部引用的对象，例如基本数据的Class对象，一些异常对象</li>
+<li>同步锁持有的对象</li>
+</ul>
+<p><strong>5.如何判断对象已经死亡</strong></p>
+<p>判断一个对象已经死亡是我们进行垃圾收集的前提，在JVM中是怎么判断对象已经死亡需要回收呢？主要有以下方法来判断对象是不是已经死亡了：</p>
+<ul>
+<li>引用计数法：这是最简单的最容易实现的方法，但是需要注意的是到底有没有循环应用</li>
+<li>可达性分析：从GC Roots开始扫描，达到不了的对象判定死亡</li>
+</ul>
+<p><strong>6.四种引用</strong></p>
+<p>JVM中存在强软弱虚四种引用，这个面试的时候也是经常会问到的，简单介绍一下几种引用：</p>
+<ul>
+<li>强引用：一般引用都是强引用，只要引用还存在永远不会被回收</li>
+<li>软引用：有用但是非必须的对象，系统将要发生内存溢出之前，将会把这些对象列入回收范围进行第二次回收</li>
+<li>弱引用：被弱引用关联的对象在下一次回收的时候必然会回收</li>
+<li>虚引用：一个对象是否有虚引用完全不会对其生存时间构成影响，你也不能通过虚引用来获取一个对象实力，虚引用的唯一意义就是在对象被收集器收集的时候会收到一个系统通知，你可以记录相关的信息</li>
+</ul>
+<p><strong>7.两种方法</strong></p>
+<p>这里的一个前提就是扫描的过程使用经典的三色标记法，一个对象被分为黑白灰三色，代表不同的含义：</p>
+<ul>
+<li>黑：此节点所有引用已经扫描完，可以存活（最开始只有GC Roots节点为黑色）</li>
+<li>灰：此节点正在扫描，但是没有完成（过度状态）</li>
+<li>白：此节点没有扫描</li>
+</ul>
+<p>实际上扫描的过程就是黑色向四处蔓延的过程，扫描完成之后仍然是白色的节点即为需要回收的节点</p>
+<p>目前很多垃圾收集器都是采用的并发收集，也就是垃圾收集器在扫描的时候用户可能会修改引用，这个时候就要我们去修复相关的修改，主要两种方法：</p>
+<ul>
+<li>增量更新：记录新插入引用的黑色节点，最后再次扫描</li>
+<li>原始快照：记录切断引用的灰色节点，最后再次扫描</li>
+</ul>
+<h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h2><p>因为行业的内卷，近年来本科生也会被问到许多与分布式相关的问题，可能本科期间只有很少的同学能过对分布式有过实践，更多的是我们需要去学习相关的理论基础，在面试的时候可以尽量的多说一些内容！</p>
+<p><strong>1.CAP</strong></p>
+<p>CAP是分布式中很重要的三个概念，首先要了解CAP是什么：</p>
+<ul>
+<li>Consistncy：一致性，分布式的各个服务和数据之间要保持一致性</li>
+<li>Availability：可用性，分布式的重要有点就是可以保证服务的可用性，每次请求都能收到非错的相应</li>
+<li>Partition Tolerance：分区容错性，分布式系统要求即使在某个分区出现故障的情况下仍能对外提供满足一致性和可用性的服务</li>
+</ul>
+<p>CAP是很难同时做到以上三点的，通常情况下我们需要在满足P的基础上根据业务场景去考虑重点满足C还是A。</p>
+<p><strong>2.BASE</strong></p>
+<p> CAP实际上是一个很严格的规定，理论用于实际是肯定会遭遇阵痛的，BASE是在CAP的基础上衍生出的一套更加适合实际生产的分布式理论：</p>
+<ul>
+<li>Base Available：允许在出现故障的时候损失系统部分功能的可用性，但是尽量保证整个系统的可用性</li>
+<li>Soft State：软状态，允许数据在达到最终的一致状态之前处于中间态</li>
+<li>Eventually Consistent：最终一致性，数据状态只需要最终一致就可以</li>
+</ul>
+<p><strong>3.限流算法</strong></p>
+<p>限流我们在高并发场景之下需要重点关注的，无论我们的服务是对内还是对外都需要进行限流，对外服务可能会存在恶意竞争、爬虫等请求暴增的场景，对内的服务可能会由于上游服务的请求激增导致服务崩溃，所以限流在整个服务中是非常重要的，常见的限流算法还是要了解一下：</p>
+<ul>
+<li>计数器算法：限制一个时间段的请求数量，到达阈值后直接拒绝请求，有一个缺点就是访问不平稳，例如两个阶段的请求集中从第一阶段的后期和第二段的前期到来，短时间请求数量会暴增</li>
+<li>滑动窗口算法：在计数器的基础上设置窗口，随着时间小段的迁移，不断地移动窗口</li>
+<li>漏桶算法：用队列接收请求，以恒定的速率处理请求，如果超过了队列的容量（桶的大小）就把到来的请求丢弃</li>
+<li>令牌桶算法：桶中存储的是令牌，请求只有拿到令牌之后才能被处理，这种算法的处理速率并不是一定恒定的，如果桶中有大量的令牌存在，此时是可以处理短时间的暴增请求的</li>
+</ul>
+<p><strong>4.分布式id</strong></p>
+<p>id生成是一个系统十分核心的能力之一，通常我们需要生成递增不重复的id，通常最低的标准是必须生成唯一的id，这个在单台机器上十分容易实现（例如我们常用的数据库主键）。当我们采用分布式的架构，服务被部署到不同的机器之间，但是我们仍然需要在整个系统之间产生唯一的id，这个时候就需要好的id生成算法来保证唯一性。经常会讨论到的一种分布式id生成算法就是雪花算法，雪花算法是twitter开源的分布式id生成算法，主要内容如下：</p>
+<ul>
+<li>雪花算法生成的id是一个long型数字，64个bit（最前面的1位不使用）</li>
+<li>前41位用于表示时间戳，能够表示毫秒级的时间，这个时间戳不一定是选择当前时间戳，可以选择一个较劲的时间开始</li>
+<li>中间10位表示机器编号</li>
+<li>最后12位表示生成id的序列号</li>
+</ul>
+<p>这样每一台机器在一毫秒的时间就可以生成2^12（4096）个id，这个41位的时间戳可以使用69年，雪花算法可以很好地帮助我们完成分布式id的生成任务。</p>
+<p><strong>5.网关</strong></p>
+<p>分布式的系统被拆分成不同的服务部署到不同的机器中，系统中包含了很多的子系统，我们请求的流量需要被正确的导向各个子系统。这一过程中网关的作用不可小视，网关可以帮助我们完成流量拦截分发、日志监控、鉴权校验，负载均衡等多项任务，我们将合适的非业务逻辑抽离出来放到网关去执行，后端专注于业务处理，可以大大减轻后端的压力。</p>
+<p>Kong目前比较流行的开源网关组件，Kong基于Nginx构建，可以使用Lua脚本编写各种网关插件，Kong的管理是通过一套RESTful的API进行控制，另外Konga这个web可视化平台也可以帮助我们管理Kong网关。</p>
+<p><strong>6.消息队列</strong></p>
+<p>消息队列是一种以队列为基础，提供消息的接收、存储和转发的容器，通常一些消息队列中间件需要保证我们消息传输的准确、稳定和顺序。消息队列中间件已经成为我们应对高并发场景不可缺少的一部分，通常来说消息队列可以为我们带来以下好处：</p>
+<ul>
+<li>解耦：通过消息中间件，sender与receiver之间不再有依赖，他们直接与中间件互动，二者完全可以采用不同的语言、框架和架构</li>
+<li>可扩展：对于消息中间件来说，我们可以方便的添加生产者与消费者，提高系统的处理性能</li>
+<li>异步：采用消息队列可以帮助我们实现请求的异步处理，请求到来之后先放入队列直接返回，后续的消费者再去处理消息。这在高并发场景之下通常称为削峰，利用异步处理提高系统的高并发处理能力</li>
+</ul>
+<p><strong>7.分布式锁</strong></p>
+<p>分布式锁是为了解决不同机器的进程在抢夺资源时的同步问题，单机情况下我们可以使用OS或者是语言API提供的锁，但是采用分布式架构之后我们需要另外的机制来保证多机竞争的正确性。分布式锁的概念很好理解，我们之间的进程同步变成了现在的机器同步。</p>
+<p>分布式锁要具备以下条件：</p>
+<ul>
+<li>一个资源同一时间只能被一个机器上的线程占有</li>
+<li>获取和释放锁的操作必须满足高可用和高性能</li>
+<li>可重入</li>
+<li>防止死锁机制</li>
+<li>非阻塞特性，获取不到锁之后可以立即返回</li>
+</ul>
+<p>实现分布式锁的方式也是多种多样的，各种实现方式也有自己的有点：</p>
+<ul>
+<li>基于Database：通过对DB的操作（插入更新）来获取锁，底层还是依赖于Database自身的锁，缺点是依赖Database，高并发高可用难以保证，阻塞锁难以实现等</li>
+<li>Redis：Redis中的setnx操作具有原子性，只有相关的key不存在的时候才会设置成功，Redis的性能比DB好太多了，但是有一个问题就是如果使用的是Redis集群，对master执行setnx之后master挂掉了，那么slave上的数据还未同步，此时获取锁就会有问题</li>
+<li>利用Zookeeper这样的分布式协调框架来实现</li>
+</ul>
+<p><strong>8.负载均衡算法</strong></p>
+<p>负载均衡是一个非常重要的概念，在之前面试的时候面试官问了我一个关于负载均衡算法的问题，当时没有很好地准备，这次集中梳理一下：</p>
+<ul>
+<li>轮询法：将请求按顺序逐个分配（平均分配），所有的服务器一视同仁，不考虑服务器本身的性能</li>
+<li>随机法：随机的将请求分配到某一台机器，在长时间之后其实也是接近于平均分配</li>
+<li>源地址hash算法：对请求的IP进行hash计算得到的结果对服务器数量进行取模，映射到相应的服务器，这样就能使得来自相同客户端的请求被转发到同一台服务器</li>
+<li>加权随机法：按照权重随机请求后端的服务器，不再是平均主义</li>
+<li>最小连接数：根据各台服务器处理的请求数量来动态分配，请求会优先分发到负载低的服务器上，尽可能的做到物尽其用</li>
+</ul>
+<p><strong>9.2PC</strong></p>
+<p>2PC即两阶段提交协议，主要是将分布式的关系设计为一个协调者和多个参与者，整个分布式事务分为两个阶段：</p>
+<ul>
+<li><p>协调者发出事务执行请求，参与者执行事务但是不提交，并返回执行的结果</p>
+</li>
+<li><p>协调者接收结果，根据结果决定是提交事务还是回滚事务：</p>
+<ul>
+<li>所有的结果都是Yes，发出commit请求</li>
+<li>出现了no，发出rollback请求</li>
+</ul>
+<p>参与者提交或者是回滚只有也要向协调者返回确认信息！</p>
+</li>
+</ul>
+<p>这个过程最大的好处就是通俗易懂，易于实现，但是缺点就是整个过程是同步的、没有超时处理，为了成功过于保守！</p>
+<p><strong>10.3PC</strong></p>
+<p>3PC即三阶段提交协议，在2PC的基础上增加了一段请求，整个过程如果出现超时就会失败，三阶段如下：</p>
+<ul>
+<li>询问：协调者询问参与者可否执行事务（例如是否有足够资源等等），参与者确认一下立即返回结果，并不执行事务</li>
+<li>执行：协调者向参与者发出执行请求，参与者执行但不提交，将执行结果返回</li>
+<li>提交/回滚：协调者根据执行反馈向参与者发出提交或者是回滚的请求</li>
+</ul>
+<p>可见3PC有如下好处：</p>
+<ul>
+<li>询问阶段可以是事务快速失败，而不是发现某一个节点执行失败之后再失败</li>
+<li>超时处理，整个过称只要出现超时就失败，避免整个系统长时间等待</li>
+</ul>
+<p>但是3PC也不能完全解决数据一致性问题，与2PC一样，一旦参与者收到提交请求之后与协调者之间出现网络故障，此后如果协调者撤销提交，出现网络故障的参与者将收不到消息，分布式的节点之间会出现严重的数据不一致问题！</p>
+<p><strong>11.Paxos</strong></p>
+<p>经典语录：世界上只有一种分布式一致性算法，那就是Paxos，其余要么是Paxos的简化，要么是错误的！</p>
+<p>Paxos就是这么牛，整个Paxos算法的推理逻辑十分严密复杂，就直接给出维基百科上的算法步骤介绍吧！最好先了解一下Proposer，Acceptor和Listener的含义</p>
+<p>决议分为两个阶段：</p>
+<ul>
+<li>Prepare阶段：<ul>
+<li>proposer选择一个提案编号n，将n携带在prepare请求中发给acceptors中的一个多数派</li>
+<li>acceptor接收到prepare消息之后，如果提案编号大于它已经恢复的所有prepare消息，那么acceptor将自己上次接受的提案回复给proposer，承诺不再接受小于n的提案</li>
+</ul>
+</li>
+<li>批准阶段：<ul>
+<li>当一个proposer收到了多数acceptors对prepare的回复之后，就进入准备节点。它会向回复了prepare请求的acceptors发送accept请求，包括编号n以及value（P2c：如果一个编号为 n 的提案具有 value v，该提案被批准(chosen)，那么存在一个多数派，要么他们中所有人都没有接受（accept）编号小于 n 的任何提案，要么他们已经接受（accept）的所有编号小于 n 的提案中编号最大的那个提案具有 value v，这是对value的限制）</li>
+<li>在不违背自己向其他proposer承诺的前提之下，acceptor收到accept之后批准这个请求</li>
+</ul>
+</li>
+</ul>
+<p><strong>12.Raft</strong></p>
+<p>Raft主要是通过选举leader的方式来达成共识（redis哨兵、集群就是用的Raft算法）。</p>
+<p>看看这篇博客 <a href="https://www.cnblogs.com/xybaby/p/10124083.html" target="_blank" rel="noopener">https://www.cnblogs.com/xybaby/p/10124083.html</a> 和这个动图 <a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener">http://thesecretlivesofdata.com/raft/</a> ！</p>
+<p>在Raft中，三种主要的角色是Leader、Follower和Candidate，通常情况下，Leader就是老大，大家都会听Leader的决策。Leader会在固定时间发送heartbeat（通常是150至300毫秒），告诉小弟们自己还在。如果超过一定时间没有收到这个heartbeat的时候，集群就会进入选举状态。Raft算法中主要有以下几个重要的内容：</p>
+<ol>
+<li>leader选举：当Fllower长时间没有收到heartbeat之后，会把自己的任期编号加一，宣告自己竞选Leader，并且向其他节点发送拉票请求，每个服务器在每个任期只能投一票，固定是投给最早拉票的节点。如果候选人节点收到了拉票请求，并且拉票节点的任期不小于自己的任期，就会自认为落选，成为拉票节点的追随者。如果有一个候选人收到了过半的选票，就会当选为新的领袖。如果没有选出来，就开始新的任期并进行下一场选举。</li>
+<li>记录覆写：后当选的领袖不会推翻原来的领袖遗留下来的任务，会继续执行，新任务直接追加到原任务的后面</li>
+<li>安全有效性：Raft保证每个任期最多选出一个领袖，并且不会删除之前领袖的指令</li>
+</ol>
+<p><strong>13.ZAB</strong></p>
+<p>ZAB（Zookeeper Atomic Broadcast ）协议是zookeeper这个分布式协调框架中使用的一致性算法！ZAB的核心思想是系统中某一个时刻只有一个节点是Leader，所有的写操作都由Leader发起去更新所有的副本Fllower，更新使用2PC提交协议。</p>
+<p>集群中的节点有三种状态：</p>
+<ul>
+<li>Looking：系统刚刚启动的时候或者Leader正处于选举态</li>
+<li>Following：Follower节点所处的状态，Fllower与Leader处于数据同步的状态</li>
+<li>Leading：Leader所处的状态（正常情况下，一个集群只有一个Leader节点处于这个状态之下）</li>
+</ul>
+<p>ZAB的主要阶段：</p>
+<ul>
+<li>选举：在Looking状态中选出Leader节点，只有zxid最大节点才有资格成为Leader（有最新的事务日志）。节点向其他节点发出拉票请求，并且节点收到请求之后会根据zxid判断，如果拉票节点的zxid比自己的大，那就给他投票，并且更新自身的zxid，比自己小则拒绝。每个节点都维护了一个投票的记录表，当某个节点收到超过半数的投票的时候就结束了，此时选举出了Leader。</li>
+<li>发现：Follower 节点向准 Leader推送 FollwerInfo,该信息包含了上一周期的epoch，接受准 Leader 的 NEWLEADER 指令</li>
+<li>同步：Leader节点发起同步指令，Follower节点进行数据同步，达到集群数据的一致性</li>
+<li>广播：Leader广播Proposal（提议）和Commit，Follower接收这些数据（这是正常的集群工作状态）</li>
+</ul>
+<h2 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a>Netty</h2><p>Netty 是一个利用 Java 的高级网络的能力，隐藏其背后的复杂性而提供一个易于使用的 API 的客户端/服务器框架。因为内卷，面试的时候也可能会问到本科生关于Netty的知识！</p>
+<p><strong>1.Netty与Tomcat</strong></p>
+<p>在通信协议方面，Tomcat基于http协议，实质是一个web容器，Netty可以通过编程实现自定义协议（自定义codec）</p>
+<p><strong>2.Netty核心优势</strong></p>
+<ul>
+<li>零拷贝能力的缓冲</li>
+<li>通用通信API</li>
+<li>可扩展的事件模型</li>
+</ul>
+<h2 id="Web安全相关"><a href="#Web安全相关" class="headerlink" title="Web安全相关"></a>Web安全相关</h2><p>web安全相关的知识是我们开发过程中很重要的一环，我们需要时刻注意，实习的时候leader特别强调过这个，面试的时候也有可能被问到！</p>
+<p><strong>SQL注入</strong>：SQL注入是将恶意的Sql查询或者是添加语句插入到应用的输入参数中，然后在后台的Sql服务器上解析执行进行攻击，这是最常见的攻击方式</p>
+<p>这种方式的主要攻击场景是允许用户动态的提供参数，然后生成相关的sql语句送入数据库执行，这对于动态web应用来说本无可厚非。但是关键的缺陷在于没有对用户提供的参数进行鉴权，用户的参数可能掺杂了恶意的sql语句，拼接之后就直接执行了。</p>
+<p><strong>常见攻击形式</strong>：</p>
+<ul>
+<li>错误推理：故意使用错误的sql语句，根据报错信息来推理，例如可以根据错误信息来推断你的数据库类型</li>
+<li>and 和 or：and与or是逻辑判断条件，可以利用1=1,1=2这样的永真或者永假式改变条件</li>
+<li>union：利用union语法执行多条sql语句</li>
+<li>#：使用#来修改sql语句，例如<strong>select [input] from users</strong>模板，用户使用<strong>select * from passwd# from users</strong>你的密码就没了</li>
+</ul>
+<p>主要解决方法：</p>
+<ul>
+<li>开发的过程中要尽量去避免直接使用用户输入的内容来直接拼接SQL丢到DB中去执行，尽量只提供安全的接口，并对用户参数严格检查。</li>
+</ul>
+<p><strong>XSS漏洞</strong>：XSS是跨站脚本攻击（Cross Site Scripting），攻击者会在web页面插入恶意的script脚本，在用户浏览时脚本执行，从而达到攻击的目的</p>
+<p>这种攻击场景也大多出现在用户输入的时候，许多web界面都是允许用户输入相关的数据然后完成交互，但是缺陷就在于没有对用户的输入进行检查，用户可能会输出嵌入了脚本的恶意参数，这样就会出现问题。</p>
+<p>开发的过程中要注意对敏感脚本的输入（例如javascript），尽量不要再cookie中存放用户隐私信息等等。</p>
+<p>主要解决方法：</p>
+<ul>
+<li>escapeHTML进行转义：用户的输入都要通过这个进行转义，避免脚本注入，对于用户的所有输入都要进行转义</li>
+<li>过滤非法schema：只允许http或者是https，防止“javascript:”出现在href或者是location.href中</li>
+<li>onclick，onload：这些属性可以直接执行js脚本，有威胁</li>
+<li>http-only：禁止Javascript脚本访问带有该属性的cookie，防止用户信息泄露</li>
+</ul>
+<p><strong>CSRF漏洞</strong>：跨站请求伪造（英语：Cross-site request forgery），也被称为 one-click attack 或者 session riding，通常缩写为 CSRF 或者 XSRF， 是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。跟XSS相比，xss利用的是用户对指定网站的信任，CSRF 利用的是网站对用户网页浏览器的信任。攻击人欺骗浏览器，让其以用户的名义操作。CSRF通常发生在第三方域名，攻击者并不能直接获取Cookie等信息，只是使用。</p>
+<p>开发的时候服务端要检查Referer字段，另外我们要考虑不依附在cookie中的检验数据做为校验，这种不在cookie中攻击人欺骗浏览器发起请求时就不会携带，服务端自然不会校验通过。</p>
+<p>主要解决方法：</p>
+<ul>
+<li>同源检测：禁止不受信任的外域对本域的访问，利用Origin和Referer这两个header来检查请求是否是同源</li>
+<li>CSRF Token：每个请求都加上CSRF Token，后端可以验证，这个CSRF Token每次请求的时候，缺点是每一次都需要主动携带</li>
+<li>验证码和密码：每一次敏感操作之前都需要执行密码或者是验证码验证，这种比较安全</li>
+<li>双重Cookie验证：每次在表单或者是请求体中添加一个Cookie字段</li>
+</ul>
+<p><strong>SSRF漏洞</strong>：SSRF(Server-Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。SSRF针对的是后面的服务器，整个web后端可能存在不同服务器之间的内部调用，这种内部调用往往会被我们忽视安全方面的内容，不进行鉴权就直接调用，攻击人就可能利用一台内部服务器作为跳板攻击另一台服务器。</p>
+<p>开发的时候可以通过禁止调转、过滤返回信息、禁用不需要的协议等手段来方式SSRF。</p>
+<h2 id="海量数据问题"><a href="#海量数据问题" class="headerlink" title="海量数据问题"></a>海量数据问题</h2><p>海量数据的处理也是面试中很重的一类问题，这类问题非常灵活，往往都是有一些套路，如果我们不会那么会有点尴尬（其实这个东西不是什么很难的问题，主要是我们本科的项目中很难遇到，会感觉比较新颖，难以下手）！</p>
+<p>其实只要搞清楚一些套路就可以了，千万不要害怕啊！</p>
+<p><strong>1.20亿数字，找出出现最多的</strong></p>
+<p>很显然这类问题很容易想到直接只用map去进行频次的计算，但是一般会给你一个限制，那就是只有4G或者是2G内存。</p>
+<p>我们首先要有一个概念，那就是<strong>1M = 1024B ~ 1000B</strong>，那么如果这20亿的数字不重复，map的一个k，v序列占8bytes，总的下来最大需要(20 * 10 ^ 8 * 8 ) /  (2 ^ 30) = 16G，此时内存肯定是不够的。</p>
+<p>这个时候不要怀疑自己，你的map的思路是对的，只是需要一些处理。</p>
+<p>这里就是海量数据处理的第一个要点：<strong>分块</strong>！</p>
+<p>将20G的文件利用hash分成10个小文件，每个只有2G，2G个k，v序列只需要1.6G内存，肯定是够的。而且通过hash可以让相同的数字进入相同的文件，这样最后逐个计算每个文件中数字的出现频次，显然10个文件中出现最多的就是这20亿个数字中出现最多的（相同数字经过hash必然进入到同一个文件）！</p>
+<p>这里你需要记住两点：</p>
+<ul>
+<li>大文件分成小文件，最好是hash，这样相同的数据会进入到相同的文件</li>
+<li>1M = 1024B ~ 1000B，这个等式可以帮你更好的进行估算</li>
+</ul>
+<p><strong>2.20亿数字，只有一个出现了两次</strong></p>
+<p>这一题同样也是一样的思路，肯定不会给你那么多的内存，仍然是hash分成多个小文件，再用map进行频次处理即可</p>
+<p><strong>3.20亿数字，只有一个出现了1次，其余都是两次</strong></p>
+<p>这个常规hash分成小文件也可以处理，但是有一个更简单的方法，那就是异或操作进行位运算，a ^ a = 0，b ^ 0 = b，根据这个你可以好好想一下！</p>
+<p><strong>4.统计30亿个数字在[0, 30亿]中哪些没有出现</strong></p>
+<p>这个也是很经典的问题，假如30亿数字都在0至30亿之内，想要统计哪些没有出现，只给你2G内存。</p>
+<p>首先我们想到的就是set，但是不用说内存是不够的，我们需要一个更加节省内存的方案，那就是海量数据常用的另外一种结构，<strong>bitmap</strong>位图，位图用每一个bit来记录数字，空间效率很高！</p>
+<p>简单计算一下，1G = 2 ^ 10 MB = 2 ^ 20 KB = 2 ^ 30 B = 8 * (2 ^ 30) Bits，通过之前的公式代换得到1G ~ 80亿 Bits，所以1G的内存有80亿个bit，处理30亿的数字绰绰有余！</p>
+<p><strong>5.红包API设计</strong></p>
+<p>现在有一个N元的红包，K个人来抢红包，要求每个人都能抢到有钱的红包，金额精确到0.01，请你设计一个有效的方案！这是一个很经典的场景设计题，而且可能基于这个会有一系列的改动，比如说可以有人抢不到，也可以增加运气王的加成等等操作。</p>
+<p>下面主要说一个每个人都能抢到的方案：</p>
+<ul>
+<li>对于前k - 1个人：money = random(N - (k - 1) * 0.01)   N = N - money   k = k - 1，这里稍微解释一下，之所以要减去(k - 1) * 0.01是因为可以保证剩下的人至少每人可以分到0.01</li>
+<li>最后一个人：剩余的钱都是最后一个人的</li>
+</ul>
+<p><strong>6.设计一个timer</strong></p>
+<p>这是我在腾讯wxg接受第一次面委会面试的时候被问到的一个题目，如何设计一个定时器？首先大家要理解timer的作用，一般来说我们会向timer注册一个定时任务（可能是一个时间+一个回调事件），到了时间会定时执行。</p>
+<p>那么有没有现成的timer让我们参考一下呢？我自己看过tiner可能就是redis的时间事件，redis中会把timeEvent连成一个链表，然后serveCron线程会按照一定的时间（例如100ms）去遍历，如果时间已到就执行相应的任务，所以在redis中时间事件可能会有一定的延迟，当然没有一种timer可以保证完全精确。</p>
+<p>我给出的设计方案是红黑树加链表：</p>
+<ul>
+<li>TreeNode：红黑树节点，每个节点代表一秒，按时间排序</li>
+<li>ListNode：事件节点，每一秒的TreeNode中有一个链表存储这一秒的事件</li>
+</ul>
+<p>timeCron线程每秒进行一次搜索，如果找到相应的节点就执行TreeNode中的那一条链表的事件！</p>
+<p>面试官：以秒为节点会不会导致红黑树节点过多，树的深度太大？能改进一下吗？</p>
+<p>我：有可能，那么可以将TreeNode的粒度置位分钟，TreeNode里面存储相应的60秒的事件链表。</p>
+<p>这之后面试官也没有继续深究，但是事后我想了一下，其实有个很好的数据结构可以使用，能够最大化的利用时间有限的特点，那就是Radix Tree（前缀树），分层按照年、月、日、时、分、秒，这样搜索的时候同层数据使用二分，层数也只有6层，非常符合我们的需求！</p>
+<p>其实大家还可以思考一下循环任务怎么设计（每隔一段时间执行一次）？我暂时只能想到使用单独的一条链表去维护，不知道大家有没有更好的方法！</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic32.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/10/12/leetcode_3/" title="leetcode_3" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/08/28/漫谈http/" title="漫谈http" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/28/漫谈http/" title="漫谈http">
+								漫谈http			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 28日, 2020				
+							</p>
+							<p class="relate-post-content">
+								与http有关的知识点http status codehttp的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/26/漫谈AQS/" title="漫谈AQS">
+								漫谈AQS			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 26日, 2020				
+							</p>
+							<p class="relate-post-content">
+								AbstractQueuedSynchronizer实习回来又要投入到秋招的浪潮当中，虽然本人目前是更加倾向于GO方面的岗位，但是也深知自己对GO的理解可能还是不够深入，Java的岗位自己也是想去尝试一下。
+因为之前一直是准备Java...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/26/漫谈AQS/" title="漫谈AQS">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic30.jpg" alt="漫谈AQS"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

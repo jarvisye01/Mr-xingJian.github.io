@@ -1,0 +1,1044 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      进程间的通信方式（上） | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《进程间的通信方式（上）》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/07/23/进程间的通信方式（上）/" itemprop="url">
+		进程间的通信方式（上）
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/07/23/进程间的通信方式（上）/" itemprop="url">
+		<time datetime="2020-07-23T15:39:31.000Z" itemprop="datePublished">
+	  		2020-07-23
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/07/23/进程间的通信方式（上）/" itemprop="url">
+		<time datetime="2020-07-23T15:39:31.000Z" itemprop="dateUpdated">
+	  		2020-09-18
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/进程的通信/" class=" ">
+			进程的通信
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h2 id="进程间通信（IPC）的实现方式（上）"><a href="#进程间通信（IPC）的实现方式（上）" class="headerlink" title="进程间通信（IPC）的实现方式（上）"></a>进程间通信（IPC）的实现方式（上）</h2><p><strong>Background</strong></p>
+<p>进程是操作系统很重要的一个概念，最初创造进程这个概念的时候我们是希望完成操作系统上不同的资源之间的隔离。这个隔离使得进程可以不受外界干扰的运行自己的任务，有一些任务需要涉及到协作的时候就需要进程之间可以通信，要知道我们通过虚拟内存技术使得每一个进程都有自己独立的地址空间，在这样的隔离措施之下进程之间是怎么通信的呢？实现这一流程的技术就是大名鼎鼎的IPC（Inter Process Communication）</p>
+<p>如果要将需要通信的进程大致分类一下的话，简单来说可以分为2类：</p>
+<ul>
+<li>同一主机不同进程之间通信</li>
+<li>不同主机之间的进程进行通信</li>
+</ul>
+<p>在Unix-like操作系统中，对于这二者有不同的实现。同一主机不同进程的通信方式有：管道、FIFO、Message Queue和Signal，不用主机之间的进程通信就会涉及到网络，需要使用套接字机制的网络IPC。这篇文章先讲一下同一台主机上进程之间通信的主要手段。</p>
+<h3 id="PIPE"><a href="#PIPE" class="headerlink" title="PIPE"></a>PIPE</h3><p><strong>基本概念</strong></p>
+<p>管道是实现同一主机不同进程之间通信的经典技术，通过一个管道将两个进程连接起来，然后进程可以向管道中write数据或者是read数据，这样实现两个进程之间的信息互通。</p>
+<p>这种抽象的方法非常有助我们理解管道的原理，那么管道具体是怎么实现的呢？这根PIPE又是怎么连接起来的呢？这些实现的过程还是需要我们具体去了解一下的，其实也是很简单的原理。</p>
+<p>首先我们要明白的是管道分为半双工管道和全双工管道，区别主要是数据的流动是单向的还是双向的。另外管道通常只能用于具有公共祖先的进程之间的通信，并且常用于一对一的进程之间的通信。</p>
+<p><strong>pipe的实现</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 管道的创建函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pipe</span><span class="params">(<span class="keyword">int</span> fd[<span class="number">2</span>])</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这是创建一个管道的函数，很简单，pipe函数会帮我们初始化两个fd（file descriptor），其中fd[0]可读，用于输入，fd[1]可写，用于输出。这样的一个管道数据就是沿着fd[1] -&gt; fd[0]流动，如果一个进程向fd[1]中写入数据，另一个进程从fd[0]中读出数据，这样不就是可以完成进程之间的通信了吗？好了，到这里我们应该初步明白了这根我们想象中的管道具体是怎么来的。也应该明白这个pipe的实现其实还是基于文件的读写，每个进程中都会有一个打开文件的fd表格，同其他文件一样，由内核完成相关文件的读写和管理。</p>
+<p>给出一个简单的示意图：</p>
+<p><strong>pipe的传递</strong></p>
+<p>既然有了pipe，那么pipe是怎么将两个进程连接起来的呢？还记得前面说过pipe一般用于有公共祖先的进程之间通信，下面以父子进程之间的通信为例介绍。这里我们构造一个父进程到子进程的管道，父进程向子进程发送hello，world：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 省略部分错误处理</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 两个文件描述符</span></span><br><span class="line">    <span class="keyword">int</span> fd[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">pid_t</span> pid;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span> *info = <span class="string">"hello, world!"</span>;</span><br><span class="line">    <span class="keyword">const</span> len = <span class="built_in">strlen</span>(info);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造一个管道，输入流存在fd中</span></span><br><span class="line">    pipe(fd);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((pid = fork()) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 出现错误</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 这是父进程，pid代表子进程的进程id</span></span><br><span class="line">        <span class="comment">// 因为是父进程是写，所以关掉输入描述符</span></span><br><span class="line">        close(fd[<span class="number">0</span>]);</span><br><span class="line">        write(fd[<span class="number">1</span>], info, len);</span><br><span class="line">        close(fd[<span class="number">1</span>]);</span><br><span class="line">        waitpid(pid,  <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 这是子进程</span></span><br><span class="line">        <span class="comment">// 因为子进程是读，所以关闭输出描述符</span></span><br><span class="line">        close(fd[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">char</span> buf[<span class="built_in">strlen</span>(info)];</span><br><span class="line">        read(fd[<span class="number">0</span>], buf, len);</span><br><span class="line">        close(fd[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里稍微解释一下子进程的fd是怎么来的，当然是复制父进程的内存得到的，这是父进程在派生子进程会将自己的东西全部复制给子进程的一个概念。</p>
+<h3 id="FIFO"><a href="#FIFO" class="headerlink" title="FIFO"></a>FIFO</h3><p><strong>concept</strong></p>
+<p>FIFO也是一种管道技术，相比于pipe成为匿名管道，FIFO被称为是命名管道。pipe只能用于具有相同祖先的进程之间，不能在任意两个进程之间建立pipe。如果有这个需求就要用到相关的FIFO命名管道，FIFO可以允许任意的进程之间传递数据。</p>
+<p><strong>构造fifo</strong></p>
+<p>FIFO本质是类似于一种文件类型，通过构建一个文件作为中间介质使得进程之间可以通信，在Unix-like系统中提供以下的函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mkfifo</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">mode_t</span> mode)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mkfifoat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">mode_t</span> mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>从makefifo函数的定义就可以看出来，就是打开某个path下的文件，mode就是我们fopen中的模式的概念。makefifoat主要是用来在fd的相关目录位置创建一个FIFO，这里重点关注前者。</p>
+<p><strong>使用fifo</strong></p>
+<p>通过mkfifo构造的FIFO如何使用呢？因为我们说FIFO本质是一种文件类型，平时我们是如何使用1一个文件类型的？当然是open函数就可以了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">mode_t</span> mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这样无论进程是不是有亲缘关系，只要能够知道这个path，就能通过FIFO建立关系，如果规定两个进程的读写顺序，就是完成了进程之间的通信。</p>
+<h3 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h3><p><strong>concept</strong></p>
+<p>消息队列亦称为消息的链表，这种数据结构存储在内核中，由消息队列标识符标识，其中消息队列标识符就是唯一确定一个消息队列的整型ID。</p>
+<p><strong>如何使用消息队列</strong></p>
+<p>显然消息队列就是一种链表结构，每一条消息都包含一个正的长整型类型字段，以及一个非负的长度以及跟在这后面的这个长度的字节数（也就是我们的消息内容）。另外需要注意的是，我们消息队列的最大长度和消息的最大字节数是跟具体的操作系统相关的</p>
+<p>使用消息队列我们主要的使用接口就是创建一个消息队列、发送一条消息到某个消息队列、从某个消息队列获取相关的消息，来看一看这几个功能实现的具体函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgctl</span><span class="params">(<span class="keyword">int</span> msqid, <span class="keyword">int</span> cmd, struct msqid_ds *buf)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgsnd</span><span class="params">(<span class="keyword">int</span> msqid, <span class="keyword">const</span> <span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ssize_t</span> msgrcv(<span class="keyword">int</span> msqid, <span class="keyword">const</span> <span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> nbytes, <span class="keyword">long</span> type, <span class="keyword">int</span> flag);</span><br></pre></td></tr></table></figure>
+
+<p>msgget会打开一个现有的消息队列或者是新建一个新的消息队列，这与两个参数均有关。重要的是要记住这个函数会返回一个消息队列的ID，唯一标识这个消息队列，后面的操作都是需要的（msqid）</p>
+<p>msgctl会对消息队列执行多种操作，这个操作有cmd参数指明，有一个操作的结果会存到后面的buf中</p>
+<p>msgsnd会将消息放到消息队列中，消息有相关的类型和长度，ptr就是指向消息的类型和长度，nbytes表示消息的长度，一个消息总是会被插入到消息队列的尾部，下面是一个消息结构的定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 有了这个type就不用必须按照先进先出的顺序了，可以直接进行按type读取</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">message</span> &#123;</span></span><br><span class="line">    <span class="keyword">long</span> type;</span><br><span class="line">    <span class="keyword">char</span> text[<span class="number">1024</span>]; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>msgrcv用于从消息队列中接收一个消息，type表示期望的类型，flag用于一些标志，例如非阻塞。type主要有以下三种：</p>
+<ul>
+<li>type &gt; 0，返回队列中第一个类型为type的消息</li>
+<li>type == 0，返回队列中第一个消息（一直使用这个就是一个先进先出队列）</li>
+<li>type &lt; 0，返回队列中类型小于type的绝对值的消息，类型小的消息被优先选出</li>
+</ul>
+<p><strong>缺点</strong></p>
+<p>消息队列Message Queue有一个巨大的缺点，那就是消息队列对操作系统中没有引用计数，也就是说如果你创建队列放入几条消息，那么队列会一直存在。而对于管道，当引用管道的进程全部结束之后，管道也会被销毁，消息队列会给我们带来额外的维护工作，不建议使用。</p>
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p><strong>concept</strong></p>
+<p>信号量与前面的三种IPC稍有不同，前面的更加注重数据的交换。而信号量是一个计数器，用于为多个进程提供对共享数据对象的访问。</p>
+<p>简单点说，信号量通常用辅助我们对资源的访问，最经典的例子就是我们访问资源时候的P，V操作，我们会设置一个资源的数量s，这里称s为信号量。P，V分别表示对资源加一或者是减一，当s等于1的时候就是对单个资源的控制。那么显然P，V需要保证是原子的操作，通常由内核完成。</p>
+<p>要注意的几个点是：</p>
+<ul>
+<li>信号量有时候并不是仅代表一个非负值，而是一组非负值的集合</li>
+<li>信号量的创建和初始化并不是原子的</li>
+<li>如果有程序结束但是不释放它占据的信号量是有问题的</li>
+</ul>
+<p><strong>如何使用信号量</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个信号量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> nsems, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semctl</span><span class="params">(<span class="keyword">int</span> semid, <span class="keyword">int</span> semnum, <span class="keyword">int</span> cmd, <span class="keyword">union</span> semnu arg)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semop</span><span class="params">(<span class="keyword">int</span> semid, struct sembuf semoparray[], <span class="keyword">size_t</span> nops)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>semget函数会创建或者是获取一个新的信号量，具体创建还是获取现有的取决于key。key也是我们的外部标识符，作用是标识一个信号量。实质上这个key会映射到内核对信号量的标识符，你可以把key当做是内部标识符的一个别名。nsems表示了这个集合中的信号量的数量，flag是一些标志位。</p>
+<p>semctl显然就是对信号量进行一系列的控制。semid指定某个具体信号量，如果我们需要对集合中的某个具体的信号进行操作就通过semnum参数指定，cmd自然是表示进行哪一种具体的操作。</p>
+<p>这里扩展一下arg参数，这是一个union结构的变量，用于你传递参数，或者是接收相应的返回值，具体内容如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> semun &#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">semid_ds</span> *<span class="title">buf</span>;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> *<span class="built_in">array</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你要设置集合某个信号的值，就要设置semnum和arg的val，union中的后面的两个field主要是为了返回特定的信号量数据信息。</p>
+<p>semop函数用于执行，信号量集合上的特定函数。这些函数是定义好的，我们只需要将特定的调用信息传过去，这些调用信息在semoparray数组中，数组的大小由nops指定。另外semop是一个原子操作，要么全部进行，要么不进行。sembuf的结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span> &#123;</span></span><br><span class="line">    unsinged <span class="keyword">short</span> sem_num;</span><br><span class="line">    <span class="keyword">short</span> sem_op;</span><br><span class="line">    <span class="keyword">short</span> sem_flg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sem_num也很简单，就是你要调用哪个具体信号量。sem_op如果是正表示进程释放相应的资源，信号量进行V操作，负数则表示请求资源。sem_flg为一个标志位，指定一些信息，例如如果请求资源但是不够该怎么办。</p>
+<h3 id="共享存储"><a href="#共享存储" class="headerlink" title="共享存储"></a>共享存储</h3><p><strong>concept</strong></p>
+<p>两个或者多个进程直接共享一块指定的存储区域，就像你和一个人有一个相同的柜子，那么你们把想给对方的东西放在这个共有的柜子中就行了。但是需要注意的是，因为不同进程都可以对内存进行读写，那么就会涉及到一个读写的并发问题，显然如果不进行控制的话，就会出现信息的错乱。这样通信信息是没有在多个进程之间复制的，是最快的一种。</p>
+<p><strong>如何使用共享内存</strong></p>
+<p>这种通信方式的实现由两种方法：</p>
+<ul>
+<li>将一块内存映射到多个进程的地址空间，这是利用虚拟内存的映射技术完成的</li>
+<li>有内核创建并且维护一块内存，多个进程共享这一块内存</li>
+</ul>
+<p>这里我们讨论第二种方法，内核为我们创建相应的空间，这里内核会为每一块共享内存段维护一个shmid_ds结构，其实上面的信号量也是有一个semid_ds，这个结构中记录包括内存块的大小，创建者的信息等等。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 完成相关操作的函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">size_t</span> size, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmctl</span><span class="params">(<span class="keyword">int</span> shmid, <span class="keyword">int</span> cmd, struct shmid_ds *buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">shmat</span><span class="params">(<span class="keyword">int</span> shmid, <span class="keyword">const</span> <span class="keyword">void</span> *addr, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmdt</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *addr)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>shmget函数同样是为我们创建或者是引用现有的共享内存块，size自然是一些标志位，同样flag是一些控制标志信息。</p>
+<p>shmctl函数可以对共享内存块进行一些操作，cmd指定相关的操作类型，buf指向shmid_ds（共享内存块的结构体），将内存块中的相关信息设置为buf中指定的信息。</p>
+<p>shmat函数可以让进程连接到共享内存块的地址上去，这样就能进行相关的读写操作。addr的值和flag的值会共同决定这会连接到内存块的什么位置。通常情况addr置为0，也就是会连接到内存块的第一个可用的地址，这个地址返回这个地址。</p>
+<p>shmdt函数用于进程结束使用共享内存块之后分离他们之间的连接，这个时候传入的addr是上一个函数shmat返回的地址，但是这并不意味着将共享块删除，因为可能还会有其他的进程在使用这块内存。</p>
+<p><strong>By the way</strong></p>
+<p>这就是同一台主机上的进程之间通信的几种经典方式，可以说是面试的高频题目，还是要深入的搞清楚一点，稍微记一下这些通信方式的实现和具体的操作函数会很有帮助！</p>
+<p>2020.07.23 23:38</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic26.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/07/25/进程间的通信方式（下）/" title="进程间的通信方式（下）" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/07/18/与Docker的第一次亲密接触/" title="与Docker的第一次亲密接触" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/25/进程间的通信方式（下）/" title="进程间的通信方式（下）">
+								进程间的通信方式（下）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 25日, 2020				
+							</p>
+							<p class="relate-post-content">
+								进程间通信（IPC）的实现方式（下）Background
+前面一篇文章讲了同一台计算机之间进程通信的几种方式，有过网络基础的同学应该知道不同的计算机通过各种网络协议进行通信实质上也是两台计算机之间的进程的通信。所以进程通信还有一个很重...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/25/进程间的通信方式（下）/" title="进程间的通信方式（下）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic27.jpg" alt="进程间的通信方式（下）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

@@ -1,0 +1,1002 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      GO的闭包 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《GO的闭包》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2021/02/26/GO的闭包/" itemprop="url">
+		GO的闭包
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2021/02/26/GO的闭包/" itemprop="url">
+		<time datetime="2021-02-26T03:14:14.000Z" itemprop="datePublished">
+	  		2021-02-26
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2021/02/26/GO的闭包/" itemprop="url">
+		<time datetime="2021-02-26T03:14:14.000Z" itemprop="dateUpdated">
+	  		2021-02-26
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/go/" class=" ">
+			go
+		</a>
+	
+		<a href="/tags/closure/" class=" ">
+			closure
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="GO的闭包"><a href="#GO的闭包" class="headerlink" title="GO的闭包"></a>GO的闭包</h3><p><strong>background</strong></p>
+<p>Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。</p>
+<p>Golang是兼具传统语言和新生代语言特点的存在，Golang在保留了C程序员习惯的静态类型和指针操作等特点的同时也带来许多新的东西，例如goroutine(go的协程)、无侵入的接口设计、闭包、通道等等。这些东西结合到一起成就了Golang被一部分人喜爱，也被一部分人吐槽。</p>
+<p>本人对Golang的学习时间不到一年，只是在实习的时候用Golang做了一段时间的项目，有些东西理解的不是很到位请原谅。为了进一步深入对Golang的学习，我也是决定了本科的毕业设计用Golang来完成，所以这段时间也是在将之前学习的东西一点一点的捡起来。</p>
+<p>今天看到了Golang中的闭包这个特性于是不知怎么的来了兴趣，就想深入的了解一下闭包到底是怎么实现的，于是有了这篇Blog，如果有写的不好的请理解！</p>
+<p><strong>tip</strong>：有些东西需要你有Golang的汇编前置知识，这些前置知识并不是本篇Blog的重点，如果看的时候有困难，请先看最后我推荐的一些内容！</p>
+<p><strong>closure基本概念</strong></p>
+<p>闭包就是能够读取其他函数内部变量的函数。这是百度百科中对闭包的解释，非常简洁但是不是很好理解。通俗一点来讲就是声明在一个函数内部的函数可以访问外部函数的相关变量，即使外部函数的寿命已经终结。</p>
+<p><strong>Golang中的closure</strong></p>
+<p>口说无凭，来看看在Golang中实现一个闭包大概是怎么样的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">OutFunc</span><span class="params">(x <span class="keyword">int</span>)</span> <span class="title">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">        x *= <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    f1 := OutFunc(<span class="number">1</span>)</span><br><span class="line">    f2 := OutFunc(<span class="number">2</span>)</span><br><span class="line">    fmt.Println(f1())</span><br><span class="line">    fmt.Println(f1())</span><br><span class="line">    fmt.Println(f2())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接执行这段代码会输出：</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 4</span></span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的<strong>OutFunc</strong>的返回值是一个函数，并且在内部函数中引用了<strong>OutFunc</strong>的参数，在之后我们调用内部函数会发现它一直持有这个变量。这与我们的基本常识是违背的，因为我们知道当函数返回之后函数栈上的东西也就销毁了，再使用的话是有危险的，但是这里却可以正常的使用。用更加专业的话来说，这个内部函数捕获了这个变量！</p>
+<p>这就是闭包的魔力，不过我们根据观察可以看出一些端倪：</p>
+<ul>
+<li>内部函数引用的真正的x肯并不是存在栈上，否则<strong>OutFunc</strong>返回之后就不能在引用</li>
+<li>每一个新返回的内部函数引用的x都是不同的，所以我们猜测每个返回的内部函数都有一个新的x与之对应</li>
+</ul>
+<p><strong>Context</strong></p>
+<p>函数运行是有上下文的，例如以下全局函数在执行的时候就可以访问相关的全局变量等东西，这些就是函数的上下文。那么闭包函数在运行的时候除了全局上下文肯定还包括它捕获的外部函数变量的上下文，在这里我们可以想像成这个结构：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Context <span class="keyword">struct</span> &#123;</span><br><span class="line">    X <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// OutFunc c := new(Context), c.X = x</span></span><br></pre></td></tr></table></figure>
+
+<p>每次返回一个内部函数的时候<strong>OutFunc</strong>都会构造这样的一个上下文环境，内部函数在执行的时候需要获取这个与自己对应的闭包上下文环境。这样就大致解释了我们之前的两个问题：（1）这个环境是存储堆上而不是栈上，所以可以一直被内部函数引用（2）每个作为返回值的内部函数都会有一个与自己对应的上下文。</p>
+<p>在执行内部函数的时候我们假设它可以用某种方式获取这个上下文，那么在执行的时候引用或者是修改它的捕获变量自然是天经地义的事情。</p>
+<p><strong>求证</strong></p>
+<p>我们做出的这个假设好像是对的，但是事实到底是怎样还是需要进一步的求证。这个时候我们必须要要拿出我们的核武器了，那就是汇编，在汇编面前一切上层语法都了无秘密！（其实我也只是看了一点Golang的汇编知识，不能看懂所有，但是足够讲解今天的闭包问题了！</p>
+<p>还是之前的代码，但是我会去掉输出代码，因为这些又会汇编出很多的东西，实在是很难看懂。</p>
+<p>修改之后的<strong>main</strong>函数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    f1 := OutFunc(<span class="number">1</span>)</span><br><span class="line">    f2 := OutFunc(<span class="number">2</span>)</span><br><span class="line">    f1()</span><br><span class="line">    f1()</span><br><span class="line">    f2()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>汇编之后的汇编代码（还好之后200多行代码，来大致看一下，主要看我的注释代码）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br></pre></td><td class="code"><pre><span class="line">// OutFunc函数的汇编代码</span><br><span class="line">&quot;&quot;.OutFunc STEXT size=163 args=0x10 locals=0x20</span><br><span class="line">    0x0000 00000 (tt.go:3)	TEXT	&quot;&quot;.OutFunc(SB), ABIInternal, $32-16</span><br><span class="line">    // 防止爆栈的检测代码</span><br><span class="line">    0x0000 00000 (tt.go:3)	MOVQ	(TLS), CX</span><br><span class="line">    0x0009 00009 (tt.go:3)	CMPQ	SP, 16(CX)</span><br><span class="line">    0x000d 00013 (tt.go:3)	PCDATA	$0, $-2</span><br><span class="line">    0x000d 00013 (tt.go:3)	JLS	153</span><br><span class="line">    // ==============</span><br><span class="line">    0x0013 00019 (tt.go:3)	PCDATA	$0, $-1</span><br><span class="line">    // 移动SP寄存器，开辟main的栈空间，并且存储原来的BP寄存器的值</span><br><span class="line">    0x0013 00019 (tt.go:3)	SUBQ	$32, SP</span><br><span class="line">    0x0017 00023 (tt.go:3)	MOVQ	BP, 24(SP)</span><br><span class="line">    0x001c 00028 (tt.go:3)	LEAQ	24(SP), BP</span><br><span class="line">    // ==============</span><br><span class="line">    0x0021 00033 (tt.go:3)	PCDATA	$0, $-2</span><br><span class="line">    0x0021 00033 (tt.go:3)	PCDATA	$1, $-2</span><br><span class="line">    0x0021 00033 (tt.go:3)	FUNCDATA	$0, gclocals·ffd148479e14c29ee3c68361945c5d25(SB)</span><br><span class="line">    0x0021 00033 (tt.go:3)	FUNCDATA	$1, gclocals·663f8c6bfa83aa777198789ce63d9ab4(SB)</span><br><span class="line">    0x0021 00033 (tt.go:3)	FUNCDATA	$2, gclocals·1cf923758aae2e428391d1783fe59973(SB)</span><br><span class="line">    0x0021 00033 (tt.go:3)	PCDATA	$0, $1</span><br><span class="line">    0x0021 00033 (tt.go:3)	PCDATA	$1, $0</span><br><span class="line">    // 构造上下文环境中的int</span><br><span class="line">    0x0021 00033 (tt.go:3)	LEAQ	type.int(SB), AX	// 找到type.int类型的地址传给AX</span><br><span class="line">    0x0028 00040 (tt.go:3)	PCDATA	$0, $0</span><br><span class="line">    0x0028 00040 (tt.go:3)	MOVQ	AX, (SP)			// 将AX作为参数放到栈顶准备函数调用</span><br><span class="line">    0x002c 00044 (tt.go:3)	CALL	runtime.newobject(SB)	// 调用runtime.newobject构建一个新的int</span><br><span class="line">    0x0031 00049 (tt.go:3)	PCDATA	$0, $1</span><br><span class="line">    0x0031 00049 (tt.go:3)	MOVQ	8(SP), AX			// 将结果放到AX</span><br><span class="line">    0x0036 00054 (tt.go:3)	PCDATA	$1, $1</span><br><span class="line">    0x0036 00054 (tt.go:3)	MOVQ	AX, &quot;&quot;.&amp;x+16(SP)	// 将结果转移到16(SP)位置（栈中的空间），转移的其实是新生成的int的指针</span><br><span class="line">    0x003b 00059 (tt.go:3)	MOVQ	&quot;&quot;.x+40(SP), CX		// 这一步可能有点难以理解，需要掌握Go汇编的基本知识，其实就是将参数x的值移动到CX</span><br><span class="line">    0x0040 00064 (tt.go:3)	PCDATA	$0, $0</span><br><span class="line">    0x0040 00064 (tt.go:3)	MOVQ	CX, (AX)			// 将CX赋给AX指向的地方，就是给刚刚生成的int赋值</span><br><span class="line">    // ==============</span><br><span class="line">    0x0043 00067 (tt.go:4)	PCDATA	$0, $2</span><br><span class="line">    // 包装内部函数和捕获变量作为整体上下文</span><br><span class="line">    0x0043 00067 (tt.go:4)	LEAQ	type.noalg.struct &#123; F uintptr; &quot;&quot;.x *int &#125;(SB), CX	// 创建一个新的结构体，这个是内部为闭包函数自动构建的，可以去看看下面的定义，一个函数指针和捕获变量</span><br><span class="line">    0x004a 00074 (tt.go:4)	PCDATA	$0, $0</span><br><span class="line">    0x004a 00074 (tt.go:4)	MOVQ	CX, (SP)</span><br><span class="line">    0x004e 00078 (tt.go:4)	CALL	runtime.newobject(SB)	// new</span><br><span class="line">    0x0053 00083 (tt.go:4)	PCDATA	$0, $1</span><br><span class="line">    0x0053 00083 (tt.go:4)	MOVQ	8(SP), AX				// 将结果(结构体指针)转移到AX</span><br><span class="line">    0x0058 00088 (tt.go:4)	LEAQ	&quot;&quot;.OutFunc.func1(SB), CX	// 获取内部函数的指针 </span><br><span class="line">    0x005f 00095 (tt.go:4)	MOVQ	CX, (AX)	// 将内部函数的指针赋给结构体中的F</span><br><span class="line">    0x0062 00098 (tt.go:4)	PCDATA	$0, $-2</span><br><span class="line">    0x0062 00098 (tt.go:4)	PCDATA	$1, $-2</span><br><span class="line">    0x0062 00098 (tt.go:4)	CMPL	runtime.writeBarrier(SB), $0</span><br><span class="line">    0x0069 00105 (tt.go:4)	JNE	131</span><br><span class="line">    0x006b 00107 (tt.go:4)	MOVQ	&quot;&quot;.&amp;x+16(SP), CX	// 还记得之前的int指针放在那里吗？</span><br><span class="line">    0x0070 00112 (tt.go:4)	MOVQ	CX, 8(AX)	// 将int指针赋给(AX)偏移8的位置，就是结构体中的x</span><br><span class="line">    // ===============</span><br><span class="line">    0x0074 00116 (tt.go:4)	PCDATA	$0, $0</span><br><span class="line">    0x0074 00116 (tt.go:4)	PCDATA	$1, $2</span><br><span class="line">    // 将AX内容放到返回值的位置，其实我们知道这里的AX是一个指针，指向的内容是一个包含函数指针和捕获变量的结构体</span><br><span class="line">    0x0074 00116 (tt.go:4)	MOVQ	AX, &quot;&quot;.~r1+48(SP)</span><br><span class="line">    // 恢复BP指针，恢复栈空间</span><br><span class="line">    0x0079 00121 (tt.go:4)	MOVQ	24(SP), BP</span><br><span class="line">    0x007e 00126 (tt.go:4)	ADDQ	$32, SP</span><br><span class="line">    // 函数返回</span><br><span class="line">    0x0082 00130 (tt.go:4)	RET</span><br><span class="line">    0x0083 00131 (tt.go:4)	PCDATA	$0, $-2</span><br><span class="line">    0x0083 00131 (tt.go:4)	PCDATA	$1, $-2</span><br><span class="line">    0x0083 00131 (tt.go:4)	LEAQ	8(AX), DI</span><br><span class="line">    0x0087 00135 (tt.go:4)	MOVQ	AX, CX</span><br><span class="line">    0x008a 00138 (tt.go:4)	MOVQ	&quot;&quot;.&amp;x+16(SP), AX</span><br><span class="line">    0x008f 00143 (tt.go:4)	CALL	runtime.gcWriteBarrier(SB)</span><br><span class="line">    0x0094 00148 (tt.go:4)	MOVQ	CX, AX</span><br><span class="line">    0x0097 00151 (tt.go:4)	JMP	116</span><br><span class="line">    0x0099 00153 (tt.go:4)	NOP</span><br><span class="line">    0x0099 00153 (tt.go:3)	PCDATA	$1, $-1</span><br><span class="line">    0x0099 00153 (tt.go:3)	PCDATA	$0, $-2</span><br><span class="line">    0x0099 00153 (tt.go:3)	CALL	runtime.morestack_noctxt(SB)</span><br><span class="line">    0x009e 00158 (tt.go:3)	PCDATA	$0, $-1</span><br><span class="line">    0x009e 00158 (tt.go:3)	JMP	0</span><br><span class="line">    0x0000 64 48 8b 0c 25 00 00 00 00 48 3b 61 10 0f 86 86  dH..%....H;a....</span><br><span class="line">    0x0010 00 00 00 48 83 ec 20 48 89 6c 24 18 48 8d 6c 24  ...H.. H.l$.H.l$</span><br><span class="line">    0x0020 18 48 8d 05 00 00 00 00 48 89 04 24 e8 00 00 00  .H......H..$....</span><br><span class="line">    0x0030 00 48 8b 44 24 08 48 89 44 24 10 48 8b 4c 24 28  .H.D$.H.D$.H.L$(</span><br><span class="line">    0x0040 48 89 08 48 8d 0d 00 00 00 00 48 89 0c 24 e8 00  H..H......H..$..</span><br><span class="line">    0x0050 00 00 00 48 8b 44 24 08 48 8d 0d 00 00 00 00 48  ...H.D$.H......H</span><br><span class="line">    0x0060 89 08 83 3d 00 00 00 00 00 75 18 48 8b 4c 24 10  ...=.....u.H.L$.</span><br><span class="line">    0x0070 48 89 48 08 48 89 44 24 30 48 8b 6c 24 18 48 83  H.H.H.D$0H.l$.H.</span><br><span class="line">    0x0080 c4 20 c3 48 8d 78 08 48 89 c1 48 8b 44 24 10 e8  . .H.x.H..H.D$..</span><br><span class="line">    0x0090 00 00 00 00 48 89 c8 eb db e8 00 00 00 00 e9 5d  ....H..........]</span><br><span class="line">    0x00a0 ff ff ff                                         ...</span><br><span class="line">    rel 5+4 t=17 TLS+0</span><br><span class="line">    rel 36+4 t=16 type.int+0</span><br><span class="line">    rel 45+4 t=8 runtime.newobject+0</span><br><span class="line">    rel 70+4 t=16 type.noalg.struct &#123; F uintptr; &quot;&quot;.x *int &#125;+0</span><br><span class="line">    rel 79+4 t=8 runtime.newobject+0</span><br><span class="line">    rel 91+4 t=16 &quot;&quot;.OutFunc.func1+0</span><br><span class="line">    rel 100+4 t=16 runtime.writeBarrier+-1</span><br><span class="line">    rel 144+4 t=8 runtime.gcWriteBarrier+0</span><br><span class="line">    rel 154+4 t=8 runtime.morestack_noctxt+0</span><br><span class="line">    </span><br><span class="line">// main函数</span><br><span class="line">&quot;&quot;.main STEXT size=122 args=0x0 locals=0x28</span><br><span class="line">    0x0000 00000 (tt.go:10)	TEXT	&quot;&quot;.main(SB), ABIInternal, $40-0</span><br><span class="line">    // 防止爆栈</span><br><span class="line">    0x0000 00000 (tt.go:10)	MOVQ	(TLS), CX</span><br><span class="line">    0x0009 00009 (tt.go:10)	CMPQ	SP, 16(CX)</span><br><span class="line">    0x000d 00013 (tt.go:10)	PCDATA	$0, $-2</span><br><span class="line">    0x000d 00013 (tt.go:10)	JLS	115</span><br><span class="line">    // ============</span><br><span class="line">    0x000f 00015 (tt.go:10)	PCDATA	$0, $-1</span><br><span class="line">    // 存储之前的BP指着并且拓展栈空间</span><br><span class="line">    0x000f 00015 (tt.go:10)	SUBQ	$40, SP</span><br><span class="line">    0x0013 00019 (tt.go:10)	MOVQ	BP, 32(SP)</span><br><span class="line">    0x0018 00024 (tt.go:10)	LEAQ	32(SP), BP</span><br><span class="line">    // ========================</span><br><span class="line">    0x001d 00029 (tt.go:10)	PCDATA	$0, $-2</span><br><span class="line">    0x001d 00029 (tt.go:10)	PCDATA	$1, $-2</span><br><span class="line">    0x001d 00029 (tt.go:10)	FUNCDATA	$0, gclocals·f6bd6b3389b872033d462029172c8612(SB)</span><br><span class="line">    0x001d 00029 (tt.go:10)	FUNCDATA	$1, gclocals·a57540db91d4df0a95a343aea8a16f48(SB)</span><br><span class="line">    0x001d 00029 (tt.go:10)	FUNCDATA	$2, gclocals·f921db378992a411b04a03b038505262(SB)</span><br><span class="line">    0x001d 00029 (tt.go:11)	PCDATA	$0, $0</span><br><span class="line">    0x001d 00029 (tt.go:11)	PCDATA	$1, $0</span><br><span class="line">    // 第一次调用OutFunc</span><br><span class="line">    0x001d 00029 (tt.go:11)	MOVQ	$1, (SP)			// 参数放入栈顶，准备函数调用</span><br><span class="line">    0x0025 00037 (tt.go:11)	CALL	&quot;&quot;.OutFunc(SB)</span><br><span class="line">    0x002a 00042 (tt.go:11)	PCDATA	$0, $1</span><br><span class="line">    0x002a 00042 (tt.go:11)	MOVQ	8(SP), AX			// 结果放入AX</span><br><span class="line">    0x002f 00047 (tt.go:11)	PCDATA	$0, $0</span><br><span class="line">    0x002f 00047 (tt.go:11)	PCDATA	$1, $1</span><br><span class="line">    0x002f 00047 (tt.go:11)	MOVQ	AX, &quot;&quot;.f1+24(SP)	// 将结果转移到栈上24(SP)的位置</span><br><span class="line">    // 第二次调用OutFunc</span><br><span class="line">    0x0034 00052 (tt.go:12)	MOVQ	$2, (SP)</span><br><span class="line">    0x003c 00060 (tt.go:12)	CALL	&quot;&quot;.OutFunc(SB)</span><br><span class="line">    0x0041 00065 (tt.go:12)	PCDATA	$0, $1</span><br><span class="line">    0x0041 00065 (tt.go:12)	MOVQ	8(SP), AX</span><br><span class="line">    0x0046 00070 (tt.go:12)	PCDATA	$0, $0</span><br><span class="line">    0x0046 00070 (tt.go:12)	PCDATA	$1, $2</span><br><span class="line">    0x0046 00070 (tt.go:12)	MOVQ	AX, &quot;&quot;.f2+16(SP)</span><br><span class="line">    // 此时返回的两个内部函数和捕获变量组成的结构体指针分别在24(SP)和16(SP)的位置</span><br><span class="line">    // ============================</span><br><span class="line">    0x004b 00075 (tt.go:13)	PCDATA	$0, $2</span><br><span class="line">    // 将第一个结构体指针移动到DX，这就是为什么我们说DX默认传递上下文</span><br><span class="line">    0x004b 00075 (tt.go:13)	MOVQ	&quot;&quot;.f1+24(SP), DX</span><br><span class="line">    // 将DX所指的东西移动到CX，显然结构体指所指的位置偏移0不就是函数的指针吗？</span><br><span class="line">    0x0050 00080 (tt.go:13)	MOVQ	(DX), CX</span><br><span class="line">    0x0053 00083 (tt.go:13)	PCDATA	$0, $0</span><br><span class="line">    // 第一次调用第一个内部函数</span><br><span class="line">    0x0053 00083 (tt.go:13)	CALL	CX</span><br><span class="line">    0x0055 00085 (tt.go:14)	PCDATA	$0, $2</span><br><span class="line">    0x0055 00085 (tt.go:14)	PCDATA	$1, $3</span><br><span class="line">    // 第二次调用第一个内部函数</span><br><span class="line">    0x0055 00085 (tt.go:14)	MOVQ	&quot;&quot;.f1+24(SP), DX</span><br><span class="line">    0x005a 00090 (tt.go:14)	MOVQ	(DX), AX</span><br><span class="line">    0x005d 00093 (tt.go:14)	PCDATA	$0, $0</span><br><span class="line">    0x005d 00093 (tt.go:14)	CALL	AX</span><br><span class="line">    0x005f 00095 (tt.go:15)	PCDATA	$0, $2</span><br><span class="line">    0x005f 00095 (tt.go:15)	PCDATA	$1, $0</span><br><span class="line">    // 第一次调用第二个内部函数</span><br><span class="line">    0x005f 00095 (tt.go:15)	MOVQ	&quot;&quot;.f2+16(SP), DX</span><br><span class="line">    0x0064 00100 (tt.go:15)	MOVQ	(DX), AX</span><br><span class="line">    0x0067 00103 (tt.go:15)	PCDATA	$0, $0</span><br><span class="line">    0x0067 00103 (tt.go:15)	CALL	AX</span><br><span class="line">    // 收回栈空间</span><br><span class="line">    0x0069 00105 (tt.go:16)	MOVQ	32(SP), BP</span><br><span class="line">    0x006e 00110 (tt.go:16)	ADDQ	$40, SP</span><br><span class="line">    // main函数返回</span><br><span class="line">    0x0072 00114 (tt.go:16)	RET</span><br><span class="line">    0x0073 00115 (tt.go:16)	NOP</span><br><span class="line">    0x0073 00115 (tt.go:10)	PCDATA	$1, $-1</span><br><span class="line">    0x0073 00115 (tt.go:10)	PCDATA	$0, $-2</span><br><span class="line">    0x0073 00115 (tt.go:10)	CALL	runtime.morestack_noctxt(SB)</span><br><span class="line">    0x0078 00120 (tt.go:10)	PCDATA	$0, $-1</span><br><span class="line">    0x0078 00120 (tt.go:10)	JMP	0</span><br><span class="line">    0x0000 64 48 8b 0c 25 00 00 00 00 48 3b 61 10 76 64 48  dH..%....H;a.vdH</span><br><span class="line">    0x0010 83 ec 28 48 89 6c 24 20 48 8d 6c 24 20 48 c7 04  ..(H.l$ H.l$ H..</span><br><span class="line">    0x0020 24 01 00 00 00 e8 00 00 00 00 48 8b 44 24 08 48  $.........H.D$.H</span><br><span class="line">    0x0030 89 44 24 18 48 c7 04 24 02 00 00 00 e8 00 00 00  .D$.H..$........</span><br><span class="line">    0x0040 00 48 8b 44 24 08 48 89 44 24 10 48 8b 54 24 18  .H.D$.H.D$.H.T$.</span><br><span class="line">    0x0050 48 8b 0a ff d1 48 8b 54 24 18 48 8b 02 ff d0 48  H....H.T$.H....H</span><br><span class="line">    0x0060 8b 54 24 10 48 8b 02 ff d0 48 8b 6c 24 20 48 83  .T$.H....H.l$ H.</span><br><span class="line">    0x0070 c4 28 c3 e8 00 00 00 00 eb 86                    .(........</span><br><span class="line">    rel 5+4 t=17 TLS+0</span><br><span class="line">    rel 38+4 t=8 &quot;&quot;.OutFunc+0</span><br><span class="line">    rel 61+4 t=8 &quot;&quot;.OutFunc+0</span><br><span class="line">    rel 83+0 t=11 +0</span><br><span class="line">    rel 93+0 t=11 +0</span><br><span class="line">    rel 103+0 t=11 +0</span><br><span class="line">    rel 116+4 t=8 runtime.morestack_noctxt+0</span><br><span class="line">    </span><br><span class="line">// 内部函数的汇编代码</span><br><span class="line">&quot;&quot;.OutFunc.func1 STEXT nosplit size=19 args=0x8 locals=0x0</span><br><span class="line">    // NEEDCTXT表示这个函数需要一个上下文</span><br><span class="line">    0x0000 00000 (tt.go:4)	TEXT	&quot;&quot;.OutFunc.func1(SB), NOSPLIT|NEEDCTXT|ABIInternal, $0-8</span><br><span class="line">    0x0000 00000 (tt.go:4)	PCDATA	$0, $-2</span><br><span class="line">    0x0000 00000 (tt.go:4)	PCDATA	$1, $-2</span><br><span class="line">    0x0000 00000 (tt.go:4)	FUNCDATA	$0, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)</span><br><span class="line">    0x0000 00000 (tt.go:4)	FUNCDATA	$1, gclocals·33cdeccccebe80329f1fdbee7f5874cb(SB)</span><br><span class="line">    0x0000 00000 (tt.go:4)	FUNCDATA	$2, gclocals·db688afbc90e26183a53c9ad23b80c29(SB)</span><br><span class="line">    0x0000 00000 (tt.go:4)	PCDATA	$0, $2</span><br><span class="line">    0x0000 00000 (tt.go:4)	PCDATA	$1, $0</span><br><span class="line">    // 首先给出一个结论，上下文默认用DX传递，DX中的上下文实际上就是OutFunc中创建的结构体的指针</span><br><span class="line">    0x0000 00000 (tt.go:4)	MOVQ	8(DX), AX	// 将结构体偏移8的内容移动给AX，实际就是int指针啊！</span><br><span class="line">    0x0004 00004 (tt.go:5)	MOVQ	(AX), CX	// 获取指针指向的int的值</span><br><span class="line">    0x0007 00007 (tt.go:5)	SHLQ	$1, CX		// 对这个值左移，也就是乘2</span><br><span class="line">    0x000a 00010 (tt.go:5)	PCDATA	$0, $0</span><br><span class="line">    0x000a 00010 (tt.go:5)	MOVQ	CX, (AX)	// 将新值赋给指针</span><br><span class="line">    0x000d 00013 (tt.go:6)	MOVQ	CX, &quot;&quot;.~r0+8(SP)	// 将新值放到返回值的位置</span><br><span class="line">    // 函数返回</span><br><span class="line">    0x0012 00018 (tt.go:6)	RET</span><br><span class="line">    0x0000 48 8b 42 08 48 8b 08 48 d1 e1 48 89 08 48 89 4c  H.B.H..H..H..H.L</span><br><span class="line">    0x0010 24 08 c3                                         $..</span><br><span class="line">go.cuinfo.packagename. SDWARFINFO dupok size=0</span><br><span class="line">    0x0000 6d 61 69 6e                                      main</span><br><span class="line">go.loc.&quot;&quot;.OutFunc SDWARFLOC size=122</span><br><span class="line">    0x0000 ff ff ff ff ff ff ff ff 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0010 00 00 00 00 00 00 00 00 53 00 00 00 00 00 00 00  ........S.......</span><br><span class="line">    0x0020 01 00 50 53 00 00 00 00 00 00 00 a3 00 00 00 00  ..PS............</span><br><span class="line">    0x0030 00 00 00 02 00 91 68 00 00 00 00 00 00 00 00 00  ......h.........</span><br><span class="line">    0x0040 00 00 00 00 00 00 00 ff ff ff ff ff ff ff ff 00  ................</span><br><span class="line">    0x0050 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 a3  ................</span><br><span class="line">    0x0060 00 00 00 00 00 00 00 01 00 9c 00 00 00 00 00 00  ................</span><br><span class="line">    0x0070 00 00 00 00 00 00 00 00 00 00                    ..........</span><br><span class="line">    rel 8+8 t=1 &quot;&quot;.OutFunc+0</span><br><span class="line">    rel 79+8 t=1 &quot;&quot;.OutFunc+0</span><br><span class="line">go.info.&quot;&quot;.OutFunc SDWARFINFO size=74</span><br><span class="line">    0x0000 03 22 22 2e 4f 75 74 46 75 6e 63 00 00 00 00 00  .&quot;&quot;.OutFunc.....</span><br><span class="line">    0x0010 00 00 00 00 00 00 00 00 00 00 00 00 01 9c 00 00  ................</span><br><span class="line">    0x0020 00 00 01 0b 26 78 00 03 00 00 00 00 00 00 00 00  ....&amp;x..........</span><br><span class="line">    0x0030 10 78 00 00 03 00 00 00 00 00 00 00 00 0f 7e 72  .x............~r</span><br><span class="line">    0x0040 31 00 01 03 00 00 00 00 00 00                    1.........</span><br><span class="line">    rel 0+0 t=24 type.*int+0</span><br><span class="line">    rel 0+0 t=24 type.func() int+0</span><br><span class="line">    rel 0+0 t=24 type.int+0</span><br><span class="line">    rel 12+8 t=1 &quot;&quot;.OutFunc+0</span><br><span class="line">    rel 20+8 t=1 &quot;&quot;.OutFunc+163</span><br><span class="line">    rel 30+4 t=30 gofile../root/go/src/go_asm/tt.go+0</span><br><span class="line">    rel 40+4 t=29 go.info.*int+0</span><br><span class="line">    rel 44+4 t=29 go.loc.&quot;&quot;.OutFunc+0</span><br><span class="line">    rel 53+4 t=29 go.info.int+0</span><br><span class="line">    rel 57+4 t=29 go.loc.&quot;&quot;.OutFunc+71</span><br><span class="line">    rel 68+4 t=29 go.info.func() int+0</span><br><span class="line">go.range.&quot;&quot;.OutFunc SDWARFRANGE size=0</span><br><span class="line">go.debuglines.&quot;&quot;.OutFunc SDWARFMISC size=25</span><br><span class="line">    0x0000 04 02 11 0a cd 06 e1 06 08 2e 06 55 06 08 c3 06  ...........U....</span><br><span class="line">    0x0010 41 06 08 5e 04 01 03 7e 01                       A..^...~.</span><br><span class="line">go.loc.&quot;&quot;.main SDWARFLOC size=142</span><br><span class="line">    0x0000 ff ff ff ff ff ff ff ff 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0010 46 00 00 00 00 00 00 00 55 00 00 00 00 00 00 00  F.......U.......</span><br><span class="line">    0x0020 01 00 50 55 00 00 00 00 00 00 00 7a 00 00 00 00  ..PU.......z....</span><br><span class="line">    0x0030 00 00 00 02 00 91 60 00 00 00 00 00 00 00 00 00  ......`.........</span><br><span class="line">    0x0040 00 00 00 00 00 00 00 ff ff ff ff ff ff ff ff 00  ................</span><br><span class="line">    0x0050 00 00 00 00 00 00 00 2f 00 00 00 00 00 00 00 41  ......./.......A</span><br><span class="line">    0x0060 00 00 00 00 00 00 00 01 00 50 41 00 00 00 00 00  .........PA.....</span><br><span class="line">    0x0070 00 00 7a 00 00 00 00 00 00 00 02 00 91 68 00 00  ..z..........h..</span><br><span class="line">    0x0080 00 00 00 00 00 00 00 00 00 00 00 00 00 00        ..............</span><br><span class="line">    rel 8+8 t=1 &quot;&quot;.main+0</span><br><span class="line">    rel 79+8 t=1 &quot;&quot;.main+0</span><br><span class="line">go.info.&quot;&quot;.main SDWARFINFO size=59</span><br><span class="line">    0x0000 03 22 22 2e 6d 61 69 6e 00 00 00 00 00 00 00 00  .&quot;&quot;.main........</span><br><span class="line">    0x0010 00 00 00 00 00 00 00 00 00 01 9c 00 00 00 00 01  ................</span><br><span class="line">    0x0020 0b 66 32 00 0c 00 00 00 00 00 00 00 00 0b 66 31  .f2...........f1</span><br><span class="line">    0x0030 00 0b 00 00 00 00 00 00 00 00 00                 ...........</span><br><span class="line">    rel 0+0 t=24 type.func() int+0</span><br><span class="line">    rel 9+8 t=1 &quot;&quot;.main+0</span><br><span class="line">    rel 17+8 t=1 &quot;&quot;.main+122</span><br><span class="line">    rel 27+4 t=30 gofile../root/go/src/go_asm/tt.go+0</span><br><span class="line">    rel 37+4 t=29 go.info.func() int+0</span><br><span class="line">    rel 41+4 t=29 go.loc.&quot;&quot;.main+0</span><br><span class="line">    rel 50+4 t=29 go.info.func() int+0</span><br><span class="line">    rel 54+4 t=29 go.loc.&quot;&quot;.main+71</span><br><span class="line">go.range.&quot;&quot;.main SDWARFRANGE size=0</span><br><span class="line">go.debuglines.&quot;&quot;.main SDWARFMISC size=36</span><br><span class="line">    0x0000 04 02 03 04 14 0a a5 9c 06 5f 06 a6 06 91 06 74  ........._.....t</span><br><span class="line">    0x0010 06 41 06 42 06 41 06 42 06 41 06 42 03 7e 6f 04  .A.B.A.B.A.B.~o.</span><br><span class="line">    0x0020 01 03 77 01                                      ..w.</span><br><span class="line">go.loc.&quot;&quot;.OutFunc.func1 SDWARFLOC size=51</span><br><span class="line">    0x0000 ff ff ff ff ff ff ff ff 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0010 04 00 00 00 00 00 00 00 13 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0020 01 00 50 00 00 00 00 00 00 00 00 00 00 00 00 00  ..P.............</span><br><span class="line">    0x0030 00 00 00                                         ...</span><br><span class="line">    rel 8+8 t=1 &quot;&quot;.OutFunc.func1+0</span><br><span class="line">go.info.&quot;&quot;.OutFunc.func1 SDWARFINFO size=67</span><br><span class="line">    0x0000 03 22 22 2e 4f 75 74 46 75 6e 63 2e 66 75 6e 63  .&quot;&quot;.OutFunc.func</span><br><span class="line">    0x0010 31 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  1...............</span><br><span class="line">    0x0020 00 00 01 9c 00 00 00 00 01 0b 26 78 00 04 00 00  ..........&amp;x....</span><br><span class="line">    0x0030 00 00 00 00 00 00 0f 7e 72 30 00 01 04 00 00 00  .......~r0......</span><br><span class="line">    0x0040 00 00 00                                         ...</span><br><span class="line">    rel 0+0 t=24 type.int+0</span><br><span class="line">    rel 18+8 t=1 &quot;&quot;.OutFunc.func1+0</span><br><span class="line">    rel 26+8 t=1 &quot;&quot;.OutFunc.func1+19</span><br><span class="line">    rel 36+4 t=30 gofile../root/go/src/go_asm/tt.go+0</span><br><span class="line">    rel 46+4 t=29 go.info.*int+0</span><br><span class="line">    rel 50+4 t=29 go.loc.&quot;&quot;.OutFunc.func1+0</span><br><span class="line">    rel 61+4 t=29 go.info.int+0</span><br><span class="line">go.range.&quot;&quot;.OutFunc.func1 SDWARFRANGE size=0</span><br><span class="line">go.debuglines.&quot;&quot;.OutFunc.func1 SDWARFMISC size=18</span><br><span class="line">    0x0000 04 02 06 12 06 38 06 2d 06 4c 06 41 04 01 03 7b  .....8.-.L.A...&#123;</span><br><span class="line">    0x0010 06 01                                            ..</span><br><span class="line">&quot;&quot;..inittask SNOPTRDATA size=24</span><br><span class="line">    0x0000 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0010 00 00 00 00 00 00 00 00                          ........</span><br><span class="line">runtime.memequal64·f SRODATA dupok size=8</span><br><span class="line">    0x0000 00 00 00 00 00 00 00 00                          ........</span><br><span class="line">    rel 0+8 t=1 runtime.memequal64+0</span><br><span class="line">runtime.gcbits.01 SRODATA dupok size=1</span><br><span class="line">    0x0000 01                                               .</span><br><span class="line">type..namedata.*func() int- SRODATA dupok size=14</span><br><span class="line">    0x0000 00 00 0b 2a 66 75 6e 63 28 29 20 69 6e 74        ...*func() int</span><br><span class="line">type.*func() int SRODATA dupok size=56</span><br><span class="line">    0x0000 08 00 00 00 00 00 00 00 08 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0010 51 b2 ed c6 08 08 08 36 00 00 00 00 00 00 00 00  Q......6........</span><br><span class="line">    0x0020 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0030 00 00 00 00 00 00 00 00                          ........</span><br><span class="line">    rel 24+8 t=1 runtime.memequal64·f+0</span><br><span class="line">    rel 32+8 t=1 runtime.gcbits.01+0</span><br><span class="line">    rel 40+4 t=5 type..namedata.*func() int-+0</span><br><span class="line">    rel 48+8 t=1 type.func() int+0</span><br><span class="line">type.func() int SRODATA dupok size=64</span><br><span class="line">    0x0000 08 00 00 00 00 00 00 00 08 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0010 e5 86 39 e0 02 08 08 33 00 00 00 00 00 00 00 00  ..9....3........</span><br><span class="line">    0x0020 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0030 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    rel 32+8 t=1 runtime.gcbits.01+0</span><br><span class="line">    rel 40+4 t=5 type..namedata.*func() int-+0</span><br><span class="line">    rel 44+4 t=6 type.*func() int+0</span><br><span class="line">    rel 56+8 t=1 type.int+0</span><br><span class="line">type..namedata.*struct &#123; F uintptr; x *int &#125;- SRODATA dupok size=32</span><br><span class="line">    0x0000 00 00 1d 2a 73 74 72 75 63 74 20 7b 20 46 20 75  ...*struct &#123; F u</span><br><span class="line">    0x0010 69 6e 74 70 74 72 3b 20 78 20 2a 69 6e 74 20 7d  intptr; x *int &#125;</span><br><span class="line">type.*struct &#123; F uintptr; &quot;&quot;.x *int &#125; SRODATA dupok size=56</span><br><span class="line">    0x0000 08 00 00 00 00 00 00 00 08 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0010 fa e7 14 6d 08 08 08 36 00 00 00 00 00 00 00 00  ...m...6........</span><br><span class="line">    0x0020 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0030 00 00 00 00 00 00 00 00                          ........</span><br><span class="line">    rel 24+8 t=1 runtime.memequal64·f+0</span><br><span class="line">    rel 32+8 t=1 runtime.gcbits.01+0</span><br><span class="line">    rel 40+4 t=5 type..namedata.*struct &#123; F uintptr; x *int &#125;-+0</span><br><span class="line">    rel 48+8 t=1 type.noalg.struct &#123; F uintptr; &quot;&quot;.x *int &#125;+0</span><br><span class="line">runtime.gcbits.02 SRODATA dupok size=1</span><br><span class="line">    0x0000 02                                               .</span><br><span class="line">type..namedata..F- SRODATA dupok size=5</span><br><span class="line">    0x0000 00 00 02 2e 46                                   ....F</span><br><span class="line">type..namedata.x- SRODATA dupok size=4</span><br><span class="line">    0x0000 00 00 01 78                                      ...x</span><br><span class="line">type.noalg.struct &#123; F uintptr; &quot;&quot;.x *int &#125; SRODATA dupok size=128</span><br><span class="line">    0x0000 10 00 00 00 00 00 00 00 10 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0010 76 a5 6e 59 02 08 08 19 00 00 00 00 00 00 00 00  v.nY............</span><br><span class="line">    0x0020 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0030 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0040 02 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0050 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0060 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................</span><br><span class="line">    0x0070 00 00 00 00 00 00 00 00 10 00 00 00 00 00 00 00  ................</span><br><span class="line">    rel 32+8 t=1 runtime.gcbits.02+0</span><br><span class="line">    rel 40+4 t=5 type..namedata.*struct &#123; F uintptr; x *int &#125;-+0</span><br><span class="line">    rel 44+4 t=6 type.*struct &#123; F uintptr; &quot;&quot;.x *int &#125;+0</span><br><span class="line">    rel 48+8 t=1 type..importpath.&quot;&quot;.+0</span><br><span class="line">    rel 56+8 t=1 type.noalg.struct &#123; F uintptr; &quot;&quot;.x *int &#125;+80</span><br><span class="line">    rel 80+8 t=1 type..namedata..F-+0</span><br><span class="line">    rel 88+8 t=1 type.uintptr+0</span><br><span class="line">    rel 104+8 t=1 type..namedata.x-+0</span><br><span class="line">    rel 112+8 t=1 type.*int+0</span><br><span class="line">gclocals·ffd148479e14c29ee3c68361945c5d25 SRODATA dupok size=11</span><br><span class="line">    0x0000 03 00 00 00 02 00 00 00 00 00 02                 ...........</span><br><span class="line">gclocals·663f8c6bfa83aa777198789ce63d9ab4 SRODATA dupok size=11</span><br><span class="line">    0x0000 03 00 00 00 01 00 00 00 00 01 00                 ...........</span><br><span class="line">gclocals·1cf923758aae2e428391d1783fe59973 SRODATA dupok size=11</span><br><span class="line">    0x0000 03 00 00 00 02 00 00 00 00 01 02                 ...........</span><br><span class="line">gclocals·f6bd6b3389b872033d462029172c8612 SRODATA dupok size=8</span><br><span class="line">    0x0000 04 00 00 00 00 00 00 00                          ........</span><br><span class="line">gclocals·a57540db91d4df0a95a343aea8a16f48 SRODATA dupok size=12</span><br><span class="line">    0x0000 04 00 00 00 02 00 00 00 00 02 03 01              ............</span><br><span class="line">gclocals·f921db378992a411b04a03b038505262 SRODATA dupok size=11</span><br><span class="line">    0x0000 03 00 00 00 03 00 00 00 00 01 04                 ...........</span><br><span class="line">gclocals·33cdeccccebe80329f1fdbee7f5874cb SRODATA dupok size=8</span><br><span class="line">    0x0000 01 00 00 00 00 00 00 00                          ........</span><br><span class="line">gclocals·db688afbc90e26183a53c9ad23b80c29 SRODATA dupok size=11</span><br><span class="line">    0x0000 03 00 00 00 03 00 00 00 00 04 01                 ...........</span><br></pre></td></tr></table></figure>
+
+<p>下面的一些汇编信息我就不解释了，因为我也看不懂！大致还是能够看到<strong>type.noalg.struct { F uintptr; &quot;&quot;.x *int }</strong>这样的字眼，这就是独属于这个内部函数的上下文。</p>
+<p><strong>summary</strong></p>
+<p>总结一下，Golang在内部创建了一个结构体用于封装内部函数的指针和捕获的变量：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Context <span class="keyword">struct</span> &#123;</span><br><span class="line">    F <span class="keyword">uintptr</span></span><br><span class="line">    X *<span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们之前的猜测其实是正确了一半，<strong>f1 := OutFunc(1)</strong>这个函数的返回值是一个函数指针，但是在内部其实返回的是一个<strong>ptr = *Context</strong>指针，有过C语言基础的同学可能就会很清晰了，<strong>*ptr</strong>的内容完全可以根据我们的意愿解释为一个函数指针或者是一个Context结构体。</p>
+<p>所以这个闭包函数的调用过程就是两步：</p>
+<ul>
+<li><strong>ptr =&gt; DX</strong></li>
+<li><strong>CALL (*ptr)</strong></li>
+</ul>
+<p>内部函数通过DX（ptr）自然尽可以引用属于自己的上下文变量！</p>
+<p><strong>by the way</strong></p>
+<p>虽然我大致将一些汇编语句解释出来了，但是还是需要你有一定的Golang汇编的基础，如果有了基本的汇编知识和对相关的Golang底层函数调用机制（参数和返回值都是在栈上）的认知，你也就不难搞清楚闭包原理了！！！</p>
+<p>推荐以下文章：</p>
+<ul>
+<li><a href="https://github.com/cch123/asmshare/blob/master/layout.md" target="_blank" rel="noopener">https://github.com/cch123/asmshare/blob/master/layout.md</a></li>
+<li><a href="https://chai2010.cn/advanced-go-programming-book/ch3-asm/readme.html" target="_blank" rel="noopener">https://chai2010.cn/advanced-go-programming-book/ch3-asm/readme.html</a></li>
+<li><a href="https://www.cnblogs.com/qcrao-2018/p/10562216.html" target="_blank" rel="noopener">https://www.cnblogs.com/qcrao-2018/p/10562216.html</a></li>
+</ul>
+<p>2021.02.26（今天是元宵节！）</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic38.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+		
+			<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/05/31/leetcode_1/" title="Leetcode_1">
+								Leetcode_1			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 31日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Leetcode众所周知leetcode是一个很好的刷题网站，也是很多大厂的题目来源，所以如果你想进入大厂，这个几乎是少不了的！
+另外如果更加深入去想一下，我们的coding思维需要提升，而没有什么是比算法更有效的，如果有了算法的基础...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/05/31/leetcode_1/" title="Leetcode_1">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic6.jpg" alt="Leetcode_1"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/28/漫谈http/" title="漫谈http">
+								漫谈http			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 28日, 2020				
+							</p>
+							<p class="relate-post-content">
+								与http有关的知识点http status codehttp的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

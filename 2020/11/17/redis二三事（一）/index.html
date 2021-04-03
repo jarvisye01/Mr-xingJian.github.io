@@ -1,0 +1,1071 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      redis二三事（一） | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《redis二三事（一）》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/11/17/redis二三事（一）/" itemprop="url">
+		redis二三事（一）
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/11/17/redis二三事（一）/" itemprop="url">
+		<time datetime="2020-11-17T01:46:27.000Z" itemprop="datePublished">
+	  		2020-11-17
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/11/17/redis二三事（一）/" itemprop="url">
+		<time datetime="2020-11-17T01:46:27.000Z" itemprop="dateUpdated">
+	  		2020-12-06
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/redis/" class=" ">
+			redis
+		</a>
+	
+		<a href="/tags/c/" class=" ">
+			c
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Redis。</p>
+<p>这样的市场情况也使得Redis成为面试的高频问点，博主3月份在找实习的时候吃了很大的亏就是我的项目中没有用到Redis，对Redis本身也并不是很了解，被问到Redis相关的就很尴尬。关于Redis其实有很多学习的路线，如果我们做项目业务多一点的话就要更加注重怎么去构建大型的Redis集群，根据业务特点来配置Redis，另外一条路线就是像我这样就是想单纯的学习，在学习学习了OS和各种系统调用之后借助Redis源码来帮助自己进一步的提升。</p>
+<p>从这篇Blog开始我会陆续地写一写和Redis源码分析相关的内容，看这种比较大的开源软件的源码我也是第一次尝试，如果有什么写的不对的地方欢迎指出！</p>
+<p>这里我主要是从一些Redis源码中的文件开始分析，因为一般一个文件就是Redis中的一个模块。</p>
+<h3 id="zmalloc-zmalloc-h-zmalloc-c"><a href="#zmalloc-zmalloc-h-zmalloc-c" class="headerlink" title="zmalloc[zmalloc.h, zmalloc.c]"></a><strong>zmalloc[zmalloc.h, zmalloc.c]</strong></h3><p>zmalloc模块是Redis对于标准库内存管理函数的一次封装，这个模块还是比较简单的。主要是对malloc、calloc、realloc的封装，并且该模块中设置了一个used_memory的atomic var，这个变量记录了Redis使用内存的数量。这里仅仅用对malloc举例子，剩下来两个函数都是差不多的，先看代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 因为设置了这个宏，所以后面的宏指令注意执行的路径</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAVE_MALLOC_SIZE</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> update_zmalloc_stat_alloc(__n) atomicIncr(used_memory,(__n))</span></span><br><span class="line"><span class="comment">// ......</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实际整个函数就是在malloc的基础上要负责更新used_memory变量的值</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">zmalloc</span><span class="params">(<span class="keyword">size_t</span> size)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr = <span class="built_in">malloc</span>(size+PREFIX_SIZE);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!ptr) zmalloc_oom_handler(size);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> HAVE_MALLOC_SIZE</span></span><br><span class="line">    <span class="comment">// zmalloc_size(ptr)报告ptr块的内存，update_zmalloc_stat_alloc原子地更新使用的内存总量</span></span><br><span class="line">    update_zmalloc_stat_alloc(zmalloc_size(ptr));</span><br><span class="line">    <span class="keyword">return</span> ptr;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    *((<span class="keyword">size_t</span>*)ptr) = size;</span><br><span class="line">    update_zmalloc_stat_alloc(size+PREFIX_SIZE);</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">char</span>*)ptr+PREFIX_SIZE;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 每一个内存申请函数都有一个配套的后缀usable函数，会填充我们传递的usable参数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">zmalloc_usable</span><span class="params">(<span class="keyword">size_t</span> size, <span class="keyword">size_t</span> *usable)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr = <span class="built_in">malloc</span>(size+PREFIX_SIZE);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!ptr) zmalloc_oom_handler(size);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> HAVE_MALLOC_SIZE</span></span><br><span class="line">    <span class="comment">// 在zmalloc的基础上设置使用的内存的byte个数</span></span><br><span class="line">    update_zmalloc_stat_alloc(*usable = zmalloc_size(ptr));</span><br><span class="line">    <span class="keyword">return</span> ptr;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    *((<span class="keyword">size_t</span>*)ptr) = *usable = size;</span><br><span class="line">    update_zmalloc_stat_alloc(size+PREFIX_SIZE);</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">char</span>*)ptr+PREFIX_SIZE;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取已经使用的memory</span></span><br><span class="line"><span class="keyword">size_t</span> zmalloc_used_memory(<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="keyword">size_t</span> um;</span><br><span class="line">    <span class="comment">// used_memory是本模块的原子变量，这里主要是用atomicGet取出放到um中，因为used_memory是一直变化的</span></span><br><span class="line">    atomicGet(used_memory,um);</span><br><span class="line">    <span class="keyword">return</span> um;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个模块就是对stdlib标准库中内存函数的封装，每个内存函数都有一个附加的usable函数报告使用的内存，关于used_memory原子变量的更新是利用 “atomicvar.h”模块中导出的atomic var操作接口实现的。刚看源码时不要想着每一行代码都搞明白，知道是原子更新used_memory就行了！</p>
+<h3 id="ae-ae-h-ae-c"><a href="#ae-ae-h-ae-c" class="headerlink" title="ae[ae.h, ae.c]"></a><strong>ae[ae.h, ae.c]</strong></h3><p>ae模块主要是Redis事件循环模块，Redis通过单线程不断地轮询各种出现的事件，这其中又涉及了多路复用IO，特地要说明的是Redis会选择你的OS平台之下最优的多路复用IO模型，依次是epoll，poll和select。</p>
+<p>既然是时间，那么就要谈一谈Redis中的事件，在Redis中事件分为两种：</p>
+<ul>
+<li><strong>file-event</strong></li>
+<li><strong>time-event</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件事件的函数原型</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">void</span> <span class="title">aeFileProc</span><span class="params">(struct aeEventLoop *eventLoop, <span class="keyword">int</span> fd, <span class="keyword">void</span> *clientData, <span class="keyword">int</span> mask)</span></span>;</span><br><span class="line"><span class="comment">// 时间事件的函数原型</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">int</span> <span class="title">aeTimeProc</span><span class="params">(struct aeEventLoop *eventLoop, <span class="keyword">long</span> <span class="keyword">long</span> id, <span class="keyword">void</span> *clientData)</span></span>;</span><br><span class="line"><span class="comment">// 时间事件结束的hook</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">void</span> <span class="title">aeEventFinalizerProc</span><span class="params">(struct aeEventLoop *eventLoop, <span class="keyword">void</span> *clientData)</span></span>;</span><br><span class="line"><span class="comment">// 多路复用IO在sleep等待之前和之后的hook</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">void</span> <span class="title">aeBeforeSleepProc</span><span class="params">(struct aeEventLoop *eventLoop)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// read and write</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">aeFileEvent</span> &#123;</span></span><br><span class="line">    <span class="comment">// event mask</span></span><br><span class="line">    <span class="keyword">int</span> mask; <span class="comment">/* one of AE_(READABLE|WRITABLE|BARRIER) */</span></span><br><span class="line">    <span class="comment">// read function</span></span><br><span class="line">    aeFileProc *rfileProc;</span><br><span class="line">    <span class="comment">// write function</span></span><br><span class="line">    aeFileProc *wfileProc;</span><br><span class="line">    <span class="keyword">void</span> *clientData;</span><br><span class="line">&#125; aeFileEvent;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Time event structure */</span></span><br><span class="line"><span class="comment">// timeProc</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">aeTimeEvent</span> &#123;</span></span><br><span class="line">    <span class="comment">// 时间事件的id</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> id; <span class="comment">/* time event identifier. */</span></span><br><span class="line">    <span class="comment">// 微秒计时器，记录time-event何时发生</span></span><br><span class="line">    monotime when;</span><br><span class="line">    <span class="comment">// time-event函数</span></span><br><span class="line">    aeTimeProc *timeProc;</span><br><span class="line">    aeEventFinalizerProc *finalizerProc;</span><br><span class="line">    <span class="keyword">void</span> *clientData;</span><br><span class="line">    <span class="comment">// 时间事件串成双向链表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">aeTimeEvent</span> *<span class="title">prev</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">aeTimeEvent</span> *<span class="title">next</span>;</span></span><br><span class="line">    <span class="keyword">int</span> refcount; <span class="comment">/* refcount to prevent timer events from being</span></span><br><span class="line"><span class="comment">  		   * freed in recursive time event calls. */</span></span><br><span class="line">&#125; aeTimeEvent;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* A fired event */</span></span><br><span class="line"><span class="comment">// 一个触发的事件</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">aeFiredEvent</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> fd;</span><br><span class="line">    <span class="keyword">int</span> mask;</span><br><span class="line">&#125; aeFiredEvent;</span><br></pre></td></tr></table></figure>
+
+<p>通过typedef定义了一系列的函数原型，使得我们之后可以灵活的绑定处理事件的函数，这是函数指针灵活运用的例子，完成了事件与具体处理方法之间的解耦，非常值得我们去学习！</p>
+<p>那么Redis是怎么统一管理相关的file-event和time-event的呢？其中还定义了eventLoop这个顶级实例，保存所有的事件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* State of an event based program */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">aeEventLoop</span> &#123;</span></span><br><span class="line">    <span class="comment">// 当前注册的最大的fd</span></span><br><span class="line">    <span class="keyword">int</span> maxfd;   <span class="comment">/* highest file descriptor currently registered */</span></span><br><span class="line">    <span class="comment">// 被跟踪fd的最大数量</span></span><br><span class="line">    <span class="keyword">int</span> setsize; <span class="comment">/* max number of file descriptors tracked */</span></span><br><span class="line">    <span class="comment">// 下一个时间事件的id</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> timeEventNextId;</span><br><span class="line">    aeFileEvent *events; <span class="comment">/* Registered events */</span></span><br><span class="line">    <span class="comment">// store fired file-event(触发事件)</span></span><br><span class="line">    <span class="comment">// 再一次epoll_wait的过程中，触发的event会从events数组转移到fired数组中</span></span><br><span class="line">    aeFiredEvent *fired; <span class="comment">/* Fired events */</span></span><br><span class="line">    <span class="comment">// 时间事件存储的是链表头</span></span><br><span class="line">    aeTimeEvent *timeEventHead;</span><br><span class="line">    <span class="keyword">int</span> stop;</span><br><span class="line">    <span class="comment">// 这是epoll、select、poll等模型</span></span><br><span class="line">    <span class="keyword">void</span> *apidata; <span class="comment">/* This is used for polling API specific data */</span></span><br><span class="line">    aeBeforeSleepProc *beforesleep;</span><br><span class="line">    aeBeforeSleepProc *aftersleep;</span><br><span class="line">    <span class="keyword">int</span> flags;</span><br><span class="line">&#125; aeEventLoop;</span><br></pre></td></tr></table></figure>
+
+<p>在ae.h中完成了相关的数据结构和API的定义，那么在ae.c中，自然是要实现这些API，其实整体上不是很难，其中会穿插使用到对epoll想干操作的封装，如果想要完全搞明白大家最好还是先去熟悉一下epoll的API。话不多说，还是先看代码：</p>
+<p><strong>创建aeEventLoop实例</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create eventLoop</span></span><br><span class="line"><span class="function">aeEventLoop *<span class="title">aeCreateEventLoop</span><span class="params">(<span class="keyword">int</span> setsize)</span> </span>&#123;</span><br><span class="line">    aeEventLoop *eventLoop;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">// 初始化微秒计时器</span></span><br><span class="line">    monotonicInit();    <span class="comment">/* just in case the calling app didn't initialize */</span></span><br><span class="line">    <span class="keyword">if</span> ((eventLoop = zmalloc(<span class="keyword">sizeof</span>(*eventLoop))) == <span class="literal">NULL</span>) <span class="keyword">goto</span> err;	<span class="comment">// 申请空间，zmalloc已经介绍过了</span></span><br><span class="line">    <span class="comment">// malloc: 为file-event和fired-event申请空间</span></span><br><span class="line">    eventLoop-&gt;events = zmalloc(<span class="keyword">sizeof</span>(aeFileEvent)*setsize);</span><br><span class="line">    eventLoop-&gt;fired = zmalloc(<span class="keyword">sizeof</span>(aeFiredEvent)*setsize);</span><br><span class="line">    <span class="keyword">if</span> (eventLoop-&gt;events == <span class="literal">NULL</span> || eventLoop-&gt;fired == <span class="literal">NULL</span>) <span class="keyword">goto</span> err;</span><br><span class="line">    eventLoop-&gt;setsize = setsize;</span><br><span class="line">    eventLoop-&gt;timeEventHead = <span class="literal">NULL</span>;</span><br><span class="line">    eventLoop-&gt;timeEventNextId = <span class="number">0</span>;</span><br><span class="line">    eventLoop-&gt;stop = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 每次加入file-event这个值就会动态更新</span></span><br><span class="line">    eventLoop-&gt;maxfd = <span class="number">-1</span>;</span><br><span class="line">    eventLoop-&gt;beforesleep = <span class="literal">NULL</span>;</span><br><span class="line">    eventLoop-&gt;aftersleep = <span class="literal">NULL</span>;</span><br><span class="line">    eventLoop-&gt;flags = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// eventLoop-&gt;apidata </span></span><br><span class="line">    <span class="keyword">if</span> (aeApiCreate(eventLoop) == <span class="number">-1</span>) <span class="keyword">goto</span> err;							<span class="comment">// 这个函数是初始化epoll</span></span><br><span class="line">    <span class="comment">// 初始化file-event向量</span></span><br><span class="line">    <span class="comment">/* Events with mask == AE_NONE are not set. So let's initialize the</span></span><br><span class="line"><span class="comment">     * vector with it. */</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; setsize; i++)</span><br><span class="line">        eventLoop-&gt;events[i].mask = AE_NONE;</span><br><span class="line">    <span class="keyword">return</span> eventLoop;</span><br><span class="line"></span><br><span class="line">err:</span><br><span class="line">    <span class="keyword">if</span> (eventLoop) &#123;</span><br><span class="line">        zfree(eventLoop-&gt;events);</span><br><span class="line">        zfree(eventLoop-&gt;fired);</span><br><span class="line">        zfree(eventLoop);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里用到了<strong>aeApiCreate</strong>这个函数，这个实际是为了初始化epoll，因为之前就说过所有事件的监听是基于多路复用完成的，一般的Linux服务器都会选择使用epoll，这里就来看一看是怎样的初始化的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// epoll</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">aeApiState</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> epfd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> *<span class="title">events</span>;</span></span><br><span class="line">&#125; aeApiState;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">aeApiCreate</span><span class="params">(aeEventLoop *eventLoop)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 构建epoll struct</span></span><br><span class="line">    aeApiState *state = zmalloc(<span class="keyword">sizeof</span>(aeApiState));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!state) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="comment">// </span></span><br><span class="line">    state-&gt;events = zmalloc(<span class="keyword">sizeof</span>(struct epoll_event)*eventLoop-&gt;setsize);</span><br><span class="line">    <span class="keyword">if</span> (!state-&gt;events) &#123;</span><br><span class="line">        zfree(state);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 创建epoll实例，返回epfd，之后就可以通过epfd去操作这个epoll</span></span><br><span class="line">    state-&gt;epfd = epoll_create(<span class="number">1024</span>); <span class="comment">/* 1024 is just a hint for the kernel */</span></span><br><span class="line">    <span class="keyword">if</span> (state-&gt;epfd == <span class="number">-1</span>) &#123;</span><br><span class="line">        zfree(state-&gt;events);</span><br><span class="line">        zfree(state);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    eventLoop-&gt;apidata = state;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码也很好理解，首先你要搞明白epoll的几个相关的API，就知道这是在干什么了，下面我介绍一下epoll的相关API：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建epoll实例</span></span><br><span class="line"><span class="comment">// #include &lt;sys/epoll.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 控制epoll，可以添加或者是修改对fd的监听情况</span></span><br><span class="line"><span class="comment">// #include &lt;sys/epoll.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, struct epoll_event *event)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// epoll_event</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> &#123;</span></span><br><span class="line">    __u32 events;</span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">void</span> *ptr;</span><br><span class="line">        <span class="keyword">int</span> fd;</span><br><span class="line">        __u32 u32;</span><br><span class="line">        __u64 u64;</span><br><span class="line">    &#125; data;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等待epoll事件</span></span><br><span class="line"><span class="comment">// #include &lt;sys/epoll.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event *events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>重点介绍一下<strong>epoll_wait</strong>，这个函数会等待你通过<strong>epoll_ctl</strong>添加的<strong>fd</strong>上发生事件，将事件信息放到<strong>events</strong>中，并且我们需要通过参数<strong>maxevents</strong>告诉<strong>epoll_wait</strong>这个<strong>events</strong>的容量，<strong>timeout</strong>决定了我们等待的时间。</p>
+<p>这下我们就清楚了<strong>aeApiState</strong>就是保存了<strong>epfd</strong>和等待返回需要用到的数组<strong>events</strong>而已！</p>
+<p><strong>a small summary</strong></p>
+<p>到了这里我们对<strong>aeEventLoop</strong>就会有一个比较直观的理解，这里结构体用来管理我们的<strong>Redis</strong>中的两种重要的事件，其中文件事件是用数组进行管理的，时间事件是用链表管理的，每一个<strong>aeFileEvent</strong>和<strong>aeTimeEvent</strong>结构里面都保存了相应的函数指针（hook）。</p>
+<p>但是文件事件更多的是Redis处理连接的读写请求，这里实际上是用到了多路复用的IO模型，<strong>apistate</strong>保存了epoll(select, poll)实例，之后文件事件的处理会需要epoll的帮助。另外触发的事件会被放进<strong>fired</strong>数组，所以之后只需要对fired数组中的文件事件进行相关的处理就行了。</p>
+<p>好了，当你看到这里之后就会明白整个事件的管理逻辑，那么后续肯定会提供一系列的管理API，就是我们常说的增删改查，这里我就只是把这些API列出来，不做进一步的解释了，大家可以自己看一下，有些里面还是有一些很细小的逻辑需要理解，但是并不影响整个源码的阅读！</p>
+<p><strong>Manage API：</strong></p>
+<ul>
+<li><strong>int aeCreateFileEvent(aeEventLoop *eventLoop, int fd, int mask, aeFileProc *proc, void *clientData)</strong> =&gt; 创建一个文件事件放入aeEventLoop</li>
+<li><strong>void aeDeleteFileEvent(aeEventLoop *eventLoop, int fd, int mask)</strong> =&gt; 删除一个文件事件中的<strong>mask</strong>掩码包含的事件</li>
+<li><strong>int aeGetFileEvents(aeEventLoop *eventLoop, int fd)</strong> =&gt; 根据fd获取一个文件事件</li>
+<li><strong>long long aeCreateTimeEvent(aeEventLoop *eventLoop, long long milliseconds, aeTimeProc *proc, void *clientData, aeEventFinalizerProc *finalizerProc)</strong> =&gt; 创建一个时间事件</li>
+<li><strong>int aeDeleteTimeEvent(aeEventLoop *eventLoop, long long id)</strong> =&gt; 删除一个时间事件</li>
+<li><strong>static long msUntilEarliestTimer(aeEventLoop *eventLoop)</strong> =&gt; 获取触发时间离现在最近的时间事件</li>
+</ul>
+<p>需要说一下的就是这里对文件事件的区分是利用<strong>fd</strong>(file descriptor)完成的，而对时间事件的区分是利用一个long long类型的<strong>id</strong>完成的。以上的API的操作无非就是在数组和链表中删除或者是增加一个元素，元素的对比分别利用<strong>fd</strong>和<strong>id</strong>完成。（当然，细节大家还是自己看！）</p>
+<p><strong>process event</strong></p>
+<p>说了整个aeEventLoop是怎么创建，怎么管理各种事件之后自然就是要理解Redis是怎么处理这里文件事件和时间事件的。之前的内容我简单的说过对文件事件的监听是利用相关的多路复用IO完成，触发的事件会放进fired数组，自然就是遍历fired数组完成。对于时间事件的处理我还没有进一步说明，其实也很简单，就是暴力的遍历那一条链表，如果时间到了就触发。</p>
+<p>因为时间事件的处理十分简单，对于时间事件的处理被单独抽离成了一个processTimeEvents数组，后面的全部事件处理函数processEvents会调用时间事件处理函数，下面依次来看一下这两个函数。</p>
+<p><strong>1.processTimeEvents</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Process time events */</span></span><br><span class="line"><span class="comment">// 包括移除已经处于deleted状态的time-event并且执行到达时间的time-event</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">processTimeEvents</span><span class="params">(aeEventLoop *eventLoop)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> processed = <span class="number">0</span>;</span><br><span class="line">    aeTimeEvent *te;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> maxId;</span><br><span class="line"></span><br><span class="line">    te = eventLoop-&gt;timeEventHead;</span><br><span class="line">    maxId = eventLoop-&gt;timeEventNextId<span class="number">-1</span>;</span><br><span class="line">    <span class="comment">// 通过微妙计时器获取当前时间</span></span><br><span class="line">    monotime now = getMonotonicUs();</span><br><span class="line">    <span class="keyword">while</span>(te) &#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> id;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Remove events scheduled for deletion. */</span></span><br><span class="line">        <span class="comment">// 移除已经被delete的time-event，前面的删除时间事件函数只是将时间事件标识为AE_DELETED_EVENT_ID，这个时候会真正从链表删除</span></span><br><span class="line">        <span class="keyword">if</span> (te-&gt;id == AE_DELETED_EVENT_ID) &#123;</span><br><span class="line">            aeTimeEvent *next = te-&gt;next;</span><br><span class="line">            <span class="comment">/* If a reference exists for this timer event,</span></span><br><span class="line"><span class="comment">             * don't free it. This is currently incremented</span></span><br><span class="line"><span class="comment">             * for recursive timerProc calls */</span></span><br><span class="line">            <span class="comment">// 如果这个时间事件还在被引用。那么暂时不移除</span></span><br><span class="line">            <span class="keyword">if</span> (te-&gt;refcount) &#123;</span><br><span class="line">                te = next;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (te-&gt;prev)</span><br><span class="line">                te-&gt;prev-&gt;next = te-&gt;next;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                eventLoop-&gt;timeEventHead = te-&gt;next;</span><br><span class="line">            <span class="keyword">if</span> (te-&gt;next)</span><br><span class="line">                te-&gt;next-&gt;prev = te-&gt;prev;</span><br><span class="line">            <span class="keyword">if</span> (te-&gt;finalizerProc) &#123;</span><br><span class="line">                <span class="comment">// 执行final事件（hook）</span></span><br><span class="line">                te-&gt;finalizerProc(eventLoop, te-&gt;clientData);</span><br><span class="line">                now = getMonotonicUs();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 释放内存</span></span><br><span class="line">            zfree(te);</span><br><span class="line">            te = next;</span><br><span class="line">            <span class="comment">// next cycle</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Make sure we don't process time events created by time events in</span></span><br><span class="line"><span class="comment">         * this iteration. Note that this check is currently useless: we always</span></span><br><span class="line"><span class="comment">         * add new timers on the head, however if we change the implementation</span></span><br><span class="line"><span class="comment">         * detail, this check may be useful again: we keep it here for future</span></span><br><span class="line"><span class="comment">         * defense. */</span></span><br><span class="line">        <span class="comment">// 不处理本次process过程中添加的time-event，我们在处理的时候可能会有时间事件加入到链表，但是这一次我们并不处理</span></span><br><span class="line">        <span class="keyword">if</span> (te-&gt;id &gt; maxId) &#123;</span><br><span class="line">            te = te-&gt;next;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// te-&gt;when &lt;= now，达到了触发条件</span></span><br><span class="line">        <span class="keyword">if</span> (te-&gt;when &lt;= now) &#123;</span><br><span class="line">            <span class="keyword">int</span> retval;</span><br><span class="line"></span><br><span class="line">            id = te-&gt;id;</span><br><span class="line">            te-&gt;refcount++;</span><br><span class="line">            <span class="comment">// timeEvent callback</span></span><br><span class="line">            retval = te-&gt;timeProc(eventLoop, id, te-&gt;clientData);</span><br><span class="line">            te-&gt;refcount--;</span><br><span class="line">            processed++;</span><br><span class="line">            <span class="comment">// 更新当前时间</span></span><br><span class="line">            now = getMonotonicUs();</span><br><span class="line">            <span class="keyword">if</span> (retval != AE_NOMORE) &#123;</span><br><span class="line">                <span class="comment">// 将时间推迟，这样可以实现循环事件</span></span><br><span class="line">                te-&gt;when = now + retval * <span class="number">1000</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 调用之后同样是惰性删除</span></span><br><span class="line">                te-&gt;id = AE_DELETED_EVENT_ID;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        te = te-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> processed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以对于事件时间的处理是很简单的，无非就是将之前标记为<strong>AE_DELETED_EVENT_ID</strong>的事件从链表删除，对已经达到执行时间的事件调用callback，在调用完成之后有两个选择：</p>
+<ul>
+<li>将触发时间推迟（会一次又一次的触发 =&gt; 循环事件）</li>
+<li>标记为<strong>AE_DELETED_EVENT_ID</strong>，下一次再删除</li>
+</ul>
+<p><strong>2.aeProcessEvents</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据flags来决定怎么处理事件</span></span><br><span class="line"><span class="comment">// 例如处理所有事件或者只处理时间事件等等...</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">aeProcessEvents</span><span class="params">(aeEventLoop *eventLoop, <span class="keyword">int</span> flags)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> processed = <span class="number">0</span>, numevents;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Nothing to do? return ASAP */</span></span><br><span class="line">    <span class="keyword">if</span> (!(flags &amp; AE_TIME_EVENTS) &amp;&amp; !(flags &amp; AE_FILE_EVENTS)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Note that we want call select() even if there are no</span></span><br><span class="line"><span class="comment">     * file events to process as long as we want to process time</span></span><br><span class="line"><span class="comment">     * events, in order to sleep until the next time event is ready</span></span><br><span class="line"><span class="comment">     * to fire. */</span></span><br><span class="line">    <span class="comment">// 如果有file-event，一定先处理file-event</span></span><br><span class="line">    <span class="comment">// 如果没有file-event，但是没有设置AE_DONT_WAIT(不等待)，那就先调用epoll等一下file-event再说</span></span><br><span class="line">    <span class="keyword">if</span> (eventLoop-&gt;maxfd != <span class="number">-1</span> ||</span><br><span class="line">        ((flags &amp; AE_TIME_EVENTS) &amp;&amp; !(flags &amp; AE_DONT_WAIT))) &#123;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">tv</span>, *<span class="title">tvp</span>;</span></span><br><span class="line">        <span class="keyword">long</span> msUntilTimer = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (flags &amp; AE_TIME_EVENTS &amp;&amp; !(flags &amp; AE_DONT_WAIT))</span><br><span class="line">            <span class="comment">// 获取最早将要执行的time-event的时间</span></span><br><span class="line">            msUntilTimer = msUntilEarliestTimer(eventLoop);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (msUntilTimer &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果msUntilTimer &gt;= 0，说明还需要一段时间才会有时间事件触发，可以先让epoll去等待这么长时间</span></span><br><span class="line">            tv.tv_sec = msUntilTimer / <span class="number">1000</span>;</span><br><span class="line">            tv.tv_usec = (msUntilTimer % <span class="number">1000</span>) * <span class="number">1000</span>;</span><br><span class="line">            tvp = &amp;tv;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">/* If we have to check for events but need to return</span></span><br><span class="line"><span class="comment">             * ASAP because of AE_DONT_WAIT we need to set the timeout</span></span><br><span class="line"><span class="comment">             * to zero */</span></span><br><span class="line">            <span class="keyword">if</span> (flags &amp; AE_DONT_WAIT) &#123;</span><br><span class="line">                <span class="comment">// 设置了AE_DONT_WAIT，如果时间设为0，epoll会立即返回</span></span><br><span class="line">                tv.tv_sec = tv.tv_usec = <span class="number">0</span>;</span><br><span class="line">                tvp = &amp;tv;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">/* Otherwise we can block */</span></span><br><span class="line">                <span class="comment">// epoll会一直等待，直到有事件发生</span></span><br><span class="line">                tvp = <span class="literal">NULL</span>; <span class="comment">/* wait forever */</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (eventLoop-&gt;flags &amp; AE_DONT_WAIT) &#123;</span><br><span class="line">            tv.tv_sec = tv.tv_usec = <span class="number">0</span>;</span><br><span class="line">            tvp = &amp;tv;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// epoll等待进入sleep之前的hook</span></span><br><span class="line">        <span class="keyword">if</span> (eventLoop-&gt;beforesleep != <span class="literal">NULL</span> &amp;&amp; flags &amp; AE_CALL_BEFORE_SLEEP)</span><br><span class="line">            eventLoop-&gt;beforesleep(eventLoop);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Call the multiplexing API, will return only on timeout or when</span></span><br><span class="line"><span class="comment">         * some event fires. */</span></span><br><span class="line">        <span class="comment">// 调用epoll的api，AE_DONT_WAIT条件促使tvp为0，epoll_wait应该是立即返回，不会等待</span></span><br><span class="line">        numevents = aeApiPoll(eventLoop, tvp);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* After sleep callback. */</span></span><br><span class="line">        <span class="comment">// 执行等待之后的hook(callback)</span></span><br><span class="line">        <span class="keyword">if</span> (eventLoop-&gt;aftersleep != <span class="literal">NULL</span> &amp;&amp; flags &amp; AE_CALL_AFTER_SLEEP)</span><br><span class="line">            eventLoop-&gt;aftersleep(eventLoop);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// epoll经过等待之后的返回的事件</span></span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; numevents; j++) &#123;</span><br><span class="line">            aeFileEvent *fe = &amp;eventLoop-&gt;events[eventLoop-&gt;fired[j].fd];</span><br><span class="line">            <span class="keyword">int</span> mask = eventLoop-&gt;fired[j].mask;</span><br><span class="line">            <span class="keyword">int</span> fd = eventLoop-&gt;fired[j].fd;</span><br><span class="line">            <span class="comment">// 当前fd触发的事件</span></span><br><span class="line">            <span class="keyword">int</span> fired = <span class="number">0</span>; <span class="comment">/* Number of events fired for current fd. */</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/* Normally we execute the readable event first, and the writable</span></span><br><span class="line"><span class="comment">             * event later. This is useful as sometimes we may be able</span></span><br><span class="line"><span class="comment">             * to serve the reply of a query immediately after processing the</span></span><br><span class="line"><span class="comment">             * query.</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * However if AE_BARRIER is set in the mask, our application is</span></span><br><span class="line"><span class="comment">             * asking us to do the reverse: never fire the writable event       // 永远不要在readable event之后触发writable event</span></span><br><span class="line"><span class="comment">             * after the readable. In such a case, we invert the calls.</span></span><br><span class="line"><span class="comment">             * This is useful when, for instance, we want to do things</span></span><br><span class="line"><span class="comment">             * in the beforeSleep() hook, like fsyncing a file to disk,</span></span><br><span class="line"><span class="comment">             * before replying to a client. */</span></span><br><span class="line">            <span class="keyword">int</span> invert = fe-&gt;mask &amp; AE_BARRIER;</span><br><span class="line">            <span class="comment">// invert = false(0), readable and writable</span></span><br><span class="line">            <span class="comment">// invert = true(1), writeble and readable</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/* Note the "fe-&gt;mask &amp; mask &amp; ..." code: maybe an already</span></span><br><span class="line"><span class="comment">             * processed event removed an element that fired and we still</span></span><br><span class="line"><span class="comment">             * didn't processed, so we check if the event is still valid.</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * Fire the readable event if the call sequence is not</span></span><br><span class="line"><span class="comment">             * inverted. */</span></span><br><span class="line">            <span class="keyword">if</span> (!invert &amp;&amp; fe-&gt;mask &amp; mask &amp; AE_READABLE) &#123;</span><br><span class="line">                fe-&gt;rfileProc(eventLoop,fd,fe-&gt;clientData,mask);</span><br><span class="line">                fired++;</span><br><span class="line">                fe = &amp;eventLoop-&gt;events[fd]; <span class="comment">/* Refresh in case of resize. */</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* Fire the writable event. */</span></span><br><span class="line">            <span class="keyword">if</span> (fe-&gt;mask &amp; mask &amp; AE_WRITABLE) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!fired || fe-&gt;wfileProc != fe-&gt;rfileProc) &#123;</span><br><span class="line">                    fe-&gt;wfileProc(eventLoop,fd,fe-&gt;clientData,mask);</span><br><span class="line">                    fired++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* If we have to invert the call, fire the readable event now</span></span><br><span class="line"><span class="comment">             * after the writable one. */</span></span><br><span class="line">            <span class="keyword">if</span> (invert) &#123;</span><br><span class="line">                fe = &amp;eventLoop-&gt;events[fd]; <span class="comment">/* Refresh in case of resize. */</span></span><br><span class="line">                <span class="keyword">if</span> ((fe-&gt;mask &amp; mask &amp; AE_READABLE) &amp;&amp;</span><br><span class="line">                    (!fired || fe-&gt;wfileProc != fe-&gt;rfileProc))</span><br><span class="line">                &#123;</span><br><span class="line">                    fe-&gt;rfileProc(eventLoop,fd,fe-&gt;clientData,mask);</span><br><span class="line">                    fired++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            processed++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* Check time events */</span></span><br><span class="line">    <span class="keyword">if</span> (flags &amp; AE_TIME_EVENTS)</span><br><span class="line">        <span class="comment">// 处理完file-event之后才会处理time-event</span></span><br><span class="line">        processed += processTimeEvents(eventLoop);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> processed; <span class="comment">/* return the number of processed file/time events */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里唯一复杂的地方就是 <strong>AE_BARRIER</strong>会影响事件触发的顺序，我们依次讨论：</p>
+<ul>
+<li>设置<strong>AE_BARRIER</strong>：先处理写事件，然后处理读事件</li>
+<li>不设置<strong>AE_BARRIER</strong>：先处理读事件，然后处理写事件</li>
+</ul>
+<p>这里要理清<strong>epoll API</strong>调用的时间参数的作用，这里的<strong>tvp</strong>时间参数会造成epoll等待的时间不同，可能等待一定的时间返回，或者是立即返回，又或者是等待直到有事件发生时就会返回。主体逻辑就是先处理文件事件，然后处理时间事件。</p>
+<p><strong>eventLoop start</strong></p>
+<p>上面我们说了，整个redis事件处理流程就是先处理文件事件，再处理时间事件的一个顺序，我们肯定需要一个让这个事件循环的对象运行起来的入口，这就是<strong>aeMain</strong>函数的作用了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// eventLoop main loop</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">aeMain</span><span class="params">(aeEventLoop *eventLoop)</span> </span>&#123;</span><br><span class="line">    eventLoop-&gt;stop = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!eventLoop-&gt;stop) &#123;</span><br><span class="line">        aeProcessEvents(eventLoop, AE_ALL_EVENTS|</span><br><span class="line">                                   AE_CALL_BEFORE_SLEEP|</span><br><span class="line">                                   AE_CALL_AFTER_SLEEP);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实很简单，就是不断地循环，调用<strong>aeProcessEvents</strong>去处理<strong>eventLoop</strong>这个对象中的事件，很好理解。</p>
+<p>到这里，其实整个事件循环模块就已经介绍完了，当然我们只是弄懂了大致的一个运行逻辑，更深的一些细节（比如那些处理事件的标志有什么作用，增删事件的一些细节，以及每次处理事件的时候如果又有新的事件加入该怎么处理）没有介绍，这个还是要大家一行一行的去理解相关的代码，这里限于博主个人的精力就不在继续展示，所有的解答都在代码中！</p>
+<h3 id="epoll-ae-epoll-h-ae-epoll-c"><a href="#epoll-ae-epoll-h-ae-epoll-c" class="headerlink" title="epoll[ae_epoll.h, ae_epoll.c]"></a><strong>epoll[ae_epoll.h, ae_epoll.c]</strong></h3><p>上面在讲述事件循环模块的时候我提到了对于<strong>file-event</strong>的处理跟网络有关，再处理很多连接的时候用到了多路IO复用这个手段来提升redis的性能。redis事件循环是一种经典的单线程多路IO复用模型，这里我只介绍epoll这种模型的使用方法，然后分析redis是如何使用的。</p>
+<p>首先我们要了解epoll的工作原理，在常见的web服务器模型中我们一般是给每一个客户端分配一个连接，但是在客户端与服务器通信的过程中的IO是会阻塞的（例如服务端可能要花很长的时间来等待客户端传来的数据），这样就会导致每个连接的性能全部消耗在了IO上面，并没有很好地发挥CPU的计算能力。于是人们就想到了一种方法，能不能让一个进程（线程）来监听我们感兴趣的套接字描述符，等到其中出现了可以进行读写的时候就返回，我们的工作进程（线程）就可以直接处理，而不用一直等待。这样的结果就是在连接很多的时候（套接字描述符），只需要一个进程去监听这一组描述符，工作进程暂时进入休眠状态，等到有相关的连接（套接字描述符）可以读写的时候再唤醒相应的工作进程。</p>
+<p>这种监听一组套接字描述符的任务实际上是操作系统的内核帮助我们完成，我们需要调用OS提供的API。另外我们也要意识到，多路IO复用跟单进程多进程没有直接关系，如果我们把调用epoll API的进程成为master进程的话，master完全可以把就绪的套接字描述符分给很多的worker进程处理，或者也可以自己逐个处理，这二者就是多进程和单进程。为了实现的简单和极致的性能，redis采用了单进程模型。（所以我们不能说redis整个就是一个单进程，而是redis在处理事件的时候是一种多路IO复用的单进程模型）。</p>
+<p>ok，多路复用IO暂时说到这里，直接来看epoll的API：</p>
+<p><strong>创建epoll实例</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// #include &lt;sys/epoll.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create1</span><span class="params">(<span class="keyword">int</span> flags)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// #include &lt;sys/epoll.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>控制epoll</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// #include &lt;sys/epoll.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, struct epoll_event *event)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这里的op(对epoll实例的操作)可以是：</p>
+<ul>
+<li><strong>EPOLL_CTL_ADD</strong></li>
+<li><strong>EPOLL_CTL_DEL</strong></li>
+<li><strong>EPOLL_CTL_MOD</strong></li>
+<li><strong>EPOLL_CTL_CLOEXEC</strong></li>
+</ul>
+<p><strong>epoll_event</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> &#123;</span></span><br><span class="line">    __u32 events;</span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">void</span> *ptr;</span><br><span class="line">        <span class="keyword">int</span> fd;</span><br><span class="line">        __u32 u32;</span><br><span class="line">        __u64 u64;</span><br><span class="line">    &#125; data;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>等待epoll事件</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// #include &lt;sys/epoll.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event *events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>timeout为0，即使没有事件也会返回0，timeout为-1，一直等待到有事件出现，timeout为整数表示等待一定的时间返回。</p>
+<p>关于epoll我们还要知道水平触发和边缘触发：</p>
+<ul>
+<li>Level-triggered：只要fd中有事件（可读可写）就会返回</li>
+<li>Edge-trigered：只有fd出现了新事件才会返回</li>
+</ul>
+<p>例如我们用epoll监听一个fd，这个fd中被写入了1K数据，这二者都会返回，应为符合他们的触发条件。但是如果只读取0.5K的数据，再次用epoll监听，那么边缘触发会立即返回，而水平触发并不会。</p>
+<p><strong>a demo for epoll</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> epfd;</span><br><span class="line">    <span class="keyword">int</span> nr_events;</span><br><span class="line">    <span class="keyword">int</span> fd[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">int</span> ret;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">11</span>];</span><br><span class="line">    <span class="keyword">char</span> *msg = <span class="string">"hello\n"</span>;</span><br><span class="line">    <span class="keyword">int</span> rflag = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> wflag = <span class="number">0</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> *<span class="title">events</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">e1</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">e2</span>;</span></span><br><span class="line"></span><br><span class="line">    epfd = epoll_create1(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (epfd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">"epoll error!"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    events = (struct epoll_event*)<span class="built_in">malloc</span>(<span class="number">2</span> * <span class="keyword">sizeof</span>(struct epoll_event));</span><br><span class="line">    <span class="keyword">if</span> (!events) &#123;</span><br><span class="line">        perror(<span class="string">"malloc error!"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fd[<span class="number">0</span>] = fileno(<span class="built_in">stdin</span>);</span><br><span class="line">    fd[<span class="number">1</span>] = fileno(<span class="built_in">stdout</span>);</span><br><span class="line">    e1.events = EPOLLIN;</span><br><span class="line">    e1.data.fd = fd[<span class="number">0</span>];</span><br><span class="line">    e2.events = EPOLLOUT;</span><br><span class="line">    e2.data.fd = fd[<span class="number">1</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"fd[2] = &#123;%d, %d&#125;\n"</span>, fd[<span class="number">0</span>], fd[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ret = epoll_ctl(epfd, EPOLL_CTL_ADD, fd[<span class="number">0</span>], &amp;e1);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">"epoll add stdin error!"</span>);</span><br><span class="line">        <span class="built_in">free</span>(events);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ret = epoll_ctl(epfd, EPOLL_CTL_ADD, fd[<span class="number">1</span>], &amp;e2);</span><br><span class="line">    <span class="keyword">if</span> (ret == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">"epoll add stdout error!"</span>);</span><br><span class="line">        <span class="built_in">free</span>(events);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        nr_events = epoll_wait(epfd, events, <span class="number">2</span>, <span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nr_events; i++) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"fd = %d\n"</span>, events[i].data.fd);</span><br><span class="line">            <span class="keyword">if</span> (events[i].data.fd == fd[<span class="number">0</span>] &amp;&amp; !rflag) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"ok\n"</span>);</span><br><span class="line">                <span class="keyword">int</span> r = read(fd[<span class="number">0</span>], buf, <span class="number">10</span>);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"r = %d\n"</span>, r);</span><br><span class="line">                buf[<span class="number">10</span>] = <span class="string">'\0'</span>;</span><br><span class="line">                <span class="keyword">if</span> (r == <span class="number">-1</span>) &#123;</span><br><span class="line">                    perror(<span class="string">"read error!"</span>);</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                rflag = <span class="number">1</span>;</span><br><span class="line">                r = epoll_ctl(epfd, EPOLL_CTL_DEL, fd[<span class="number">0</span>], &amp;e1);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (events[i].data.fd == fd[<span class="number">1</span>] &amp;&amp; !wflag) &#123;</span><br><span class="line">                <span class="keyword">int</span> r = write(fd[<span class="number">1</span>], msg, <span class="number">6</span>);</span><br><span class="line">                <span class="keyword">if</span> (r == <span class="number">-1</span>) &#123;</span><br><span class="line">                    perror(<span class="string">"write error!"</span>);</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                wflag = <span class="number">1</span>;</span><br><span class="line">                r = epoll_ctl(epfd, EPOLL_CTL_DEL, fd[<span class="number">1</span>], &amp;e2);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (rflag &amp;&amp; wflag) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"buf: %s\n"</span>, buf);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好了，假设你看了上面的epoll API和相关的demo之后对epoll有了一定的了解我们就可以进入<strong>ae_epoll</strong>模块的源码学习了！</p>
+<p>前面已经讲了<strong>aeApiCreate</strong>是如何创建epoll实例并放入<strong>eventLoop</strong>实例的，这里我们重点看一下是如何等待事件的，也就是<strong>aeApiPoll</strong>这个函数。</p>
+<p><strong>aeApiPoll</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">aeApiPoll</span><span class="params">(aeEventLoop *eventLoop, struct timeval *tvp)</span> </span>&#123;</span><br><span class="line">    aeApiState *state = eventLoop-&gt;apidata;</span><br><span class="line">    <span class="keyword">int</span> retval, numevents = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// tvp = 0 =&gt; no wait and return</span></span><br><span class="line">    <span class="comment">// tvp = NULL =&gt; wait until a event happen</span></span><br><span class="line">    <span class="comment">// state-&gt;epfd 创建的代表epoll实例的fd</span></span><br><span class="line">    <span class="comment">// 这里的timeout影响epoll的等待策略，可以根据之前的讲述去理解</span></span><br><span class="line">    retval = epoll_wait(state-&gt;epfd,state-&gt;events,eventLoop-&gt;setsize,</span><br><span class="line">            tvp ? (tvp-&gt;tv_sec*<span class="number">1000</span> + tvp-&gt;tv_usec/<span class="number">1000</span>) : <span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">if</span> (retval &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line"></span><br><span class="line">        numevents = retval;</span><br><span class="line">        <span class="comment">// 这里封装的api先对epoll返回的事件进行了处理</span></span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; numevents; j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> mask = <span class="number">0</span>;</span><br><span class="line">            <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> *<span class="title">e</span> = <span class="title">state</span>-&gt;<span class="title">events</span>+<span class="title">j</span>;</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (e-&gt;events &amp; EPOLLIN) mask |= AE_READABLE;</span><br><span class="line">            <span class="keyword">if</span> (e-&gt;events &amp; EPOLLOUT) mask |= AE_WRITABLE;</span><br><span class="line">            <span class="keyword">if</span> (e-&gt;events &amp; EPOLLERR) mask |= AE_WRITABLE|AE_READABLE;</span><br><span class="line">            <span class="keyword">if</span> (e-&gt;events &amp; EPOLLHUP) mask |= AE_WRITABLE|AE_READABLE;</span><br><span class="line">            <span class="comment">// 要把events中的file-event放到fired中去</span></span><br><span class="line">            eventLoop-&gt;fired[j].fd = e-&gt;data.fd;</span><br><span class="line">            eventLoop-&gt;fired[j].mask = mask;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> numevents;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>明白了吗？我们将发生了事件的<strong>fd</strong>放到<strong>eventLoop</strong>中的<strong>fired</strong>数组中去，还记得上面的<strong>aeProcessEvent</strong>是怎么处理的吗？可不就是用我们注册的事件处理函数去逐个处理<strong>fired</strong>中的<strong>fd</strong>。</p>
+<p>所以<strong>aeEventLoop-&gt;apistate</strong>只是对epoll实例的一个包装而已，利用它可以实现多路复用IO，而且这里redis在等待之后并没有把事件分发给另外的进程，而是就地处理，这体现了redis的<strong>单进程</strong>！</p>
+<p>当然，还有几个函数是封装了对epoll实例的EPOLL_CTL_DEL和EPOLL_CTL_MOD的操作，这就不赘述了。</p>
+<p><strong>By the way</strong></p>
+<p>写到这里，redis中的<strong>zmalloc</strong>、<strong>ae</strong>、<strong>ae_epoll</strong>模块就大致讲完了，都是大致梳理了一下思路，大家想要深入学习一定要自己看。redis的代码非常的经典，并且模块化程度很高，是非常利于我们进行源码阅读的。</p>
+<p>由于其中很多东西跟系统调用有关，建议大家阅读之前了解一下unix/linux系统调用的知识，最好手边有一本”UNIX环境编程”可以随时参考。</p>
+<p>2020.12.03</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic34.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/28/漫谈http/" title="漫谈http">
+								漫谈http			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 28日, 2020				
+							</p>
+							<p class="relate-post-content">
+								与http有关的知识点http status codehttp的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/26/漫谈AQS/" title="漫谈AQS">
+								漫谈AQS			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 26日, 2020				
+							</p>
+							<p class="relate-post-content">
+								AbstractQueuedSynchronizer实习回来又要投入到秋招的浪潮当中，虽然本人目前是更加倾向于GO方面的岗位，但是也深知自己对GO的理解可能还是不够深入，Java的岗位自己也是想去尝试一下。
+因为之前一直是准备Java...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/26/漫谈AQS/" title="漫谈AQS">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic30.jpg" alt="漫谈AQS"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

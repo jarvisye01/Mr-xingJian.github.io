@@ -1,0 +1,1074 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      TCP/IP层次分析 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《TCP/IP层次分析》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/07/05/TCP-IP层次分析/" itemprop="url">
+		TCP/IP层次分析
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/07/05/TCP-IP层次分析/" itemprop="url">
+		<time datetime="2020-07-04T16:51:30.000Z" itemprop="datePublished">
+	  		2020-07-05
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/07/05/TCP-IP层次分析/" itemprop="url">
+		<time datetime="2020-07-04T16:51:30.000Z" itemprop="dateUpdated">
+	  		2020-07-05
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/network/" class=" ">
+			network
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="TCP-IP网络层次分析"><a href="#TCP-IP网络层次分析" class="headerlink" title="TCP/IP网络层次分析"></a>TCP/IP网络层次分析</h3><p><strong>Background</strong></p>
+<p>由于疫情原因，本学期的所有考试都改为提交相关的作业，虽然不用复习，这是做这种逻辑严密的论述对于我们还是有困难的，特别是计网这种硬核课程。以个人学习网络的经验，把这些层的多多少少的带一点出来，希望不要闹笑话。</p>
+<p><strong>OSI的五层协议</strong></p>
+<p>OSI的标准制定的是一种7层协议，但是因为太过于复杂，并不实用，这一篇文章我还是按照TCP/IP的五层协议来叙述。</p>
+<p>经典的TCP/IP五层协议分为：</p>
+<ul>
+<li>应用层：离计算机程序最近的一层，主要为计算机程序提供网络接口，并且承担相关的编码、解码和会话管理的上层功能</li>
+<li>运输层：建立主机到主机的一个链接，为上层提供数据传输服务，屏蔽下层的数据通信细节</li>
+<li>网络层：基于IP地址来选择合适的路由，通过一个个路由器节点将分组传送到目的IP主机</li>
+<li>数据链路层：将上层的分组封装成帧，并将下层的比特流组装成帧，完成数据在链路上的透明传输</li>
+<li>物理层：规定比特流的传输，主要规定一些电气特性和机械特性</li>
+</ul>
+<p>每一层次都有对应的设备，不同层次承担不同的责任，即使相同的层次在校园不同的区域之间的重要性也是不一样，下面分层次来逐个谈一谈。</p>
+<p><strong>应用层</strong></p>
+<p>应用层是我们在编写程序时直接使用的网络接口，在校园网中因为资源的私有性程度较高更多的会采用https协议，在学生提交作业的场景下又需要用到ftp协议，下面简单的谈一下这两个协议。</p>
+<p><strong><em>https</em></strong>：https是架设在http协议之上的超文本安全传输协议，全程Http on SSl（TLS），解决了http明文传输、无法提供服务器身份认证、保护账户和保持用户通信的缺点。https集成了加密、数据完成性和身份认证三大安全特性，能够有效防止信息监听和中间人攻击。</p>
+<p><strong><em>非对称加密</em></strong>：非对称加密的好处是加密和解密分别使用公钥和私钥，正是因为公钥和私钥具有很强的联系，所以非对称加密除了能够很好的加密我们的数据之外还能帮助我们做有效的身份认证，私钥加密的数据只能由公钥解密，反之亦然，缺点则是加密速度比较慢。</p>
+<p><strong><em>对称加密</em></strong>：对称加密秘钥和解密秘钥是相同的，加解密速度快，缺点的需要保持秘钥的安全性，一旦秘钥丢失安全性就不在</p>
+<p>https很好的结合了这两种加密方式的优点，使用非对称加密（证书、信息摘要）完成身份认证，使用对称加密完成普通传输数据的加密和解密，达到了安全性和性能的平衡。</p>
+<p>https的主要请求步骤：</p>
+<ol>
+<li>client发起请求</li>
+<li>server向client返回公钥</li>
+<li>client验证公钥的正确性，公钥一般是随着证书（CA）一起返回，client通过已经安装在操作系统中的可信赖的权威证书去验证返回的证书的真假</li>
+<li>client使用公钥加密一个对称秘钥的key发送到server</li>
+<li>server使用私钥解密得到对称秘钥key</li>
+<li>之后二者通信的内容都是利用这个对称秘钥key进行高速加密</li>
+</ol>
+<p>所以https很好的综合这两种加密方式的特点，用非对称加密验证身份，传输少量数据，保证安全性。然后利用对称加密进行正常数据传输的加密，保证加密解密的计算性能。</p>
+<p><strong>传输层</strong></p>
+<p>传输层作为我们网络协议中的重点，在校园网中一些科研数据的传输需要保证数据传输的可靠性和稳定性，这里我们着重讲一下TCP协议。说到TCP协议，绕不过去的就是流量控制和拥塞控制这两个话题。</p>
+<p><strong><em>流量控制</em></strong>：流量控制是为了解决发送方和接收方之间的数据处理速率不平衡的问题，目的是要让发送方的发送速率不要太快，要让接收方来得及接收。滑动窗口是这一措施中最经典的算法：</p>
+<ul>
+<li>发送方和接收各自维护一个窗口</li>
+<li>接收方在收到发送方的数据之后计算自己的剩余窗口大小，所以回给发送发的是信息不仅包括希望接收到的下一个开始字节，也包括一个最大可接收的字段</li>
+<li>所以接收方的接收速率（滑动窗口的大小）是整个数据传输的关键</li>
+</ul>
+<p>以上情况会出现两个问题：</p>
+<ol>
+<li>发送方的发送时机：加入接收方窗口足够，发送方从上游接收数据的速率为每秒1byte，那么如果收到1byte数据就加上头部发出去将会导致TCP连接的利用率大大降低，头部信息远远多于真正的数据信息，解决方法是使用Nagle算法优化发送时机：<ul>
+<li>发送方把第一个字节的数据发送出去，剩余的缓存（相当于一个探测作用）</li>
+<li>收到前一个报文段的确认之后发送缓存的数据</li>
+<li>如果缓存数据达到发送窗口的一半或是最大报文段就发出去</li>
+</ul>
+</li>
+<li>糊涂窗口综合征：假如接收方上游读取数据较慢，同样一秒1byte，那么接收方会向发送方发送窗口剩余大小为1byte，同样会导致信道利用率不高，解决方法：<ul>
+<li>接收方等待一定的时间，使得窗口可以容纳一个最大报文段再向发送方发送数据</li>
+<li>等待窗口空出一般向发送方发送信息</li>
+</ul>
+</li>
+</ol>
+<p><strong><em>拥塞控制</em></strong>：拥塞控制是为了防止在网络状况不好的时候有过多的数据继续注入网络，使网络中的路由器或者是链路不过载，这是一个全局性的过程。TCP的拥塞控制主要有四个算法（发送方维持一个拥塞窗口c，如果网络好就增大窗口，网络比较慢就减小窗口这是核心思想）：</p>
+<ul>
+<li><p>慢开始：开始是c = 1，然后每一次发送报文如果接收方成功的收到则增大拥塞窗口，增大策略为：c = c * 2</p>
+</li>
+<li><p>拥塞避免：c不能够按照指数一直增大，到达了相关的慢开始门限ssthresh之后，每次接收方的成功接收，增大策略变为c = c + 1</p>
+<p>如果网络出现超时，那么将c再次置位1，并开始慢开始算法，并且ssthresh = ssthresh / 2</p>
+</li>
+<li><p>快重传：当接收方未收到一个报文段之后立即向发送方发送三次未收到信息，当发送方一连收到三个确认之后立即重传丢失的报文段</p>
+</li>
+<li><p>快恢复：发送方收到三个丢失确认之后会判断此时网络并非一定就不好，毕竟还能收到三个确认，所以发送方将自己的ssthresh减小，减小策略为ssthresh = ssthresh / 2，然后重新开始慢开始算法</p>
+</li>
+</ul>
+<p><strong>网络层</strong></p>
+<p>校园网是一个典型的局域网（LAN），网络层最主要的网络设备是路由器Router，路由器可以通过其内部存储的路由表和转发表确定路由信息，也就是我们常说的根据目的IP地址选择下一跳（下一个节点）路由器。路由器中的路由信息又分为静态路由和动态路由，由于静态路由需要人工配置，在校园网这样规模较大的平台不太实用，重点讨论动态路由的RIP协议和OSPF协议，看看这两种协议分别是以什么样的形式生成路由信息。另外路由器工作在网络层，也会出现网络拥塞的问题，一旦路由器的存储空间用完，后面进入路由器的分组就会丢弃，那么网络层是如何解决这个问题的呢？</p>
+<p><strong><em>RIP</em></strong>：RIP协议全称Routing Infomation Protocl，是一种基于距离向量的路由选择协议，每个路由器都要维护一个自己到其它网络的距离向量，从计算到达某一目的网络的最近距离。RIP协议具有以下特点：</p>
+<ol>
+<li>RIP协议中的Router只跟相邻的Router交换路由信息</li>
+<li>RIP协议只保存到某个路由器的最近距离向量</li>
+<li>在RIP协议中，每个路由器并不知道整个网络拓扑的情况</li>
+</ol>
+<p>下面通过一组路由器来模拟RIP算法，假设相邻路由器的数据交换在瞬间完成，路由器交换信息的时间间隔为t。初始网络拓扑中只有R0和R1路由器,二者距离为2，下面来模拟RIP过程：</p>
+<ul>
+<li><p>0：初始情况，[R0, (R1, 2)], [R1, (R0, 2)]</p>
+</li>
+<li><p>1t：R2接入网络与R0和R1的距离分别是1和2，此时显然因为相邻是最短的，很容易得出路由信息，[R0, (R1, 2), (R2, 1)], [R1, (R0, 2), (R2, 2)], [R2, (R0, 1), (R1, 2)]</p>
+</li>
+<li><p>2t：R3接入网络，与R1和R2的距离非别是2和4，此时R0就会接收来自R1和R2的信息，到达R3的最近距离分别是2和4，R0根据自己到R1（2）和R2（1）的距离计算得到到达R3的最近距离是2+2=4，其余路由同理，生成路由信息[R0, (R1, 2), (R2, 1), (R3, 4)], [R1, (R0, 2), (R2, 2), (R3, 2)], [R2, (R0, 1), (R1, 2), (R3, 4)]</p>
+</li>
+</ul>
+<p>后面的步骤就省略了，只是重复这个过程，所以你可以认为RIP这一个比较精明的协议，它每一条路都只求最短的那一条，绝对不做亏本生意。当然RIP只有工作在网络较好的情况下才能发挥优势，你想一下，一个人每次走只抄小路，那么只有在小路和大路交通状况相同时才有优势，可是现实就是小路一般是比较难走的。所以一旦RIP选择的路线出现了问题，那么网络拥塞的状况就很难解决，因为它只会这一条路，没办法合理的调度。</p>
+<p><strong><em>OSPF</em></strong>：OSPF全称Open Shortest Path First，是一种开放最短路径算法。之所以叫做最短路径算法是因为使用了Dijkstra提出的最短路径算法，但是OPSF协议中的路由器并非只知道最短路径，严格来说OSPF中的路由器知道到达另一个网络的所有路径。OSPF协议具有以下特点：</p>
+<ol>
+<li>路由器与相邻路由器交换信息之后会将相邻路由器的信息继续抛出去</li>
+<li>路由器只需要发送自己与周围的路由器的连接信息即可</li>
+<li>只有在路由信息发生改变的时候才会使用洪泛法发送路由信息</li>
+</ol>
+<p>先来理解一下洪泛法，路由器R1收到一个相邻路由器R2的路由信息之后会继续将这个路由信息发送到除R2之外的相邻路由器，想一想一个网络中的路由器Rn，经过一次又一次的转发，Rn最后会收到[1, n - 1]个路由器的信息，那么Rn完全可以通过这个路由信息构建整个网络的拓扑图，对于网络中的另外n - 1个路由器来说亦是如此。因此在OSPF协议中每个路由器都能知道整个网络的拓扑。下面模拟OSPF算法，初始只有R0和R1两个路由器，距离为2：</p>
+<ul>
+<li>0：网络拓扑[(R0, R1, 2)]</li>
+<li>1t：R2接入网络与R0和R1的距离分别是1和2，洪泛法更新之后的网络拓扑[(R0, R1, 2), (R0, R2, 1), (R1, R2, 1)]</li>
+<li>2t：R3接入网络，与R1和R2的距离非别是2和4，洪泛法更新之后网络拓扑[(R0, R1, 2), (R0, R2, 1), (R1, R2, 1), (R1, R3, 2), (R2, R3, 4)]</li>
+</ul>
+<p>加入现在R0要发一个信息到R3，可以找到4条路径：</p>
+<ul>
+<li>R0-&gt;R1-&gt;R3， 4</li>
+<li>R0-&gt;R2-&gt;R3， 5</li>
+<li>R0-&gt;R1-&gt;R2-&gt;R3， 6</li>
+<li>R0-&gt;R2-&gt;R1-&gt;R3， 5</li>
+</ul>
+<p>至于怎么算的可以去看无向图中的DFS和BFS算法，如果你想求最短路径那就用Dijkstra算法。相比于RIP的极端，OSPF明显是个顾全大局的协议，路由器可以知道去往每一个网络的路径，如果近路好走就走近路，不好走绕远一点也能很好的到达，毕竟在OSPF这里条条大路通罗马。在一条路出现拥塞的时候，OSPF可以轻松地换一条路线继续前进。</p>
+<p>当然说了这么多并不是说OSPF要优于RIP，因为在网络较好的情况下或者某一个区域之内我们肯定会优先选择RIP协议，在比较复杂的时候可以通过OSPF更加合理的规划。另外OSPF因为需要交换的信息太多，这些洪泛的数据包本身就会占据一定的带宽和相关的计算性能，所以校园内在选择这两种协议的时候也要仔细考虑。</p>
+<p><strong><em>RED</em></strong>：RED全称Random Early Detection，也就是随机早期探测算法。路由器转发分组遵循先进先出的原则，一旦路由器缓存满了，后面的所有分组都将被丢弃，这样连续的丢包一般是不能忍受的，我们可以提前做一些随机丢包来避免：</p>
+<ul>
+<li>路由器缓存空间[1, n]，取一个1 &lt; x &lt; n</li>
+<li>当数据大小小于x时说明空间足够，正常接收</li>
+<li>当数据大小大于x时说明空间已经紧张了，接收到一个分组之后按照1 / (n - x)的概率丢弃</li>
+</ul>
+<p>这样我们就将可能会丢的包分散开了，避免了一个请求大量丢包的状况。</p>
+<p><strong>数据链路层</strong></p>
+<p>数据链路层主要是完成链路上帧的传输，封装上层分组为帧，收取下层比特流并组合为帧进而转为分组传递给上一层，为网络层提供透明无感知的数据传输服务，相对于前几层，数据链路层的算法实际上比较少。对于链路层，主要的关注点是如何完成帧的封装、透明传输和差错校验，下面重点谈一下这三个方面。</p>
+<p><strong><em>帧的封装</em></strong>：在一段数据前后添加相关的首部和尾部，将帧与帧之间区分开来，接收方皆可以实现一帧一帧的接收，不会混乱。这样有了确定的首部和尾部，也可以很好的检测帧的完整性。</p>
+<p><strong><em>透明传输</em></strong>：透明传输是指无论是什么数据，链路都应该无差别的传输，链路不管数据的具体内容，但是因为界定符的原因，导致如果数据中出现界定符，那么会导致帧的边界检测失败，这是需要改进的，主要方法插入转义字符，类似于C语言中特殊ASCII码点的转义，例如\r, \n等等</p>
+<p><strong><em>差错校验</em></strong>：链路层的差错校验重点关注的是校验，并不会对差错做出过多的纠正工作。在这一方面使用的广泛的算法是CRC循环冗余校验算法。CRC的具体步骤是：</p>
+<ul>
+<li>数据划分为组，每组K个比特</li>
+<li>选择合适的除数</li>
+<li>看选定除数的二进制位数，然后再要发送的数据帧上面加上这个位数-1位的0，然后用新生成的帧以模2除法的方式除上面的除数，得到的余数就是该帧的CRC校验码。注意，余数的位数一定只比除数位数少一位，也就是CRC校验码位数比除数位数少一位，如果前面位是0也不能省略。</li>
+<li>将计算出来的CRC校验码附加在原数据帧后面，构建成一个新的数据帧进行发送；最后接收端以模2除法方式除以前面选择的余数，如果没有余数，则说明数据帧在传输过程中没有出错。</li>
+</ul>
+<p><strong>物理层</strong></p>
+<p>物理层主要是关注网络设备的电气特性和机械特性，保证比特信号的正常传递和识别。</p>
+<p><strong>By thg way</strong></p>
+<p>今天真的是无敌累了！！！</p>
+<p>2020.07.05 00:28</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic19.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/07/04/探索Git底层工作原理/" title="探索Git底层工作原理" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/28/漫谈http/" title="漫谈http">
+								漫谈http			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 28日, 2020				
+							</p>
+							<p class="relate-post-content">
+								与http有关的知识点http status codehttp的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

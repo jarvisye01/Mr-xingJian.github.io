@@ -1,0 +1,1015 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      聊一聊web server | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《聊一聊web server》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/07/09/聊一聊web-server/" itemprop="url">
+		聊一聊web server
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/07/09/聊一聊web-server/" itemprop="url">
+		<time datetime="2020-07-09T14:06:28.000Z" itemprop="datePublished">
+	  		2020-07-09
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/07/09/聊一聊web-server/" itemprop="url">
+		<time datetime="2020-07-09T14:06:28.000Z" itemprop="dateUpdated">
+	  		2020-07-11
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/web-server/" class=" ">
+			web server
+		</a>
+	
+		<a href="/tags/php/" class=" ">
+			php
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="Web-Server在后端中起到的作用"><a href="#Web-Server在后端中起到的作用" class="headerlink" title="Web Server在后端中起到的作用"></a>Web Server在后端中起到的作用</h3><p>现在因为IDE和编程语言的发展，很多的web server要么被IDE帮我们搞定了（宇宙无敌IDEA），要么就是直接集成到了语言的内部（GO），仿佛给我们一种错觉就是我们编写的后端应用只要那一段代码就可以直接运行。其实这是不对的，我们的语言编写的只是处理请求，但是你考虑过http的请求到达服务器之后是谁来接受的吗？</p>
+<p>虽然这几年PHP的热度越来越低，但是用一下PHP会强迫你接触一下apache、nginx这样优秀的web server软件是很有利于我们进一步拓宽自己的视野，深入自己的技术栈的。好好倒腾一下，踩一下坑有益于我们的技术进步。</p>
+<p><strong>这是与本文关系不大的一篇文章，只是觉得很好</strong>：网络是怎样工作的，<a href="https://developer.mozilla.org/zh-CN/docs/learn/How_the_Internet_works" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/learn/How_the_Internet_works</a></p>
+<p><strong>web server在硬件和软件两个领域有着不同的概念</strong></p>
+<ul>
+<li><strong><em>硬件</em></strong>：一台存储webpage，文件资源的计算机，这台计算机被接入互联网，可以接收不同客户端的请求，并将这些资源返回，例如你租一台腾讯云的服务器运行你的网站，我们就称这台计算机为一台服务器。server与client相对，这台计算机更多是提供服务，而我们的个人pc更多是请求服务</li>
+<li><strong><em>软件</em></strong>：以一台linux系统的服务器来讲，它本身并不能承载复杂的请求处理，需要运行相关的软件来完成这些复杂请求的处理，例如apache、nginx和lighttpd等等，这些专门为处理request而设计的软件才是真正请求处理者，OS与硬件只是提供基本能力的支持，这时候的server就更加具体了，这些server软件会去计算机中寻找你所请求的相关文件并返回</li>
+</ul>
+<p><strong>动态服务器与静态服务器</strong></p>
+<ul>
+<li><strong><em>静态（static web server）</em></strong>：只提供静态资源的服务，简单点来说你仅仅需要一台linux主机加上相关的web server软件就够了，这样你就能够获取该主机之上的图片，静态网页等文件</li>
+<li><strong><em>动态（dynamic web server）</em></strong>：获取动态文件，例如一个php脚本的执行结果，除了linux主机与web server软件，你可能还需要（以php为例）一个可以调用php解释器执行脚本并将结果返回给web server的软件，或许数据库你也需要，以此类推</li>
+</ul>
+<p>**Nginx官网对web server软件的解释：</p>
+<ol>
+<li><p>A <strong>web server</strong> stores and delivers the content for a website – such as text, images, video, and application data – to clients that request it.(为一个website储存并分发内容)</p>
+</li>
+<li><p>A web server communicates with a web browser using the <a href="https://www.nginx.com/resources/glossary/http/" target="_blank" rel="noopener">Hypertext Transfer Protocol</a> (HTTP). (通过http协议与client通信，这里的client主要是browser)</p>
+</li>
+<li><p>To deliver dynamic content, most web servers support server‑side scripting languages to encode business logic into the communication.(为了动态的分发内容，许多web server软件支持服务端的脚本语言来支持业务逻辑)</p>
+</li>
+<li><p>A web server might also cache content to speed delivery of commonly requested content. (可以缓存相关内容来加速分发)</p>
+</li>
+<li><p>A web server can host a single website or multiple websites using the same software and hardware resources, which is known as <a href="https://en.wikipedia.org/wiki/Virtual_hosting" target="_blank" rel="noopener">virtual hosting</a>.(web server软件可以利用虚拟主机，在相同的软硬件资源中托管多个站点)</p>
+</li>
+</ol>
+<p>这篇文章我们重点分析最后<strong>虚拟主机</strong>和<strong>动态内容的分发</strong>，这里的脚本语言我们选择PHP来结合分析。</p>
+<p><strong>虚拟主机</strong></p>
+<p>1.概念：虚拟主机是指在web服务里的一个独立的网站站点，这个站点对应独立的域名（也可能是IP或者端口），具有独立的程序及资源目录，可以独立地对外提供服务供用户访问。怎么讲说的简单一点，你的一台服务器上可能会部署多个应用，在外部看来我们的每一个应用都是一个独立的服务，好像我们的每个应用都是部署在不同的服务器上。</p>
+<p>2.虚拟主机的类型：虽然我们是希望我们的应用是独立的，但是一般我们的服务器的IP地址都是固定的，这该怎么解决呢？</p>
+<ul>
+<li><strong><em>基于端口</em></strong>：首先最容易想到的就是端口了，我们只需要把应用挂到不同的端口之上就可以了，例如常见的8080、8081、8082，这样我们的<strong>[IP]:[PORT]</strong>形式就能区分不同的请求，发到不同的虚拟主机</li>
+<li><strong><em>基于域名</em></strong>：让用户每次都加上一个端口访问总是不那么优雅的，于是我们还有基于域名的方法，你申请了test.com域名之后完全可以添加子域名a.test.com、b.test.com等等，来自不同域名的请求可以被正确的区分并转发到相应虚拟主机，这样你就可以把所有的虚拟主机都设为80端口，这样你在访问的时候就不用添加端口这个累赘了</li>
+<li><strong><em>基于IP</em></strong>：这个首要的前提是你的服务器有多个IP地址，学习过计网应该知道一个设备是可以有多个IP地址的，这个很好理解，用户访问不同的IP自然可以区分发到相应的虚拟主机，但是这个不太实用，一般我们可以通过网站前端的负载均衡来将不同的IP请求映射到不同的服务器</li>
+</ul>
+<p><strong>CGI</strong></p>
+<p>CGI是通用网关接口的简称（Common GateWay Interface），这是很早的一种为了动态生成网页的协议，通常一次http请求会携带一定的参数，对应一个CGI脚本，这个脚本在收到参数并进行执行之后会生成一个html，最后返回到客户端。</p>
+<p><strong><em>缺陷：</em></strong>传统的CGI协议每收到一个request就会fork一个进程，处理完之后就exit，如此频繁的进程创建和销毁必然会使利用率大大降低，并发能力实在过薄弱。</p>
+<p><strong>FastCGI</strong></p>
+<p>fastcgi协议是对cgi协议的一次升级，是为了解决cgi协议每一次请求都要fork一个进程的缺陷，有过OS基础的同学应该这道这个问题的严重性。这也是早期协议很容出现的一个问题，没有考虑到资源的池化和复用。例如http1.1就没有考虑到tcp连接的复用，回http2得到改进，这也是计算机领域不断进步的一个标志</p>
+<p>有同学可能会问，为什么不在CGI协议的基础上进行资源的池化和服用呢？</p>
+<p>简单点说，CGI在协议制定的初期可能就没考虑到类似于池化和复用的性能指标，那么很多问题协议可能就没考虑到，一个简单的点就是如何区分多个request，这是复用必须要考虑的，在CGI中可能就没有这部分的规定，依次类推我们肯定不能在CGI的基础上实现资源的池化和复用。<strong>你的单车道变成十车道总不能还是使用原来的交通规则吧？</strong></p>
+<p><strong>先区分几个概念：</strong></p>
+<p><strong><em>CGI协议：</em></strong>规定web server与动态语言脚本之间的通信需要我们规定相关的数据格式和通信方式的协议，就像我们的网络协议一样，这是cgi的rfc文档<a href="https://tools.ietf.org/pdf/rfc3875.pdf" target="_blank" rel="noopener">https://tools.ietf.org/pdf/rfc3875.pdf</a> ，rfc中对CGI的定义就是CGI定义了我们用来描述http请求的抽象参数（meta data），和具体的动态脚本程序接口确定某一个具体平台上的script和Http server之间的接口。</p>
+<p>web server与CGI协议是什么关系呢？你的<strong>Http request</strong>会被web server转为<strong>CGI request</strong>（协议规定的格式），在动态脚本处理完之后web server再将脚本返回的<strong>CGI response</strong>转为<strong>Http response</strong>返回给客户端。</p>
+<p><strong><em>CGI脚本：</em></strong>就是我们常说的动态脚本，例如你的php文件，所有的请求参数和环境变量会被CGI脚本进行处理，CGI脚本利用这些参数和变量动态生成相应的html并返回，这样就是实现了一种动态网页，这就是早期实现动态网页的技术。CGI脚本其实并非必须动态语言来写，所有操作系统上可以运行的语言都可以编写，前提是与web server的交互满足CGI协议规范，如果你使用编译好的静态语言编写，甚至可以不用每次加载解释器，效率更高，但是开发效率就另说了。</p>
+<p><strong><em>CGI Process：</em></strong>CGI脚本的执行需要相关的process来执行，这就是CGI进程</p>
+<p><strong><em>CGI模块：</em></strong>每个到达web server的每一个请求，被转为CGI格式的请求之后需要有一个模块去fork CGI进程来处理，这就是CGI模块，遗憾的是Nginx并不支持这样内置的模块，但是这个并不复杂，在CGI协议中这个模块的作用就是fork一个进程，然后执行相关的CGI脚本，推荐看一下这个<a href="https://joyqi.com/develop/nginx-run-cgi.html" target="_blank" rel="noopener">https://joyqi.com/develop/nginx-run-cgi.html</a></p>
+<p><strong>历史的进步</strong></p>
+<p>这里人们慢慢认识到了CGI协议的不足，就像我们认识到http协议的不足。我们希望不同的http request与不同的CGI脚本之间进行交互式可以复用通道，亦如http2可以复用tcp连接。并且，我们不希望每次调用CGI脚本都需要fork一个新的进程，用完就exit，我们要池化这些资源，维护多个进程，有需要时直接取出用完再放回去，避免进程创建和销毁的损耗。这个时候我们肯定会考虑两个事情：</p>
+<ol>
+<li>现有的CGI协议并没有考虑到通道的复用和另外的性能部分，需要升级</li>
+<li>CGI Process没有池化的功能，我们需要管理多个CGI Process的工具</li>
+</ol>
+<p>下面就看一看Fastcgi是如何解决这两个问题的。</p>
+<p><strong><em>FastCGI：</em></strong>这是FastCGI的文档<a href="http://www.mit.edu/~yandros/doc/specs/fcgi-spec.html" target="_blank" rel="noopener">http://www.mit.edu/~yandros/doc/specs/fcgi-spec.html</a> ，Fastcgi是CGI的一种改进，Fastcgi协议要求通信连接可以复用，并引入了流等等概念。这里博主一开始没搞清楚的就是要支持复用和流这个特性为什么需要协议的支持，因为我们所有的数据都是以协议规范的格式进行交换的，你如果没有改进，多个请求的数据涌入到一个tcp连接中该怎么区分呢？例如Http2为什么能实现tpc的复用？是因为每个request都加上了一个独立的编号，这样多个request和response就可以对得上。在这里Fastcgi也会需要记录不同请求的id，这是CGI协议中不需要的，因为单进程处理是不用区分的。</p>
+<p><strong><em>FastCGI Progress：</em></strong>同样是执行CGI脚本的进程，与CGI Process的差别体现在fast process这些进程是<strong>被管理起来的</strong>，可以得到<strong>复用</strong>，而CGI process是用完就exit</p>
+<p><strong><em>FastCGI模块</em></strong>：相比CGI模块简单的转发、fork进程、回送结果作用，fastcgi模块的作用就要复杂不少，在CGI模块功能的基础上，Fastcgi模块需要管理进程资源池，也就是说每次CGI请求到底要如何合理的分配，这都是Fastcgi模块的功能，而php-fpm就是一个很优秀的fast-cgi模块，同样php-cgi也是这样的一个模块</p>
+<p>因为看了好多关于cgi，fastcgi，php-fpm，php-cgi的区别，感觉都不是很清楚，就自己研究了一下，有失误欢迎指出！</p>
+<p><strong>By the way</strong></p>
+<p>后续会补上nginx与php-fpm之间的通信，今天写不完了，学校的事情总算是结束了！</p>
+<p>2020.07.09 22:08</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic23.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/28/漫谈http/" title="漫谈http">
+								漫谈http			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 28日, 2020				
+							</p>
+							<p class="relate-post-content">
+								与http有关的知识点http status codehttp的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

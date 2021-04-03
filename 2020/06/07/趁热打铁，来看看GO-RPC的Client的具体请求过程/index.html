@@ -1,0 +1,1001 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      趁热打铁，来看看GO RPC的Client的具体请求过程 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《趁热打铁，来看看GO RPC的Client的具体请求过程》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" itemprop="url">
+		趁热打铁，来看看GO RPC的Client的具体请求过程
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" itemprop="url">
+		<time datetime="2020-06-07T07:36:28.000Z" itemprop="datePublished">
+	  		2020-06-07
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" itemprop="url">
+		<time datetime="2020-06-07T07:36:28.000Z" itemprop="dateUpdated">
+	  		2020-06-13
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/GO/" class=" ">
+			GO
+		</a>
+	
+		<a href="/tags/RPC/" class=" ">
+			RPC
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<p>在上一篇博客，我跟大家一起大致了解了rpc包的结构和里面的一些内容，对整个rpc的调用有了一定的认识。因为第一次看源码，还不是很深入，这次我们再次出发，进一步探索GO RPC中的client的具体请求流程，趁热打铁！</p>
+<hr>
+<p><strong>连接server，还记得我们是怎么连接server的吗？</strong></p>
+<p>是不是利用rpc.Dial(其实方法很多，但是这个是最简单的)就直接可以返回一个rpc的client？那就从这里开始吧！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Dial connects to an RPC server at the specified network address.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Dial</span><span class="params">(network, address <span class="keyword">string</span>)</span> <span class="params">(*Client, error)</span></span> &#123;</span><br><span class="line">	<span class="comment">// 利用net.Dial(获取网络链接)</span></span><br><span class="line">	<span class="comment">// 还记得这个conn是什么吗？没错，就是介质，务必要记住。这是远程调用的通道</span></span><br><span class="line">	conn, err := net.Dial(network, address)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 通过conn构造一个client</span></span><br><span class="line">	<span class="keyword">return</span> NewClient(conn), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着去看看是怎么构造client的，顺腾摸瓜！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一个包装函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewClient</span><span class="params">(conn io.ReadWriteCloser)</span> *<span class="title">Client</span></span> &#123;</span><br><span class="line">	<span class="comment">// 在conn的基础上构造了bufio的writer对象encBuf，这样我们就可以调用encBuf的方法，会更方便</span></span><br><span class="line">	encBuf := bufio.NewWriter(conn)</span><br><span class="line">	<span class="comment">// 构造一个gob编码的client，记得上一篇博客我说的ClientCodec接口吗？</span></span><br><span class="line">	<span class="comment">// 这一步将介质封装在了goClientCodec对象中，以后利用这个client实现读写，并且统一的编码格式为gob</span></span><br><span class="line">	client := &amp;gobClientCodec&#123;conn, gob.NewDecoder(conn), gob.NewEncoder(encBuf), encBuf&#125;</span><br><span class="line">	<span class="comment">// 返回一个具有统一编码的client</span></span><br><span class="line">	<span class="keyword">return</span> NewClientWithCodec(client)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewClientWithCodec</span><span class="params">(codec ClientCodec)</span> *<span class="title">Client</span></span> &#123;</span><br><span class="line">	<span class="comment">// 第一个重头戏终于登场了，我们的Client对象</span></span><br><span class="line">	client := &amp;Client&#123;</span><br><span class="line">		codec:   codec,</span><br><span class="line">		pending: <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">uint64</span>]*Call),</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">go</span> client.input()</span><br><span class="line">	<span class="keyword">return</span> client</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>By the way，记住这个client.input()方法！！！！！</em></strong></p>
+<hr>
+<p><strong>快马加鞭，一起去看看Client的真面目！</strong></p>
+<p>哇，出乎意料的简洁！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 非常简洁的结构</span></span><br><span class="line"><span class="keyword">type</span> Client <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// 这个codec用统一的读写编码格式封装了conn这个介质，如果不理解可以去看看上面</span></span><br><span class="line">	codec ClientCodec</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Request和保护Request的锁，可以去看看上一篇聊解Request在rpc中是个什么地位</span></span><br><span class="line">	<span class="comment">// 其实啊，你在向conn中写入数据的时候总不能直接写入吧？我们会把数据封装成一个Request对象</span></span><br><span class="line">	<span class="comment">// 这样是我们的数据独立性更高，我们也可以为Request定义一系列方法，方便我们的调用</span></span><br><span class="line">	reqMutex sync.Mutex <span class="comment">// protects following</span></span><br><span class="line">	request  Request</span><br><span class="line"></span><br><span class="line">	<span class="comment">// client可能会发出多个调用，每个Request都有一个独立的seq序列号，如果你有计算机网络的基础，这个应该不难理解</span></span><br><span class="line">	mutex    sync.Mutex <span class="comment">// protects following</span></span><br><span class="line">	seq      <span class="keyword">uint64</span></span><br><span class="line">	pending  <span class="keyword">map</span>[<span class="keyword">uint64</span>]*Call</span><br><span class="line">	closing  <span class="keyword">bool</span> <span class="comment">// user has called Close</span></span><br><span class="line">	shutdown <span class="keyword">bool</span> <span class="comment">// server has told us to stop</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个结构的重要另一个成员解释<strong>pending  map[uint64]*Call</strong>，还记得我提出的rpc的多个请求如何管理吗？其实就是独立的序列号为key的map。这个seq每次请求都会加一，你注意到一旦超过uint64的范围就会有溢出的危险吗？这种可能性是有的，虽然我们可能很少会使用一个client发出这么多的请求，先记着，看看后面是怎么解决的。</p>
+<hr>
+<p><strong>那这个Call又是什么东西啊？</strong></p>
+<p>我们去看看Call的结构，继续顺藤摸瓜！先给出官方的解释：<strong>Call represents an active RPC.</strong>  就是代表依次RPC调用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Call <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// 我们需要调用的远程方法的名称，很好理解</span></span><br><span class="line">	ServiceMethod <span class="keyword">string</span>      <span class="comment">// The name of the service and method to call.</span></span><br><span class="line">	<span class="comment">// 参数和返回值，竟然都是interface&#123;&#125;，其实这是肯定的，go对rpc只是规定了参数个数，没有类型限制</span></span><br><span class="line">	<span class="comment">// 为了支持不同的类型，必然是会使用反射</span></span><br><span class="line">	Args          <span class="keyword">interface</span>&#123;&#125; <span class="comment">// The argument to the function (*struct).</span></span><br><span class="line">	Reply         <span class="keyword">interface</span>&#123;&#125; <span class="comment">// The reply from the function (*struct).</span></span><br><span class="line">	Error         error       <span class="comment">// After completion, the error status.</span></span><br><span class="line">	<span class="comment">// 一个Call类型的channel，暂时我们这里还看不出苗头，先记住</span></span><br><span class="line">	Done          <span class="keyword">chan</span> *Call  <span class="comment">// Strobes when call is complete.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>走到这里我们应该明白了是如何返回一个可以调用远程方法的client了，那么是后面的调用过程是什么呢？</p>
+<hr>
+<p><strong>client已经有了，开始我们的远程调用！</strong></p>
+<p>我们在有了client的情况下如何开始调用呢？没错，说出那个方法名字，就是Call。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Call invokes the named function, waits for it to complete, and returns its error status.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span> <span class="title">Call</span><span class="params">(serviceMethod <span class="keyword">string</span>, args <span class="keyword">interface</span>&#123;&#125;, reply <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="comment">// 这是个什么东西啊？一个GO方法返回一个Call然后等待Done这个channel？？</span></span><br><span class="line">	<span class="comment">// 不放大胆想一想，我们的调用请求不可能会立即返回，必然还会有网络传输时间和server处理时间</span></span><br><span class="line">	call := &lt;-client.Go(serviceMethod, args, reply, <span class="built_in">make</span>(<span class="keyword">chan</span> *Call, <span class="number">1</span>)).Done</span><br><span class="line">	<span class="keyword">return</span> call.Error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这个看得我们一头雾水，那就继续摸一摸client.GO这个瓜。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span> <span class="title">Go</span><span class="params">(serviceMethod <span class="keyword">string</span>, args <span class="keyword">interface</span>&#123;&#125;, reply <span class="keyword">interface</span>&#123;&#125;, done <span class="keyword">chan</span> *Call)</span> *<span class="title">Call</span></span> &#123;</span><br><span class="line">	<span class="comment">// 一次调用肯定要构造一个Call来表示这个调用啊，这很好理解</span></span><br><span class="line">	call := <span class="built_in">new</span>(Call)</span><br><span class="line">	call.ServiceMethod = serviceMethod</span><br><span class="line">	call.Args = args</span><br><span class="line">	call.Reply = reply</span><br><span class="line">	<span class="comment">// Call传入了一个make(chan *Call, 1)</span></span><br><span class="line">	<span class="keyword">if</span> done == <span class="literal">nil</span> &#123;</span><br><span class="line">		done = <span class="built_in">make</span>(<span class="keyword">chan</span> *Call, <span class="number">10</span>) <span class="comment">// buffered.</span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;x</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">cap</span>(done) == <span class="number">0</span> &#123;</span><br><span class="line">			log.Panic(<span class="string">"rpc: done channel is unbuffered"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 这个channel赋值给了Call的Done属性</span></span><br><span class="line">	<span class="comment">// 显然因为Call传入的channel大小为1，那么Call这个方法就是同步的，Call方法必然会等到server返回才会返回</span></span><br><span class="line">	<span class="comment">// 假如现在你想直接发送是个请求，并且不要求同步，那么Call方法就不太适用了，显然你可以直接通过GO方法发送请求</span></span><br><span class="line">	<span class="comment">// 同时传入一个budder为10的Call类型的Channel</span></span><br><span class="line">	call.Done = done</span><br><span class="line">	<span class="comment">// client将Call发送出去，很好理解</span></span><br><span class="line">	client.send(call)</span><br><span class="line">	<span class="keyword">return</span> call</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>client发送Call是一个什么过程呢？</strong></p>
+<p>我们倒腾了这么久，终于可以将Call代表的调用send出去了，离最终胜利越来越近了，继续前进！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在刚开始看源码的时候我们可以先忽略大量的错误处理逻辑</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span> <span class="title">send</span><span class="params">(call *Call)</span></span> &#123;</span><br><span class="line">	<span class="comment">// 保护client中的Request对象</span></span><br><span class="line">	client.reqMutex.Lock()</span><br><span class="line">	<span class="keyword">defer</span> client.reqMutex.Unlock()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Register this call.</span></span><br><span class="line">	client.mutex.Lock()</span><br><span class="line">	<span class="keyword">if</span> client.shutdown || client.closing &#123;</span><br><span class="line">		client.mutex.Unlock()</span><br><span class="line">		call.Error = ErrShutdown</span><br><span class="line">		call.done()</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 注册这个调用到map中，很好理解的</span></span><br><span class="line">	seq := client.seq</span><br><span class="line">	client.seq++</span><br><span class="line">	client.pending[seq] = call</span><br><span class="line">	client.mutex.Unlock()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Encode and send the request.</span></span><br><span class="line">	<span class="comment">// 编码并且发送Request</span></span><br><span class="line">	<span class="comment">// 看到没有因为client中的request对象是复用的，没有用一次就new一个，所以会需要锁来保护</span></span><br><span class="line">	client.request.Seq = seq</span><br><span class="line">	client.request.ServiceMethod = call.ServiceMethod</span><br><span class="line">	<span class="comment">// 调用client中的codec（gob）写入request和参数</span></span><br><span class="line">	<span class="comment">// 那么是写到哪里呢？对，还是介质，就是那个conn连接，如果你这里答不上来介质，那应该要好好理解一下</span></span><br><span class="line">	<span class="comment">// 说的简单一点，这就是将我们的请求发送到网络中去了</span></span><br><span class="line">	err := client.codec.WriteRequest(&amp;client.request, call.Args)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		client.mutex.Lock()</span><br><span class="line">		call = client.pending[seq]</span><br><span class="line">		<span class="built_in">delete</span>(client.pending, seq)</span><br><span class="line">		client.mutex.Unlock()</span><br><span class="line">		<span class="keyword">if</span> call != <span class="literal">nil</span> &#123;</span><br><span class="line">			call.Error = err</span><br><span class="line">			call.done()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>害，终于搞定了，可以睡觉去了！</strong></p>
+<p><strong>且慢，难道你们发现还有一步没有完成吗？？？</strong></p>
+<p><strong>wc，还有一步？</strong></p>
+<p><strong>没错的，还有非常重要的一步，也是我们远程调用的意义，那就是我们还没有接收server返回的结果！</strong></p>
+<p>毕竟我们是希望可以调用远程的过程获得结果，而不是把我们的请求发出去而已。</p>
+<p>但是走了这么长时间，也没看到哪里有结果可以返回，我们在client调用的时候也是直接使用返回的结果，难道是博主搞错了？？？</p>
+<p>哈哈哈，其实没有，还记得我让你记住的client.input()方法吗？input什么呢？大胆猜一猜，难道是结果？可不就是返回的结果。</p>
+<hr>
+<p><strong>终于摸到瓜了！！！看看rpc的结果如接收</strong></p>
+<p>差点漏掉这个大boss，老规矩什么错误日志先不管，看它，胜利就在眼前！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span> <span class="title">input</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> err error</span><br><span class="line">	<span class="keyword">var</span> response Response</span><br><span class="line">	<span class="comment">// 看到没？这是一个循环</span></span><br><span class="line">	<span class="keyword">for</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">		response = Response&#123;&#125;</span><br><span class="line">		<span class="comment">// 用codec读出信息放入response，如果你不知道是自从哪里读出来的那你要好好反思一下，我就不再说了（好吧，是介质）</span></span><br><span class="line">		<span class="comment">// 显然这里是对一个网络套接字的读取，会等到有信息可以读取时发起读操作</span></span><br><span class="line">		<span class="comment">// 这涉及到IO的一些知识，博主以后也会写这方面的文章，你就想着只要是server发挥了结果，这里就就完成读取，否则一直阻塞在这里</span></span><br><span class="line">		err = client.codec.ReadResponseHeader(&amp;response)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 获取response的序列号，可以告诉大家是跟你发的request的序列号一样</span></span><br><span class="line">		seq := response.Seq</span><br><span class="line">		client.mutex.Lock()</span><br><span class="line">		<span class="comment">// 那自然可以通过seq获取你开始时候注册的Call，通过独立的序号完成rpc请求的管理，是不是很有意思</span></span><br><span class="line">		call := client.pending[seq]</span><br><span class="line">		<span class="comment">// 已经有结果了，需要注销</span></span><br><span class="line">		<span class="built_in">delete</span>(client.pending, seq)</span><br><span class="line">		client.mutex.Unlock()</span><br><span class="line"></span><br><span class="line">		<span class="keyword">switch</span> &#123;</span><br><span class="line">		<span class="keyword">case</span> call == <span class="literal">nil</span>:</span><br><span class="line">			<span class="comment">// We've got no pending call. That usually means that</span></span><br><span class="line">			<span class="comment">// WriteRequest partially failed, and call was already</span></span><br><span class="line">			<span class="comment">// removed; response is a server telling us about an</span></span><br><span class="line">			<span class="comment">// error reading request body. We should still attempt</span></span><br><span class="line">			<span class="comment">// to read error body, but there's no one to give it to.</span></span><br><span class="line">			err = client.codec.ReadResponseBody(<span class="literal">nil</span>)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				err = errors.New(<span class="string">"reading error body: "</span> + err.Error())</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">case</span> response.Error != <span class="string">""</span>:</span><br><span class="line">			<span class="comment">// We've got an error response. Give this to the request;</span></span><br><span class="line">			<span class="comment">// any subsequent requests will get the ReadResponseBody</span></span><br><span class="line">			<span class="comment">// error if there is one.</span></span><br><span class="line">			call.Error = ServerError(response.Error)</span><br><span class="line">			err = client.codec.ReadResponseBody(<span class="literal">nil</span>)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				err = errors.New(<span class="string">"reading error body: "</span> + err.Error())</span><br><span class="line">			&#125;</span><br><span class="line">			call.done()</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="comment">// 前两种情况都是错误处理，我们先不看</span></span><br><span class="line">			<span class="comment">// 读取信息放入Call中的reply，现在知道为什么需要reply必须是一个指针了吧？</span></span><br><span class="line">			<span class="comment">// 因为你要修改这里的reply，这是用户通过最开始的Call方法传进来的，如果是一个value是不能修改的</span></span><br><span class="line">			err = client.codec.ReadResponseBody(call.Reply)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				call.Error = errors.New(<span class="string">"reading body "</span> + err.Error())</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// 接下来看一看done方法</span></span><br><span class="line">			call.done()</span><br><span class="line">			<span class="comment">// 如果这个过程中没有错误，err就是nil，那么就会进入下一个循环，继续接收信息</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// Terminate pending calls.</span></span><br><span class="line">	<span class="comment">// 时间超时的处理以及后续的处理</span></span><br><span class="line">	client.reqMutex.Lock()</span><br><span class="line">	client.mutex.Lock()</span><br><span class="line">	client.shutdown = <span class="literal">true</span></span><br><span class="line">	closing := client.closing</span><br><span class="line">	<span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">		<span class="keyword">if</span> closing &#123;</span><br><span class="line">			err = ErrShutdown</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			err = io.ErrUnexpectedEOF</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> _, call := <span class="keyword">range</span> client.pending &#123;</span><br><span class="line">		call.Error = err</span><br><span class="line">		call.done()</span><br><span class="line">	&#125;</span><br><span class="line">	client.mutex.Unlock()</span><br><span class="line">	client.reqMutex.Unlock()</span><br><span class="line">	<span class="keyword">if</span> debugLog &amp;&amp; err != io.EOF &amp;&amp; !closing &#123;</span><br><span class="line">		log.Println(<span class="string">"rpc: client protocol error:"</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>扒一扒done()这个方法吧，真的是最后的方法了！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(call *Call)</span> <span class="title">done</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">select</span> &#123;</span><br><span class="line">	<span class="comment">// 把你这个call放入你开始传输的那个channel，如果你只是简单的client.Call那么就是默认的一个大小为一的channel</span></span><br><span class="line">	<span class="comment">// 所以你的感觉就是同步的</span></span><br><span class="line">	<span class="comment">// 如果你想并发处理多个请求，就需要自己创建自己的channel，自己控制返回</span></span><br><span class="line">	<span class="keyword">case</span> call.Done &lt;- call:</span><br><span class="line">		<span class="comment">// ok</span></span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="comment">// We don't want to block here. It is the caller's responsibility to make</span></span><br><span class="line">		<span class="comment">// sure the channel has enough buffer space. See comment in Go().</span></span><br><span class="line">		<span class="keyword">if</span> debugLog &#123;</span><br><span class="line">			log.Println(<span class="string">"rpc: discarding Call reply due to insufficient Done chan capacity"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>结语</strong></p>
+<p>以上就是整个client调用远程rpc的过程，当然client中还有其它的一些方法，大家自己去看。就像我开始说的，我们宏观掌握rpc调用其实不是很难，说到底还是通过一种介质（这里是网络）传输信息，所以在学习的时候我们要在宏观上藐视rpc。</p>
+<p>但是我们进一步学习之后会发现rpc并不是很简单，我们如果我们想要实现足够通用的rpc，那么就会有很多的细节需要注意，比如果交换数据的编码、调用管理以及并发的处理，会有很多的东西需要我们学习。所以深入rpc的时候我们要怀着敬畏之心！</p>
+<p><strong>By the way</strong></p>
+<p>下一次，博主会分析一下server处理rpc请求的过程，这个会比较复杂一点。</p>
+<p>又到了晚饭时间了，出去遛个弯吃饭了，愉快的周末结束了！！！</p>
+<p>2020.06.07 17:18</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic12.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/24/leetcode_2/" title="Leetcode_2">
+								Leetcode_2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 24日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Leetcode上一篇leetcode刷题博客的记录已经有25道题目了，想着再继续向里面添加就会变得很长，于是决定新开一篇博客来进行刷题的记录，之后的每一篇刷题博客也确定每篇25道题目吧！
+上一篇博客是实习的时候开的，只不过后来工作多...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/24/leetcode_2/" title="Leetcode_2">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="Leetcode_2"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">
+								实现一些经典的Data Structure			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								实现经典的Data StructureBackground
+数据结构在我们的计算机学习中有着不可替代的作用，永远滴神linus说过，好的程序员关注数据结构和算法，垃圾程序员关注代码。这话符合linus的说话风格，虽然我们不必百分之百认...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic24.jpg" alt="实现一些经典的Data Structure"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">
+								来看一看常见的排序算法			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 8日, 2020				
+							</p>
+							<p class="relate-post-content">
+								sortsort是计算机算法中璀璨的明星，sort在我们的计算机中有着不可取代的地位，可以这样说如果失去了高效的sort算法，我们的计算机就不会发展到像今天这样精彩。sort已经是计算机行业的基石算法类别之一，这个仅仅只是将数据排序的...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic22.jpg" alt="来看一看常见的排序算法"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/30/初探go-test/" title="初探go test">
+								初探go test			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								go test这段时间的工作一直主要是GO，很多业务代码写完之后在考虑加上单元测试，就来研究一下go test这个工具
+go test是一个按照一定的约定和组织来测试代码的程序，包中的_test.go结尾的源文件不会被构建成报的一部分...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/30/初探go-test/" title="初探go test">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic18.jpg" alt="初探go test"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">
+								实践一下GO的reflect			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 20日, 2020				
+							</p>
+							<p class="relate-post-content">
+								一次GO的reflect的小小实践
+一点心得
+上次在接触反射的时候我曾经说过学习反射最好的方式有两种，读经典的反射代码（fmt.Printf）和自己动手写一下反射的代码。那一片博客之后我说会写一点关于反射的代码，一拖就拖到了现在。越来...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic16.jpg" alt="实践一下GO的reflect"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">
+								看一看GO的rpc中Server的实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								GO的rpc包中Server的实现前面的一篇博客分析了一下关于GO的rpc中关于client的实现，大致理了一下client发送请求并且如何收到server的回复的一个过程。当时准备立即去分析server.go的代码的，但是因为GO中...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic19.jpg" alt="看一看GO的rpc中Server的实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">
+								谈一谈GO中的反射			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Reflect无奈的反射
+博主之前研究过Java的反射，有过一点反射概念的基础，所以在面对GO中的基本的反射操作是能够看得懂的。所以在前面两篇rpc的文章，都进展的比较顺利。但是今天看到rpc包中的server的时候，因为server...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic14.jpg" alt="谈一谈GO中的反射"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">
+								初探Go的RPC实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 5日, 2020				
+							</p>
+							<p class="relate-post-content">
+								简单探索一下GO中的RPC什么是rpc？
+rpc的英文名称是Remote Procedure Call，用博主的翻译就是远程过程调用，这是一个很时髦的东西。想一想，你的模块可以调用远程机器上的过程，也就是说不同于原始我们引用别人的模块...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic2.jpg" alt="初探Go的RPC实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">
+								GO中的数据类型			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 2日, 2020				
+							</p>
+							<p class="relate-post-content">
+								记录一下Go语言的学习经历GO中的数据类型（data type）基本数据
+
+整型
+int
+在go中，整型分为有符号和无符号整数，分别有一下几种：
+
+int，int8，int16，int32，int64
+uint，uint8，uint1...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic3.jpg" alt="GO中的数据类型"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

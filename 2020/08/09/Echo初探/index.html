@@ -1,0 +1,1058 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      Echo初探 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《Echo初探》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/08/09/Echo初探/" itemprop="url">
+		Echo初探
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/08/09/Echo初探/" itemprop="url">
+		<time datetime="2020-08-09T14:53:42.000Z" itemprop="datePublished">
+	  		2020-08-09
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/08/09/Echo初探/" itemprop="url">
+		<time datetime="2020-08-09T14:53:42.000Z" itemprop="dateUpdated">
+	  		2020-08-09
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/Go/" class=" ">
+			Go
+		</a>
+	
+		<a href="/tags/Echo/" class=" ">
+			Echo
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="Echo探秘"><a href="#Echo探秘" class="headerlink" title="Echo探秘"></a>Echo探秘</h3><p><strong>Background</strong></p>
+<p>最近做的一个项目就是把原有的旧项目迁移到GO，主要用的就是echo这个框架，最近看了一下echo的源码，来写一下这一篇博客。</p>
+<p>GO作为一门新生语言，刚开始就很聪明的把http服务给直接集成了，所以如果我们想要使用GO来做一些小的web项目或者是一些小demo是很快的，根本不用任何框架就可以直接裸写。但是随着项目的慢慢增长，使用原生的http服务很难满足我们的诸如<strong>路由分组、中间件、参数验证绑定</strong>等需求。</p>
+<p>如果你仅仅是需要上述这些需求，并不需要一些很庞杂的需求，那么echo是非常合适的。echo仅仅是在GO原生http服务上做了一层封装，并且为我们提供路由分组、参数绑定、中间件等基础功能。echo给人最大的感受就是所见即所得，不搞一些花里胡哨的用不到的功能，这也是echo敢说自己是最快的web框架的原因。但是说实话，如果真的是超大型的项目，使用echo还是有些过于简陋的。</p>
+<p>echo只是GO原生http的一个封装，所以代码量并不大，其中最主要的几个文件就是：</p>
+<ul>
+<li>context.go</li>
+<li>echo.go</li>
+<li>router.go</li>
+<li>bind.go</li>
+</ul>
+<p>其中<strong><em>context</em></strong>是echo对一次http请求的<strong><em>request</em></strong>和<strong><em>response</em></strong>的整体封装，echo是整个框架的实例，router是echo实现的路由算法，主要是前缀匹配算法（这里echo没有使用原生的serverMux，是框架中不多的复杂一点的部分），bind用于参数的绑定。很遗憾echo并为提供validator相关的东西，只是留给了我们一个接口，可以自己实现或者是使用已有的库。</p>
+<p><strong>http</strong></p>
+<p>我们知道一次http请求，框架最开始处理的部分应该就是将http request从socket中读出来，然后生成相关的response，并且找到合适的路由，交给相关handler进行处理，handler处理之前可能会经过一些相关的中间件，中间件和handler处理的过程中一般需要用到binder和validator来绑定和验证相关的参数，handler处理完之后将结果回写到response中，发回给客户端。</p>
+<p>不管是什么语言的什么框架，大致都可以分为这几部分。我们在研究框架的时候可以依照这样的一个大致流程，然后重点关注每一部分的具体过程。当然，这些具体名词可能会有差异，例如Java的中间件可能会叫做Filter，处理器成为Controller，这些不是重点。</p>
+<p><strong>context</strong></p>
+<p>从Context的名字就是很容易理解，<strong><em>上下文啊</em></strong>，就是我们处理一些http request需要的环境。那在一次http请求的过程中上下文自然是包括了Request、Response这两部分。</p>
+<p>在原生的http服务中我们一定不陌生http.ResponseWriter和http.Request这两个东西，那么echo中的Context又是什么玩意儿？很简单，Context就是将这二者收敛到了一个地方，仅此而已。所以在研究web框架的时候，始终要关注Request和Response，这两个抽象的东西，而不是关注他们具体的存在方式。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 因为echo做了封装，所以在编写handler的时候可能会与原生在形式上有区别</span></span><br><span class="line"><span class="comment">// native handler</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SayHello</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">    w.WriteHeader(http.StatusOK)</span><br><span class="line">    w.Write([]<span class="keyword">byte</span>(<span class="string">"hello"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// echo handler</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SayHello</span><span class="params">(ctx echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="comment">// 虽然echo没有显示的向Response中写入，但是我说过echo.Context封装了req和res，所以不难想象String()的实现</span></span><br><span class="line">    <span class="keyword">return</span> ctx.String(http.StatusOK， <span class="string">"hello"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>echo规定的Context实质上是一个接口，这个接口包含了整个http过程可能会用到的方法，实际的实现其实是context，下面大致看一下Context interface和context struct，这里只给出了Context中几个比较重要的方法，另外Context中还有对Cookie的操作方法，以及一些列不同返回的处理方法，这里省略一部分：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Context</span></span><br><span class="line">Context <span class="keyword">interface</span> &#123;</span><br><span class="line">    <span class="comment">// Request returns `*http.Request`.</span></span><br><span class="line">    Request() *http.Request</span><br><span class="line"></span><br><span class="line">    <span class="comment">// SetRequest sets `*http.Request`.</span></span><br><span class="line">    SetRequest(r *http.Request)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// SetResponse sets `*Response`.</span></span><br><span class="line">    SetResponse(r *Response)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Response returns `*Response`.</span></span><br><span class="line">    Response() *Response</span><br><span class="line"></span><br><span class="line"> 	<span class="comment">// ......</span></span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 将请求的body中的参数绑定到i上面</span></span><br><span class="line">    <span class="comment">// 具体使用什么Binder取决于Content-Type</span></span><br><span class="line">    Bind(i <span class="keyword">interface</span>&#123;&#125;) error</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Validate validates provided `i`. It is usually called after `Context#Bind()`.</span></span><br><span class="line">    <span class="comment">// Validator must be registered using `Echo#Validator`.</span></span><br><span class="line">    <span class="comment">// 校验参数，很可惜echo不提供原生的validator支持，我们要自己实现Validator并注入到echo实例</span></span><br><span class="line">    Validate(i <span class="keyword">interface</span>&#123;&#125;) error</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Handler returns the matched handler by router.</span></span><br><span class="line">    Handler() HandlerFunc</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 这个方法提一下，echo并不是每一个http请求都会生成一个新的echo.Context</span></span><br><span class="line">    <span class="comment">// echo.Context在echo中是池化资源，每次请求会先从pool中尝试取出一个Contex然后重置Request和Response</span></span><br><span class="line">    Reset(r *http.Request, w http.ResponseWriter)</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// context</span></span><br><span class="line"><span class="keyword">type</span> context <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// 将Request和Response收敛到了context中来</span></span><br><span class="line">    request  *http.Request</span><br><span class="line">    <span class="comment">// Response进行了一定的封装</span></span><br><span class="line">    response *Response</span><br><span class="line">    <span class="comment">// 请求路径</span></span><br><span class="line">    path     <span class="keyword">string</span></span><br><span class="line">    <span class="comment">// 路径参数名</span></span><br><span class="line">    pnames   []<span class="keyword">string</span></span><br><span class="line">    <span class="comment">// 参数值</span></span><br><span class="line">    pvalues  []<span class="keyword">string</span></span><br><span class="line">    <span class="comment">// 查询参数，位于url后面的?之后的内容https://www.baidu.com/s?ie=UTF-8&amp;wd=jarvisye</span></span><br><span class="line">    query    url.Values</span><br><span class="line">    <span class="comment">// handler</span></span><br><span class="line">    handler  HandlerFunc</span><br><span class="line">    <span class="comment">// Map是map[string]interface&#123;&#125;的别名</span></span><br><span class="line">    <span class="comment">// 可以使用Echo.Bind(Echo.Map)来将参数绑定到Map上</span></span><br><span class="line">    store    Map</span><br><span class="line">    <span class="comment">// 存储了框架的引用</span></span><br><span class="line">    echo     *Echo</span><br><span class="line">    <span class="comment">// 日志</span></span><br><span class="line">    logger   Logger</span><br><span class="line">    <span class="comment">// 一把读写锁，context的操作会涉及到并发</span></span><br><span class="line">    lock     sync.RWMutex</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>中间件</strong></p>
+<p>有了对handlerFunc的格式规定，中间件的定义其实是手到擒来：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例如请求日志记录</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LogHandle</span><span class="params">(next HandlerFunc)</span> <span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">        <span class="comment">// log.Println("some message")</span></span><br><span class="line">        <span class="keyword">return</span> next(ctx)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>router</strong></p>
+<p>Router是我们在web中很重要的东西，但是现在的很多框架把我们给宠坏了，让我们几乎看不到路由匹配的代码，反正我们只要将route path与handleFunc加到http服务里面去就行了。对于整个路由匹配的过程我门很少能清晰的看到，特别是当一个框架越来越成熟，我们就几乎看不到路由匹配的地方，框架作者也很少会将路由匹配的接口留给程序员自己实现。</p>
+<p>Router是echo自己实现的路由匹配算法（<strong><em>Radix tree</em></strong>），在router.go文件中，其实也是可以使用GO原生的<strong><em>serverMux</em></strong>来实现，我们就来看一下这两种路由匹配算法。</p>
+<p>根据echo的官方文档Radix tree算法可以是我们的路由查找非常快速，并且在echo中支持不同的路由形式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 让我们的handler可以处理然和形式的path路径的请求，GET、POST、PUT...</span></span><br><span class="line">Echo.Any(path <span class="keyword">string</span>, h Handler)</span><br><span class="line"><span class="comment">// Handler可以处理来自path路径并且在methods中指定的请求</span></span><br><span class="line">Echo.Match(methods []<span class="keyword">string</span>, path <span class="keyword">string</span>, h Hanndler)</span><br></pre></td></tr></table></figure>
+
+<p>echo中<strong><em>路由匹配的顺序</em></strong>按照以下顺序（以/test/*为例，会按照从上倒下的顺序进行匹配）：</p>
+<ul>
+<li>静态路由（Static）                   /test/hello</li>
+<li>带参数的路由（Param）         /test/:name  </li>
+<li>Match和Any                              /test/todo/name</li>
+</ul>
+<p>ok，接下来我们来看一看具体的算法实现，首先看一下echo中是以什么形式来存储路由：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Router <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// 路由树的根节点+</span></span><br><span class="line">    tree   *node</span><br><span class="line">    routes <span class="keyword">map</span>[<span class="keyword">string</span>]*Route</span><br><span class="line">    echo   *Echo</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> node <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// 这个节点是什么节点，Static node，Param node，Any node</span></span><br><span class="line">    kind          kind</span><br><span class="line">    <span class="comment">// 开头第一个字母（可以加快路由搜索）</span></span><br><span class="line">    label         <span class="keyword">byte</span></span><br><span class="line">    <span class="comment">// 前缀</span></span><br><span class="line">    prefix        <span class="keyword">string</span></span><br><span class="line">    <span class="comment">// 父节点</span></span><br><span class="line">    parent        *node</span><br><span class="line">    children      children</span><br><span class="line">    <span class="comment">// 真实路径</span></span><br><span class="line">    ppath         <span class="keyword">string</span></span><br><span class="line">    <span class="comment">// 我们为这条路由起的名字（路由可以进行重命名）</span></span><br><span class="line">    pnames        []<span class="keyword">string</span></span><br><span class="line">    <span class="comment">// 相关路由的handler方法</span></span><br><span class="line">    methodHandler *methodHandler</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么对于Router这个路由结构体来说，最重要的方法有两个，分别是<strong><em>Router.Add</em></strong>和<strong><em>Router.insert</em></strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加一条路由，会将这条路由进行拆解，这里以/hello/:id/test/:name为解释是怎么具体工作的</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Router)</span> <span class="title">Add</span><span class="params">(method, path <span class="keyword">string</span>, h HandlerFunc)</span></span></span><br><span class="line"><span class="function">// 将一段拆解之后的路由添加到<span class="title">Radix</span> <span class="title">tree</span>中</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(r *Router)</span> <span class="title">insert</span><span class="params">(method, path <span class="keyword">string</span>, h HandlerFunc, t kind, ppath <span class="keyword">string</span>, pnames []<span class="keyword">string</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>废话不多说，直接借助<strong><em>[POST /hello/:id/test/:name testFunc]</em></strong>来看一看这两个函数具体是怎么工作的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// methos = POST</span></span><br><span class="line"><span class="comment">// path = /hello/:id/test/:name</span></span><br><span class="line"><span class="comment">// h = testFunc</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Router)</span> <span class="title">Add</span><span class="params">(method, path <span class="keyword">string</span>, h HandlerFunc)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> path == <span class="string">""</span> &#123;</span><br><span class="line">        path = <span class="string">"/"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 必须保证路由是以/开头的</span></span><br><span class="line">    <span class="keyword">if</span> path[<span class="number">0</span>] != <span class="string">'/'</span> &#123;</span><br><span class="line">        path = <span class="string">"/"</span> + path</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 记录参数</span></span><br><span class="line">    pnames := []<span class="keyword">string</span>&#123;&#125; <span class="comment">// Param names</span></span><br><span class="line">    ppath := path        <span class="comment">// Pristine path</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 很好理解从头开始遍历</span></span><br><span class="line">    <span class="keyword">for</span> i, l := <span class="number">0</span>, <span class="built_in">len</span>(path); i &lt; l; i++ &#123;</span><br><span class="line">        <span class="comment">// 出现了:说明路由中带有参数了，需要截断</span></span><br><span class="line">        <span class="comment">// 1.i指向了第一个:</span></span><br><span class="line">        <span class="comment">// 9.i指向了第二个:，此时path = /hello/:/test/:name</span></span><br><span class="line">        <span class="keyword">if</span> path[i] == <span class="string">':'</span> &#123;</span><br><span class="line">            <span class="comment">// 2.j指向了id中的i</span></span><br><span class="line">            <span class="comment">// 10.j指向name中的n</span></span><br><span class="line">            j := i + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 3.将/hello/插入到Radix tree，此时插入的节点不是子节点，没有对应的方法和参数</span></span><br><span class="line">            <span class="comment">// 11.此时插入的是/hello/:/test/</span></span><br><span class="line">            r.insert(method, path[:i], <span class="literal">nil</span>, skind, <span class="string">""</span>, <span class="literal">nil</span>)</span><br><span class="line">            <span class="comment">// 4.把i移动到id后面的/</span></span><br><span class="line">            <span class="comment">// 12.此时实际是把i移动到了末尾i = len(path)</span></span><br><span class="line">            <span class="keyword">for</span> ; i &lt; l &amp;&amp; path[i] != <span class="string">'/'</span>; i++ &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 5.此时出现了第一个参数path[j : i] = id</span></span><br><span class="line">            <span class="comment">// 13.此时再次插入一个参数name</span></span><br><span class="line">            pnames = <span class="built_in">append</span>(pnames, path[j:i])</span><br><span class="line">            <span class="comment">// 6.将处理过的path截断，path = /hello/:/test/:name </span></span><br><span class="line">            <span class="comment">// 14.i已经超出了path的范围，此时path = path[ : j] = /hello/:/test/:</span></span><br><span class="line">            path = path[:j] + path[i:]</span><br><span class="line">            <span class="comment">// 7.此时i指向第一个:后面的/，l还是path的长度</span></span><br><span class="line">            <span class="comment">// 15.前面说过j指到了第二个:后面的，这一步之后必然有i = len(path)</span></span><br><span class="line">            i, l = j, <span class="built_in">len</span>(path)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> i == l &#123;</span><br><span class="line">                <span class="comment">// 16.插入一个/hello/:/test/:，并且此时指明了这是参数节点pkind</span></span><br><span class="line">                <span class="comment">// 完成路径ppath = hello/:id/test/:name</span></span><br><span class="line">                <span class="comment">// 相关参数pname = [id, name]</span></span><br><span class="line">                r.insert(method, path[:i], h, pkind, ppath, pnames)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 8.此时将/hello/:插入到Radix tree，同时注明这是一个pkind，参数节点</span></span><br><span class="line">                r.insert(method, path[:i], <span class="literal">nil</span>, pkind, <span class="string">""</span>, <span class="literal">nil</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> path[i] == <span class="string">'*'</span> &#123;</span><br><span class="line">            <span class="comment">// 类似于/user/*形式的路由，这里暂时不管，不会进入这个条件</span></span><br><span class="line">            r.insert(method, path[:i], <span class="literal">nil</span>, skind, <span class="string">""</span>, <span class="literal">nil</span>)</span><br><span class="line">            pnames = <span class="built_in">append</span>(pnames, <span class="string">"*"</span>)</span><br><span class="line">            <span class="comment">// 那么显然akind解释一个表示通配的节点</span></span><br><span class="line">            r.insert(method, path[:i+<span class="number">1</span>], h, akind, ppath, pnames)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 17.插入hello/:id/test/:name，并且指明是一个skind</span></span><br><span class="line">    <span class="comment">// 这一步显然是多余了，看看待会儿insert是怎么处理的</span></span><br><span class="line">    <span class="comment">// 但这一步存在并非没有意义，/hello/test/这样的路径的话就要用这个insert来完成任务</span></span><br><span class="line">    r.insert(method, path, h, skind, ppath, pnames)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实最好的方式还是结合这两个函数一起看，因为在insert过程实际是穿插在了Add的整个过程中，那么上述的<strong><em>/hello/:id/test/:name</em></strong>一共经历了几次插入呢？</p>
+<p>我直接整理了出来：</p>
+<ul>
+<li><strong>r.insert(“POST”, “/hello/“, nil, skind, “”, nil)</strong></li>
+<li><strong>r.insert(“POST”, “/hello/:”, nil, pkind, “”, nil)</strong></li>
+<li><strong>r.insert(“POST”, “/hello/:/test/“, nil, skind, “”, nil)</strong></li>
+<li><strong>r.insert(“POST”, “/hello/:/test/:”, nil, pkind, “”, nil)</strong></li>
+<li><strong>r.insert(“POST”, “/hello/:/test/:”, nil, skind, “”, nil)</strong></li>
+</ul>
+<p>一共是调用了5次insert操作，并且第5次我们说是冗余的，来看一下究竟是怎么插入的，Add和insert很多都是对路径进行了截断，所以path在处理中一直在变化，需要要仔细的理解一下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Router)</span> <span class="title">insert</span><span class="params">(method, path <span class="keyword">string</span>, h HandlerFunc, t kind, ppath <span class="keyword">string</span>, pnames []<span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// Adjust max param</span></span><br><span class="line">    l := <span class="built_in">len</span>(pnames)</span><br><span class="line">    <span class="keyword">if</span> *r.echo.maxParam &lt; l &#123;</span><br><span class="line">        *r.echo.maxParam = l</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 取出根节点，没有的话报错，一般是构造Router的时候就会初始化根节点</span></span><br><span class="line">    cn := r.tree <span class="comment">// Current node as root</span></span><br><span class="line">    <span class="keyword">if</span> cn == <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(<span class="string">"echo: invalid method"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// search保存最原始的path</span></span><br><span class="line">    <span class="comment">// 1.search = "/hello/"</span></span><br><span class="line">    <span class="comment">// 6.search = "/hello/:"，注意到此时插入的是参数节点</span></span><br><span class="line">    <span class="comment">// 13.search = "/hello/:/test/"，显然此时会插入到相关的/hello/ -&gt; /hello/:的子节点下面</span></span><br><span class="line">    <span class="comment">// 14.search = "/hello/:/test/:"，插入到相关的/hello/ -&gt; /hello/: -&gt; /hello/:/test/的子节点下面</span></span><br><span class="line">    <span class="comment">// 15.search = "/hello/:/test/:"，这是一次冗余的插入，看一看</span></span><br><span class="line">    search := path</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="comment">// 2.sl = len("/hello/") = 7</span></span><br><span class="line">        <span class="comment">// 7.sl = len("/hello/:") = 8</span></span><br><span class="line">        sl := <span class="built_in">len</span>(search)</span><br><span class="line">        <span class="comment">// 3.pl = len("") = 0</span></span><br><span class="line">        <span class="comment">// 8.pl = len("/hello/") = 7</span></span><br><span class="line">        pl := <span class="built_in">len</span>(cn.prefix)</span><br><span class="line">        l := <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// LCP 找到sl与pl中较小的那一个，避免后面比较的时候出现越界</span></span><br><span class="line">        <span class="comment">// 4.max = sl = 0</span></span><br><span class="line">        <span class="comment">// 9.max = sl = 7</span></span><br><span class="line">        max := pl</span><br><span class="line">        <span class="keyword">if</span> sl &lt; max &#123;</span><br><span class="line">            max = sl</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 10.这一步完成之后，l = max = 7, 指向了/hello/:中的冒号</span></span><br><span class="line">        <span class="keyword">for</span> ; l &lt; max &amp;&amp; search[l] == cn.prefix[l]; l++ &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> l == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="comment">// At root node 特殊情况，根节点是nil，此时代表第一个插入</span></span><br><span class="line">            <span class="comment">// 5.初始化根节点，node.label = '/', node.prefix = "/hello/"</span></span><br><span class="line">            cn.label = search[<span class="number">0</span>]</span><br><span class="line">            cn.prefix = search</span><br><span class="line">            <span class="comment">// 显然第一步是没有相关的handlerFunc的，因此第一步插入结束</span></span><br><span class="line">            <span class="keyword">if</span> h != <span class="literal">nil</span> &#123;</span><br><span class="line">                cn.kind = t</span><br><span class="line">                cn.addHandler(method, h)</span><br><span class="line">                cn.ppath = ppath</span><br><span class="line">                cn.pnames = pnames</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> l &lt; pl &#123;</span><br><span class="line">            <span class="comment">// 只有这个条件没有进入，因为一条路由从前至后添加不会导致节点的分裂</span></span><br><span class="line">            <span class="comment">// 但是如果search = "/hel/"， cn.prefix = "/hello/"，此时l = 4, sl = 5, pl = 7 </span></span><br><span class="line">            <span class="comment">// 显然此时我们要将/hello/分裂为/hel + lo/两个节点</span></span><br><span class="line">            <span class="comment">// 新建lo/这个节点，并将/hello/的子节点转移到这个新节点</span></span><br><span class="line">            n := newNode(cn.kind, cn.prefix[l:], cn, cn.children, cn.methodHandler, cn.ppath, cn.pnames)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Update parent path for all children to new node</span></span><br><span class="line">            <span class="keyword">for</span> _, child := <span class="keyword">range</span> cn.children &#123;</span><br><span class="line">                child.parent = n</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Reset parent node</span></span><br><span class="line">            <span class="comment">// 更新cn节点</span></span><br><span class="line">            cn.kind = skind</span><br><span class="line">            <span class="comment">// cn.label = '/'</span></span><br><span class="line">            cn.label = cn.prefix[<span class="number">0</span>]</span><br><span class="line">            <span class="comment">// cn.prefix = "/hel"</span></span><br><span class="line">            cn.prefix = cn.prefix[:l]</span><br><span class="line">            cn.children = <span class="literal">nil</span></span><br><span class="line">            cn.methodHandler = <span class="built_in">new</span>(methodHandler)</span><br><span class="line">            cn.ppath = <span class="string">""</span></span><br><span class="line">            cn.pnames = <span class="literal">nil</span></span><br><span class="line">            <span class="comment">// 把新建的n节点变成cn的子节点</span></span><br><span class="line">            cn.addChild(n)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 显然我们知道这一个条件肯定是没有匹配到cn.prefix满足l &lt; pl进入的</span></span><br><span class="line">            <span class="comment">// 但是我们还不清楚有没有匹配到search的末尾</span></span><br><span class="line">            <span class="comment">// 在对l进行for循环时，如果因为search[l] != cn.prefix[l]跳出会进入else</span></span><br><span class="line">            <span class="comment">// 因为l &lt; max跳出会进入if</span></span><br><span class="line">            <span class="keyword">if</span> l == sl &#123;</span><br><span class="line">                <span class="comment">// At parent node</span></span><br><span class="line">                <span class="comment">// 如果我们添加的是"/hel"就会进入这一步，此时只需要对cn进行分离</span></span><br><span class="line">                cn.kind = t</span><br><span class="line">                cn.addHandler(method, h)</span><br><span class="line">                cn.ppath = ppath</span><br><span class="line">                cn.pnames = pnames</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// Create child node</span></span><br><span class="line">                <span class="comment">// 我们这一步肯定是没到匹配到search的末尾，新建一个"/"节点</span></span><br><span class="line">                n = newNode(t, search[l:], cn, <span class="literal">nil</span>, <span class="built_in">new</span>(methodHandler), ppath, pnames)</span><br><span class="line">                n.addHandler(method, h)</span><br><span class="line">                cn.addChild(n)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> l &lt; sl &#123;</span><br><span class="line">            <span class="comment">// l &lt; sl说明是此时path的插入是符合某个节点的前缀的</span></span><br><span class="line">            <span class="comment">// 11. search = ":"，此时提取新插入的部分，要么去子节点中找到了，要么新建一个子节点，显然此时需要新建节点</span></span><br><span class="line">            search = search[l:]</span><br><span class="line">            c := cn.findChildWithLabel(search[<span class="number">0</span>])</span><br><span class="line">            <span class="comment">// 如果找到了先关的子节点，就将子节点设为cn，然后继续查找</span></span><br><span class="line">            <span class="keyword">if</span> c != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="comment">// Go deeper</span></span><br><span class="line">                cn = c</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Create child node</span></span><br><span class="line">            <span class="comment">// 12.创建一个节点，主要信息pkind, ":", cn(parent node)，并且将节点插入到cn的子节点，第二部插入结束</span></span><br><span class="line">            n := newNode(t, search, cn, <span class="literal">nil</span>, <span class="built_in">new</span>(methodHandler), ppath, pnames)</span><br><span class="line">            n.addHandler(method, h)</span><br><span class="line">            cn.addChild(n)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// Node already exists</span></span><br><span class="line">            <span class="comment">// 16.因为nodey已经存在，最后必然是l = sl = pl进入到这个条件</span></span><br><span class="line">            <span class="keyword">if</span> h != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="comment">// 此时再次添加h，会将上一次的覆盖掉，所以实际上并不会有影响</span></span><br><span class="line">                cn.addHandler(method, h)</span><br><span class="line">                cn.ppath = ppath</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(cn.pnames) == <span class="number">0</span> &#123; <span class="comment">// Issue #729</span></span><br><span class="line">                    cn.pnames = pnames</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为我们只添加了一条路由，所以并不会出现节点<strong><em>split</em></strong>的情况，这里我还是把会出现节点分裂的代码解释了一下，这是Radis tree高效并且节省内存的一个措施，你可以想想再向Router中添加<strong>*”/hel”*</strong>或者是<strong>*”/hel/“*</strong>是个什么情况，这二者又可以分别代表分裂之后的两种处理方式。</p>
+<p>以上大概就是整个Router的Radix tree的构建过程，感兴趣的同学实际上可以将这两段代码抽出来运行一下，一步一步debug，映像会更加深刻，接下来我们看看是怎么在这一棵Radix tree中进行路由匹配的，最终就是为了找到我们相关的handlerFunc去处理我们的http request。</p>
+<p>这个过程稍微有点复杂，还是继续上代码，我们的查找过程还是建立在我们上面构建的一棵简单的Radix tree之上，路径如下：</p>
+<p><strong>/hello/ -&gt; : -&gt;/test/ -&gt; :</strong></p>
+<p>假如我们需要查找的路径是”/hello/3/test/jarvis”，看看是怎么查找的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数假如是["POST", "/hello/3/test/jarvis", c Context]</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Router)</span> <span class="title">Find</span><span class="params">(method, path <span class="keyword">string</span>, c Context)</span></span> &#123;</span><br><span class="line">    ctx := c.(*context)</span><br><span class="line">    ctx.path = path</span><br><span class="line">    <span class="comment">// 1.cn = root["/hello/"]</span></span><br><span class="line">    cn := r.tree <span class="comment">// Current node as root</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> (</span><br><span class="line">        <span class="comment">// 2.search = "/hello/3/test/jarvis"</span></span><br><span class="line">        search  = path</span><br><span class="line">        child   *node         <span class="comment">// Child node</span></span><br><span class="line">        n       <span class="keyword">int</span>           <span class="comment">// Param counter</span></span><br><span class="line">        nk      kind          <span class="comment">// Next kind</span></span><br><span class="line">        nn      *node         <span class="comment">// Next node</span></span><br><span class="line">        ns      <span class="keyword">string</span>        <span class="comment">// Next search</span></span><br><span class="line">        pvalues = ctx.pvalues <span class="comment">// Use the internal slice so the interface can keep the illusion of a dynamic slice</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Search order static &gt; param &gt; any</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="comment">// 25.search = ""，跳出循环</span></span><br><span class="line">        <span class="keyword">if</span> search == <span class="string">""</span> &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        pl := <span class="number">0</span> <span class="comment">// Prefix length</span></span><br><span class="line">        l := <span class="number">0</span>  <span class="comment">// LCP length</span></span><br><span class="line">        <span class="comment">// 12.search = "/test/jarvis", cn.prefix = ":", 并不会进入循环， l = pl = 0</span></span><br><span class="line">        <span class="comment">// 16.search = "/test/jarvis", cn.prefix = "/test/"</span></span><br><span class="line">        <span class="keyword">if</span> cn.label != <span class="string">':'</span> &#123;</span><br><span class="line">            <span class="comment">// 3.sl = len("/hello/3/test/jarvis") = 20</span></span><br><span class="line">            <span class="comment">// 17.sl = len("/test/jarvis") = 12</span></span><br><span class="line">            sl := <span class="built_in">len</span>(search)</span><br><span class="line">            <span class="comment">// 4.pl = len("/hello/") = 7</span></span><br><span class="line">            <span class="comment">// 18.pl = len("/test/") = 6</span></span><br><span class="line">            pl = <span class="built_in">len</span>(cn.prefix)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// LCP</span></span><br><span class="line">            <span class="comment">// 5.max = pl = 7</span></span><br><span class="line">            <span class="comment">// 19.max = pl = 6</span></span><br><span class="line">            max := pl</span><br><span class="line">            <span class="keyword">if</span> sl &lt; max &#123;</span><br><span class="line">                max = sl</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 6.此时会因为l = max = 7跳出</span></span><br><span class="line">            <span class="comment">// 20.同样会因为l = max = 7跳出</span></span><br><span class="line">            <span class="keyword">for</span> ; l &lt; max &amp;&amp; search[l] == cn.prefix[l]; l++ &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 处理匹配的情况</span></span><br><span class="line">        <span class="keyword">if</span> l == pl &#123;</span><br><span class="line">            <span class="comment">// Continue search</span></span><br><span class="line">            <span class="comment">// 7.search = "3/test/jarvis"</span></span><br><span class="line">            <span class="comment">// 13.l = pl = 0, search = "/test/jarvis"，这一步实际没有什么意义</span></span><br><span class="line">            <span class="comment">// 21.search = "jarvis"</span></span><br><span class="line">            search = search[l:]</span><br><span class="line">            <span class="comment">// Finish routing if no remaining search and we are on an leaf node</span></span><br><span class="line">            <span class="keyword">if</span> search == <span class="string">""</span> &amp;&amp; (nn == <span class="literal">nil</span> || cn.parent == <span class="literal">nil</span> || cn.ppath != <span class="string">""</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Attempt to go back up the tree on no matching prefix or no remaining search</span></span><br><span class="line">        <span class="keyword">if</span> l != pl || search == <span class="string">""</span> &#123;</span><br><span class="line">            <span class="comment">// Handle special case of trailing slash route with existing any route (see #1526)</span></span><br><span class="line">            <span class="keyword">if</span> path[<span class="built_in">len</span>(path)<span class="number">-1</span>] == <span class="string">'/'</span> &amp;&amp; cn.findChildByKind(akind) != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="keyword">goto</span> Any</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> nn == <span class="literal">nil</span> &#123; <span class="comment">// Issue #1348</span></span><br><span class="line">                <span class="keyword">return</span> <span class="comment">// Not found</span></span><br><span class="line">            &#125;</span><br><span class="line">            cn = nn</span><br><span class="line">            search = ns</span><br><span class="line">            <span class="keyword">if</span> nk == pkind &#123;</span><br><span class="line">                <span class="keyword">goto</span> Param</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> nk == akind &#123;</span><br><span class="line">                <span class="keyword">goto</span> Any</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 下面的三段可以很好地解释，我们上面提到的路由匹配顺序</span></span><br><span class="line">        <span class="comment">// Static -&gt; Param -&gt; Any</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Static node</span></span><br><span class="line">        <span class="comment">// 7.此时/hello/的子节点只有:是一个pkind，自然是找不到static node，因此会进入相面的Param段</span></span><br><span class="line">        <span class="comment">// 14.search = "/test/jarvis"，是可以找到子节点(/test)</span></span><br><span class="line">        <span class="keyword">if</span> child = cn.findChild(search[<span class="number">0</span>], skind); child != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="comment">// Save next</span></span><br><span class="line">            <span class="keyword">if</span> cn.prefix[<span class="built_in">len</span>(cn.prefix)<span class="number">-1</span>] == <span class="string">'/'</span> &#123; <span class="comment">// Issue #623</span></span><br><span class="line">                nk = pkind</span><br><span class="line">                nn = cn</span><br><span class="line">                ns = search</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 15.cn变成了第三个节点，search = "/test/jarvis"，cn.prefix = "/test/"</span></span><br><span class="line">            cn = child</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    Param:</span><br><span class="line">        <span class="comment">// Param node</span></span><br><span class="line">        <span class="comment">// 8.找出路由中的参数子节点，参数节点是没有什么label的，就是类型而已</span></span><br><span class="line">        <span class="comment">// 22.下一个也是参数节点</span></span><br><span class="line">        <span class="keyword">if</span> child = cn.findChildByKind(pkind); child != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="comment">// Issue #378，参数匹配已经到了最大，不会在继续增加了</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(pvalues) == n &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Save next</span></span><br><span class="line">            <span class="comment">// search = "3/test/jarvis"</span></span><br><span class="line">            <span class="comment">// cn.prefix = "/hello/"</span></span><br><span class="line">            <span class="keyword">if</span> cn.prefix[<span class="built_in">len</span>(cn.prefix)<span class="number">-1</span>] == <span class="string">'/'</span> &#123; <span class="comment">// Issue #623</span></span><br><span class="line">                <span class="comment">// 实质上是保存了当的节点node，kind和search，为了后面可以进行回溯</span></span><br><span class="line">                nk = akind</span><br><span class="line">                nn = cn</span><br><span class="line">                ns = search</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 9.调整cn的位置，便于下一步搜索</span></span><br><span class="line">            cn = child</span><br><span class="line">            i, l := <span class="number">0</span>, <span class="built_in">len</span>(search)</span><br><span class="line">            <span class="keyword">for</span> ; i &lt; l &amp;&amp; search[i] != <span class="string">'/'</span>; i++ &#123;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 10.pvalues = ["3"]</span></span><br><span class="line">            <span class="comment">// 23.pvalues = ["3", "jarvis"]</span></span><br><span class="line">            pvalues[n] = search[:i]</span><br><span class="line">            n++</span><br><span class="line">            <span class="comment">// 11.search = "/test/jarvis"</span></span><br><span class="line">            <span class="comment">// 24.search = ""</span></span><br><span class="line">            search = search[i:]</span><br><span class="line">            <span class="comment">// 进入下一个循环</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    Any:</span><br><span class="line">        <span class="comment">// 其实Any匹配也会涉及到很多复杂的东西</span></span><br><span class="line">        <span class="comment">// 例如//user/test/name,但是存在路由/user/*和/user/*/name，这样实质上是要找到更精确的后者</span></span><br><span class="line">        <span class="comment">// 所以Any会涉及到一些回溯，这就是nk、nn、ns的作用</span></span><br><span class="line">        <span class="comment">// Any node</span></span><br><span class="line">        <span class="keyword">if</span> cn = cn.findChildByKind(akind); cn != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="comment">// If any node is found, use remaining path for pvalues</span></span><br><span class="line">            pvalues[<span class="built_in">len</span>(cn.pnames)<span class="number">-1</span>] = search</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// No node found, continue at stored next node</span></span><br><span class="line">        <span class="comment">// or find nearest "any" route</span></span><br><span class="line">        <span class="keyword">if</span> nn != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="comment">// No next node to go down in routing (issue #954)</span></span><br><span class="line">            <span class="comment">// Find nearest "any" route going up the routing tree</span></span><br><span class="line">            search = ns</span><br><span class="line">            np := nn.parent</span><br><span class="line">            <span class="comment">// Consider param route one level up only</span></span><br><span class="line">            <span class="keyword">if</span> cn = nn.findChildByKind(pkind); cn != <span class="literal">nil</span> &#123;</span><br><span class="line">                pos := strings.IndexByte(ns, <span class="string">'/'</span>)</span><br><span class="line">                <span class="keyword">if</span> pos == <span class="number">-1</span> &#123;</span><br><span class="line">                    <span class="comment">// If no slash is remaining in search string set param value</span></span><br><span class="line">                    pvalues[<span class="built_in">len</span>(cn.pnames)<span class="number">-1</span>] = search</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> pos &gt; <span class="number">0</span> &#123;</span><br><span class="line">                    <span class="comment">// Otherwise continue route processing with restored next node</span></span><br><span class="line">                    cn = nn</span><br><span class="line">                    nn = <span class="literal">nil</span></span><br><span class="line">                    ns = <span class="string">""</span></span><br><span class="line">                    <span class="keyword">goto</span> Param</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// No param route found, try to resolve nearest any route</span></span><br><span class="line">            <span class="keyword">for</span> &#123;</span><br><span class="line">                np = nn.parent</span><br><span class="line">                <span class="keyword">if</span> cn = nn.findChildByKind(akind); cn != <span class="literal">nil</span> &#123;</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> np == <span class="literal">nil</span> &#123;</span><br><span class="line">                    <span class="keyword">break</span> <span class="comment">// no further parent nodes in tree, abort</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">var</span> str strings.Builder</span><br><span class="line">                str.WriteString(nn.prefix)</span><br><span class="line">                str.WriteString(search)</span><br><span class="line">                search = str.String()</span><br><span class="line">                nn = np</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> cn != <span class="literal">nil</span> &#123; <span class="comment">// use the found "any" route and update path</span></span><br><span class="line">                pvalues[<span class="built_in">len</span>(cn.pnames)<span class="number">-1</span>] = search</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="comment">// Not found</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 26.根据方法返回handler方法</span></span><br><span class="line">    ctx.handler = cn.findHandler(method)</span><br><span class="line">    <span class="comment">// 27.存储完整的path</span></span><br><span class="line">    ctx.path = cn.ppath</span><br><span class="line">    <span class="comment">// 28.存储参数的名字</span></span><br><span class="line">    <span class="comment">// 那还记得参数去哪里了吗？pvalues知识ctx.Pvalues的一个引用，参数已经存储到了ctx中</span></span><br><span class="line">    ctx.pnames = cn.pnames</span><br><span class="line"></span><br><span class="line">    <span class="comment">// <span class="doctag">NOTE:</span> Slow zone...</span></span><br><span class="line">    <span class="comment">// 找不到方法的情况</span></span><br><span class="line">    <span class="keyword">if</span> ctx.handler == <span class="literal">nil</span> &#123;</span><br><span class="line">        ctx.handler = cn.checkMethodNotAllowed()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Dig further for any, might have an empty value for *, e.g.</span></span><br><span class="line">        <span class="comment">// serving a directory. Issue #207.</span></span><br><span class="line">        <span class="keyword">if</span> cn = cn.findChildByKind(akind); cn == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> h := cn.findHandler(method); h != <span class="literal">nil</span> &#123;</span><br><span class="line">            ctx.handler = h</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ctx.handler = cn.checkMethodNotAllowed()</span><br><span class="line">        &#125;</span><br><span class="line">        ctx.path = cn.ppath</span><br><span class="line">        ctx.pnames = cn.pnames</span><br><span class="line">        pvalues[<span class="built_in">len</span>(cn.pnames)<span class="number">-1</span>] = <span class="string">""</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述大概就是整个Route匹配的过程，这里关于Any的处理我也只是看懂了一部分，大家有兴趣的可以去看一下，Any的处理应该是最复杂的，如果以后我有深入的理解也会在这里加上去。</p>
+<p><strong>Group</strong></p>
+<p>很多时候，当路由越来越多的时候我们可能会需要将路由进行分组，例如分为/user，/manage，/goods这样的几个大组，之后的路由可以挂在这些路由之下，例如/user/info，/goods/addGood。这样做有什么<strong><em>好处</em></strong>呢？我个人认为主要有两个：</p>
+<ul>
+<li>路由更加清晰，这样实质是将路由块了，每组路由都是代表一个功能模块，后期利于维护</li>
+<li>统一使用中间件，不同模块很可能会使用不同的中间件，这样可以我们就不必为每一个路由去配置</li>
+</ul>
+<p>这种模块化路由在echo中的实现方式也很简单，echo定义了一个Group结构体，这个结构体实际是对echo的一个二层封装，只不过抽离了统一的前缀和中间件，<strong><em>底层还是调用echo的方法</em></strong>。简而言之，你用Group最后生成的路由树，实际上跟你一条一条配置生成的一模一样，只是简化了我们的操作。还是看一下Group的实现吧！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Group <span class="keyword">struct</span> &#123;</span><br><span class="line">    common</span><br><span class="line">    host       <span class="keyword">string</span></span><br><span class="line">    prefix     <span class="keyword">string</span></span><br><span class="line">    middleware []MiddlewareFunc</span><br><span class="line">    echo       *Echo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Group底层实际还是利用的echo的方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *Group)</span> <span class="title">Add</span><span class="params">(method, path <span class="keyword">string</span>, handler HandlerFunc, middleware ...MiddlewareFunc)</span> *<span class="title">Route</span></span> &#123;</span><br><span class="line">    <span class="comment">// Combine into a new slice to avoid accidentally passing the same slice for</span></span><br><span class="line">    <span class="comment">// multiple routes, which would lead to later add() calls overwriting the</span></span><br><span class="line">    <span class="comment">// middleware from earlier calls.</span></span><br><span class="line">    m := <span class="built_in">make</span>([]MiddlewareFunc, <span class="number">0</span>, <span class="built_in">len</span>(g.middleware)+<span class="built_in">len</span>(middleware))</span><br><span class="line">    m = <span class="built_in">append</span>(m, g.middleware...)</span><br><span class="line">    m = <span class="built_in">append</span>(m, middleware...)</span><br><span class="line">    <span class="comment">// 最后还是将prefix加了上去</span></span><br><span class="line">    <span class="keyword">return</span> g.echo.add(g.host, method, g.prefix+path, handler, m...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Bind和Validate</strong></p>
+<p>参数绑定和校验是web框架跑不掉的话题，遗憾的是在echo中这二者实在是太简陋了。这里以JSON来说明绑定是怎么样完成的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ctype := req.Header.Get(HeaderContentType)</span><br><span class="line"><span class="keyword">switch</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> strings.HasPrefix(ctype, MIMEApplicationJSON):</span><br><span class="line">    <span class="comment">// 比较直接，就是使用原生json包完成的</span></span><br><span class="line">    <span class="keyword">if</span> err = json.NewDecoder(req.Body).Decode(i); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// ......</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然Bind很简单，但是还是有一个小问题，就是json包去解析数据的时候会从Request.Body中读取，而我们知道request中的数据是一种流的形式，不想我们存在内存或是磁盘的数据想读就读，流数据是读一次就没有了。与此同时，json包在解析数据时会读取全部数据。</p>
+<p>那么这样就会有一个问题，Bind变成了<strong><em>一次性</em></strong>的操作。显然一次请求可能经过多个中间件到达handlerFunc，如果在某个中间件Bind了参数，后面的中间件或者是handlerFunc的Bind就没有数据了。这样如果初始Bind的位置并不需要全部参数的话实际上还会影响后面的数据，遗憾的是echo.Bind还没有聪明到只读出需要的数据。</p>
+<p>这样的问题主要有两种解决方式：</p>
+<ul>
+<li>Bind到echo.Map中，然后使用echo.Context的Set方法，之后可以使用Set和Get统一操作</li>
+<li>读出数据之后进行一次回写，将流再次写入Request</li>
+</ul>
+<p>两种方法分别实现如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数全部读到map[string]interface&#123;&#125;中，然后存储</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HandlerFunc</span><span class="params">(ctx echo.Context)</span> <span class="title">err</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> m echo.Map</span><br><span class="line">    <span class="keyword">if</span> err := ctx.Bind(m); err := <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">        ctx.Set(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 回写流</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HandlerFunc</span><span class="params">(ctx echo.Context)</span> <span class="title">err</span></span> &#123;</span><br><span class="line">    b, _ := ioutil.ReadAll(ctx.Request().Body)</span><br><span class="line">    ctx.Request().Body.Close()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> m <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">    json.Unmarshal(b, &amp;m)</span><br><span class="line">    ioutil.NopCloser(bytes.NewBuffer(b))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实际上http.Request也有一个方法</span></span><br><span class="line"><span class="comment">// 这个方法可以帮我们获取Body，默认和上面一样，无痛多次获取流</span></span><br><span class="line">GetBody <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="params">(io.ReadCloser, error)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>至于说Validate，echo的实现就更加简单了，如果我们想要使用Validate方法，需要手动注入一个实现了<strong><em>Validate()</em></strong>方法的<strong><em>Validator</em></strong>，这个放到下面的Echo实例中去看吧！</p>
+<p><strong>Echo</strong></p>
+<p>这是框架的顶级结构，最主要的就是封装了http.Server实例，并且实现了<strong><em>ServeHttp(w http.ResponseWriter, r *http.Request)</em></strong>这个方法，这样server将Request从socket读取之后交给Echo，由Echo将Request和Response收敛context，然后寻找路由来处理这一次的请求，看一下代码的实现（省略了很多）：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Echo <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">    colorer          *color.Color</span><br><span class="line">    <span class="comment">// 前置中间件</span></span><br><span class="line">    premiddleware    []MiddlewareFunc</span><br><span class="line">    middleware       []MiddlewareFunc</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 路由</span></span><br><span class="line">    router           *Router</span><br><span class="line">    routers          <span class="keyword">map</span>[<span class="keyword">string</span>]*Router</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 资源池，存放Context</span></span><br><span class="line">    pool             sync.Pool</span><br><span class="line">    <span class="comment">// http和https的server</span></span><br><span class="line">    Server           *http.Server</span><br><span class="line">    TLSServer        *http.Server</span><br><span class="line">    <span class="comment">// socket的监听器</span></span><br><span class="line">    Listener         net.Listener</span><br><span class="line">    TLSListener      net.Listener</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 相关的Binder、Validator</span></span><br><span class="line">    Binder           Binder</span><br><span class="line">    <span class="comment">// Validator需要实现Validate方法</span></span><br><span class="line">    Validator        Validator</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后看一下ServeHttp方法吧，最后一点东西了：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求会交给echo处理</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *Echo)</span> <span class="title">ServeHTTP</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 从资源池中获取context</span></span><br><span class="line">    c := e.pool.Get().(*context)</span><br><span class="line">    <span class="comment">// 重置r，w</span></span><br><span class="line">    c.Reset(r, w)</span><br><span class="line"></span><br><span class="line">    h := NotFoundHandler</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> e.premiddleware == <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 寻找路由，匹配相关的handler</span></span><br><span class="line">        e.findRouter(r.Host).Find(r.Method, GetPath(r), c)</span><br><span class="line">        h = c.Handler()</span><br><span class="line">        <span class="comment">// handlerFunc经过中间件处理</span></span><br><span class="line">        h = applyMiddleware(h, e.middleware...)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        h = <span class="function"><span class="keyword">func</span><span class="params">(c Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">            e.findRouter(r.Host).Find(r.Method, GetPath(r), c)</span><br><span class="line">            h := c.Handler()</span><br><span class="line">            h = applyMiddleware(h, e.middleware...)</span><br><span class="line">            <span class="keyword">return</span> h(c)</span><br><span class="line">        &#125;</span><br><span class="line">        h = applyMiddleware(h, e.premiddleware...)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行中间件到hanflerFunc的执行链</span></span><br><span class="line">    <span class="keyword">if</span> err := h(c); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        e.HTTPErrorHandler(err, c)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放资源</span></span><br><span class="line">    e.pool.Put(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>By the way</strong></p>
+<p>以上大概就是Echo的大部分内容了，非常的简洁（当然也很简陋，哈哈），为我们实现了web开发中的常见的模块，个人感觉这是一个比较适合阅读源码的框架。也十分有助于我们理解http的整个过程，并且你还可以实现高度的个人定制化，因为Context只是一个接口，你甚至可以自己实现一个context等等。</p>
+<p>确实在使用Spring，Laravel这样的成熟web框架的时候会让我们有一种飘在云端的感觉，似乎我们只是网框架里面填东西，对框架本身了解不够，而且因为这些框架不断地自我完善，很多东西都被封装了一层又一层，不适合源码的阅读。</p>
+<p>所以如果你想使用一个简洁，你可以控制和理解的web框架，Echo的不二之选。</p>
+<p>下一次，我会继续分析一下GO的原生http服务的实现，主要是默认是怎么使用serverMux完成路由的区分！</p>
+<p>2020.08.09 22:52</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic28.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/08/24/leetcode_2/" title="Leetcode_2" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/07/25/进程间的通信方式（下）/" title="进程间的通信方式（下）" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/28/漫谈http/" title="漫谈http">
+								漫谈http			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 28日, 2020				
+							</p>
+							<p class="relate-post-content">
+								与http有关的知识点http status codehttp的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

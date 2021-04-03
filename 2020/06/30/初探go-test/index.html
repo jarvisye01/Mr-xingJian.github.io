@@ -1,0 +1,1027 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      初探go test | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《初探go test》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/06/30/初探go-test/" itemprop="url">
+		初探go test
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/06/30/初探go-test/" itemprop="url">
+		<time datetime="2020-06-30T14:57:25.000Z" itemprop="datePublished">
+	  		2020-06-30
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/06/30/初探go-test/" itemprop="url">
+		<time datetime="2020-06-30T14:57:25.000Z" itemprop="dateUpdated">
+	  		2020-07-01
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/GO/" class=" ">
+			GO
+		</a>
+	
+		<a href="/tags/Test/" class=" ">
+			Test
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="go-test"><a href="#go-test" class="headerlink" title="go test"></a>go test</h3><p>这段时间的工作一直主要是GO，很多业务代码写完之后在考虑加上单元测试，就来研究一下go test这个工具</p>
+<p>go test是一个按照一定的约定和组织来测试代码的程序，包中的_test.go结尾的源文件不会被构建成报的一部分，它们属于go test的测试对象</p>
+<p>go test文件中主要包含三种类型的函数：</p>
+<ul>
+<li>测试函数：Test开头，测试程序的逻辑行为</li>
+<li>基准测试函数(benchmark)：Benchmark开头，测试函数的性能，原理是go test会多次执行基准函数计算平均执行时间</li>
+<li>示例函数：Example开头，提供一个由编译器保证正确性的示例文档</li>
+</ul>
+<p>go test执行流程：</p>
+<ul>
+<li>遍历所有*_test.go文件中的符合测试函数名称规范的函数</li>
+<li>生成一个临时的main包用于调用测试函数</li>
+<li>构建并运行，报告测试结果</li>
+<li>清理测试过程生成的临时文件</li>
+</ul>
+<p><strong>example：编写测试函数测试斐波那契函数</strong></p>
+<p>文件夹的格式：</p>
+<ul>
+<li>mytest<ul>
+<li>util.go</li>
+<li>util_test.go</li>
+</ul>
+</li>
+</ul>
+<p>这里写了两个实现，主要是为了对比后面的bnechmark压测</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> mytest</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Fib</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span> || n == <span class="number">2</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Fib(n - <span class="number">1</span>) + Fib(n - <span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FibIterate</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span> || n == <span class="number">2</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    first := <span class="number">1</span></span><br><span class="line">    second := <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">3</span>; i &lt;= n; i++ &#123;</span><br><span class="line">        first, second = second, first + second</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> second</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> mytest</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"testing"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1, 1, 2, 3, 5, 8, 13</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestFib</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> (</span><br><span class="line">        n = <span class="number">40</span></span><br><span class="line">        except = <span class="number">102334155</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">if</span> Fib(n) != except &#123;</span><br><span class="line">        t.Errorf(<span class="string">"error: Fib(%d) = %d, except %d"</span>, n, Fib(n), except)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestFibIterate</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> (</span><br><span class="line">        n = <span class="number">40</span></span><br><span class="line">        except = <span class="number">102334155</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">if</span> FibIterate(n) != except &#123;</span><br><span class="line">        t.Errorf(<span class="string">"error: Fib(%d) = %d, except %d"</span>, n, FibIterate(n), except)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试命令</strong></p>
+<ul>
+<li>go test：会给出相应的测试结果，已经这个测试的时间</li>
+<li>go test -v：当n调至40的时候明显看出，递归与迭代之间的速度差距</li>
+<li>go test -run=[regexp]：run参数可以指定一个正则表达式，只测试匹配的函数</li>
+</ul>
+<p><strong>测试表格</strong></p>
+<p>单个测试用例可能并不能完全说明我们测试的正确性，有时候需要提供多个测试用例，这个时候可以使用测试表格加循环迭代来简化</p>
+<p>例如向测试文件中加入表格测试，这样后续添加测试用例很方便，特别是在测试特殊用例的时候，不用每次都把原来的测试用例删除</p>
+<p>在这样的表格测试中，要注意t.Errorf并不会是测试函数直接停止，如果需要停止可以使用t.Fatal(f)函数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestFibWithTable</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    tab := []<span class="keyword">struct</span> &#123;</span><br><span class="line">        input <span class="keyword">int</span></span><br><span class="line">        except <span class="keyword">int</span></span><br><span class="line">    &#125;&#123;</span><br><span class="line">        &#123;<span class="number">1</span>, <span class="number">1</span>&#125;,</span><br><span class="line">        &#123;<span class="number">2</span>, <span class="number">1</span>&#125;,</span><br><span class="line">        &#123;<span class="number">3</span>, <span class="number">2</span>&#125;,</span><br><span class="line">        &#123;<span class="number">4</span>, <span class="number">3</span>&#125;,</span><br><span class="line">        &#123;<span class="number">5</span>, <span class="number">5</span>&#125;,</span><br><span class="line">        &#123;<span class="number">6</span>, <span class="number">8</span>&#125;,</span><br><span class="line">        &#123;<span class="number">7</span>, <span class="number">13</span>&#125;,</span><br><span class="line">        &#123;<span class="number">8</span>, <span class="number">21</span>&#125;,</span><br><span class="line">        &#123;<span class="number">9</span>, <span class="number">34</span>&#125;,</span><br><span class="line">        &#123;<span class="number">10</span>, <span class="number">55</span>&#125;,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _, v := <span class="keyword">range</span> tab &#123;</span><br><span class="line">        <span class="keyword">if</span> Fib(v.input) != v.except &#123;</span><br><span class="line">            t.Errorf(<span class="string">"error: Fib(%d) = %d, except %d"</span>, v.input, Fib(v.input), v.except)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>随机测试</strong></p>
+<p>为了使得测试具有随机性，我们可以编写另外的算法简单、效率可能不是特别好的函数来进行对照，我这里正好是有两个不同的实现方式，直接来看一看，我们随机生成一百个[1, 40]区间的测试用例（感觉再加递归就扛不住了）</p>
+<p>这样就能进行大量的测试，如果你觉得不放心，实际上还可以输出每次的结果，但是随机测试的条件是比较高的，你需要产生随机的样例，有时候这并不是一件容易的事情</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestFibRandom</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    seed := time.Now().UTC().UnixNano()</span><br><span class="line">    r := rand.New(rand.NewSource(seed))</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">100</span>; i++ &#123;</span><br><span class="line">        n := r.Intn(<span class="number">40</span>)</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        t1 := Fib(n)</span><br><span class="line">        t2 := FibIterate(n)</span><br><span class="line">        <span class="keyword">if</span> t1 != t2 &#123;</span><br><span class="line">            t.Errorf(<span class="string">"error: Fib(%d) = %d, FibIterate(%d) = %d, except equal"</span>, n, t1, n, t2)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试main包</strong></p>
+<p>在这之前我们的go test都是测试相关的测试包，在测试包中编写测试函数，有没有想过直接去测试一个main包呢，这也是可以做到的，而且与测试普通的包没什么大的区别。这里我们测试一下一个简单的缓存：<br>包含main函数的文件</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initCache</span><span class="params">()</span></span> &#123;</span><br><span class="line">    cache = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">put</span><span class="params">(k, v <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    cache[k] = v</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">get</span><span class="params">(k <span class="keyword">string</span>)</span> <span class="params">(<span class="keyword">string</span>, <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> v, b := cache[k]; b &#123;</span><br><span class="line">        <span class="keyword">return</span> v, <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>, <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>test文件</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestInitCache</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    initCache()</span><br><span class="line">    <span class="keyword">if</span> cache == <span class="literal">nil</span> &#123;</span><br><span class="line">        t.Errorf(<span class="string">"cache is nil except map[string]string&#123;&#125;"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestGet</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    initCache()</span><br><span class="line">    tab := []<span class="keyword">struct</span>&#123;</span><br><span class="line">        k <span class="keyword">string</span></span><br><span class="line">        v <span class="keyword">string</span></span><br><span class="line">    &#125;&#123;</span><br><span class="line">        &#123;<span class="string">"hello"</span>, <span class="string">"world"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">""</span>, <span class="string">"empty"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"full"</span>, <span class="string">"set"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"less"</span>, <span class="string">"more"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"ok"</span>, <span class="string">"cool"</span>&#125;,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, v := <span class="keyword">range</span> tab &#123;</span><br><span class="line">        put(v.k, v.v)</span><br><span class="line">    &#125;</span><br><span class="line">    idx := rand.Intn(<span class="built_in">len</span>(tab))</span><br><span class="line">    v , b := get(tab[idx].k)</span><br><span class="line">    <span class="keyword">if</span> !b &#123;</span><br><span class="line">        t.Errorf(<span class="string">"tab[%d] = %v cache[%s] is empty"</span>, idx, tab[idx], tab[idx].k)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> tab[idx].v != v &#123;</span><br><span class="line">        t.Errorf(<span class="string">"cache[%s] = %s except %s"</span>, tab[idx].k, v, tab[idx].v)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestPut</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    initCache()</span><br><span class="line">    put(<span class="string">"test1"</span>, <span class="string">"test1"</span>)</span><br><span class="line">    put(<span class="string">"test2"</span>, <span class="string">"test2"</span>)</span><br><span class="line">    put(<span class="string">"test3"</span>, <span class="string">"test3"</span>)</span><br><span class="line">    put(<span class="string">"test1"</span>, <span class="string">"test4"</span>)</span><br><span class="line">    <span class="comment">//这里我们还能拿到cache，说明我们测试时候可以拿到同一个包中的变量，或者是报导出的变量</span></span><br><span class="line">    cache[<span class="string">"test4"</span>] = <span class="string">"test"</span></span><br><span class="line"></span><br><span class="line">    except := <span class="number">4</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(cache) != except &#123;</span><br><span class="line">        t.Errorf(<span class="string">"len(cache) is %d except %d"</span>, <span class="built_in">len</span>(cache), except)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我们要注意的是如果你拿到了全局变量，并且对全局变量进行了修改那么你一定要及时回复，不然会造成不好的结果，这里的恢复建议使用defer进行恢复。</p>
+<p><strong>白盒测试</strong></p>
+<p>黑盒测试注重的是结果，我们一般会调用相关的API，然后看输出是否符合预期，就像选择题，我只看你结果对不对。白盒测试又成为clear box，一般会进入包的内部，需要观察函数的执行流程对不对，对于白盒测试，可就不是简单的条条大路通罗马了，我们希望从特定的路线达到正确的目的。</p>
+<p>从上面可以看出，第一个测试案例是一个黑盒测试，因为我们只对包导出的函数进行了测试，第二个就不一样了，我们对包内的函数进行了相关的测试，另外我们拿到了同一个包内的变量进行了相关的使用，这就是典型的白盒测试。</p>
+<p><strong>基准测试</strong></p>
+<p>基准测试更被人熟悉的一个名字是benchmark测试，这种测试主要是测试程序的性能，一般会给定一个测试的次数N，这里我们正好用两个不同的Fib实现来对比一下benchmark的测试结果。</p>
+<p>在第一个案例中加入benchmark的测试代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tab = []<span class="keyword">struct</span> &#123;</span><br><span class="line">    n <span class="keyword">int</span></span><br><span class="line">    fn <span class="keyword">int</span></span><br><span class="line">&#125;&#123;</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">1</span>&#125;,</span><br><span class="line">    &#123;<span class="number">2</span>, <span class="number">1</span>&#125;,</span><br><span class="line">    &#123;<span class="number">3</span>, <span class="number">2</span>&#125;,</span><br><span class="line">    &#123;<span class="number">4</span>, <span class="number">3</span>&#125;,</span><br><span class="line">    &#123;<span class="number">5</span>, <span class="number">5</span>&#125;,</span><br><span class="line">    &#123;<span class="number">6</span>, <span class="number">8</span>&#125;,</span><br><span class="line">    &#123;<span class="number">7</span>, <span class="number">13</span>&#125;,</span><br><span class="line">    &#123;<span class="number">8</span>, <span class="number">21</span>&#125;,</span><br><span class="line">    &#123;<span class="number">9</span>, <span class="number">34</span>&#125;,</span><br><span class="line">    &#123;<span class="number">10</span>, <span class="number">55</span>&#125;,</span><br><span class="line">    &#123;<span class="number">11</span>, <span class="number">89</span>&#125;,</span><br><span class="line">    &#123;<span class="number">12</span>, <span class="number">144</span>&#125;,</span><br><span class="line">    &#123;<span class="number">13</span>, <span class="number">233</span>&#125;,</span><br><span class="line">    &#123;<span class="number">14</span>, <span class="number">377</span>&#125;,</span><br><span class="line">    &#123;<span class="number">15</span>, <span class="number">610</span>&#125;,</span><br><span class="line">    &#123;<span class="number">16</span>, <span class="number">987</span>&#125;,</span><br><span class="line">    &#123;<span class="number">17</span>, <span class="number">1597</span>&#125;,</span><br><span class="line">    &#123;<span class="number">18</span>, <span class="number">2584</span>&#125;,</span><br><span class="line">    &#123;<span class="number">19</span>, <span class="number">4181</span>&#125;,</span><br><span class="line">    &#123;<span class="number">20</span>, <span class="number">6765</span>&#125;,</span><br><span class="line">    &#123;<span class="number">21</span>, <span class="number">10946</span>&#125;,</span><br><span class="line">    &#123;<span class="number">22</span>, <span class="number">17711</span>&#125;,</span><br><span class="line">    &#123;<span class="number">23</span>, <span class="number">28657</span>&#125;,</span><br><span class="line">    &#123;<span class="number">24</span>, <span class="number">46368</span>&#125;,</span><br><span class="line">    &#123;<span class="number">25</span>, <span class="number">75025</span>&#125;,</span><br><span class="line">    &#123;<span class="number">26</span>, <span class="number">121393</span>&#125;,</span><br><span class="line">    &#123;<span class="number">27</span>, <span class="number">196418</span>&#125;,</span><br><span class="line">    &#123;<span class="number">28</span>, <span class="number">317811</span>&#125;,</span><br><span class="line">    &#123;<span class="number">29</span>, <span class="number">514229</span>&#125;,</span><br><span class="line">    &#123;<span class="number">30</span>, <span class="number">832040</span>&#125;,</span><br><span class="line">    &#123;<span class="number">31</span>, <span class="number">1346269</span>&#125;,</span><br><span class="line">    &#123;<span class="number">32</span>, <span class="number">2178309</span>&#125;,</span><br><span class="line">    &#123;<span class="number">33</span>, <span class="number">3524578</span>&#125;,</span><br><span class="line">    &#123;<span class="number">34</span>, <span class="number">5702887</span>&#125;,</span><br><span class="line">    &#123;<span class="number">35</span>, <span class="number">9227465</span>&#125;,</span><br><span class="line">    &#123;<span class="number">36</span>, <span class="number">14930352</span>&#125;,</span><br><span class="line">    &#123;<span class="number">37</span>, <span class="number">24157817</span>&#125;,</span><br><span class="line">    &#123;<span class="number">38</span>, <span class="number">39088169</span>&#125;,</span><br><span class="line">    &#123;<span class="number">39</span>, <span class="number">63245986</span>&#125;,</span><br><span class="line">    &#123;<span class="number">40</span>, <span class="number">102334155</span>&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">benchmarkFib</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> _, item := <span class="keyword">range</span> tab &#123;</span><br><span class="line">        t := Fib(item.n)</span><br><span class="line">        <span class="keyword">if</span> t != item.fn &#123;</span><br><span class="line">            b.Errorf(<span class="string">"error: Fib(%d) = %d, except %d"</span>, item.n, t, item.fn)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">benchmarkFibIterate</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> _, item := <span class="keyword">range</span> tab &#123;</span><br><span class="line">        t := FibIterate(item.n)</span><br><span class="line">        <span class="keyword">if</span> t != item.fn &#123;</span><br><span class="line">            b.Errorf(<span class="string">"error: Fib(%d) = %d, except %d"</span>, item.n, t, item.fn)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkFib30</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">30</span>; i++ &#123;</span><br><span class="line">        benchmarkFib(b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkFibIterate30</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">30</span>; i++ &#123;</span><br><span class="line">        benchmarkFibIterate(b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分别测试两种方法的性能，二者相差巨大，这还仅仅是只算到n=40，做30次压测：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> test -bench=BenchmarkFib30</span><br><span class="line">goos: windows</span><br><span class="line">goarch: amd64</span><br><span class="line">BenchmarkFib30<span class="number">-4</span>               <span class="number">1</span>        <span class="number">35072212800</span> ns/op</span><br><span class="line">PASS</span><br><span class="line">ok      _/F_/test/awesomeProject/study/test/mytest      <span class="number">35.861</span>s</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> test -bench=BenchmarkFibIterate30</span><br><span class="line">goos: windows</span><br><span class="line">goarch: amd64</span><br><span class="line">BenchmarkFibIterate30<span class="number">-4</span>         <span class="number">2000000000</span>               <span class="number">0.00</span> ns/op</span><br><span class="line">PASS</span><br><span class="line">ok      _/F_/test/awesomeProject/study/test/mytest      <span class="number">0.780</span>s</span><br></pre></td></tr></table></figure>
+
+<p>另外需要注意的就是默认的go test命令并不会执行什么benchmark函数，我们需要通过go test -bench=[regexp]来匹配需要测试的benchmark函数，go test -bench=.可以测试所有的benchmark函数。</p>
+<p>虽然有了这样的性能测试工具，但是我们千万不要再开发过程中去过于的纠结性能，因为benchmark测试也只是一种参考，为了很小很小的性能去复杂代码其实不值得。不过话说回来，如果是向上面这样区别巨大，那么还是值得我们去优化的。</p>
+<p><strong>测试后端的一个handler方法，也就是我们常说的Controller中的方法</strong></p>
+<p><a href="https://blog.questionable.services/article/testing-http-handlers-go/" target="_blank" rel="noopener">https://blog.questionable.services/article/testing-http-handlers-go/</a></p>
+<p><strong>By the way</strong></p>
+<p>大多数时候其实编写真正的单元测试代码是没有这么容易的，因为往往会有很多的东西耦合起来，会涉及到各种各样的依赖注入问题，这样会导致你写一个测试可能需要解决各种各样的依赖问题，比较棘手。</p>
+<p>这也在侧面体现了你的代码能力，好的代码必须要能够尽可能简单的测试，在平时写代码的过程中我们也要注意这一点，另外一方面编写单元测试也是需要很多经验和技巧的，要在实践中慢慢的积累。</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic18.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/07/02/浅入浅出Docker与虚拟机/" title="浅入浅出Docker与虚拟机" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/24/leetcode_2/" title="Leetcode_2">
+								Leetcode_2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 24日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Leetcode上一篇leetcode刷题博客的记录已经有25道题目了，想着再继续向里面添加就会变得很长，于是决定新开一篇博客来进行刷题的记录，之后的每一篇刷题博客也确定每篇25道题目吧！
+上一篇博客是实习的时候开的，只不过后来工作多...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/24/leetcode_2/" title="Leetcode_2">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="Leetcode_2"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">
+								实现一些经典的Data Structure			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								实现经典的Data StructureBackground
+数据结构在我们的计算机学习中有着不可替代的作用，永远滴神linus说过，好的程序员关注数据结构和算法，垃圾程序员关注代码。这话符合linus的说话风格，虽然我们不必百分之百认...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic24.jpg" alt="实现一些经典的Data Structure"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">
+								来看一看常见的排序算法			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 8日, 2020				
+							</p>
+							<p class="relate-post-content">
+								sortsort是计算机算法中璀璨的明星，sort在我们的计算机中有着不可取代的地位，可以这样说如果失去了高效的sort算法，我们的计算机就不会发展到像今天这样精彩。sort已经是计算机行业的基石算法类别之一，这个仅仅只是将数据排序的...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic22.jpg" alt="来看一看常见的排序算法"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">
+								实践一下GO的reflect			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 20日, 2020				
+							</p>
+							<p class="relate-post-content">
+								一次GO的reflect的小小实践
+一点心得
+上次在接触反射的时候我曾经说过学习反射最好的方式有两种，读经典的反射代码（fmt.Printf）和自己动手写一下反射的代码。那一片博客之后我说会写一点关于反射的代码，一拖就拖到了现在。越来...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic16.jpg" alt="实践一下GO的reflect"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">
+								看一看GO的rpc中Server的实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								GO的rpc包中Server的实现前面的一篇博客分析了一下关于GO的rpc中关于client的实现，大致理了一下client发送请求并且如何收到server的回复的一个过程。当时准备立即去分析server.go的代码的，但是因为GO中...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic19.jpg" alt="看一看GO的rpc中Server的实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">
+								谈一谈GO中的反射			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Reflect无奈的反射
+博主之前研究过Java的反射，有过一点反射概念的基础，所以在面对GO中的基本的反射操作是能够看得懂的。所以在前面两篇rpc的文章，都进展的比较顺利。但是今天看到rpc包中的server的时候，因为server...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic14.jpg" alt="谈一谈GO中的反射"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">
+								趁热打铁，来看看GO RPC的Client的具体请求过程			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								在上一篇博客，我跟大家一起大致了解了rpc包的结构和里面的一些内容，对整个rpc的调用有了一定的认识。因为第一次看源码，还不是很深入，这次我们再次出发，进一步探索GO RPC中的client的具体请求流程，趁热打铁！
+
+连接serve...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic12.jpg" alt="趁热打铁，来看看GO RPC的Client的具体请求过程"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">
+								初探Go的RPC实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 5日, 2020				
+							</p>
+							<p class="relate-post-content">
+								简单探索一下GO中的RPC什么是rpc？
+rpc的英文名称是Remote Procedure Call，用博主的翻译就是远程过程调用，这是一个很时髦的东西。想一想，你的模块可以调用远程机器上的过程，也就是说不同于原始我们引用别人的模块...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic2.jpg" alt="初探Go的RPC实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">
+								GO中的数据类型			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 2日, 2020				
+							</p>
+							<p class="relate-post-content">
+								记录一下Go语言的学习经历GO中的数据类型（data type）基本数据
+
+整型
+int
+在go中，整型分为有符号和无符号整数，分别有一下几种：
+
+int，int8，int16，int32，int64
+uint，uint8，uint1...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic3.jpg" alt="GO中的数据类型"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

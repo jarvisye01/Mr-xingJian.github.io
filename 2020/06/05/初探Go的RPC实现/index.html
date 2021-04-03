@@ -1,0 +1,1009 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      初探Go的RPC实现 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《初探Go的RPC实现》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/06/05/初探Go的RPC实现/" itemprop="url">
+		初探Go的RPC实现
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/06/05/初探Go的RPC实现/" itemprop="url">
+		<time datetime="2020-06-05T14:35:25.000Z" itemprop="datePublished">
+	  		2020-06-05
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/06/05/初探Go的RPC实现/" itemprop="url">
+		<time datetime="2020-06-05T14:35:25.000Z" itemprop="dateUpdated">
+	  		2020-07-26
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/GO/" class=" ">
+			GO
+		</a>
+	
+		<a href="/tags/RPC/" class=" ">
+			RPC
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="简单探索一下GO中的RPC"><a href="#简单探索一下GO中的RPC" class="headerlink" title="简单探索一下GO中的RPC"></a>简单探索一下GO中的RPC</h3><p><strong>什么是rpc？</strong></p>
+<p>rpc的英文名称是Remote Procedure Call，用博主的翻译就是远程过程调用，这是一个很时髦的东西。想一想，你的模块可以调用远程机器上的过程，也就是说不同于原始我们引用别人的模块，现在我们的可以不用把别人的代码拉到本地就能用到别人的东西，是不是很神奇。</p>
+<p><strong>什么是远程？</strong></p>
+<p>远程这个词的含义很丰富，因为远本来就是一个相对的形容词。理论上来说如果你愿意，调用你的同一个文件夹之下的方法可以算远，调用你室友的电脑上的方法也算远，调用你的云服务器上的方法可以算远，甚至只要有可能太阳系之外的方法也可以，这个远字完全取决于你的想象力。可见我们从最开始的一个文件之内的函数调用，再到一个package之下的跨文件函数调用，再到包之间的调用，一直到我们现在的远程调用，rpc为我们的代码提供了更强的助力。调用范围再也不是我们考虑的首要条件。</p>
+<p><strong>rpc是怎么实现的？</strong></p>
+<p>现在如果要你来实现一个rpc你觉得该怎么办？</p>
+<p>博主认为应该考虑以下几点：</p>
+<ol>
+<li><p>远程的机器与我们的机器怎么连接？</p>
+<p>显然我们虽然是远程调用，但毕竟不可能凭空远程调用，这之间必然是有一定的介质。而我们最容易想到的介质自然是网络，因为通过网络我们可以在很远的地方建立连接并完成通信。当然我们这里强调的是介质，而不是网络，实质上如果你们的机器之间直接有一根线相连，或者是你们有一个苦力愿意跑来跑去通知（这就可能很慢了），你们的消息只要可以传递就能实现远程调用。</p>
+</li>
+<li><p>数据交换格式怎么制定？</p>
+<p>你既然想要调用别人的过程（例如说函数），你自然需要把参数的参数给别人，远程机器也要把结果回给你。这一去一回总得规定一下数据格式吧？计算机肯定是要知道你们的精确调用规则才能正常运行。</p>
+</li>
+<li><p>多个调用怎么管理？</p>
+<p>既然你有了调用远程过程的想法，那么就肯定不会只调用一次吧？如果你要调用多个过程，同时也还有很多用户想要调用那台主机上的过程，那这些调用就需要好好管理，不然就不知道结果该发回给谁了。</p>
+</li>
+</ol>
+<p><strong>GO中的rpc是怎么实现的？</strong></p>
+<p>GO作为一门非常年轻的语言已经帮我们写好了rpc这个包，我们可以直接调用了，博主这里先给出这个rpc包的主要架构（在研究源码的时候，博主也建议可以首先了解源码的大致结构，这是我整理的思维导图，用mindmaster可以打开）：</p>
+<p><a href="http://47.102.110.56:8000/GO_Rpc.emmx" target="_blank">rpc package导图</a></p>
+<p>其中client的包十分的简单，定义了Call、Client和gobClientCodec这三个成员：</p>
+<ul>
+<li>Call表示一次rcp调用的结构体，包含了调用的参数和结果。</li>
+<li>Client表示调用的客户端。</li>
+<li>gobClientCodec表示go binary的序列化工具，上文介绍我们通过某种介质来传输，那么我们的信息必然要转化为相应的01信息传输，这个过程就要用到序列化工具。</li>
+</ul>
+<p>server包相对来说东西多一点，但是也不是特别复杂，来看一看比较重要的成员：</p>
+<ul>
+<li>methodType，我们调用的服务的方法类型，储存了相关方法的反射值，以及相关的参数类型和返回类型。</li>
+<li>service，我们远程的服务，一般我们会将一个结构体注册成服务（结构体充当了命名空间），我们会初始一个结构体充当具体的服务提供者（receiver），它的方法集会提供给client调用，service就是这个服务的进一步抽象，存储了这个receiver的Type和Value，并且有一个map[string]*methodType存储其提供的服务（方法）。</li>
+<li>server，我们多个的service就是由server来管理的，server最重要的成员是serviceMap，这个map存储了一个name到service的映射，server通过这个map来管理service。</li>
+<li>suitableMethods，我们在对一个方法是否可以充当一个对外服务的时候有要求，要求方法必须是有两个参数，第二个参数为指针类型，并且还要返回一个error。我们在注册一个service的时候会对相关的receiver方法集做检查，利用反射遍历方法集，逐个检查参数是不是符合要求。</li>
+</ul>
+<p><strong>这里博主先提醒一件事情：你永远要抓住这里client和server进行交流的介质，那么这个介质到底在哪里呢？博主简单介绍一下：</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// client，这是rpc.Dial的源码</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Dial</span><span class="params">(network, address <span class="keyword">string</span>)</span> <span class="params">(*Client, error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 这里是通过net包的Dial获取了一天网络链接conn</span></span><br><span class="line">	conn, err := net.Dial(network, address)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 这条conn已经被注入进了你的client里面，之后的client发送操作必然少不了这个conn，请务必记住</span></span><br><span class="line">	<span class="keyword">return</span> NewClient(conn), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// server，这个比较直观</span></span><br><span class="line"><span class="comment">// 很明显，我们通过net包的Listen方法获取了一条tcp的conn</span></span><br><span class="line">listener, err := net.Listen(<span class="string">"tcp"</span>, <span class="string">":8001"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatal(<span class="string">"Fail to listen!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">go</span> rpc.ServeConn(conn)</span><br><span class="line"><span class="comment">// 这是rpc.ServeConn的源码，也被注入到了rpc为我们默认初始化的server</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ServeConn</span><span class="params">(conn io.ReadWriteCloser)</span></span> &#123;</span><br><span class="line">	DefaultServer.ServeConn(conn)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，client与server就通过一条tcp连接起来的，所谓的工作其实都是建立在这个的基础上，这是我们要把握的本质。至于我们可以调用远程方法，返回结果等这些高楼大厦都是建立在这条tcp连接的牢固地基之上。那么这也解决了博主文章开始提出的第一个问题，远程机器与本机怎么连接，这里是利用网络，更具体的是搭建一条tcp连接。</p>
+<p><strong>数据交换格式</strong></p>
+<p>提到统一的数据交换格式，我们就不得不说一说client和server中的两个编码的接口，ClientCodec和ServerCodec。来看看二者的实现吧，非常具有对称美的两个接口，对帮助我们理解rpc十分有帮助：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ClientCodec <span class="keyword">interface</span> &#123;</span><br><span class="line">	WriteRequest(*Request, <span class="keyword">interface</span>&#123;&#125;) error</span><br><span class="line">	ReadResponseHeader(*Response) error</span><br><span class="line">	ReadResponseBody(<span class="keyword">interface</span>&#123;&#125;) error</span><br><span class="line"></span><br><span class="line">	Close() error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ServerCodec <span class="keyword">interface</span> &#123;</span><br><span class="line">	ReadRequestHeader(*Request) error</span><br><span class="line">	ReadRequestBody(<span class="keyword">interface</span>&#123;&#125;) error</span><br><span class="line">	WriteResponse(*Response, <span class="keyword">interface</span>&#123;&#125;) error</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Close can be called multiple times and must be idempotent.</span></span><br><span class="line">	Close() error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到了没，二者都包含了对request和response的读写方法，client是写request，读response，server就是恰恰相反，所以你们搞清楚rpc数据传输的一个过程了吧。所以我们的在向conn这个介质中读写数据都是有一套相关的接口的，我们只要保证在client和server两端工作的两个具体的编码类具有相同的数据格式处理方式就行了。在GO中，默认实现是gob编码，也就是go binary的编码方式，在client和server中的实现分别是gobClientCodec和gobServerCodec。</p>
+<p><strong>管理多个rpc调用</strong></p>
+<p>接着看源码，server执行ServeConn(conn)之后会从conn中读取相关的信息，将这些读到一个Request结构体中，那么Request长什么样子呢？</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Request <span class="keyword">struct</span> &#123;</span><br><span class="line">	ServiceMethod <span class="keyword">string</span>   <span class="comment">// format: "Service.Method"</span></span><br><span class="line">	Seq           <span class="keyword">uint64</span>   <span class="comment">// sequence number chosen by client</span></span><br><span class="line">	next          *Request <span class="comment">// for free list in Server</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>哈哈，原来server会将client想要调用的方法读进来（之后自然可以去server中管理service的map去找），并且会给这个Request边上一个序列号req，博主顺便告诉你，这个每次收到一个Request，这个req就会加一，在向Response中写入结果的时候同样会将对应的Request的req写进去，这样来管理多个rpc的调用（并且req的增加是有相关的锁来保护的，保证了并发的可行性）。看看最后一个元素吧，是一个Request指针，看来server是以指针的形式来管理到达server的调用请求啊！</p>
+<p><strong>结语</strong></p>
+<p>这也是博主第一次浏览GO的rpc中的代码，可能也没有非常深刻的理解，后面也会继续去深入这方面的内容，希望与大家共同进步。</p>
+<p>如果大家想要和我分享学习心得或者是指出我的错误，都十分欢迎，博主的联系方式将会通过by the way中的rpc调用返回给你。</p>
+<p><strong>By the way</strong></p>
+<p>为了让大家感受一下rpc的remote，也就是远程，博主在自己的云服务器上开了一个GO的rpc应用，大家在刚开始学习的时候根据教程的小demo把address改为”47.102.110.56:8001”，博主提供的服务是””WelcomeService”，方法是welcome(msg string, reply *string) error，为了让你体验这个过程，博主设置了5秒之后才会返回，相信你一定可以调用成功！！！</p>
+<p>深圳真的又湿又热，现在是22:33，今天是周五，周末愉快！</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic2.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/06/03/一些面试问题/" title="一些面试知识点" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/24/leetcode_2/" title="Leetcode_2">
+								Leetcode_2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 24日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Leetcode上一篇leetcode刷题博客的记录已经有25道题目了，想着再继续向里面添加就会变得很长，于是决定新开一篇博客来进行刷题的记录，之后的每一篇刷题博客也确定每篇25道题目吧！
+上一篇博客是实习的时候开的，只不过后来工作多...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/24/leetcode_2/" title="Leetcode_2">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="Leetcode_2"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">
+								实现一些经典的Data Structure			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								实现经典的Data StructureBackground
+数据结构在我们的计算机学习中有着不可替代的作用，永远滴神linus说过，好的程序员关注数据结构和算法，垃圾程序员关注代码。这话符合linus的说话风格，虽然我们不必百分之百认...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic24.jpg" alt="实现一些经典的Data Structure"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">
+								来看一看常见的排序算法			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 8日, 2020				
+							</p>
+							<p class="relate-post-content">
+								sortsort是计算机算法中璀璨的明星，sort在我们的计算机中有着不可取代的地位，可以这样说如果失去了高效的sort算法，我们的计算机就不会发展到像今天这样精彩。sort已经是计算机行业的基石算法类别之一，这个仅仅只是将数据排序的...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic22.jpg" alt="来看一看常见的排序算法"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/30/初探go-test/" title="初探go test">
+								初探go test			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								go test这段时间的工作一直主要是GO，很多业务代码写完之后在考虑加上单元测试，就来研究一下go test这个工具
+go test是一个按照一定的约定和组织来测试代码的程序，包中的_test.go结尾的源文件不会被构建成报的一部分...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/30/初探go-test/" title="初探go test">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic18.jpg" alt="初探go test"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">
+								实践一下GO的reflect			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 20日, 2020				
+							</p>
+							<p class="relate-post-content">
+								一次GO的reflect的小小实践
+一点心得
+上次在接触反射的时候我曾经说过学习反射最好的方式有两种，读经典的反射代码（fmt.Printf）和自己动手写一下反射的代码。那一片博客之后我说会写一点关于反射的代码，一拖就拖到了现在。越来...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic16.jpg" alt="实践一下GO的reflect"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">
+								看一看GO的rpc中Server的实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								GO的rpc包中Server的实现前面的一篇博客分析了一下关于GO的rpc中关于client的实现，大致理了一下client发送请求并且如何收到server的回复的一个过程。当时准备立即去分析server.go的代码的，但是因为GO中...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic19.jpg" alt="看一看GO的rpc中Server的实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">
+								谈一谈GO中的反射			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Reflect无奈的反射
+博主之前研究过Java的反射，有过一点反射概念的基础，所以在面对GO中的基本的反射操作是能够看得懂的。所以在前面两篇rpc的文章，都进展的比较顺利。但是今天看到rpc包中的server的时候，因为server...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic14.jpg" alt="谈一谈GO中的反射"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">
+								趁热打铁，来看看GO RPC的Client的具体请求过程			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								在上一篇博客，我跟大家一起大致了解了rpc包的结构和里面的一些内容，对整个rpc的调用有了一定的认识。因为第一次看源码，还不是很深入，这次我们再次出发，进一步探索GO RPC中的client的具体请求流程，趁热打铁！
+
+连接serve...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic12.jpg" alt="趁热打铁，来看看GO RPC的Client的具体请求过程"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">
+								GO中的数据类型			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 2日, 2020				
+							</p>
+							<p class="relate-post-content">
+								记录一下Go语言的学习经历GO中的数据类型（data type）基本数据
+
+整型
+int
+在go中，整型分为有符号和无符号整数，分别有一下几种：
+
+int，int8，int16，int32，int64
+uint，uint8，uint1...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic3.jpg" alt="GO中的数据类型"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

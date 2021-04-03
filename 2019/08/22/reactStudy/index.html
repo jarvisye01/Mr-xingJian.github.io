@@ -1,0 +1,1017 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      react学习 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《react学习》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2019/08/22/reactStudy/" itemprop="url">
+		react学习
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2019/08/22/reactStudy/" itemprop="url">
+		<time datetime="2019-08-22T14:37:46.000Z" itemprop="datePublished">
+	  		2019-08-22
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2019/08/22/reactStudy/" itemprop="url">
+		<time datetime="2019-08-22T14:37:46.000Z" itemprop="dateUpdated">
+	  		2020-06-06
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/react/" class=" ">
+			react
+		</a>
+	
+		<a href="/tags/暑假学习/" class=" ">
+			暑假学习
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<meta name="referrer" content="no-referrer">
+
+<h2 id="React-Study"><a href="#React-Study" class="headerlink" title="React Study"></a>React Study</h2><p><strong>最近暑假两个月都是在做react的前端项目，对react的一些小地方也有了一些理解，这个过程中也遇到了很多问题，但是大部分还是通过查找资料和自己的理解解决了，希望把这些东西记录下来，留作以后参考。</strong></p>
+<ol>
+<li><p>路由组件灵活应用，第一个项目是通过tab栏分成了几个大的页面，其中一个页面就是一个大组件，所以比较适合按照一个一个页面的来进行路由的分页。</p>
+<p>以下两篇对react路由的讲解都比较到位：</p>
+<ul>
+<li>react-router-dom的实现以及工作原理：&lt;<a href="https://juejin.im/post/5ac6f4a7f265da237314b08c" target="_blank" rel="noopener">https://juejin.im/post/5ac6f4a7f265da237314b08c</a></li>
+<li>react-router-dom内容讲解，并且有手动实现的例子：&lt;<a href="https://juejin.im/post/5ac8c10551882555731c6247" target="_blank" rel="noopener">https://juejin.im/post/5ac8c10551882555731c6247</a></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">HashRouter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">App</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Redirect</span> <span class="attr">to</span> = <span class="string">&#123;&#123;pathname:</span> <span class="attr">this.state.indexRedirectUrl</span>&#125;&#125;/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span> = <span class="string">'/sign-in'</span> <span class="attr">component</span>=<span class="string">&#123;</span> <span class="attr">SignIn</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/index'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">Index</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/student-info'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">StudentInfo</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/student-info-detail/:stuId'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">StudentInfoDetail</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/task-bank'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">TaskBank</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/task-bank-detail/:id'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">TaskDetail</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/task-new-bank'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">NewTask</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/task-report'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">TaskReport</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/knowledge-point'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">StKnowledgepoints</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/task-library'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">ChapterList</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/library-question-list/:chapter_num'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">QuestionList</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/task-fromstu'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">Questionfromstu</span> &#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">this.PrivateRoute</span> <span class="attr">path</span> = <span class="string">'/student-response'</span> <span class="attr">component</span> = <span class="string">&#123;</span> <span class="attr">TaskResponse</span> &#125; /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">App</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HashRouter</span>&gt;</span></span><br><span class="line">//这样就可以直接去用一个组件代替一个页面，很符合一些主要目的是展示的应用，并别重复的组件较少的应用</span><br></pre></td></tr></table></figure>
+
+<p>但是第二个项目的板块较多，出现的组件也就丰富起来，并且在路由跳转的过程中这个页面并不是要全部替换，整个页面的部分组件根据路由变化。</p>
+<p>这样就比较适合将路由放到一般的组件中去，按照路由渲染不同组件，十分方便。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &#123;/* &lt;div className = &apos;mainContent&apos;&gt;</span><br><span class="line">                    &lt;Carousels /&gt;</span><br><span class="line">                    &lt;Dividers /&gt;</span><br><span class="line">                    &lt;HotPoint hotList = &#123;hotList&#125; /&gt;</span><br><span class="line">                    &lt;Dividers /&gt;</span><br><span class="line">                    &lt;HotArtical hotArtical = &#123;hotArtical&#125; /&gt;</span><br><span class="line">                &lt;/div&gt; */&#125;</span><br><span class="line">        &#123;/* 这样进行路由控制有利于单页面应用的开发，并且能够减少渲染 */&#125;</span><br><span class="line">        &lt;Switch&gt;</span><br><span class="line">            &lt;Route path = &apos;/index/main&apos; render = &#123;() =&gt; &#123;</span><br><span class="line">                    return (</span><br><span class="line">                        &lt;IndexLeftInfo hotList = &#123;hotList&#125; hotArtical = &#123;hotArtical&#125; /&gt;</span><br><span class="line">                    )</span><br><span class="line">                &#125;&#125;/&gt;</span><br><span class="line">            &lt;Route path = &apos;/index/artical/:artical_id&apos; component = &#123;ArticalContent&#125; /&gt;</span><br><span class="line">        &lt;/Switch&gt;</span><br><span class="line">        &lt;div className = &apos;sideContent&apos;&gt;</span><br><span class="line">            &lt;LoginContext.Provider value = &#123;&#123;isLogin: false&#125;&#125;&gt;</span><br><span class="line">                &lt;UserInfo </span><br><span class="line">                    isLogin = &#123;isLogin&#125;</span><br><span class="line">                    userInfo = &#123;userInfo&#125;</span><br><span class="line">                    /&gt;</span><br><span class="line">            &lt;/LoginContext.Provider&gt;</span><br><span class="line">            &lt;QAEntry /&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                !diseasePointsLoding ? </span><br><span class="line">                &lt;DiseasePoints diseasePoints = &#123;diseasePoints&#125; getDiseaePointData = &#123;this.getDiseaePointData&#125; /&gt;</span><br><span class="line">                :</span><br><span class="line">                &lt;Loading style = &#123;&#123;marginTop: &apos;20px&apos;&#125;&#125; loading = &#123;diseasePointsLoding&#125; /&gt; </span><br><span class="line">            &#125;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">)</span><br><span class="line">//通过&lt;Switch /&gt;组件完成在/index/main和/index/artical/:artical_id(这里我把artical写错了，但是项目要改的太多就将错就错，正解article)，这样我点击首页的某一篇文章的时候就会渲染&lt;ArticalContent /&gt;组件，旁边组件&lt;UserInfo /&gt;和&lt;QAEntry /&gt;不会重新渲染。</span><br><span class="line"></span><br><span class="line">&lt;HashRouter&gt;</span><br><span class="line">    &lt;App&gt;</span><br><span class="line">        &lt;Redirect to = &#123;&#123;pathname: redirecpath&#125;&#125; /&gt;</span><br><span class="line">        &lt;Route path = &apos;/sign-in&apos; component = &#123;SignIn&#125; /&gt;</span><br><span class="line">        &lt;Route path = &apos;/register&apos; component = &#123;Register&#125; /&gt;</span><br><span class="line">        &lt;Route path = &apos;/index&apos; component = &#123;Index&#125; /&gt;</span><br><span class="line">        &lt;Route exact path = &apos;/qasystem&apos; component = &#123;QASystem&#125; /&gt;</span><br><span class="line">        &lt;Route path = &apos;/qasystem/:doctor_id&apos; component = &#123;DoctorIndex&#125; /&gt;</span><br><span class="line">        &#123;/* &lt;Route path = &apos;/artical/:artical_id&apos; component = &#123;ArticalContent&#125; /&gt; */&#125;</span><br><span class="line">    &lt;/App&gt;</span><br><span class="line">&lt;/HashRouter&gt;</span><br><span class="line">//当然在页面的变动较大时还是第一种的处理更有，所以我也部分沿用了上一个项目的逻辑。</span><br><span class="line">//这也是react路由所推崇的用法。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在聊天框设计的时候用overflow-y: scroll;这个css属性将这个聊天记录滚动起来，但是首先我们必须将聊天记录滚动到最下面：</p>
+<p>解决这个问题我一共找到了两个方法：</p>
+<ul>
+<li>在数据加载完成之后对调用包裹聊天记录的<div>元素的<em>scrollIntoView()</em>方法，最后一条滚动到我们的视线中；</div></li>
+<li>令<div>的scrollTop=scrollHeight</div></li>
+</ul>
+<p>这两个的不同就是第一个方法是对整个浏览器窗口起作用，所以无论啥时候都会滚到最下面，并且使<div>定位到浏览器可见的区域，而第二种只是对<div>起作用，只是让聊天记录滚到最下面，但是不会影响<div>的位置，显然，这符合我的需求。</div></div></div></p>
+<p><img src="http://47.102.110.56:8080/pic1.png" alt="问答界面"></p>
+<p>想想看，如果聊天框上面有内容，你一进入界面就把来聊天框显示在中间不是太好吧。</p>
+<p>要解决这个问题就需要操作dom，显然这不是react最擅长的部分，这是被人们逐渐遗忘的jQuery的强项，但是还好react团队给我们留了后路，ref属性不就是可以直接操作dom吗？虽然以前看了很多ref的内容，但是这确实第一次应用，还是解决一个比较棘手的问题，有点小骄傲。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.messageRef.current.scrollTop = this.messageRef.current.scrollHeight</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>关于react-router的url改变但是界面不刷新的问题：</p>
+<p>本次医疗问答系统有一个问答部分，所以我写了一个类似聊天的界面：</p>
+<p><img src="http://47.102.110.56:8080/pic2.png" alt="问答界面全局"></p>
+<p>通过点击右边的聊天列表来切换左边的聊天对象，实际是通过/doctor/:doctor_id来跳转，但是发现只有第一次有效（右边的每一个都是<link>包裹的组件）。</p>
+<p>我认为这应该是react-router的一个设计缺陷，大家给出的比较好的解决方法就是在componentWillReceiveProps这个生命周期函数中根据id的变化来进行各种操作。</p>
+<p>我是在函数中按照新id重新获取数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">componentWillReceiveProps = (newprops) =&gt; &#123;</span><br><span class="line">    // 这个生命周期函数不能修改state，同时也不能发送action去改变redux中的值</span><br><span class="line">    const id = newprops.match.params.doctor_id</span><br><span class="line">    if(this.state.id !== id) &#123;</span><br><span class="line">        // 为了解决在路由跳转之后url改变但是界面不刷新的情况，使用这个生命周期函数，每次在id改变之后</span><br><span class="line">        // 重新执行数据抓取，刷新界面</span><br><span class="line">        this.getMessages(0, 20, false, id)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//这就相当于进行了一次强制刷新，这样就暂时解决了这个问题。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>2019.08.13 因为今天实在不想写代码了，中午又因为倒腾python的spacy库没睡觉，就写了一点最近的事情，今天就暂时写这么多吧！</strong></p>
+<ol>
+<li><p>今天主要是把图片发送功能加入到了聊天的功能中，这个需求其实很早就提出了，但是一直没有着手去做，现在聊天功能越来越完善，我觉得有必要将这个功能加入进去。</p>
+<p>这里图片上传我用的是antd的Upload组件，应该是对原生<input type="file">组件的一个封装优化。</p>
+<p>因为之前没有对文件上传有很多使用，导致一些规则不了解踩了很多坑。</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">&lt;Upload </span><br><span class="line">name = &apos;picupload&apos;</span><br><span class="line">listType = &apos;picture&apos;</span><br><span class="line">showUploadList = &#123;false&#125;</span><br><span class="line">action = &apos;/send-picture&apos;</span><br><span class="line">customRequest = &#123;this.handleMyUpload&#125;</span><br><span class="line">onChange = &#123;this.handleUploadPic&#125;</span><br><span class="line">&gt;</span><br><span class="line">    &lt;Button </span><br><span class="line">    shape = &apos;circle&apos;  </span><br><span class="line">    icon = &apos;upload&apos;</span><br><span class="line">    style = &#123;&#123; </span><br><span class="line">        color: &apos;white&apos;, </span><br><span class="line">        marginLeft: &apos;4px&apos;, </span><br><span class="line">        backgroundColor:&apos;#37CF6B&apos;,</span><br><span class="line">    &#125;&#125;</span><br><span class="line">    /&gt;</span><br><span class="line">&lt;/Upload&gt;</span><br><span class="line">//通过Upload（封装的&lt;input type = &quot;file&quot; /&gt;）来实现上传</span><br><span class="line">//action是默认的传送地址，在前后端分离的时候并不是十分适用，onChange是监听文件上传过程的函数，类似于react中对input监听的onChange函数，该函数会接受一个file参数，file.status会记录文件上传的状态，但是很遗憾，我只是出现了uploading这个状态，但是done这个状态始终未出现</span><br><span class="line">//customRequest是antd的Upload允许用户自己提供提交函数，我自己写了handleMyUpload函数进行文件上传</span><br><span class="line">handleMyUpload = (e) =&gt; &#123;</span><br><span class="line">    //e是一个回调参数，包括action和相关的file文件对象</span><br><span class="line">        const &#123; newMessage, messages &#125; = this.state</span><br><span class="line">    //file对象对于前段开发人员是隐藏的，只能看到部分有效的信息，所以我们通过console.log打印出来的只是一些简略信息，看不到文件的相关内容</span><br><span class="line">        //但是虽然开发人员看不到，却可以用js的FileReader创建的对象得到</span><br><span class="line">        const reader = new FileReader()</span><br><span class="line">        //将文件以base_64的方式读取，另外还有二进制等读取方式</span><br><span class="line">        reader.readAsDataURL(e.file)</span><br><span class="line">        let picBase_64</span><br><span class="line">        //reader读取的的过程的监听函数</span><br><span class="line">        reader.onload = () =&gt; &#123;</span><br><span class="line">            picBase_64 = reader.result</span><br><span class="line">        &#125;</span><br><span class="line">        reader.onloadend = () =&gt; &#123;</span><br><span class="line">         //读取完毕之后的回调函数   </span><br><span class="line">            //读取完毕之后我们就发送请求，图片的base_64信息储存到了变量picBase_64之中</span><br><span class="line">            //这样就可以将图片的编码发送到后端</span><br><span class="line">            const params = &#123;</span><br><span class="line">                &quot;body&quot;: JSON.stringify(&#123;</span><br><span class="line">                    &quot;to_user&quot;: parseInt(this.props.match.params.doctor_id), </span><br><span class="line">                    &quot;content&quot;: picBase_64, </span><br><span class="line">                    &quot;message_type&quot;: 2, </span><br><span class="line">                    &quot;send_time&quot;: new Date().toLocaleString(&apos;chinese&apos;, &#123;hour12: false&#125;).replace(/\//g, &apos;-&apos;)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            POST(&apos;/send-message&apos;, params, true)</span><br><span class="line">            .then(res =&gt; res.json())</span><br><span class="line">            .then(res =&gt; &#123;</span><br><span class="line">                if(res.error === 0) &#123;</span><br><span class="line">                    messages.push(&#123;...res.message&#125;)</span><br><span class="line">                    this.setState(&#123;</span><br><span class="line">                        messages: messages</span><br><span class="line">                    &#125;, () =&gt; &#123;</span><br><span class="line">                        this.messageRef.current.scrollTop = this.messageRef.current.scrollHeight</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>2019.08.14今天终于做好了图片的传送功能，明天完善一下点击图片放大查看的功能。</strong></p>
+<h2 id="本以为图片放大查看功能很简单的，但还是绕了圈子。"><a href="#本以为图片放大查看功能很简单的，但还是绕了圈子。" class="headerlink" title="本以为图片放大查看功能很简单的，但还是绕了圈子。"></a>本以为图片放大查看功能很简单的，但还是绕了圈子。</h2><p>2020.05.30</p>
+<p>很遗憾，当初因为一些个人原因，没能将这一开发过程完整的记录下来。</p>
+<p>今天，我正式回来了，以后的博客一定会有始有终，但是这个聊天功能已经开发完毕，如果你想体验的话可以访问<a href="http://www.canxi.online" target="_blank">灿熙问答<a>。</a></a></p>
+<p>我在最初的版本上进行了很多的改进，如果你有一些医疗问题，也欢迎你来提问。</p>
+<p>如果需要进行前端的交流，可以加我QQ（972763217）。</p>
+<p>By the way，博主现在已经转向后端方向了，但是前端的工作带给了我很多的收获，也乐于跟大家交流！</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic7.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2019/08/23/summer/" title="summer" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2019/08/22/gitStudy/" title="Git知识点学习" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/11/18/关于前端react项目的一点思考/" title="关于前端react项目的一点思考">
+								关于前端react项目的一点思考			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								
+
+在接手了两个react项目并且完成交付之后，对于前后端分离之后前端项目的构建，以及react有了一点见解项目介绍
+第一个项目是教师上课用的教辅系统，第二个是一个医疗平台的问答系统，虽然都不是很复杂，但是也都有各自的一些难点所在。因...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/11/18/关于前端react项目的一点思考/" title="关于前端react项目的一点思考">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic10.jpg" alt="关于前端react项目的一点思考"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/08/22/优秀文章整理/" title="优秀文章整理">
+								优秀文章整理			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 22日, 2019				
+							</p>
+							<p class="relate-post-content">
+								Javascript优秀文章
+apply/call/bind三者的区别，以及自己实现appli, call:https://juejin.im/post/5d469e0851882544b85c32ef
+一知半解还可以再读。
+
+关于a...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/08/22/优秀文章整理/" title="优秀文章整理">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic12.jpg" alt="优秀文章整理"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

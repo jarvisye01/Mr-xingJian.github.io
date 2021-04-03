@@ -1,0 +1,1105 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      进程间的通信方式（下） | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《进程间的通信方式（下）》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/07/25/进程间的通信方式（下）/" itemprop="url">
+		进程间的通信方式（下）
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/07/25/进程间的通信方式（下）/" itemprop="url">
+		<time datetime="2020-07-25T04:21:55.000Z" itemprop="datePublished">
+	  		2020-07-25
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/07/25/进程间的通信方式（下）/" itemprop="url">
+		<time datetime="2020-07-25T04:21:55.000Z" itemprop="dateUpdated">
+	  		2020-09-01
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/进程的通信/" class=" ">
+			进程的通信
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h2 id="进程间通信（IPC）的实现方式（下）"><a href="#进程间通信（IPC）的实现方式（下）" class="headerlink" title="进程间通信（IPC）的实现方式（下）"></a>进程间通信（IPC）的实现方式（下）</h2><p><strong>Background</strong></p>
+<p>前面一篇文章讲了同一台计算机之间进程通信的几种方式，有过网络基础的同学应该知道不同的计算机通过各种网络协议进行通信实质上也是两台计算机之间的进程的通信。所以进程通信还有一个很重要的领域，那就是不同的计算机之间的进程的通信。实现这种通信方式的就是我们大名鼎鼎的套接字（socket），套接字将进程通信的范围进一步扩展，使得任何计算机之间的进程通信成为可能。值得注意的是，套接字同样支持同一台主机上的进程通信。</p>
+<p>不同的计算机进程之间通过网络套接字进行通信需要遵守相关的协议，socket接口同样可以支持很多种协议，最重要的就是TCP/IP协议栈。</p>
+<p>同时还有一种更加高级的独属于Unix系统的进程间通行方式，Unix域套接字。</p>
+<h3 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h3><p><strong>concept</strong></p>
+<p>套接字抽象了通信端点，对于每一个套接字会有一个相关的套接字描述符。在某种程度上来说，套接字描述符和文件描述符很相似，Unix中就是被当做一种文件描述符。那么显然，我们对文件描述符可以进行的read和write等操作同样可以用于套接字描述符（并非所有可用于文件描述符的函数都能直接操作套接字，例如lseek肯定就不能确定套接字中的数据的偏移量）。另外在了解套接字之前，最好可以了解一下不同的计算机通过网络进行通信需要经过哪些过程，各种网络概念如IP地址，端口，协议最好能有了解。</p>
+<p><strong>如何使用套接字</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构建一个套接字</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> sockfd)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shutdown</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> how)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct sockaddr *addr, <span class="keyword">socklen_t</span> len)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct sockaddr *addr, <span class="keyword">socklen_t</span>, len)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *<span class="keyword">restrict</span> addr, <span class="keyword">socklen_t</span> *<span class="keyword">restrict</span> len)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>socket</em></strong>函数可以构建出一个套接字，返回一个套接字描述符。三个参数都是规定了通信过程中不同的约定：</p>
+<ul>
+<li><p><strong><em>domain</em></strong>规定了通行的特性，主要的unix domain包括：</p>
+<table>
+<thead>
+<tr>
+<th align="center">域</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">AF_INET</td>
+<td align="center">ipv4</td>
+</tr>
+<tr>
+<td align="center">AF_INET6</td>
+<td align="center">ipv6</td>
+</tr>
+<tr>
+<td align="center">AF_UNIX</td>
+<td align="center">unix域（AF_LOCAL）</td>
+</tr>
+<tr>
+<td align="center">AF_UNSPEC</td>
+<td align="center">未指定</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong><em>type</em></strong>指定套接字的类型，进一步确定通信的特性：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SOCK_DGRAM</td>
+<td align="center">固定长度、无连接、不可靠的报文传递</td>
+</tr>
+<tr>
+<td align="center">SOCK_RAW</td>
+<td align="center">IP协议的数据包接口</td>
+</tr>
+<tr>
+<td align="center">SOCK_SEQPACKET</td>
+<td align="center">固定长度、有序、可靠、面向连接的报文传递</td>
+</tr>
+<tr>
+<td align="center">SOCK_STREAM</td>
+<td align="center">有序、可靠、面向连接的报文传递</td>
+</tr>
+</tbody></table>
+<p>注意到SOCK_SEQPACKET和SOCK_STREAM的特点，显然SOCK_SEQPACKET不会对发送的数据报进一步分组。这两种类型的默认协议分别是sctp和tcp。</p>
+</li>
+<li><p><strong><em>protocol</em></strong>则是为给定的域和套接字类型选择相关的协议，默认为0，选择默认的配对协议：</p>
+<table>
+<thead>
+<tr>
+<th align="center">协议</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">IPPROTO_IP</td>
+<td align="center">ipv4网际协议</td>
+</tr>
+<tr>
+<td align="center">IPPROTO_IPV6</td>
+<td align="center">ipv6网际协议</td>
+</tr>
+<tr>
+<td align="center">IPPROTO_ICMP</td>
+<td align="center">ICMP协议</td>
+</tr>
+<tr>
+<td align="center">IPPROTO_RAW</td>
+<td align="center">原始IP数据包协议</td>
+</tr>
+<tr>
+<td align="center">IPPROTO_TCP</td>
+<td align="center">TCP协议</td>
+</tr>
+<tr>
+<td align="center">IPPROTO_UDP</td>
+<td align="center">UDP协议</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p><strong><em>close</em></strong>是关闭一个套接字，这个函数与套接字被引用的次数有关，只有关闭最后一个引用的套接字描述符才能真正释放这个套接字</p>
+<p><strong><em>shutdown</em></strong>是令一个套接字处于不活动的状态，how决定了我们关闭的方式，常见的关闭方式有关闭读端、关闭写端和同时关闭读写两端</p>
+<p><strong><em>bind</em></strong>函数用于将一个网络套接字绑定到一个地址上去，有网络基础的同学一定知道我们在网络上中如何确定一个通信的进程，那就是IP:PORT这种地址形式，bind就是要将套接字绑定到这个地址上去，特别是服务端，一定要有地址客户端才能连接</p>
+<p><strong><em>connect</em></strong>函数用于连接一个套接字进行通信，一般是客户端发起的</p>
+<p><strong><em>listen</em></strong>用于服务器监听一个套接字，也就是监听用户发来的请求</p>
+<p><strong><em>accept</em></strong>用于接收并且处理一个来自用户的请求</p>
+<p><strong>数据传输</strong></p>
+<p>以上的过程知识完成了套接字的相关建立过程，还有很重要的一点就是我们目前讨论的是通信，那么就是涉及到数据的发送和接收，我们</p>
+<p>又如何通过套接字来完成相关的通行过程呢？</p>
+<p>同样的Unix中定义了相关的数据传输函数，用于操作套接字：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送数据</span></span><br><span class="line"><span class="keyword">ssize_t</span> send(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flags);</span><br><span class="line"><span class="keyword">ssize_t</span> sendto(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flags, <span class="keyword">const</span> struct sockaddr *desaddr, <span class="keyword">socklen_t</span> len);</span><br><span class="line"><span class="keyword">ssize_t</span> sendmsg(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct msghdr *msg, <span class="keyword">int</span> flags);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收数据</span></span><br><span class="line"><span class="keyword">ssize_t</span> recv(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flags);</span><br><span class="line"><span class="keyword">ssize_t</span> recvfrom(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *<span class="keyword">restrict</span> buf, <span class="keyword">size_t</span> len, <span class="keyword">int</span> flags, struct sockaddr *<span class="keyword">restrict</span> addr, <span class="keyword">socklen_t</span> *<span class="keyword">restrict</span> addlen);</span><br><span class="line"><span class="keyword">ssize_t</span> recvmsg(<span class="keyword">int</span> sockfd, struct msghdr *msg, <span class="keyword">int</span> flags);</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>send</em></strong>函数用于发送一段数据，只能保证数据发到网路驱动程序上，不保证一定被正确接收。对于支持报文边界的协议，不能超过最大报文段，对于字节流会一直阻塞到所有数据发送完成。</p>
+<p><strong><em>sendto</em></strong>是要指定地址的，显然用于面向无连接的传输服务，从侧面我们也能看出要使用send，前面必然是经过了connect过程的。</p>
+<p><strong><em>sendmsg</em></strong>用来指定多重缓冲区传输数据，这些结构在msghdr中定义。</p>
+<p>三个接收函数的意义就十分明显了！</p>
+<h3 id="Unix域套接字"><a href="#Unix域套接字" class="headerlink" title="Unix域套接字"></a>Unix域套接字</h3><p><strong>concept</strong></p>
+<p>Unix域套接字是一种更加高级的IPC方式，这种形式的IPC可以在同一计算机之上运行的两个进程之间传送打开文件描述符。</p>
+<p>上文提到过网络套接字也可以用于同一主机之间的进程通信，但是相对来说Unix域套接字的效率显然更高，因为后者仅仅是复制数据，并不关心网络协议，不需要进行相关的数据格式的转换，会节省很多时间，效率更高。具体来说它不需要添加删除数据报的报头，不需要差错校验，不产生顺序号，也不用发送确认报文。</p>
+<p>Unix域套接字同样提供流和数据包两种接口，数据报服务是可靠的，不会丢失不会出错，Unix域套接字更像是面向网络的套接字和管道的结合。</p>
+<p><strong>如何使用Unix域套接字</strong></p>
+<p>使用Unix域套接字主要两种方法，分别是无名和有名套接字，其中无名套接字很简单，表面上和管道非常相似。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socketpair</span><span class="params">(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol, <span class="keyword">int</span> sockfd[<span class="number">2</span>])</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>socketpair用于创建一对Unix域套接字描述符，并且描述符均为双工，可以通过热议一个描述符进行读写操作，这个函数有一个缺点，想一想pipe的缺点，这种Unix域套接字没有命名，也就不能在任意两个进程之间使用，是一种无名套接字。</p>
+<p><strong>关于有名Unix域套接字</strong></p>
+<p>使用有名Unix域套接字的方法与我们使用网络套接字的方法很相似，必要要有一个bind过程，只是这个时候我们绑定的并不是什么<strong>IP:PORT</strong>，而是一个path，这个path对应的就是一个<strong>.sock</strong>文件。绑定之后两个进程就可以通过connect发起通信，跟网络过程很相似。</p>
+<p>有名套接字在一个服务进程将套接字绑定到相关的地址之后，其余进程就可以使用<strong>connect</strong>连接然后使用信息交换函数进行通信，这与网络套接字并无二异。</p>
+<h3 id="关于Unix中的套接字绑定的地址介绍"><a href="#关于Unix中的套接字绑定的地址介绍" class="headerlink" title="关于Unix中的套接字绑定的地址介绍"></a>关于Unix中的套接字绑定的地址介绍</h3><p>看到这里其实我们已经认识到一个问题，地址是套接字通信的一个很重要的点，毕竟我们需要知道数据到底是发往哪里。</p>
+<p>不管是网络套接字还是Unix域套接字都会涉及到地址的绑定，那么Unix内部这个地址到底是一个什么样的形式呢？</p>
+<p>其实套接字地址在不同的系统中实现方式并不相同，例如在Linux和BSD中定义分别如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Linux</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> &#123;</span></span><br><span class="line">    <span class="keyword">sa_family_t</span>         sa_family;</span><br><span class="line">    <span class="keyword">char</span>                sa_sata[<span class="number">14</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// FreeBSD</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span>       sa_len;</span><br><span class="line">    <span class="keyword">sa_family_t</span>         sa_family;</span><br><span class="line">    <span class="keyword">char</span>                sa_sata[<span class="number">14</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>网络套接字地址</strong></p>
+<p>以上是不同系统中的套接字地址的通用实现，后续的因特网地址和本机的Unix Domain Socket地址都会强制转换为这一种形式。先来看一看网络套接字地址的实现，以Linux为例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></span><br><span class="line">    <span class="keyword">sa_family_t</span>			sin_family;</span><br><span class="line">    <span class="comment">// in_port_t =&gt; uint16_t</span></span><br><span class="line">    <span class="keyword">in_port_t</span>			sin_port;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span>		<span class="title">sin_addr</span>;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span>		sin_zero[<span class="number">8</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> &#123;</span></span><br><span class="line">    <span class="comment">// ipv4, in_addr_t =&gt; uint32_t, 记得ipv4的长度是32位吗?</span></span><br><span class="line">    <span class="keyword">in_addr_t</span>			s_addr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>sockaddr_in</em></strong>会被强制转为<strong><em>sockaddr</em></strong>，可以简单地计算后者的大小，<strong>2 + 4 + 8 = 14（sin_port + sin_addr + sin_zero[8] = sa_data）</strong>，这样的话转型是可以顺利完成的，这就是网络套接字地址的具体表示。</p>
+<p>.</p>
+<p><strong>Unix Domain Socket地址</strong></p>
+<p>对于网络套接字地址有了一定的认识之后，我们还要了解一下关于Unix域套接字的地址表示，来看一看！</p>
+<p>同样，不同的系统对于Unix域套接字的地址有不同的表示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Linux</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_un</span> &#123;</span></span><br><span class="line">    sa_family			sun_family;</span><br><span class="line">    <span class="keyword">char</span>                sun_path[<span class="number">108</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// FreeBSD</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_un</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span>		sun_len;</span><br><span class="line">    <span class="keyword">sa_family_t</span>			sun_family;</span><br><span class="line">    <span class="keyword">char</span>                sun_path[<span class="number">104</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到FreeBSD的实现是一种更加优雅的实现，我们可以判断sun_path的长度，这样有利于我们后面的操作。而对于Linux来说在强制转型后我们不能直接判断<strong>sun_path</strong>的长度，那么在bind的时候<strong>socklen_t</strong>这个参数实际上是要我们自己去计算的，可以按照如下方法去计算：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个地址</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_un</span> <span class="title">un</span>;</span></span><br><span class="line"></span><br><span class="line">un.sun_family = AF_UNIX;</span><br><span class="line"><span class="built_in">strcpy</span>(un.sun_path, <span class="string">"test.sock"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 先计算成员的偏移地址，然后加上具体路径的长度</span></span><br><span class="line"><span class="keyword">int</span> size = offsetof(struct sockaddr_un, sun_path) + <span class="built_in">strlen</span>(un.sun_path);</span><br></pre></td></tr></table></figure>
+
+<p>offset的样子优点奇怪，显然我们并不能直接实现这么一个函数，那么是怎么完成的呢？答案就是<strong>宏定义</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> offsetof(TYEP, MEMBER) ((int)&amp;((TYPE*)0)-&gt;MEMBER)</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>summary</strong></p>
+<p>以上就是Unix中套接字地址的实现，我们要记住的是套接字只有在绑定到具体的地址上去的时候，进程之间才能相互发现服务，并进行相关的信息交换。</p>
+<p><strong>By the way</strong></p>
+<p>这篇文章主要是介绍不同计算机之间通过网络实现进程通信通信的方法和一种更加高级的Unix域套接字形式的本机进程通信方法，希望可以给大家一点小小的帮助。</p>
+<p>IPC的内容就暂时写到这里了，这个过程也是很坎坷，自己也有很多不懂得地方，希望大家指正！</p>
+<p>2020.07.25 12:20</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic27.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/08/09/Echo初探/" title="Echo初探" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/07/23/进程间的通信方式（上）/" title="进程间的通信方式（上）" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/23/进程间的通信方式（上）/" title="进程间的通信方式（上）">
+								进程间的通信方式（上）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 23日, 2020				
+							</p>
+							<p class="relate-post-content">
+								进程间通信（IPC）的实现方式（上）Background
+进程是操作系统很重要的一个概念，最初创造进程这个概念的时候我们是希望完成操作系统上不同的资源之间的隔离。这个隔离使得进程可以不受外界干扰的运行自己的任务，有一些任务需要涉及到协...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/23/进程间的通信方式（上）/" title="进程间的通信方式（上）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic26.jpg" alt="进程间的通信方式（上）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

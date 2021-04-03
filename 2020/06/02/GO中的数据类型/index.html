@@ -1,0 +1,1197 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      GO中的数据类型 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《GO中的数据类型》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/06/02/GO中的数据类型/" itemprop="url">
+		GO中的数据类型
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/06/02/GO中的数据类型/" itemprop="url">
+		<time datetime="2020-06-02T13:18:33.000Z" itemprop="datePublished">
+	  		2020-06-02
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/06/02/GO中的数据类型/" itemprop="url">
+		<time datetime="2020-06-02T13:18:33.000Z" itemprop="dateUpdated">
+	  		2021-02-26
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/GO/" class=" ">
+			GO
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h2 id="记录一下Go语言的学习经历"><a href="#记录一下Go语言的学习经历" class="headerlink" title="记录一下Go语言的学习经历"></a>记录一下Go语言的学习经历</h2><h3 id="GO中的数据类型（data-type）"><a href="#GO中的数据类型（data-type）" class="headerlink" title="GO中的数据类型（data type）"></a>GO中的数据类型（data type）</h3><p><strong>基本数据</strong></p>
+<hr>
+<p><strong>整型</strong></p>
+<p>int</p>
+<p>在go中，整型分为有符号和无符号整数，分别有一下几种：</p>
+<ul>
+<li>int，int8，int16，int32，int64</li>
+<li>uint，uint8，uint16，uint32，uint64</li>
+</ul>
+<p>其中int和uint会根据硬件平台选择宽度，我们无法假设（不同编译器在相同硬件平台编译的结果也可能会不相同），其余均是指定长度的。</p>
+<p>rune</p>
+<p>rune与int32等价（只是一个别名），表示一个Unicode码点</p>
+<p>byte</p>
+<p>byte与uint8等价，强调数值是一个原始数据而不是小整数</p>
+<p>uintptr</p>
+<p>uintptr没有指定具体的bit大小但是足以容纳指针，底层编程会用到</p>
+<p>要点：</p>
+<ul>
+<li><p>go中的类型不会自动转型，int32与rune之间也需要强制转性，int与int32亦是如此</p>
+</li>
+<li><p>在go中%运算符的结果取决于被取模数的符号</p>
+</li>
+<li><p>bit溢出的部分会被丢失（无符号数左移用0填充，有符号数用符号位填充，即有符号数在移位时要注意）</p>
+<ul>
+<li><p>正数左移溢出</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 <span class="keyword">int8</span> = <span class="number">127</span></span><br><span class="line">fmt.Printf(<span class="string">"%08b\n"</span>, num1)</span><br><span class="line">fmt.Printf(<span class="string">"%08b\n"</span>, num1 &lt;&lt; <span class="number">1</span>)</span><br><span class="line">fmt.Println(num1 &lt;&lt; <span class="number">1</span>)</span><br><span class="line"><span class="comment">// 出现了正数左移溢出现象，变成负数</span></span><br><span class="line"><span class="comment">// 01111111</span></span><br><span class="line"><span class="comment">// -0000010</span></span><br><span class="line"><span class="comment">// -2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>负数右移</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num2 <span class="keyword">int8</span> = <span class="number">-4</span></span><br><span class="line">fmt.Printf(<span class="string">"%08b\n"</span>, num2)</span><br><span class="line">fmt.Printf(<span class="string">"%08b\n"</span>, num2 &gt;&gt; <span class="number">1</span>)</span><br><span class="line">fmt.Println(num2 &gt;&gt; <span class="number">1</span>)</span><br><span class="line"><span class="comment">// -0000100</span></span><br><span class="line"><span class="comment">// -0000010</span></span><br><span class="line"><span class="comment">// -2</span></span><br><span class="line"><span class="comment">// 显然负数在右移的时候，符号位没有改变</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>负数也会出现溢出现象</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">num2 = <span class="number">-5</span></span><br><span class="line">fmt.Printf(<span class="string">"%08b\n"</span>, num2)</span><br><span class="line">fmt.Printf(<span class="string">"%08b\n"</span>, num2 &lt;&lt; <span class="number">5</span>)</span><br><span class="line">fmt.Println(num2 &lt;&lt; <span class="number">5</span>)</span><br><span class="line"><span class="comment">// -0000101</span></span><br><span class="line"><span class="comment">// 01100000</span></span><br><span class="line"><span class="comment">// 96</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意，所有的移位操作都是在补码的基础上进行，用源码有时候无法直观展示</p>
+</li>
+</ul>
+</li>
+<li><p>几个重要的位运算符</p>
+<ul>
+<li>&amp;</li>
+<li>|</li>
+<li>^  这个可以充当亦或运算符，单独使用作为取反运算符</li>
+<li>&amp;^ 位清空（z = x &amp;^ y，如果y的bit为1，则z置零，否则等于x对应的bit）</li>
+<li>&lt;&lt; 左移</li>
+<li>&gt;&gt; 右移</li>
+</ul>
+</li>
+<li><p>%b可以按位打印二进制数</p>
+</li>
+<li><p>%d，%o，%x分别可以打印十进制，八进制和十六进制的数字</p>
+</li>
+<li><p>%c表示打印字符，%q表示打印带单引号的字符</p>
+</li>
+<li><p>%T可以打印出类型信息</p>
+</li>
+</ul>
+<p><strong>浮点数</strong></p>
+<p>浮点数在go中表示为float32和float64，相对于其他语言，没有double，算数规范由IEEE754标准支持</p>
+<p>要点：</p>
+<ul>
+<li><p>最大值：math.maxFloat32和math.MaxFloat64，最小值无限接近于0</p>
+</li>
+<li><p>float32大约支持6个十进制的精度，float64支持大概15个十进制精度</p>
+</li>
+<li><p>打印参数有%g，%e，%f</p>
+</li>
+<li><p>浮点数中的特殊值，正负无穷大和NaN</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> z <span class="keyword">float64</span></span><br><span class="line">fmt.Println(z, -z, <span class="number">1</span> / z, <span class="number">-1</span> / z, z / z)</span><br><span class="line"><span class="comment">// 0 -0 +Inf -Inf NaN</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p><strong>复数</strong></p>
+<p>go提供了两种复数类型，分别时complex64和complex128，分别对应float32和float64的精度</p>
+<p>要点：</p>
+<ul>
+<li>compelx()内置函数用于构造复数</li>
+<li>real()和image()用于返回相应的实部和虚部</li>
+<li>cmplx是内置的复数处理伴生包</li>
+</ul>
+<p><strong>布尔</strong></p>
+<p>bool只包括true和false</p>
+<p>要点：</p>
+<ul>
+<li><p>区别于C语言。go中的bool更加规范严谨，不会自动隐式转换为1和0</p>
+</li>
+<li><p>可以将转换封装一下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">b2i</span><span class="params">(b <span class="keyword">bool</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">i2b</span><span class="params">(i <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> i != <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p><strong>字符串</strong></p>
+<p>在go中，字符串是不可改变的字节序列，文本字符串通常被解释为采用UTF8编码的Unicode（rune）码点的序列，显然这里解决了笔者的一个错误的想法，Unicode是对字符的码点表示，UFT8是将码点转为相应编码格式的编码方式，二者并不是同一层次的概念。按照概念来讲Unicode和ASCII这种是同一个层级的概念（字符集），而UTF8、ISO和GBK是一个层次的概念（编码方式）</p>
+<p>字符和字节并不是一一对应，Unicode中的一些较大的码点是不能用一个字节表示的</p>
+<p>要点：</p>
+<ul>
+<li>string可以进行切片操作</li>
+<li>string也可以直接进行+运算</li>
+<li>==和&lt;也是可以的，是通过逐个字节比较完成的</li>
+<li>利用字符串产生的切片也是使用的字符串的底层数组</li>
+<li>s[idx]=’a’这种赋值方式在go中是不被允许的</li>
+<li>Unicode码点也可以直接写进字符串</li>
+</ul>
+<p>原生字符串：</p>
+<ul>
+<li>没有转义操作，全部都是内容</li>
+<li>使用反引号</li>
+</ul>
+<hr>
+<p>带一下字符集与编码方式的知识：</p>
+<p>字符集：用数字表示字符的一套映射方式</p>
+<p>编码方式：实现相关数据到字符的映射</p>
+<p>Unicode：几乎涵盖了100多种语言的字符，收集超过120000个字符</p>
+<p>显然使用UTF32（rune）可以完整的表示相关的码点，但是存在大量不常用的码点，会导致空间的浪费，于是又出现了UTF16，但是依然不够灵活</p>
+<p>UTF8：使用一到四个字节表示码点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">这是UTF8使用不同的字节表示码点的形式</span><br><span class="line">0xxxxxxx</span><br><span class="line">110xxxxx 10xxxxxx</span><br><span class="line">1110xxxx 10xxxxxx 10xxxxxx</span><br><span class="line">11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>缺点：不等长，不能按照索引获取字符</li>
+<li>优点：<ul>
+<li>节省空间，灵活，完全兼容ASCII，不需要有结尾标识符</li>
+<li>统一之后，一些string操作不用解码和编码</li>
+</ul>
+</li>
+</ul>
+<p>不同的字符混合导致遍历会有一些要求：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按照原始的方式遍历</span></span><br><span class="line"><span class="comment">// len返回的是底层数组的长度</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(s);  &#123;</span><br><span class="line">	<span class="comment">// 因为每次的字符对应的字节数不一样，先解码出当前字符的长度，显示解码</span></span><br><span class="line">	r, size := utf8.DecodeRuneInString(s[i : ])</span><br><span class="line">	fmt.Printf(<span class="string">"%d\t%c\n"</span>, i, r)</span><br><span class="line">	<span class="comment">// i每次不在是+1，而是要跳跃当前字符的对应字节数</span></span><br><span class="line">	i += size</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当然Go语言会为我们提供省力的方法</span></span><br><span class="line"><span class="keyword">for</span> i, r := <span class="keyword">range</span> s &#123;</span><br><span class="line">	<span class="comment">// range可以隐式解码</span></span><br><span class="line">	fmt.Printf(<span class="string">"%d\t%c\n"</span>, i, r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然，在程序运行的时候，我们还是希望数据保持整齐，我们会更加期望使用rune进行处理，那么就需要通过强制转换将string转成[]rune数组([]rune(string))，同时如果需要进行string写入到文件的话，可以利用string([]rune)将Unicode码点数组转成string</p>
+<p>对于string类型的操作同时也离不开四个工具包：</p>
+<ul>
+<li>unicode</li>
+<li>bytes（bytes.Buffer用的很多）</li>
+<li>strings</li>
+<li>strconv</li>
+</ul>
+<p><strong>常量</strong></p>
+<p>go中常量表达式的值在编译器计算，而不是拖到运行期，常量的所有算术运算和比较运算的结果也是常量</p>
+<p>常量的声明方式：</p>
+<ul>
+<li><p>批量声明：只保留第一个右表达式即可</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	a = <span class="number">1</span></span><br><span class="line">	b</span><br><span class="line">	c</span><br><span class="line">	d = <span class="number">3</span></span><br><span class="line">	e</span><br><span class="line">	f</span><br><span class="line">)</span><br><span class="line"><span class="comment">// a = b = c = 1, d = e = f = 3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>iota常量生成器：生成一组相似规则的初始化常量</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	Sun Week = <span class="literal">iota</span></span><br><span class="line">	Mon</span><br><span class="line">	Tues</span><br><span class="line">	...</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以稍微复杂一点</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	a = <span class="number">1</span> &lt;&lt; <span class="literal">iota</span></span><br><span class="line">	b</span><br><span class="line">	c</span><br><span class="line">	d</span><br><span class="line">)</span><br><span class="line"><span class="comment">// 总结一下就是iota会在下面的一系列的算式中给出递增的值，iota分别表示[1, n]</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>无类型的常量：go中许多常量没有明确的类型，编译器为没有明确的基础类型的数字常量提供更高精度的算数运算，至少有256bits，且无类型的数据不需要经过转型就可以运算（这种转化要求是合法的）</p>
+<p>分类：</p>
+<ul>
+<li>无类型的布尔</li>
+<li>无类型的整数</li>
+<li>无类型的字符</li>
+<li>无类型的浮点</li>
+<li>无类型的附属</li>
+<li>无类型的字符串</li>
+</ul>
+<p>假如上述的1 &lt;&lt; iota一直延续，肯定会超过int64，但是go也是支持的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f <span class="keyword">float64</span> = <span class="string">'a'</span></span><br><span class="line"><span class="comment">// 这样赋值是合法的，'a'是一个无类型的常量，会隐式的转型，rune到float64也是合法的（无损失）</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>复合数据</strong></p>
+<p>复合数据是在基础数据的基础之上组合而成的更复杂、语义更丰富的数据类型</p>
+<hr>
+<p><strong>数组</strong></p>
+<p>数组 = 元素类型 + 长度</p>
+<p>长度是固定的，不同长度数组不能直接赋值，长度相同的可以</p>
+<p>也正是因为数组长度是固定的，那么长度必须是常量或者利用…直接推导</p>
+<p>要搞清楚一点的是，数组是一种值，那么无论是赋值还是进行传参都是拷贝</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">t1 := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span> , <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line"><span class="keyword">var</span> t2 [<span class="number">5</span>]<span class="keyword">int</span></span><br><span class="line"><span class="comment">// t1与t2是同类型的</span></span><br><span class="line">t2 = t1</span><br><span class="line">t2[<span class="number">0</span>] = <span class="number">100</span></span><br><span class="line">fmt.Println(t1)</span><br><span class="line">fmt.Println(t2)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是go与C中比较大的一个差别，需要注意，可以就把array当成是int、string，处理方式是一样的</span></span><br><span class="line"><span class="comment">// [1 2 3 4 5]</span></span><br><span class="line"><span class="comment">// [100 2 3 4 5]</span></span><br></pre></td></tr></table></figure>
+
+<p>要点：</p>
+<ul>
+<li>数组元素可比的话数组也可以比较</li>
+<li>数组因为长度不可变，使用有局限性，但是在一些例如hash生成固定长度的消息摘要时比较适合</li>
+<li>函数传参时如果要改变数组就要传数组的指针</li>
+</ul>
+<p><strong>slice</strong></p>
+<p>切片[]T，是一组动态可变的相同类型元素的集合，相比于数组，silce具有动态扩展的功能</p>
+<p>组成部分：</p>
+<ul>
+<li>ptr：指向底层数组的切片开始指针</li>
+<li>len： 当前可见程度</li>
+<li>cap：在使用原来的底层数组（不重新分配内存）的情况下所能扩展的最大长度</li>
+</ul>
+<p>切片中的len限制了可见性，cap限制了切片的范围，在切片的时候如果超出了cap会抛出一个panic，但是如果只是超出了len，那么意味着扩展了切片，但是扩展的元素的值就是由底层数组来决定的了，string的切片也是共享原string的底层数组，在不涉及内存重新分配的时候，这种slice可以在常数时间完成</p>
+<p>要点：</p>
+<ul>
+<li><p>slice是不能直接比较的，bytes.Equal()是系统提供的比较[]byte切片的函数</p>
+</li>
+<li><p>如何生成一个nil的slice（底层没有数组，len和cap都是0）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s []<span class="keyword">int</span></span><br><span class="line">s = <span class="literal">nil</span></span><br><span class="line">s = []<span class="keyword">int</span>(<span class="literal">nil</span>)</span><br><span class="line">s = []<span class="keyword">int</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>make函数也可以创建相应的slice，make在底层创建了一个匿名数组</p>
+</li>
+</ul>
+<p>slice扩容机制：slice使用append函数进行扩容</p>
+<ul>
+<li><p>为了保证扩容的时间，每次扩容并不是只增加一个，而是扩展到之前的两倍，防止频繁扩容复制导致效率降低</p>
+</li>
+<li><p>因此slice中的ptr是有可能会改变的，所以append函数需要返回一个新的切片保证正确性（当然ptr不是必然会改变）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s := t1[ : ]</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(s))</span><br><span class="line">_ = <span class="built_in">append</span>(s, <span class="number">1</span>)</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(s))</span><br><span class="line"><span class="comment">// 5</span></span><br><span class="line"><span class="comment">// 5</span></span><br><span class="line"><span class="comment">// 我们尝试不接收返回值，但是此时出现了问题，长度len没有更新，显然在传递slice参数的时候也只是传递了ptr、len和cap的拷贝</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p><strong>map</strong></p>
+<p>map是go中的哈希表，存储相关的k、v键值对</p>
+<p>要点：</p>
+<ul>
+<li><p>k必须支持==运算，但是最好不要是float，浮点因为在计算机中的表示问题，可能相等并不精确</p>
+</li>
+<li><p>从map中取出不存在的k的v会返回zero-value</p>
+</li>
+<li><p>delete这个内置函数可以删除相关的键值对，并且不必担心删除一个不存在的k</p>
+</li>
+<li><p>你无法对map中的元素取址，&amp;ages[“mike”]不合法，因为map的扩容可能会导致原来的地址失效</p>
+</li>
+<li><p>map中的元素遍历是无序的，保证了你的程序不会依赖特定的hash函数，如果你依赖特定的hash函数，虽然可能不会出现问题，但是这不稳定</p>
+</li>
+<li><p>从map中取v的时候还会返回一个存在性的标志</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 直接取值然后判断存在性，且将age变成块级变量，净化了namespace</span></span><br><span class="line"><span class="keyword">if</span> age, ok := ages[<span class="string">"mike"</span>]; ok &#123;</span><br><span class="line">	<span class="comment">// exist</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">// not exist</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p><strong>struct</strong></p>
+<p>结构体是聚合数据，有任意多的类型聚合而成（类比C中的结构体）</p>
+<p>go中的struct通过.操作符使用内部的数据，对于value和pointer都是如此，point会被自动的解析称为value（*）</p>
+<p>不同于其他语言的公有私有，go语言根据成员name的首字母大小写定义自己的导出规则，这个规则也同样适用于包中的变量和函数，go耍了一点”小聪明”就干掉了Java中的三个关键字</p>
+<p>结构体的zero-value是其中的每一个成员都是zero-value</p>
+<p>因为结构体较大，有时候会涉及到内部成员的修改，这里只简单介绍一下相关初始化：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p := &amp;Point&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">p := <span class="built_in">new</span>(Point)</span><br><span class="line">*p = Point&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结构体之间的比较性取决于结构体成员的比较性，如果struct可以比较，即可充当map中的key</p>
+<p><strong>go中的面向对象</strong></p>
+<p>go中的oop没有相关的继承，取而代之的是组合，这种组合分为具名内嵌和匿名内嵌：</p>
+<ul>
+<li><p>具名：内部成员都是有name的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span> &#123;</span><br><span class="line">	x, y <span class="keyword">int</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Circle <span class="keyword">struct</span> &#123;</span><br><span class="line">	radius <span class="keyword">int</span></span><br><span class="line">	center Point</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 链式调用，清晰明了，但是会造成调用链灾难</span></span><br><span class="line">p := Point&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line">c := Circle&#123;<span class="number">3</span>, p&#125;</span><br><span class="line">fmt.Println(c.Center.X)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>匿名：内部成员只有类型（或是类型的pointer），没有名字</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span> &#123;</span><br><span class="line">	x, y <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyCircle <span class="keyword">struct</span> &#123;</span><br><span class="line">	Point</span><br><span class="line">	Radius <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接调用，像调用自己的成员一样调用内部成员的（成员的成员的...）成员，解决调用链问题</span></span><br><span class="line"><span class="comment">// 初始化不能直接传递成员的成员参数</span></span><br><span class="line">c1 := MyCircle&#123;Radius: <span class="number">4</span>, Point: p&#125;</span><br><span class="line">fmt.Println(c1.X)</span><br><span class="line"><span class="comment">// 显式调用也可以</span></span><br><span class="line">fmt.Println(c1.Point.X)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>外层的结构体不仅仅是获得了匿名类型的所有的成员，也获得了匿名类型的所有方法集</p>
+</li>
+</ul>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic3.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/06/03/一些面试问题/" title="一些面试知识点" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/06/02/GO中的异常处理/" title="GO中的异常处理" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/24/leetcode_2/" title="Leetcode_2">
+								Leetcode_2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 24日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Leetcode上一篇leetcode刷题博客的记录已经有25道题目了，想着再继续向里面添加就会变得很长，于是决定新开一篇博客来进行刷题的记录，之后的每一篇刷题博客也确定每篇25道题目吧！
+上一篇博客是实习的时候开的，只不过后来工作多...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/24/leetcode_2/" title="Leetcode_2">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="Leetcode_2"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">
+								实现一些经典的Data Structure			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								实现经典的Data StructureBackground
+数据结构在我们的计算机学习中有着不可替代的作用，永远滴神linus说过，好的程序员关注数据结构和算法，垃圾程序员关注代码。这话符合linus的说话风格，虽然我们不必百分之百认...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic24.jpg" alt="实现一些经典的Data Structure"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">
+								来看一看常见的排序算法			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 8日, 2020				
+							</p>
+							<p class="relate-post-content">
+								sortsort是计算机算法中璀璨的明星，sort在我们的计算机中有着不可取代的地位，可以这样说如果失去了高效的sort算法，我们的计算机就不会发展到像今天这样精彩。sort已经是计算机行业的基石算法类别之一，这个仅仅只是将数据排序的...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic22.jpg" alt="来看一看常见的排序算法"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/30/初探go-test/" title="初探go test">
+								初探go test			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								go test这段时间的工作一直主要是GO，很多业务代码写完之后在考虑加上单元测试，就来研究一下go test这个工具
+go test是一个按照一定的约定和组织来测试代码的程序，包中的_test.go结尾的源文件不会被构建成报的一部分...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/30/初探go-test/" title="初探go test">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic18.jpg" alt="初探go test"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">
+								实践一下GO的reflect			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 20日, 2020				
+							</p>
+							<p class="relate-post-content">
+								一次GO的reflect的小小实践
+一点心得
+上次在接触反射的时候我曾经说过学习反射最好的方式有两种，读经典的反射代码（fmt.Printf）和自己动手写一下反射的代码。那一片博客之后我说会写一点关于反射的代码，一拖就拖到了现在。越来...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic16.jpg" alt="实践一下GO的reflect"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">
+								看一看GO的rpc中Server的实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								GO的rpc包中Server的实现前面的一篇博客分析了一下关于GO的rpc中关于client的实现，大致理了一下client发送请求并且如何收到server的回复的一个过程。当时准备立即去分析server.go的代码的，但是因为GO中...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic19.jpg" alt="看一看GO的rpc中Server的实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">
+								谈一谈GO中的反射			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Reflect无奈的反射
+博主之前研究过Java的反射，有过一点反射概念的基础，所以在面对GO中的基本的反射操作是能够看得懂的。所以在前面两篇rpc的文章，都进展的比较顺利。但是今天看到rpc包中的server的时候，因为server...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic14.jpg" alt="谈一谈GO中的反射"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">
+								趁热打铁，来看看GO RPC的Client的具体请求过程			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								在上一篇博客，我跟大家一起大致了解了rpc包的结构和里面的一些内容，对整个rpc的调用有了一定的认识。因为第一次看源码，还不是很深入，这次我们再次出发，进一步探索GO RPC中的client的具体请求流程，趁热打铁！
+
+连接serve...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic12.jpg" alt="趁热打铁，来看看GO RPC的Client的具体请求过程"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">
+								初探Go的RPC实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 5日, 2020				
+							</p>
+							<p class="relate-post-content">
+								简单探索一下GO中的RPC什么是rpc？
+rpc的英文名称是Remote Procedure Call，用博主的翻译就是远程过程调用，这是一个很时髦的东西。想一想，你的模块可以调用远程机器上的过程，也就是说不同于原始我们引用别人的模块...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic2.jpg" alt="初探Go的RPC实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

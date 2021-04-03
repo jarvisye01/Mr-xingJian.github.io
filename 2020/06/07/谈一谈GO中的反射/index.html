@@ -1,0 +1,1071 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      谈一谈GO中的反射 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《谈一谈GO中的反射》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/06/07/谈一谈GO中的反射/" itemprop="url">
+		谈一谈GO中的反射
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/06/07/谈一谈GO中的反射/" itemprop="url">
+		<time datetime="2020-06-07T13:52:01.000Z" itemprop="datePublished">
+	  		2020-06-07
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/06/07/谈一谈GO中的反射/" itemprop="url">
+		<time datetime="2020-06-07T13:52:01.000Z" itemprop="dateUpdated">
+	  		2020-06-13
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/GO/" class=" ">
+			GO
+		</a>
+	
+		<a href="/tags/reflect/" class=" ">
+			reflect
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h3><p><strong>无奈的反射</strong></p>
+<p>博主之前研究过Java的反射，有过一点反射概念的基础，所以在面对GO中的基本的反射操作是能够看得懂的。所以在前面两篇rpc的文章，都进展的比较顺利。但是今天看到rpc包中的server的时候，因为server要处理各种各样的rpc请求，考虑到通用性，其中涉及到了大量的反射，再强行看下去实在是有点头疼，所以找个时间来补一补GO中反射的知识，也算是无奈的反射，不得不反射了。</p>
+<hr>
+<p><strong>Type和Value</strong></p>
+<p>在静态语言中，Type和Value就像是天经地义的事情，毕竟你总不能搞出一个没有类型的变量，在GO中即使:=自动推导时我们没有指明Type，但是我们依然知道自动推导会帮我们指明类型，所以这个变量并非无类型。</p>
+<p>1.Type</p>
+<ul>
+<li>reflect.TypeOf(interface{})可以接收任何interface{}参数，并将其类型以reflect.Type的形式返回</li>
+</ul>
+<p>2.Value</p>
+<ul>
+<li>reflect.ValueOf(interface{})则可以将任何interface{}参数的动态值以reflect.Value形式返回</li>
+<li>reflect.Value的Kind方法可以将无限多的类型分成有限的几种返回，分别是Bool、String、Number（Int8……）、Array、Struct、Chan、Func、Ptr、Slice、Map和Interface，最后还有一种特殊的Invalid（reflect.Value的零值就是Invalid）</li>
+</ul>
+<p>刚开始接触反射的时候我也很不适应，既然静态语言类型都是确定的，我们为什么还需要探索变量的类型和值呢？因为你不是所有时候都一定知道类型和值，例如你想实现一个函数可以处理多个类型的参数，那么一般我们会用interface{}作为载体，在具体时间的时候我们肯定要经过Type的判断，当然这种时候我们更多的是用类型断言。</p>
+<hr>
+<p><strong>挑几个重要的方法说一说</strong></p>
+<p>Type（1-9是通用的，之后的是某种Type特有的）</p>
+<ol>
+<li><p>Method(int) Method，返回具有方法集的第i个方法的描述，注意方法的参数的第一个是receiver，如果是interface{}则没有receiver，第一个参数为nil</p>
+</li>
+<li><p>MethodByName(string) (Method, bool)，第二个参数表示有没有这个方法</p>
+</li>
+<li><p>NumMethod() int，方法集的个数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意value receiver和pointer receiver方法集的区别</span></span><br><span class="line"><span class="comment">// 使用MyInt和*MyInt的方法集个数分别为1, 2</span></span><br><span class="line"><span class="keyword">type</span> MyInt <span class="keyword">int32</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *MyInt)</span> <span class="title">AutoAdd</span><span class="params">()</span></span> &#123;</span><br><span class="line">	(*m)++</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m MyInt)</span> <span class="title">Show</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="keyword">int32</span>(m))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PkgPath() string，这里需要说明一下</p>
+<ul>
+<li>这个函数会返回一个Type的import package path，例如encoding/json，可以唯一确定一个包</li>
+<li>有些类型例如string，int这种内建类型，返回空字符串</li>
+<li>未定义的类型，例如*T，struct{}，[]int同样返回空字符串</li>
+<li>如果一个A只是一个类型的别名，例如type A = int（type Arr = []int），同样返回空字符串</li>
+</ul>
+</li>
+<li><p>Kind() Kind，返回kind of type，Kind是一个所有类型的枚举变量</p>
+</li>
+<li><p>Implements(u Type) bool，很简单，一个Type有没有实现某一个接口（想一想这是如何做到的！！！）</p>
+</li>
+<li><p>AssignableTo(u Type) bool，一个Type是否可以赋值给另一个</p>
+</li>
+<li><p>ConvertibleTo(u Type) bool，一个Type是否可以转型成另一个</p>
+</li>
+<li><p>Comparable() bool，一个Type是不是可比较的</p>
+</li>
+<li><p>Bits()，返回一个Type占多少个bit，适用于<strong><em>Int\</em>, Uint*, Float*, Complex*</strong>这些类型</p>
+</li>
+<li><p>ChanDir() ChanDir，返回一个channel的方向，当然只能适用于<strong>Chan</strong></p>
+</li>
+<li><p>IsVariadic() bool，返回一个函数最后一个参数是不是可变长参数，适用于<strong>Func</strong></p>
+</li>
+<li><p>Elem() Type，放回一个Type的元素类型，适用于<strong>Array, Chan, Map, Ptr, or Slice</strong></p>
+</li>
+<li><p>Field(i int) StructField，返回结构体的第i个Field，适用于<strong>Struct</strong></p>
+</li>
+<li><p>FieldByIndex(index []int) StructField</p>
+</li>
+<li><p>FieldByName(name string) (StructField, bool)，第二个参数代表有没有这个<strong>Field</strong></p>
+</li>
+<li><p>FieldByNameFunc(match func(string) bool) (StructField, bool)，使用<strong>match</strong>方法来匹配</p>
+</li>
+<li><p>NumField() int，返回struct的Field个数，适用于<strong>Struct</strong></p>
+</li>
+<li><p>In(i int) Type，返回函数第i个参数的Type，适用于<strong>Func</strong></p>
+</li>
+<li><p>Out(i int) Type</p>
+</li>
+<li><p>NumIn() int，返回函数参数的个数，注意receiver的存在，适用于<strong>Func</strong></p>
+</li>
+<li><p>NumOut() int</p>
+</li>
+<li><p>Key() Type，返回map的key的Type，适用于<strong>Map</strong></p>
+</li>
+<li><p>Len() int， 返回Type的长度，适用于<strong>Array</strong></p>
+</li>
+</ol>
+<p>Value</p>
+<p>来看看Value的结构：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Value <span class="keyword">struct</span> &#123;</span><br><span class="line">	typ *rtype</span><br><span class="line">	<span class="comment">// </span></span><br><span class="line">	ptr unsafe.Pointer</span><br><span class="line">	<span class="comment">// flag是一个uintptr，用不同的为来表述value的一个metadata</span></span><br><span class="line">	flag</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// rtype是大多数value的通用实现</span></span><br><span class="line"><span class="keyword">type</span> rtype <span class="keyword">struct</span> &#123;</span><br><span class="line">	size       <span class="keyword">uintptr</span></span><br><span class="line">	ptrdata    <span class="keyword">uintptr</span> <span class="comment">// number of bytes in the type that can contain pointers</span></span><br><span class="line">	hash       <span class="keyword">uint32</span>  <span class="comment">// hash of type; avoids computation in hash tables</span></span><br><span class="line">	<span class="comment">// 表示type有没有一些额外信息</span></span><br><span class="line">	tflag      tflag   <span class="comment">// extra type information flags</span></span><br><span class="line">	align      <span class="keyword">uint8</span>   <span class="comment">// alignment of variable with this type</span></span><br><span class="line">	fieldAlign <span class="keyword">uint8</span>   <span class="comment">// alignment of struct field with this type</span></span><br><span class="line">	kind       <span class="keyword">uint8</span>   <span class="comment">// enumeration for C</span></span><br><span class="line">	<span class="comment">// function for comparing objects of this type</span></span><br><span class="line">	<span class="comment">// (ptr to object A, ptr to object B) -&gt; ==?</span></span><br><span class="line">	equal     <span class="function"><span class="keyword">func</span><span class="params">(unsafe.Pointer, unsafe.Pointer)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="function">	<span class="title">gcdata</span>    *<span class="title">byte</span>   // <span class="title">garbage</span> <span class="title">collection</span> <span class="title">data</span></span></span><br><span class="line"><span class="function">	// <span class="title">nameOff</span>和<span class="title">typeOff</span>是两个<span class="title">int32</span>的偏移量</span></span><br><span class="line"><span class="function">	<span class="title">str</span>       <span class="title">nameOff</span> // <span class="title">string</span> <span class="title">form</span></span></span><br><span class="line"><span class="function">	<span class="title">ptrToThis</span> <span class="title">typeOff</span> // <span class="title">type</span> <span class="title">for</span> <span class="title">pointer</span> <span class="title">to</span> <span class="title">this</span> <span class="title">type</span>, <span class="title">may</span> <span class="title">be</span> <span class="title">zero</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong><em>总结了一下反射的使用场景</em></strong></p>
+<ul>
+<li>通用性</li>
+<li>底层框架</li>
+<li>便于管理</li>
+</ul>
+<p>下面我会结合几个例子来跟大家分享一下我的个人见解，还是那句话，我也是在学习，如果有的地方不够深入或者是有错误，欢迎大家指出！</p>
+<p>博主认为，反射最重要的有两点，一是理解反射的概念，为什么我们需要Type和Value，二是要多实践，这个实践有包括两个点，看别人的反射代码和自己去写反射代码。这篇博客我会从这两个方面呈现我个人对反射的理解。</p>
+<hr>
+<p><strong>关于通用性</strong></p>
+<p>无论什么时候你一定用过fmt.Printf这个东西吧，无论是想要打印什么东西还是想要输出一点调试信息，我们都离不开它。对于printf最早的记忆应该是C语言，我们的第一个hello world可能就是printf输出的。在C语言中，f（format）的要求是非常严格的，比如说%d对应了int、%c对应了char、%f对应了float，printf会按照我们的格式化的占位符将信息打印出来。但是在C语言中你应该不能直接打印一个结构体吧？甚至是一个数组也不可以，GO就不一样了，除了具体格式化的类型，slice、map、struct没有GO不可以打印的，这就是你平时经常用的%v占位符（它几乎能代表任何一种Type）。这么神奇的东西就是由泛型在支持着它，所以我们的fmt.Printf的通用性也就大大增加，那么通用性就从fmt.Ptintf中的%v占位符开始！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一个参数的格式化的字符串，第二个是一个可变参数，参数都是interface&#123;&#125;承载</span></span><br><span class="line"><span class="comment">// 还记得interface&#123;&#125;的特点吗？它会隐藏data的动态类型和动态值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Printf</span><span class="params">(format <span class="keyword">string</span>, a ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</span><br><span class="line">	<span class="comment">// 很好理解，将a以format的格式写入标准输出，一般就是我们的屏幕</span></span><br><span class="line">	<span class="keyword">return</span> Fprintf(os.Stdout, format, a...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 其实真的的函数定义是一个Writer接口，那么只要实现了这个接口的我们都可以格式化写入，联想一下，如果文件或者是网络套接字实现了Writer接口我们也可以使用这个函数，函数的可用范围一下子增加了</span></span><br><span class="line"><span class="comment">// 在看源码的时候一定要去理解为什么要这样，我的项目是不是也可以这样</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Fprintf</span><span class="params">(w io.Writer, format <span class="keyword">string</span>, a ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</span><br><span class="line">	p := newPrinter()</span><br><span class="line">	p.doPrintf(format, a)</span><br><span class="line">	n, err = w.Write(p.buf)</span><br><span class="line">	p.free()</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为后面涉及到东西，例如内部一些工具对象的获取什么的，这不是我们几天的重点，让我们加一加速，直接到达%v，重点关注reflect！！！</p>
+<p>在这个过程中的<strong>doPrintf</strong>函数中我们终于见到了，判断如果我们的格式字符<strong>c</strong>是<strong>v</strong>的话就执行<strong>p.printArg(a[argNum], rune(c))</strong>，话不多说，直接进入这个函数，先搞清楚参数的含义，分别是承载真实变量的interface{}和格式化字符，这里面会处理一些列的特殊情况以及不用反射就能完成的类型，最后我们会去到<strong>p.printValue(f, verb, 0)</strong>，来看一看：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个函数很长很长，涉及到很多的东西，博主慢慢来讲</span></span><br><span class="line"><span class="comment">// 首先参数很好理解，depth表示我们格式化的深度，你想一想很多的struct的Field有可能还是一个struct，map的value也是如此</span></span><br><span class="line"><span class="comment">// 那么我们肯定要进行递归的解析，博主去掉不重要的代码，直接是跟反射有关的</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *pp)</span> <span class="title">printValue</span><span class="params">(value reflect.Value, verb <span class="keyword">rune</span>, depth <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="comment">// Handle values with special methods if not already handled by printArg (depth == 0).</span></span><br><span class="line">	<span class="comment">// 省去处理有方法的struct的过程</span></span><br><span class="line">	p.arg = <span class="literal">nil</span></span><br><span class="line">	p.value = value</span><br><span class="line"></span><br><span class="line">	<span class="keyword">switch</span> f := value; value.Kind() &#123;</span><br><span class="line">	<span class="keyword">case</span> reflect.Invalid:</span><br><span class="line">	<span class="comment">// 省去处理Invalid的过程</span></span><br><span class="line">	<span class="comment">// 处理常规类型，也是我们这个递归函数的出口</span></span><br><span class="line">	<span class="keyword">case</span> reflect.Bool:</span><br><span class="line">		p.fmtBool(f.Bool(), verb)</span><br><span class="line">	<span class="keyword">case</span> reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:</span><br><span class="line">		p.fmtInteger(<span class="keyword">uint64</span>(f.Int()), signed, verb)</span><br><span class="line">	<span class="keyword">case</span> reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:</span><br><span class="line">		p.fmtInteger(f.Uint(), unsigned, verb)</span><br><span class="line">	<span class="keyword">case</span> reflect.Float32:</span><br><span class="line">		p.fmtFloat(f.Float(), <span class="number">32</span>, verb)</span><br><span class="line">	<span class="keyword">case</span> reflect.Float64:</span><br><span class="line">		p.fmtFloat(f.Float(), <span class="number">64</span>, verb)</span><br><span class="line">	<span class="keyword">case</span> reflect.Complex64:</span><br><span class="line">		p.fmtComplex(f.Complex(), <span class="number">64</span>, verb)</span><br><span class="line">	<span class="keyword">case</span> reflect.Complex128:</span><br><span class="line">		p.fmtComplex(f.Complex(), <span class="number">128</span>, verb)</span><br><span class="line">	<span class="keyword">case</span> reflect.String:</span><br><span class="line">		p.fmtString(f.String(), verb)</span><br><span class="line">	<span class="keyword">case</span> reflect.Map:</span><br><span class="line">		<span class="keyword">if</span> p.fmt.sharpV &#123;</span><br><span class="line">			<span class="comment">// 处理#这个东西，含义可以查一查，不赘述</span></span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// mapString = "map["</span></span><br><span class="line">			p.buf.WriteString(mapString)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 将map的K, V解析成对应的[]reflect.Value数组并排序</span></span><br><span class="line">		sorted := fmtsort.Sort(f)</span><br><span class="line">		<span class="keyword">for</span> i, key := <span class="keyword">range</span> sorted.Key &#123;</span><br><span class="line">			<span class="keyword">if</span> i &gt; <span class="number">0</span> &#123;</span><br><span class="line">				<span class="comment">// 处理#</span></span><br><span class="line">				<span class="keyword">if</span> p.fmt.sharpV &#123;</span><br><span class="line">					p.buf.WriteString(commaSpaceString)</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					p.buf.WriteByte(<span class="string">' '</span>)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// 打印key，递归下去</span></span><br><span class="line">			p.printValue(key, verb, depth+<span class="number">1</span>)</span><br><span class="line">			<span class="comment">// key打印完毕要搞个 : </span></span><br><span class="line">			p.buf.WriteByte(<span class="string">':'</span>)</span><br><span class="line">			<span class="comment">// 递归打印value</span></span><br><span class="line">			p.printValue(sorted.Value[i], verb, depth+<span class="number">1</span>)</span><br><span class="line">			<span class="comment">// 想一想为什么这样就行了？是不是感觉什么都没做？？递归的出口在哪里？？？</span></span><br><span class="line">			<span class="comment">// 其实很简单，任何复杂的类型都是在基本类型的基础上构建起来的，所以必然会落到相关的基础类型的上面，那就是递归出口</span></span><br><span class="line">			<span class="comment">// 是不是很神奇，这个递归出口比较隐秘，也将递归的魅力展示的淋漓尽致</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> p.fmt.sharpV &#123;</span><br><span class="line">			p.buf.WriteByte(<span class="string">'&#125;'</span>)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			p.buf.WriteByte(<span class="string">']'</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">case</span> reflect.Struct:</span><br><span class="line">		<span class="keyword">if</span> p.fmt.sharpV &#123;</span><br><span class="line">			p.buf.WriteString(f.Type().String())</span><br><span class="line">		&#125;</span><br><span class="line">		p.buf.WriteByte(<span class="string">'&#123;'</span>)</span><br><span class="line">		<span class="comment">// 逐个处理相关的Field</span></span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; f.NumField(); i++ &#123;</span><br><span class="line">			<span class="comment">// 省略出处理#和相关的符号打印</span></span><br><span class="line">			<span class="comment">// 同样是递归调用</span></span><br><span class="line">			p.printValue(getField(f, i), verb, depth+<span class="number">1</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		p.buf.WriteByte(<span class="string">'&#125;'</span>)</span><br><span class="line">	<span class="keyword">case</span> reflect.Interface:</span><br><span class="line">		<span class="comment">// 处理接口</span></span><br><span class="line">	<span class="keyword">case</span> reflect.Array, reflect.Slice:</span><br><span class="line">		<span class="keyword">switch</span> verb &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'s'</span>, <span class="string">'q'</span>, <span class="string">'x'</span>, <span class="string">'X'</span>:</span><br><span class="line">			<span class="comment">// Handle byte and uint8 slices and arrays special for the above verbs.</span></span><br><span class="line">			<span class="comment">// 特殊处理</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> p.fmt.sharpV &#123;</span><br><span class="line">			<span class="comment">// 处理#</span></span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			p.buf.WriteByte(<span class="string">'['</span>)</span><br><span class="line">			<span class="comment">// 遍历slice中的元素，逐个处理</span></span><br><span class="line">			<span class="comment">// 类似[]interface&#123;&#125;数组中的元素可能并不相同，必须逐个处理</span></span><br><span class="line">			<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; f.Len(); i++ &#123;</span><br><span class="line">				<span class="keyword">if</span> i &gt; <span class="number">0</span> &#123;</span><br><span class="line">					p.buf.WriteByte(<span class="string">' '</span>)</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">// 还是递归处理</span></span><br><span class="line">				p.printValue(f.Index(i), verb, depth+<span class="number">1</span>)</span><br><span class="line">			&#125;</span><br><span class="line">			p.buf.WriteByte(<span class="string">']'</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">case</span> reflect.Ptr:</span><br><span class="line">		<span class="comment">// 处理指针</span></span><br><span class="line">	<span class="keyword">case</span> reflect.Chan, reflect.Func, reflect.UnsafePointer:</span><br><span class="line">		<span class="comment">// 处理channel，Func和UnsafePointer</span></span><br><span class="line">		p.fmtPointer(f, verb)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		p.unknownType(f)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>fmt.Printf</strong>最终是将我们的符合类型的在反射reflect.Value的基础上不断地判断value的类型，知道找到基本类型，给出正确的处理方法。fmt包的作者在后面为我们做出了如此多的努力，才让我们可以毫不费力的使用%v这个东西，这段代码不仅是很好的展示了反射的用法，更是很好的展现了递归的魅力，将确定基本类型作为递归出口值得我们学习！</p>
+<p><strong>关于底层框架</strong></p>
+<p>因为博主对GO的框架了解的比较少，所以也很难说出个一二三，如果你要了解反射在框架中的应用，那么博主建议你去看一下Spring的相关操作，例如Spring当中注解Annotation的实现就是利用反射完成的。</p>
+<p>判断一个参数是不是符合我们要求的类型也需要用到反射，例如rpc的server在筛选service的方法时候就会用到，这个博主会在后面对rpc中server的分析中详细说明。</p>
+<p><strong>关于便于管理</strong></p>
+<p>我们来看一看rpc中的server关于多个service的method的管理吧！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每一个服务的方法都被抽象成了这个样子这个struct存储相关的method的反射值，以及rpc的参数</span></span><br><span class="line"><span class="keyword">type</span> methodType <span class="keyword">struct</span> &#123;</span><br><span class="line">	sync.Mutex <span class="comment">// protects counters</span></span><br><span class="line">	method     reflect.Method</span><br><span class="line">	ArgType    reflect.Type</span><br><span class="line">	ReplyType  reflect.Type</span><br><span class="line">	numCalls   <span class="keyword">uint</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// service的抽象</span></span><br><span class="line"><span class="keyword">type</span> service <span class="keyword">struct</span> &#123;</span><br><span class="line">	name   <span class="keyword">string</span>                 <span class="comment">// name of service</span></span><br><span class="line">	<span class="comment">// 提供server的具体receiver，就是我们实例化的那个对象</span></span><br><span class="line">	rcvr   reflect.Value          <span class="comment">// receiver of methods for the service</span></span><br><span class="line">	<span class="comment">// 对象的Type</span></span><br><span class="line">	typ    reflect.Type           <span class="comment">// type of the receiver</span></span><br><span class="line">	<span class="comment">// 方法名到方法抽象的一个map</span></span><br><span class="line">	method <span class="keyword">map</span>[<span class="keyword">string</span>]*methodType <span class="comment">// registered methods</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们想一想为什么要这个样子，假设你只有一个HelloService，提供一个hello的rpc调用，那我们只存储一个HelloService的引用即可，或许用不到反射。这样你的server和具体的service就耦合起来了，来一个WelComservice你就又要改动，这样的方法显然不适用，我们需要将service和提供service的receiver进行更高层的抽象，也就成了我们上面的service结构体的样子。</p>
+<p>那为什么我们还需要相关的methodType的抽象呢？因为，这个receiver并不是所有的方法都符合rpc规定的方法规范，将符合规范的方法提取出来有助于我们快速判断调用哪个方法，另外methodType这个struct中可以存储参数，也就意味我们的方法可以延时调用了。</p>
+<hr>
+<p><strong>总结一下</strong></p>
+<p>将data抽象出Type和Value意味着我们几乎可以对GO中一切进行抽象，我们有了在最高层设计我们的程序的视角！</p>
+<p>另外这三个反面也并没有一个非常明显的区别，大多数的时候都是杂糅在了一起，这就是反射的魅力，但是说实话要真的用好反射还是需要一定的时间的，博主现在也用不好。一是我们还没有达到可以将data抽象成Type和Value的这种意识高度，即使有了试用的场景我们也很难意识到，二是如果我们都是做一些简单的小项目确实遇不到反射的场景，强行反射并不优雅！</p>
+<hr>
+<p><strong>By the way</strong></p>
+<p>我的目标是想做一个json到GO的一个转换，想了一下这算是比较适合反射的场景了，但是自身实力有限，并不能马上写出来完成的代码。我保证一定会至少写出一点像样的东西，虽然不是那么简单，我会用这些不可一蹴而就的事情约束自己，和大家一起进步。如果完成我会立即更新！</p>
+<p>2020.06.13</p>
+<p>周六，可是深圳刮台风，这也太难了！</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic14.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/24/leetcode_2/" title="Leetcode_2">
+								Leetcode_2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 24日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Leetcode上一篇leetcode刷题博客的记录已经有25道题目了，想着再继续向里面添加就会变得很长，于是决定新开一篇博客来进行刷题的记录，之后的每一篇刷题博客也确定每篇25道题目吧！
+上一篇博客是实习的时候开的，只不过后来工作多...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/24/leetcode_2/" title="Leetcode_2">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="Leetcode_2"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">
+								实现一些经典的Data Structure			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								实现经典的Data StructureBackground
+数据结构在我们的计算机学习中有着不可替代的作用，永远滴神linus说过，好的程序员关注数据结构和算法，垃圾程序员关注代码。这话符合linus的说话风格，虽然我们不必百分之百认...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic24.jpg" alt="实现一些经典的Data Structure"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">
+								来看一看常见的排序算法			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 8日, 2020				
+							</p>
+							<p class="relate-post-content">
+								sortsort是计算机算法中璀璨的明星，sort在我们的计算机中有着不可取代的地位，可以这样说如果失去了高效的sort算法，我们的计算机就不会发展到像今天这样精彩。sort已经是计算机行业的基石算法类别之一，这个仅仅只是将数据排序的...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic22.jpg" alt="来看一看常见的排序算法"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/30/初探go-test/" title="初探go test">
+								初探go test			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								go test这段时间的工作一直主要是GO，很多业务代码写完之后在考虑加上单元测试，就来研究一下go test这个工具
+go test是一个按照一定的约定和组织来测试代码的程序，包中的_test.go结尾的源文件不会被构建成报的一部分...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/30/初探go-test/" title="初探go test">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic18.jpg" alt="初探go test"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">
+								实践一下GO的reflect			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 20日, 2020				
+							</p>
+							<p class="relate-post-content">
+								一次GO的reflect的小小实践
+一点心得
+上次在接触反射的时候我曾经说过学习反射最好的方式有两种，读经典的反射代码（fmt.Printf）和自己动手写一下反射的代码。那一片博客之后我说会写一点关于反射的代码，一拖就拖到了现在。越来...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic16.jpg" alt="实践一下GO的reflect"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">
+								看一看GO的rpc中Server的实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								GO的rpc包中Server的实现前面的一篇博客分析了一下关于GO的rpc中关于client的实现，大致理了一下client发送请求并且如何收到server的回复的一个过程。当时准备立即去分析server.go的代码的，但是因为GO中...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic19.jpg" alt="看一看GO的rpc中Server的实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">
+								趁热打铁，来看看GO RPC的Client的具体请求过程			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								在上一篇博客，我跟大家一起大致了解了rpc包的结构和里面的一些内容，对整个rpc的调用有了一定的认识。因为第一次看源码，还不是很深入，这次我们再次出发，进一步探索GO RPC中的client的具体请求流程，趁热打铁！
+
+连接serve...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic12.jpg" alt="趁热打铁，来看看GO RPC的Client的具体请求过程"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">
+								初探Go的RPC实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 5日, 2020				
+							</p>
+							<p class="relate-post-content">
+								简单探索一下GO中的RPC什么是rpc？
+rpc的英文名称是Remote Procedure Call，用博主的翻译就是远程过程调用，这是一个很时髦的东西。想一想，你的模块可以调用远程机器上的过程，也就是说不同于原始我们引用别人的模块...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic2.jpg" alt="初探Go的RPC实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">
+								GO中的数据类型			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 2日, 2020				
+							</p>
+							<p class="relate-post-content">
+								记录一下Go语言的学习经历GO中的数据类型（data type）基本数据
+
+整型
+int
+在go中，整型分为有符号和无符号整数，分别有一下几种：
+
+int，int8，int16，int32，int64
+uint，uint8，uint1...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic3.jpg" alt="GO中的数据类型"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

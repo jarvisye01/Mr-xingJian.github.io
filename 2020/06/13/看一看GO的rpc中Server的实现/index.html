@@ -1,0 +1,1022 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      看一看GO的rpc中Server的实现 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《看一看GO的rpc中Server的实现》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/06/13/看一看GO的rpc中Server的实现/" itemprop="url">
+		看一看GO的rpc中Server的实现
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/06/13/看一看GO的rpc中Server的实现/" itemprop="url">
+		<time datetime="2020-06-13T12:02:23.000Z" itemprop="datePublished">
+	  		2020-06-13
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/06/13/看一看GO的rpc中Server的实现/" itemprop="url">
+		<time datetime="2020-06-13T12:02:23.000Z" itemprop="dateUpdated">
+	  		2020-12-23
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/GO/" class=" ">
+			GO
+		</a>
+	
+		<a href="/tags/rpc/" class=" ">
+			rpc
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="GO的rpc包中Server的实现"><a href="#GO的rpc包中Server的实现" class="headerlink" title="GO的rpc包中Server的实现"></a>GO的rpc包中Server的实现</h3><p>前面的一篇博客分析了一下关于GO的rpc中关于client的实现，大致理了一下client发送请求并且如何收到server的回复的一个过程。当时准备立即去分析server.go的代码的，但是因为GO中的泛型的一些知识比较多，于是简单总结了一下泛型的知识点。</p>
+<p>有了泛型的知识，我们在分析server的时候就可以更加集中的去看与rpc相关的内容，这里我还还是坚持我们在看源码的时候不要想着将每一行的代码都看的明白，因为源码中会因为程序的健壮性、稳定性、通用性等原因加入大量的与业务不是很相关的代码。不是说这部分不重要，而是说我们要有一个全局的视角，如果我是想了解rpc的过程，适当忽略错误代码或者是特殊情况处理的代码是可以的，如果我要去学习相关的错误处理、提升自己程序的稳定性那我们就去重点关注相关的错误处理和特殊情况处理的逻辑代码，一定要找到阅读源码的重点。</p>
+<p><strong>读源码就类似于我们读文言文、读英文文章一样，不要纠结于某一个字某一个单词，先整体贯通，最后看需要去落实相关的一字一句，否则你读源码会很累，而且很难读下去。</strong></p>
+<hr>
+<p><strong>先来热身</strong></p>
+<p>先来看看server中有什么东西，看看各种服务是如何管理的，每个服务又是如何管理自己的方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是对每个服务中方法的抽象，也就是用来管理你的receiver中的方法集的中方法</span></span><br><span class="line"><span class="comment">// 一目了然，存储了相应Method的反射值，和相关参数的反射类型，还是那句话，这就是反射可以带给我们的抽象能力，现在所有符合rpc规范的方法都可以用这个结构体来表示</span></span><br><span class="line"><span class="keyword">type</span> methodType <span class="keyword">struct</span> &#123;</span><br><span class="line">	sync.Mutex <span class="comment">// protects counters</span></span><br><span class="line">	method     reflect.Method</span><br><span class="line">	ArgType    reflect.Type</span><br><span class="line">	ReplyType  reflect.Type</span><br><span class="line">	numCalls   <span class="keyword">uint</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// serivice的抽象，你的receiver都是统一用这个来表示</span></span><br><span class="line"><span class="keyword">type</span> service <span class="keyword">struct</span> &#123;</span><br><span class="line">	name   <span class="keyword">string</span>                 <span class="comment">// name of service</span></span><br><span class="line">	rcvr   reflect.Value          <span class="comment">// receiver of methods for the service</span></span><br><span class="line">	typ    reflect.Type           <span class="comment">// type of the receiver</span></span><br><span class="line">	<span class="comment">// 一个service的所有method都是利用这个map来管理的，这就是抽象好处之一，我们可以统一管理</span></span><br><span class="line">	method <span class="keyword">map</span>[<span class="keyword">string</span>]*methodType <span class="comment">// registered methods</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// server的抽象</span></span><br><span class="line"><span class="keyword">type</span> Server <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// 这个map是server用来管理service的，所以说每一层的管理都是借用map来完成，条理十分清晰</span></span><br><span class="line">	serviceMap sync.Map   <span class="comment">// map[string]*service</span></span><br><span class="line">	reqLock    sync.Mutex <span class="comment">// protects freeReq</span></span><br><span class="line">	freeReq    *Request</span><br><span class="line">	respLock   sync.Mutex <span class="comment">// protects freeResp</span></span><br><span class="line">	freeResp   *Response</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>从一段server代码开始的故事</strong></p>
+<p>ok，开始server.go之前先来看看我们最经典、最简单的server端代码段：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注册一个rpc服务，GO的官方会称之为receiver</span></span><br><span class="line">rpc.RegisterName(<span class="string">"HelloService"</span>, <span class="built_in">new</span>(HelloService))</span><br><span class="line"><span class="comment">// 监听8080端口，server是要等待client发起服务请求才会去提供服务的</span></span><br><span class="line">listener, err := net.Listen(<span class="string">"tcp"</span>, <span class="string">":8080"</span>)</span><br><span class="line"><span class="comment">// 获取一条tcp的连接作为我们的信息传输通道，还记得我们把这个东西称为什么吗？没错，我个人这样的传输载体定义为介质</span></span><br><span class="line">conn, err := listener.Accept()</span><br><span class="line"><span class="comment">// 为这一条介质另一端的client提供相关的rpc服务</span></span><br><span class="line">rpc.ServeConn(conn)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Register</strong></p>
+<p>我们会创建一个HelloService类型的receiver来提供相关的rpc服务，我们在client的代码中说过，client会发送相关的服务名称信息和参数信息到server，sever会调用相关的服务。那么server是如何管理这些服务的呢？</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DefaultServer是默认的server，可以看到这个函数实质是将receiver注册到DefaultServer中</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">RegisterName</span><span class="params">(name <span class="keyword">string</span>, rcvr <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> DefaultServer.RegisterName(name, rcvr)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这里会绕一层封装的代码，我们直接到关键函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span> <span class="title">register</span><span class="params">(rcvr <span class="keyword">interface</span>&#123;&#125;, name <span class="keyword">string</span>, useName <span class="keyword">bool</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="comment">// 新建一个service，准备装入receiver，receiver是service的一个引擎</span></span><br><span class="line">	s := <span class="built_in">new</span>(service)</span><br><span class="line">	s.typ = reflect.TypeOf(rcvr)</span><br><span class="line">	s.rcvr = reflect.ValueOf(rcvr)</span><br><span class="line">	<span class="comment">// 注意，一下一段代码都是与这个service的name有关的，与我们的业务逻辑关系不大</span></span><br><span class="line">	<span class="comment">// 如果你要强行去看不是不可以，但是不看不影响我们理解代码，这只是设置service的name字段，仅此而已，大家自行抉择，我就直接跳过了</span></span><br><span class="line">	sname := reflect.Indirect(s.rcvr).Type().Name()</span><br><span class="line">	<span class="keyword">if</span> useName &#123;</span><br><span class="line">		sname = name</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> sname == <span class="string">""</span> &#123;</span><br><span class="line">		s := <span class="string">"rpc.Register: no service name for type "</span> + s.typ.String()</span><br><span class="line">		log.Print(s)</span><br><span class="line">		<span class="keyword">return</span> errors.New(s)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> !isExported(sname) &amp;&amp; !useName &#123;</span><br><span class="line">		s := <span class="string">"rpc.Register: type "</span> + sname + <span class="string">" is not exported"</span></span><br><span class="line">		log.Print(s)</span><br><span class="line">		<span class="keyword">return</span> errors.New(s)</span><br><span class="line">	&#125;</span><br><span class="line">	s.name = sname</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Install the methods</span></span><br><span class="line">	<span class="comment">// 这一步我们获取了receiver的Type，将其中所有的符合rpc规范的代码添加进来，赋值给service的method属性，还记得这是一个map吗？</span></span><br><span class="line">	s.method = suitableMethods(s.typ, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(s.method) == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// 这一段是如果没有找到合适的method怎么搞，也是一种特殊情况，不影响主题业务逻辑，我直接delete掉了</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 将这个注入了receiver和相关的method的service放进server的map，逻辑很清晰</span></span><br><span class="line">	<span class="keyword">if</span> _, dup := server.serviceMap.LoadOrStore(sname, s); dup &#123;</span><br><span class="line">		<span class="keyword">return</span> errors.New(<span class="string">"rpc: service already defined: "</span> + sname)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实我们如果大致理解了<strong>suitableMethods</strong>的意义就完全可以搞明白这段代码的含义，所以看源码是比较忌讳钻牛角尖，你的明白为什么我们会将细节抽离成函数，就是为了要是我们的语义更加简洁、更加连贯、更加清晰，我们并不是要把每一行都看懂才是真的懂了源码，有强迫症的同学需要克服一下。但是因为这个函数很好的用到了反射的知识，比较值得看一看，我们要有舍亦有取，看一看</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提取出server的Type中符合rpc规范（忘记了可以复习一下）的方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">suitableMethods</span><span class="params">(typ reflect.Type, reportErr <span class="keyword">bool</span>)</span> <span class="title">map</span>[<span class="title">string</span>]*<span class="title">methodType</span></span> &#123;</span><br><span class="line">    <span class="comment">// 创建方法管理的map，由方法名到methodType的一个映射</span></span><br><span class="line">	methods := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]*methodType)</span><br><span class="line">    <span class="comment">// 遍历方法集</span></span><br><span class="line">	<span class="keyword">for</span> m := <span class="number">0</span>; m &lt; typ.NumMethod(); m++ &#123;</span><br><span class="line">		method := typ.Method(m)</span><br><span class="line">		mtype := method.Type</span><br><span class="line">		mname := method.Name</span><br><span class="line">		<span class="comment">// 方法必须要是导出的方法</span></span><br><span class="line">		<span class="keyword">if</span> method.PkgPath != <span class="string">""</span> &#123;</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">// 方法的参数必须是三个，至于为什么是三，因为反射获取的类型方法的第一个参数是receiver</span></span><br><span class="line">		<span class="keyword">if</span> mtype.NumIn() != <span class="number">3</span> &#123;</span><br><span class="line">			<span class="comment">// 出错处理跳过</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 检查第一个参数，参数也必须是一个导出类型</span></span><br><span class="line">		argType := mtype.In(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">if</span> !isExportedOrBuiltinType(argType) &#123;</span><br><span class="line">			<span class="comment">// 检查第一个参数，参数也必须是一个导出类型</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 第二个参数必须是指针类型</span></span><br><span class="line">		replyType := mtype.In(<span class="number">2</span>)</span><br><span class="line">		<span class="keyword">if</span> replyType.Kind() != reflect.Ptr &#123;</span><br><span class="line">			<span class="comment">// 不是指针，出错处理暂时跳过</span></span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// Reply type must be exported.</span></span><br><span class="line">		<span class="keyword">if</span> !isExportedOrBuiltinType(replyType) &#123;</span><br><span class="line">			<span class="comment">// 必须是导出的类型</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// Method needs one out.</span></span><br><span class="line">		<span class="keyword">if</span> mtype.NumOut() != <span class="number">1</span> &#123;</span><br><span class="line">			<span class="comment">// 返回值只能有一个</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// The return type of the method must be error.</span></span><br><span class="line">		<span class="keyword">if</span> returnType := mtype.Out(<span class="number">0</span>); returnType != typeOfError &#123;</span><br><span class="line">			<span class="comment">// 返回类型必须是error</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 符合条件放入map</span></span><br><span class="line">		methods[mname] = &amp;methodType&#123;method: method, ArgType: argType, ReplyType: replyType&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> methods</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结一下这一段代码的流程：</p>
+<ol>
+<li>创建装在receiver方法的map</li>
+<li>遍历方法集</li>
+<li>如果方法符合rpc对方法的规范就加入，否则continue进入下一个的处理</li>
+<li>返回这个方法集（service会将会接收这个map）</li>
+</ol>
+<p>这个方法就再次应征了一个道理，这些对方法的细节检查处理与rpc过程关系不大，如果你了解rpc方法规范这些都是小问题。但是对于我们反射的学习，这里又是非常值得我们学习的代码，所以我们一定要处理好源码阅读的取舍，在后面的博客中我也会坚持这个原则。</p>
+<hr>
+<p><strong>现在我们的server中已经有这些方法集，可以提供服务了</strong></p>
+<p>下面我们就正式进入了下一个阶段，那就是<strong>rpc.ServeConn(conn)</strong>，因为我们默认是使用DefaultServer，这个方法就是默认让我们的DefaultSercer对conn另一端的client提供相关的服务，我们绕过部分封装进入正题：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server方法会对conn提供服务，注意这里的参数并不是直接就是connection，而是更加通用的io.ReadWriteCloser</span></span><br><span class="line"><span class="comment">// 现在你理解我为什么说网络只是介质的一种，只要你实现了这个接口你就可以充当介质</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span> <span class="title">ServeConn</span><span class="params">(conn io.ReadWriteCloser)</span></span> &#123;</span><br><span class="line">	buf := bufio.NewWriter(conn)</span><br><span class="line">	<span class="comment">// 请看client分析中关于Codec的解释</span></span><br><span class="line">	srv := &amp;gobServerCodec&#123;</span><br><span class="line">		rwc:    conn,</span><br><span class="line">		<span class="comment">// decode和encode都是在介质的基础上完成的</span></span><br><span class="line">		dec:    gob.NewDecoder(conn),</span><br><span class="line">		enc:    gob.NewEncoder(buf),</span><br><span class="line">		encBuf: buf,</span><br><span class="line">	&#125;</span><br><span class="line">	server.ServeCodec(srv)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// server的ServeCodec方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span> <span class="title">ServeCodec</span><span class="params">(codec ServerCodec)</span></span> &#123;</span><br><span class="line">	<span class="comment">// 这是为了在并发的时候保证调用的正确性</span></span><br><span class="line">	sending := <span class="built_in">new</span>(sync.Mutex)</span><br><span class="line">	wg := <span class="built_in">new</span>(sync.WaitGroup)</span><br><span class="line">	<span class="comment">// 循环，直到处理完目前所有了的Request，Request是一条链，client篇中有解释</span></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="comment">// 利用codec读出与client发过来的信息放入到Request中</span></span><br><span class="line">		<span class="comment">// 直到这个意思就行了，后面再继续分析，这一步之后我们就有了client调用的Request信息，以及需要调用哪个method，以及参数的相关类型</span></span><br><span class="line">		service, mtype, req, argv, replyv, keepReading, err := server.readRequest(codec)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="comment">// 出错处理，不看</span></span><br><span class="line">		&#125;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		<span class="comment">// 调用信息都有了，就直接跑一个goroutine去单独处理</span></span><br><span class="line">		<span class="keyword">go</span> service.call(server, sending, wg, mtype, req, argv, replyv, codec)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 等待所有的Request请求都处理完毕，ok之后就关闭codec，实质就是关掉你的那一个conn</span></span><br><span class="line">	wg.Wait()</span><br><span class="line">	codec.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这两个方法也很清晰，<strong>ServeConn</strong>就是利用conn这个介质来创建codec，<strong>ServeCodec</strong>就是利用codec将介质中的请求信息不断的读到Request中，并且取出相关的参数信息，然后跑一个goroutine去处理，非常简洁。</p>
+<p><strong>深入看一看读取过程和call过程</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 我会去掉不相关的代码</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span> <span class="title">readRequest</span><span class="params">(codec ServerCodec)</span> <span class="params">(service *service, mtype *methodType, req *Request, argv, replyv reflect.Value, keepReading <span class="keyword">bool</span>, err error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 读取Header</span></span><br><span class="line">	service, mtype, req, keepReading, err = server.readRequestHeader(codec)</span><br><span class="line">	<span class="comment">// 错误处理  </span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Decode the argument value.看看请求参数第一个到底是value还是pointer</span></span><br><span class="line">	argIsValue := <span class="literal">false</span> <span class="comment">// if true, need to indirect before calling.</span></span><br><span class="line">	<span class="keyword">if</span> mtype.ArgType.Kind() == reflect.Ptr &#123;</span><br><span class="line">		argv = reflect.New(mtype.ArgType.Elem())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		argv = reflect.New(mtype.ArgType)</span><br><span class="line">		argIsValue = <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// argv guaranteed to be a pointer now.</span></span><br><span class="line">	<span class="comment">// 如果不是pointer转成pointer</span></span><br><span class="line">	<span class="keyword">if</span> err = codec.ReadRequestBody(argv.Interface()); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> argIsValue &#123;</span><br><span class="line">		argv = argv.Elem()</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 构建一个reply参数</span></span><br><span class="line">	replyv = reflect.New(mtype.ReplyType.Elem())</span><br><span class="line">	<span class="comment">// 处理reply是Map或者是Slice的特殊情况</span></span><br><span class="line">	<span class="keyword">switch</span> mtype.ReplyType.Elem().Kind() &#123;</span><br><span class="line">	<span class="keyword">case</span> reflect.Map:</span><br><span class="line">		replyv.Elem().Set(reflect.MakeMap(mtype.ReplyType.Elem()))</span><br><span class="line">	<span class="keyword">case</span> reflect.Slice:</span><br><span class="line">		replyv.Elem().Set(reflect.MakeSlice(mtype.ReplyType.Elem(), <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数也没有什么高深的东西,但是有一个<strong>server.readRequestHeader(codec)</strong>好像帮我们做了很多的工作，后面的才都变成了顺理成章的事情，这个函数帮我们确定了client需要调用的对应服务,以及需要调用的方法，好像有点牛批：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 确定我们需要调用的方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span> <span class="title">readRequestHeader</span><span class="params">(codec ServerCodec)</span> <span class="params">(svc *service, mtype *methodType, req *Request, keepReading <span class="keyword">bool</span>, err error)</span></span> &#123;</span><br><span class="line">	<span class="comment">// Grab the request header.</span></span><br><span class="line">	req = server.getRequest()</span><br><span class="line">	err = codec.ReadRequestHeader(req)</span><br><span class="line">	<span class="comment">// 错误处理代码去掉</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 是不是保持连接</span></span><br><span class="line">	keepReading = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// HelloService.hello，想一想你应该如何拆分这个字符串</span></span><br><span class="line">	dot := strings.LastIndex(req.ServiceMethod, <span class="string">"."</span>)</span><br><span class="line">	<span class="keyword">if</span> dot &lt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">// 错误处理</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 获取相关的service名称（HelloService）</span></span><br><span class="line">	serviceName := req.ServiceMethod[:dot]</span><br><span class="line">	<span class="comment">// 获取霞凝管的方法名（hello）</span></span><br><span class="line">	methodName := req.ServiceMethod[dot+<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 从server管理service的map中加载</span></span><br><span class="line">	svci, ok := server.serviceMap.Load(serviceName)</span><br><span class="line">	<span class="keyword">if</span> !ok &#123;</span><br><span class="line">		<span class="comment">// 错误处理</span></span><br><span class="line">	&#125;</span><br><span class="line">	svc = svci.(*service)</span><br><span class="line">	<span class="comment">// 取出表示相关方法的一个methodType结构体，方便之后调用</span></span><br><span class="line">	mtype = svc.method[methodName]</span><br><span class="line">	<span class="keyword">if</span> mtype == <span class="literal">nil</span> &#123;</span><br><span class="line">		err = errors.New(<span class="string">"rpc: can't find method "</span> + req.ServiceMethod)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个过程之后我们就知道了这次请求需要调用哪个服务，直接调用就可以了：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *service)</span> <span class="title">call</span><span class="params">(server *Server, sending *sync.Mutex, wg *sync.WaitGroup, mtype *methodType, req *Request, argv, replyv reflect.Value, codec ServerCodec)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> wg != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 完成之后执行，保证所有Request处理完之后就可以关闭codec</span></span><br><span class="line">		<span class="keyword">defer</span> wg.Done()</span><br><span class="line">	&#125;</span><br><span class="line">	mtype.Lock()</span><br><span class="line">	mtype.numCalls++</span><br><span class="line">	mtype.Unlock()</span><br><span class="line">	function := mtype.method.Func</span><br><span class="line">	<span class="comment">// 利用反射方法调用，参数是一个reflect.Value的数组，分别代表rcvr，请求的参数，请求的reply类型</span></span><br><span class="line">	returnValues := function.Call([]reflect.Value&#123;s.rcvr, argv, replyv&#125;)</span><br><span class="line">	<span class="comment">// 返回值error的处理</span></span><br><span class="line">    <span class="comment">// 将处理好的结果发送给client，利用codec将结果写入，不在继续分析了</span></span><br><span class="line">	server.sendResponse(sending, req, replyv.Interface(), codec, errmsg)</span><br><span class="line">	server.freeRequest(req)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>总结</strong></p>
+<p>这就是一个最简单的server处理client的rpc请求的过程，重点有以下几个：</p>
+<ol>
+<li>server如何注册相关的服务（service）：利用反射获取receiver的Type，用一个map[serviceName]service来管理各种服务</li>
+<li>如何添加service地那些方法：利用反射扫描service的Type中的方法集，找出符合rpc规范的方法</li>
+<li>service如何管理这些方法：利用map[methodName]methodType这个有方法名到方法的映射</li>
+<li>如何正确确定client需要调用的方法：利用service.method这个路径唯一确定一个方法</li>
+</ol>
+<p>好了，关于rpc调用的过程client和server都算是有了，但是这也只是一个很简陋的调用模型，如果我们需要构建大规模的rpc调用程序，仍然需要考虑到更多的东西。例如：</p>
+<ul>
+<li>我们的介质是不是只有tcp连接一种，http是否可以？当然可以，并且我们还有更好的gRpc</li>
+<li>这里是gob编码格式的codec，如果想实现json或者是xml可不可以？可以，只要你能够实现Codec需要的接口</li>
+<li>如何制定更规范的接口规范，我们的client与server都是通过我们的定义的service方法来交互，这个接口的规范制定要严谨</li>
+</ul>
+<p>所以博主说过，我们在学习rpc的原理的时候要蔑视它，但是深入的时候需要怀着敬畏之心去学习，我们看到的高楼大似乎都很简单，就跟我们垒砖块差不多，但是这里面的复杂我们也要知道，垒得好就能屹立不倒，不然就是害人害己。对于rpc应用的构建，这个道理是相通的！</p>
+<hr>
+<p><strong>By the way</strong></p>
+<p>为了更好地了解整个过程，博主画了一个图，标注了一些经常用到的名词（比较简陋随意，希望不要嫌弃）：</p>
+<img src="http://47.102.110.56:8080/pic5.PNG" alt="简陋的rpc调用过程">
+
+<p>2020.0613 22:23</p>
+<p>愉快的周六结束了，今晚深圳要刮台风！！！</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic19.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/24/leetcode_2/" title="Leetcode_2">
+								Leetcode_2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 24日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Leetcode上一篇leetcode刷题博客的记录已经有25道题目了，想着再继续向里面添加就会变得很长，于是决定新开一篇博客来进行刷题的记录，之后的每一篇刷题博客也确定每篇25道题目吧！
+上一篇博客是实习的时候开的，只不过后来工作多...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/24/leetcode_2/" title="Leetcode_2">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="Leetcode_2"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">
+								实现一些经典的Data Structure			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								实现经典的Data StructureBackground
+数据结构在我们的计算机学习中有着不可替代的作用，永远滴神linus说过，好的程序员关注数据结构和算法，垃圾程序员关注代码。这话符合linus的说话风格，虽然我们不必百分之百认...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic24.jpg" alt="实现一些经典的Data Structure"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">
+								来看一看常见的排序算法			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 8日, 2020				
+							</p>
+							<p class="relate-post-content">
+								sortsort是计算机算法中璀璨的明星，sort在我们的计算机中有着不可取代的地位，可以这样说如果失去了高效的sort算法，我们的计算机就不会发展到像今天这样精彩。sort已经是计算机行业的基石算法类别之一，这个仅仅只是将数据排序的...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/08/来看一看常见的排序算法/" title="来看一看常见的排序算法">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic22.jpg" alt="来看一看常见的排序算法"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/30/初探go-test/" title="初探go test">
+								初探go test			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								go test这段时间的工作一直主要是GO，很多业务代码写完之后在考虑加上单元测试，就来研究一下go test这个工具
+go test是一个按照一定的约定和组织来测试代码的程序，包中的_test.go结尾的源文件不会被构建成报的一部分...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/30/初探go-test/" title="初探go test">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic18.jpg" alt="初探go test"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">
+								实践一下GO的reflect			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 20日, 2020				
+							</p>
+							<p class="relate-post-content">
+								一次GO的reflect的小小实践
+一点心得
+上次在接触反射的时候我曾经说过学习反射最好的方式有两种，读经典的反射代码（fmt.Printf）和自己动手写一下反射的代码。那一片博客之后我说会写一点关于反射的代码，一拖就拖到了现在。越来...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic16.jpg" alt="实践一下GO的reflect"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">
+								谈一谈GO中的反射			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Reflect无奈的反射
+博主之前研究过Java的反射，有过一点反射概念的基础，所以在面对GO中的基本的反射操作是能够看得懂的。所以在前面两篇rpc的文章，都进展的比较顺利。但是今天看到rpc包中的server的时候，因为server...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic14.jpg" alt="谈一谈GO中的反射"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">
+								趁热打铁，来看看GO RPC的Client的具体请求过程			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								在上一篇博客，我跟大家一起大致了解了rpc包的结构和里面的一些内容，对整个rpc的调用有了一定的认识。因为第一次看源码，还不是很深入，这次我们再次出发，进一步探索GO RPC中的client的具体请求流程，趁热打铁！
+
+连接serve...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic12.jpg" alt="趁热打铁，来看看GO RPC的Client的具体请求过程"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">
+								初探Go的RPC实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 5日, 2020				
+							</p>
+							<p class="relate-post-content">
+								简单探索一下GO中的RPC什么是rpc？
+rpc的英文名称是Remote Procedure Call，用博主的翻译就是远程过程调用，这是一个很时髦的东西。想一想，你的模块可以调用远程机器上的过程，也就是说不同于原始我们引用别人的模块...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic2.jpg" alt="初探Go的RPC实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">
+								GO中的数据类型			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 2日, 2020				
+							</p>
+							<p class="relate-post-content">
+								记录一下Go语言的学习经历GO中的数据类型（data type）基本数据
+
+整型
+int
+在go中，整型分为有符号和无符号整数，分别有一下几种：
+
+int，int8，int16，int32，int64
+uint，uint8，uint1...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic3.jpg" alt="GO中的数据类型"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

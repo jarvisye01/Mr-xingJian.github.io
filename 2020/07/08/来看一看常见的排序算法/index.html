@@ -1,0 +1,1056 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      来看一看常见的排序算法 | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《来看一看常见的排序算法》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/07/08/来看一看常见的排序算法/" itemprop="url">
+		来看一看常见的排序算法
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/07/08/来看一看常见的排序算法/" itemprop="url">
+		<time datetime="2020-07-08T13:13:07.000Z" itemprop="datePublished">
+	  		2020-07-08
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/07/08/来看一看常见的排序算法/" itemprop="url">
+		<time datetime="2020-07-08T13:13:07.000Z" itemprop="dateUpdated">
+	  		2020-12-12
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/GO/" class=" ">
+			GO
+		</a>
+	
+		<a href="/tags/Sort/" class=" ">
+			Sort
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>sort是计算机算法中璀璨的明星，sort在我们的计算机中有着不可取代的地位，可以这样说如果失去了高效的sort算法，我们的计算机就不会发展到像今天这样精彩。sort已经是计算机行业的基石算法类别之一，这个仅仅只是将数据排序的小小算法又是经历了一代又一代人的努力才发展成今天这样子，sort算法多种多样，每种的思想不一样，时间也不一样，但是却都是那么的优雅，值得我们去学习。</p>
+<p>sort也是面试中常问的题目，这是一个程序员非常基本技能，如果你口口声声算法但是却不能实现常见的经典的算法那可就让别人不是那么的信服了，今天抽空整理了一下常见的sort算法。这些名字也是我模糊记得的，可能有的不这么叫，但是这个咱们不计较啊！</p>
+<p>这些算法均用GO语言实现，并且给出Test案例。</p>
+<p><strong>冒泡排序</strong></p>
+<p>最基本的一种算法，有着最好听的、最容易被人记住的名字</p>
+<p>将像它的名字一样，冒泡是最适合用来解释这个算法的思想的名词</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Bubble</span><span class="params">(a []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    N := <span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; N<span class="number">-1</span>; i++ &#123;</span><br><span class="line">        <span class="comment">// 你每次都要从最下面的泡泡开始</span></span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; N<span class="number">-1</span>-i; j++ &#123;</span><br><span class="line">            <span class="comment">// 如果你的泡泡比上面大，自然就会上去</span></span><br><span class="line">            <span class="keyword">if</span> a[j] &gt; a[j+<span class="number">1</span>] &#123;</span><br><span class="line">                a[j], a[j+<span class="number">1</span>] = a[j+<span class="number">1</span>], a[j]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>选择排序</strong></p>
+<p>这是人脑很容易理解的算法，不断选出最小的那一个放到前面，最后整个数组也就有序了</p>
+<p>步骤：</p>
+<ul>
+<li>从i开始</li>
+<li>遍历i之后的数组，寻找最小值</li>
+<li>这个最小值放到最开始的位置</li>
+</ul>
+<p>私以为这是人脑最容易理解的sort算法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Select</span><span class="params">(a []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    N := <span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; N; i++ &#123;</span><br><span class="line">        minIdx := i</span><br><span class="line">        <span class="comment">// 寻找从i开始的最小值</span></span><br><span class="line">        <span class="keyword">for</span> j := i; j &lt; N; j++ &#123;</span><br><span class="line">            <span class="keyword">if</span> a[j] &lt; a[minIdx] &#123;</span><br><span class="line">                minIdx = j</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        a[i], a[minIdx] = a[minIdx], a[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>插入排序</strong></p>
+<p>插入排序就是我们从数组的最开始的位置遍历，每走都一个位置就把该位置的a[i]插到之前的合适的位置，因为我们是从0开始的，那么实际上我们就是保持了[0, i - 1]的位置，第i个数插在哪里呢？</p>
+<p>想像我们一直向前走，因为前面是有序的，那么一旦遇到一个小于或者等于a[i]的数就停下来，这样就变然使得[0, i]也有序</p>
+<p>其实你的任务就是一个，[0, i - 1]有序，你应该把第i个数放在哪里？</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Insert</span><span class="params">(a []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    N := <span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; N; i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt; <span class="number">0</span>; j-- &#123;</span><br><span class="line">            <span class="keyword">if</span> a[j] &lt; a[j<span class="number">-1</span>] &#123;</span><br><span class="line">                <span class="comment">// 如果小于说明还可以向前插</span></span><br><span class="line">                a[j], a[j<span class="number">-1</span>] = a[j<span class="number">-1</span>], a[j]</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 大于或等于就完成工作了</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Shell排序</strong></p>
+<p>在插入排序的基础上进行改进，有了从宏观出发的考虑</p>
+<p>相一想插入排序的时候什么时候最烦？是不是这种情况？2， 3， 4， 5， 6， 1，此时你要1移动到最前面，是会特别慢</p>
+<p>你最喜欢什么情况？一定是这样1， 2， 3， 4， 5， 6，这时候你在放置6的时候一下子就知道比5大，不动就可以</p>
+<p>Shell的哲学就是：</p>
+<ul>
+<li>我先大范围调动，这样调动之后不一样有序，但至少比之前有序，即使是最坏的情况也不影响，因为调度的范围比较大</li>
+<li>最后小范围调动，这时候应为顺序性相对较好，很大几率会碰见较好的情况</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Shell</span><span class="params">(a []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    N := <span class="built_in">len</span>(a)</span><br><span class="line">    h := N</span><br><span class="line">    <span class="keyword">for</span> h &lt; N/<span class="number">3</span> &#123;</span><br><span class="line">        h = <span class="number">3</span>*h + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 相对于插入排序从1开始调度，Shell从h开始，h最终也是要到1</span></span><br><span class="line">    <span class="keyword">for</span> h &gt; <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; N; i++ &#123;</span><br><span class="line">            <span class="keyword">for</span> j := i; j-h &gt;= <span class="number">0</span>; j = j - h &#123;</span><br><span class="line">                <span class="keyword">if</span> a[j] &lt; a[j-h] &#123;</span><br><span class="line">                    a[j], a[j-h] = a[j-h], a[j]</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 在h很小的时候这是我们的理想情况</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        h--</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>归并排序</strong></p>
+<p>归并排序可以算是高端的排序算法了，不仅仅是有高端的名字，更重要的是有了高端的性能，这是排序算法的分水岭</p>
+<p>博主之前在leetcode的那篇博客中间提到过递归的能力，现在是考验递归的时候了，来一起想一下，给出归并排序的步骤：</p>
+<ul>
+<li>将数组左边部分变成有序</li>
+<li>将数组右边部分变成有序</li>
+<li>把两个有序数组归并成一个有序数组</li>
+</ul>
+<p>第三步如果单独拿出来大家其实都会，就是扫描一遍就行了</p>
+<p>有人可能会想左右是怎么变得有序的呢？</p>
+<p>哈哈，其实这样想你就是没有理解递归的精髓，我说过递归要专注于当下，你本身就是写的排序算法，调用自己不就行了？ok，那这能保证正确性吗？</p>
+<p>这完全取决于你当前这一步，就看你会不会写把两个有序数组合成一个有序数组，并不困难！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个算法应该大家都会写</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mergeSort</span><span class="params">(a []<span class="keyword">int</span>, l <span class="keyword">int</span>, m <span class="keyword">int</span>, h <span class="keyword">int</span>, t []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    i := l</span><br><span class="line">    j := m + <span class="number">1</span></span><br><span class="line">    N := h - l + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> k := <span class="number">0</span>; k &lt; N; k++ &#123;</span><br><span class="line">        <span class="keyword">if</span> i &gt; m &#123;</span><br><span class="line">            t[k] = a[j]</span><br><span class="line">            j++</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> j &gt; h &#123;</span><br><span class="line">            t[k] = a[i]</span><br><span class="line">            i++</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> a[i] &lt;= a[j] &#123;</span><br><span class="line">            t[k] = a[i]</span><br><span class="line">            i++</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            t[k] = a[j]</span><br><span class="line">            j++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := l; i &lt; h+<span class="number">1</span>; i++ &#123;</span><br><span class="line">        a[i] = t[i-l]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">merge</span><span class="params">(a []<span class="keyword">int</span>, l <span class="keyword">int</span>, h <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> l &gt;= h &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    mid := l + (h-l)/<span class="number">2</span></span><br><span class="line">    t := <span class="built_in">make</span>([]<span class="keyword">int</span>, h-l+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    merge(a, l, mid)</span><br><span class="line">    merge(a, mid+<span class="number">1</span>, h)</span><br><span class="line">    mergeSort(a, l, mid, h, t)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Merge</span><span class="params">(a []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    merge(a, <span class="number">0</span>, <span class="built_in">len</span>(a)<span class="number">-1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>堆排序</strong></p>
+<p>堆排序需要构建最大堆或是最小堆，这个需要一些理论的支持，大家可以深入去看一下</p>
+<p>另外需要注意的是我们并没有用到数组的0这个位置，从1开始可以帮助得到父子节点的关系为p = c * 2或者p = c * 2 + 1，这个结论任何时候都成立，不必单独考虑0处的特殊情况</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sink</span><span class="params">(a []<span class="keyword">int</span>, x <span class="keyword">int</span>, end <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x &gt; end &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    j := x * <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> ; j &lt;= end; j = x * <span class="number">2</span> &#123;</span><br><span class="line">        t := j</span><br><span class="line">        <span class="keyword">if</span> t + <span class="number">1</span> &lt;= end &amp;&amp; a[t] &gt; a[t + <span class="number">1</span>] &#123;</span><br><span class="line">            t = t + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> a[x] &gt; a[t] &#123;</span><br><span class="line">            a[x], a[t] = a[t], a[x]</span><br><span class="line">            x = t</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swim</span><span class="params">(a []<span class="keyword">int</span>, x <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> x / <span class="number">2</span> &gt; <span class="number">0</span> &amp;&amp; a[x] &lt; a[x / <span class="number">2</span>] &#123;</span><br><span class="line">        a[x], a[x / <span class="number">2</span>] = a[x / <span class="number">2</span>], a[x]</span><br><span class="line">        x = x / <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">buildHeap</span><span class="params">(a []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    N := <span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">for</span> k := <span class="number">1</span>; k &lt; N; k++ &#123;</span><br><span class="line">        swim(a, k)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">heapSort</span><span class="params">(a []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    N := <span class="built_in">len</span>(a)</span><br><span class="line">    c := <span class="built_in">make</span>([]<span class="keyword">int</span>, N)</span><br><span class="line">    c[<span class="number">0</span>] = <span class="number">-1</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt; N; i++ &#123;</span><br><span class="line">        c[i] = a[<span class="number">1</span>]</span><br><span class="line">        a[<span class="number">1</span>], a[N - i] = a[N - i], a[<span class="number">1</span>]</span><br><span class="line">        sink(a, <span class="number">1</span>, N - <span class="number">1</span> - i)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; N; i++ &#123;</span><br><span class="line">        a[i] = c[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Heap</span><span class="params">(a []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    buildHeap(a)</span><br><span class="line">    heapSort(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>快速排序</strong></p>
+<p>这个名字已经代表了快排的地位，sort的目标是什么，不就是快吗？而大名鼎鼎的Quick Sort可以说是sort算法中登峰造极的算法</p>
+<p>你完全可以用你想得到的词汇来赞美快排，它真的值得</p>
+<p>快排的思想本质也是简单的：</p>
+<ul>
+<li>对于一个数组，构造一个位置p，是p左边的数不大于p处的数字，右边的不小于（这样p的位置必然是最后有序之后应该在的位置）</li>
+<li>对于p左边的部分做同样处理</li>
+<li>对于p右边的部分做同样处理</li>
+</ul>
+<p>思考一下为什么不是左边的数小于p处的数字，右边的大于，因为这种条件过于严苛，以我们从两边相中间靠拢的方法来说，如果遇到相等的情况就不好处理，换句话说，如果有多个与p处相等的数字，你根本就不能找到一个数字是它左边的数字小于它，右边的大于它</p>
+<p>即使我们不考虑相等的情况，相等的数字也会在进一步的处理中靠过来</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">partition</span><span class="params">(a []<span class="keyword">int</span>, l <span class="keyword">int</span>, h <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> l &gt;= h &#123;</span><br><span class="line">        <span class="keyword">return</span> l</span><br><span class="line">    &#125;</span><br><span class="line">    i := l + <span class="number">1</span></span><br><span class="line">    j := h</span><br><span class="line">    p := l</span><br><span class="line">    <span class="keyword">for</span> i &lt; j &#123;</span><br><span class="line">        <span class="keyword">for</span> i &lt;= h &amp;&amp; a[i] &lt;= a[p] &#123;</span><br><span class="line">            i++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> j &gt; l &amp;&amp; a[j] &gt;= a[p] &#123;</span><br><span class="line">            j--</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> i &lt; j &#123;</span><br><span class="line">            a[i], a[j] = a[j], a[i]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> i &gt;= j &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 思考一下为什么要和p交换，为什么a[j] &lt; a[p]是才需要交换</span></span><br><span class="line">    <span class="comment">// 因为最后是i &gt;= j的，并且我们移动j的a[j] &gt;= a[p]，j停止的条件是a[j] &lt; a[p]，交换之后可以满足p左边不大于它，右边不小于它，而i就不符合</span></span><br><span class="line">    <span class="comment">// 1, 2, 2，此时第一次处理之后i在第一个2的位置，j也是，因为i &gt;= j是我们的跳出循环的条件，此时还没交换必有a[j] &lt; a[p]，交换一次才符合条件</span></span><br><span class="line">    <span class="keyword">if</span> a[j] &lt; a[p] &#123;</span><br><span class="line">        a[p], a[j] = a[j], a[p]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> j</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quickSort</span><span class="params">(a []<span class="keyword">int</span>, s <span class="keyword">int</span>, e <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> s &gt;= e &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    p := partition(a, s, e)</span><br><span class="line"></span><br><span class="line">    quickSort(a, s, p<span class="number">-1</span>)</span><br><span class="line">    quickSort(a, p+<span class="number">1</span>, e)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Quick</span><span class="params">(a []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    quickSort(a, <span class="number">0</span>, <span class="built_in">len</span>(a)<span class="number">-1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Test</strong></p>
+<p>下面给出完整的test文件，后续会加入benckmark测试，来具体看看一看各个算法的性能。</p>
+<p>测试函数由前面的手动书写测试案例，到后面的自动生成相关的测试案例，并且编写函数来进行自动检查排序结果。</p>
+<p>这里有一个比较重要的函数就是shuffing函数，这个函数可以帮助我们随机打乱一个数组，非常有用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">shuffing</span><span class="params">(arr []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    seed := time.Now().UTC().UnixNano()</span><br><span class="line">    r := rand.New(rand.NewSource(seed))</span><br><span class="line"></span><br><span class="line">    N := <span class="built_in">len</span>(arr)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; N; i++ &#123;</span><br><span class="line">        t := r.Intn(N - i)</span><br><span class="line">        arr[i], arr[i+t] = arr[i+t], arr[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getRandArr</span><span class="params">(n <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    seed := time.Now().UTC().UnixNano()</span><br><span class="line">    r := rand.New(rand.NewSource(seed))</span><br><span class="line"></span><br><span class="line">    a := <span class="built_in">make</span>([]<span class="keyword">int</span>, n)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n; i++ &#123;</span><br><span class="line">        a[i] = r.Intn(n)</span><br><span class="line">    &#125;</span><br><span class="line">    shuffing(a)</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">checkout</span><span class="params">(arr []<span class="keyword">int</span>, t *testing.T)</span></span> &#123;</span><br><span class="line">    N := <span class="built_in">len</span>(arr)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; N<span class="number">-1</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> arr[i] &gt; arr[i+<span class="number">1</span>] &#123;</span><br><span class="line">            t.Errorf(<span class="string">"arr[%d] = %d &gt; arr[%d] = %d, except &lt;="</span>, i, arr[i], i+<span class="number">1</span>, arr[i+<span class="number">1</span>])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestBubble</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := []<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">0</span>, <span class="number">9</span>&#125;</span><br><span class="line">    Bubble(arr)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> arr[i] != i &#123;</span><br><span class="line">            t.Errorf(<span class="string">"arr[%d] = %d, except %d"</span>, i, arr[i], i)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestInsert</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := []<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">0</span>, <span class="number">9</span>&#125;</span><br><span class="line">    Insert(arr)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> arr[i] != i &#123;</span><br><span class="line">            t.Errorf(<span class="string">"arr[%d] = %d, except %d"</span>, i, arr[i], i)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestBubbleAndInsert</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    seed := time.Now().UTC().UnixNano()</span><br><span class="line">    r := rand.New(rand.NewSource(seed))</span><br><span class="line"></span><br><span class="line">    arr := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">10000</span>)</span><br><span class="line">    arr_t := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">10000</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++ &#123;</span><br><span class="line">        t := r.Intn(<span class="number">200</span>)</span><br><span class="line">        arr[i] = t</span><br><span class="line">        arr_t[i] = t</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> arr[i] != arr_t[i] &#123;</span><br><span class="line">            t.Errorf(<span class="string">"arr[%d] = %d not equal arr_t[%d] = %d, expect equal"</span>, i, arr[i], i, arr_t[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestShell</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := []<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">0</span>, <span class="number">9</span>&#125;</span><br><span class="line">    Shell(arr)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> arr[i] != i &#123;</span><br><span class="line">            t.Errorf(<span class="string">"arr[%d] = %d, except %d"</span>, i, arr[i], i)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestShell2</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := getRandArr(<span class="number">10000</span>)</span><br><span class="line">    Shell(arr)</span><br><span class="line">    checkout(arr, t)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestBubble2</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := getRandArr(<span class="number">10000</span>)</span><br><span class="line">    Bubble(arr)</span><br><span class="line">    checkout(arr, t)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestInsert2</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := getRandArr(<span class="number">10000</span>)</span><br><span class="line">    Insert(arr)</span><br><span class="line">    checkout(arr, t)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestMerge</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := getRandArr(<span class="number">100000</span>)</span><br><span class="line">    Merge(arr)</span><br><span class="line">    checkout(arr, t)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSelect</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := getRandArr(<span class="number">10000</span>)</span><br><span class="line">    Select(arr)</span><br><span class="line">    checkout(arr, t)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestQuick</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := getRandArr(<span class="number">100000</span>)</span><br><span class="line">    Quick(arr)</span><br><span class="line">    checkout(arr, t)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHeap</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    arr := getRandArr(<span class="number">1000000</span>)</span><br><span class="line">    Heap(arr)</span><br><span class="line">    checkout(arr, t)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>By the way</strong></p>
+<p>今天算是抽空把排序整理了一下，洗澡睡觉！</p>
+<p>2020.07.08 23:07</p>
+<p><strong>Update</strong></p>
+<p>对于常见的排序算法，我们的前提都是完全不知道任何数据的性质，只有用&lt;关系进行比较排序，所以时间最多只能优化到O(logN)。但是往往有一些数据是有一定的性质的，例如高考分数都在[0, 750]的区间、等长字符串的长度相等，利用这些性质我们可以开发出更好的排序算法！</p>
+<p><strong>桶排序</strong></p>
+<p>因为我们知道数据的区间，例如array中的数据都在<strong>[0, max)</strong>之间，我们就可以直接设置一个<strong>bucket[max]</strong>数据，<strong>bucket[n]</strong>表示n有多少个，最后我们遍历<strong>bucket</strong>数组，顺序输出<strong>index</strong>就是排序之后的array！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// numbers in arr [0, N)</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bucket_sort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> l, <span class="keyword">int</span> h, <span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *bucket = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">    <span class="comment">// init bucket</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        bucket[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// input</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt;= h; i++) &#123;</span><br><span class="line">        bucket[arr[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> idx = l;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (bucket[i]-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            arr[idx++] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span> []bucket;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// bucket_sort</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bucket_sort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> sz, <span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    bucket_sort(arr, <span class="number">0</span>, sz - <span class="number">1</span>, N);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>基数排序</strong></p>
+<p>如果某个array中的数字都是n位数，例如都是三位数arr = [102, 111, 321, 908]，我们就可以从最低位开始，依次按照每一位的数据排序。这里我们也要设置一个桶数组<strong>bucket[radix]</strong>，用于记录按位排序的情况，当所有的位都完成排序之后，整体的数组就是有序的！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// redix </span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">get_radix</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        ret = num % <span class="number">10</span>;</span><br><span class="line">        num /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// radix sort algorithm</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">radix_sort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> l, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> width = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; width; i++) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; vec&#123;width, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;()&#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ii = l; ii &lt;= h; ii++) &#123;</span><br><span class="line">            <span class="keyword">int</span> r = get_radix(arr[ii], i);   <span class="comment">// [0, 9)</span></span><br><span class="line">            vec[r].push_back(arr[ii]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> idx = l;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; width; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; vec[i].size(); j++) &#123;</span><br><span class="line">                arr[idx++] = vec[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">            vec[i].clear();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// redix sort</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">radix_sort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> sz)</span> </span>&#123;</span><br><span class="line">    radix_sort(arr, <span class="number">0</span>, sz - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>计数基数排序</strong></p>
+<p>在基数排序的基础上，不用桶去记录每个位上的结果，而是用一个count数组记录相关为上的数字个数，然后计算出偏移位置。</p>
+<p>例如<strong>count = [1, 2, 0, 2, 1, 3, 1, 2, 4, 0]</strong>，可以计算出<strong>offset = [0, 1, 3, 3, 5, 6, 9, 10, 12, 16]</strong>，表示当该位为idx是，偏移的位置为<strong>offset[idx]</strong>，然后在将<strong>offset[idx] + 1</strong>，这样就得到了下一个的位置！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// redix </span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">get_radix</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        ret = num % <span class="number">10</span>;</span><br><span class="line">        num /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// clear an array</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">clear_arr</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> l, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt;= h; i++) &#123;</span><br><span class="line">        arr[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// count radix sort algorithm</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">count_radix_sort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> l, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> width = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> count[width];</span><br><span class="line">    <span class="keyword">int</span> t_arr[h - l + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; width; i++) &#123;</span><br><span class="line">        clear_arr(count, <span class="number">0</span>, width - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ii = l; ii &lt;= h; ii++) &#123;</span><br><span class="line">            <span class="keyword">int</span> r = get_radix(arr[ii], i);</span><br><span class="line">            count[r]++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// change count[] to offset[]</span></span><br><span class="line">        <span class="keyword">int</span> last = count[<span class="number">0</span>];</span><br><span class="line">        count[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ii = <span class="number">1</span>; ii &lt; width; ii++) &#123;</span><br><span class="line">            <span class="keyword">int</span> t = count[ii];</span><br><span class="line">            count[ii] = count[ii - <span class="number">1</span>] + last;</span><br><span class="line">            last = t;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ii = l; ii &lt;= h; ii++) &#123;</span><br><span class="line">            <span class="keyword">int</span> r = get_radix(arr[ii], i);</span><br><span class="line">            t_arr[count[r]++] = arr[ii];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ii = l; ii &lt;= h; ii++) &#123;</span><br><span class="line">            arr[ii] = t_arr[ii - l];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// count radix sort</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">count_radix_sort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> sz)</span> </span>&#123;</span><br><span class="line">    count_radix_sort(arr, <span class="number">0</span>, sz - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Test</strong></p>
+<p>你同样可以编写测试函数来测试你的算法的正确性，下面是辅助函数和测试的main函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ================Rand N=====================</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rand_n</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> rand() % n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// print array</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> l, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt;= h; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; arr[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// check</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> l, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt; h; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i + <span class="number">1</span>] &lt; arr[i]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// ==========================Main===========================</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span> </span>&#123;</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));</span><br><span class="line">    <span class="comment">// bucket sort</span></span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">10000</span>];</span><br><span class="line">    <span class="keyword">int</span> sz = <span class="number">10000</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">        arr[i] = rand_n(sz);</span><br><span class="line">    &#125;</span><br><span class="line">    bucket_sort(arr, sz, sz);</span><br><span class="line">    print(arr, <span class="number">0</span>, sz - <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">if</span> (check(arr, <span class="number">0</span>, sz - <span class="number">1</span>)) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"All right!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Some error!\n"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// radix sort</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">        arr[i] = rand_n(sz);</span><br><span class="line">    &#125;</span><br><span class="line">    radix_sort(arr, sz);</span><br><span class="line">    print(arr, <span class="number">0</span>, sz - <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">if</span> (check(arr, <span class="number">0</span>, sz - <span class="number">1</span>)) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"All right!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Some error!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// count radix sort</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">        arr[i] = rand_n(sz);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    count_radix_sort(arr, sz);</span><br><span class="line">    print(arr, <span class="number">0</span>, sz - <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">if</span> (check(arr, <span class="number">0</span>, sz - <span class="number">1</span>)) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"All right!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Some error!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>By the way</strong></p>
+<p>排序算法是程序员的基本功之一，一定要熟练掌握，新加入的几种算法都是利用了数据的相关特性，并不具备通用性，但是在特定的场景之下可以做到很好的性能，一定要灵活应用！</p>
+<p>时隔四个月的一次更新，希望继续坚持！！！</p>
+<p>2020.11.16 21:45</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic22.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/07/09/聊一聊web-server/" title="聊一聊web server" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/07/05/TCP-IP层次分析/" title="TCP/IP层次分析" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/24/leetcode_2/" title="Leetcode_2">
+								Leetcode_2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 24日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Leetcode上一篇leetcode刷题博客的记录已经有25道题目了，想着再继续向里面添加就会变得很长，于是决定新开一篇博客来进行刷题的记录，之后的每一篇刷题博客也确定每篇25道题目吧！
+上一篇博客是实习的时候开的，只不过后来工作多...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/24/leetcode_2/" title="Leetcode_2">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="Leetcode_2"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">
+								实现一些经典的Data Structure			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								实现经典的Data StructureBackground
+数据结构在我们的计算机学习中有着不可替代的作用，永远滴神linus说过，好的程序员关注数据结构和算法，垃圾程序员关注代码。这话符合linus的说话风格，虽然我们不必百分之百认...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/07/13/实现一些经典的Data-Structure/" title="实现一些经典的Data Structure">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic24.jpg" alt="实现一些经典的Data Structure"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/30/初探go-test/" title="初探go test">
+								初探go test			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								go test这段时间的工作一直主要是GO，很多业务代码写完之后在考虑加上单元测试，就来研究一下go test这个工具
+go test是一个按照一定的约定和组织来测试代码的程序，包中的_test.go结尾的源文件不会被构建成报的一部分...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/30/初探go-test/" title="初探go test">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic18.jpg" alt="初探go test"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">
+								实践一下GO的reflect			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 20日, 2020				
+							</p>
+							<p class="relate-post-content">
+								一次GO的reflect的小小实践
+一点心得
+上次在接触反射的时候我曾经说过学习反射最好的方式有两种，读经典的反射代码（fmt.Printf）和自己动手写一下反射的代码。那一片博客之后我说会写一点关于反射的代码，一拖就拖到了现在。越来...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/20/实践一下GO的reflect/" title="实践一下GO的reflect">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic16.jpg" alt="实践一下GO的reflect"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">
+								看一看GO的rpc中Server的实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 13日, 2020				
+							</p>
+							<p class="relate-post-content">
+								GO的rpc包中Server的实现前面的一篇博客分析了一下关于GO的rpc中关于client的实现，大致理了一下client发送请求并且如何收到server的回复的一个过程。当时准备立即去分析server.go的代码的，但是因为GO中...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/13/看一看GO的rpc中Server的实现/" title="看一看GO的rpc中Server的实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic19.jpg" alt="看一看GO的rpc中Server的实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">
+								谈一谈GO中的反射			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Reflect无奈的反射
+博主之前研究过Java的反射，有过一点反射概念的基础，所以在面对GO中的基本的反射操作是能够看得懂的。所以在前面两篇rpc的文章，都进展的比较顺利。但是今天看到rpc包中的server的时候，因为server...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/谈一谈GO中的反射/" title="谈一谈GO中的反射">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic14.jpg" alt="谈一谈GO中的反射"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">
+								趁热打铁，来看看GO RPC的Client的具体请求过程			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								在上一篇博客，我跟大家一起大致了解了rpc包的结构和里面的一些内容，对整个rpc的调用有了一定的认识。因为第一次看源码，还不是很深入，这次我们再次出发，进一步探索GO RPC中的client的具体请求流程，趁热打铁！
+
+连接serve...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/07/趁热打铁，来看看GO-RPC的Client的具体请求过程/" title="趁热打铁，来看看GO RPC的Client的具体请求过程">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic12.jpg" alt="趁热打铁，来看看GO RPC的Client的具体请求过程"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">
+								初探Go的RPC实现			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 5日, 2020				
+							</p>
+							<p class="relate-post-content">
+								简单探索一下GO中的RPC什么是rpc？
+rpc的英文名称是Remote Procedure Call，用博主的翻译就是远程过程调用，这是一个很时髦的东西。想一想，你的模块可以调用远程机器上的过程，也就是说不同于原始我们引用别人的模块...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/05/初探Go的RPC实现/" title="初探Go的RPC实现">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic2.jpg" alt="初探Go的RPC实现"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">
+								GO中的数据类型			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 2日, 2020				
+							</p>
+							<p class="relate-post-content">
+								记录一下Go语言的学习经历GO中的数据类型（data type）基本数据
+
+整型
+int
+在go中，整型分为有符号和无符号整数，分别有一下几种：
+
+int，int8，int16，int32，int64
+uint，uint8，uint1...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/06/02/GO中的数据类型/" title="GO中的数据类型">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic3.jpg" alt="GO中的数据类型"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

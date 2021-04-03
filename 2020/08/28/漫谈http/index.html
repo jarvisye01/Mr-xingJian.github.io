@@ -1,0 +1,1271 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      漫谈http | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《漫谈http》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/08/28/漫谈http/" itemprop="url">
+		漫谈http
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/08/28/漫谈http/" itemprop="url">
+		<time datetime="2020-08-28T01:32:50.000Z" itemprop="datePublished">
+	  		2020-08-28
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/08/28/漫谈http/" itemprop="url">
+		<time datetime="2020-08-28T01:32:50.000Z" itemprop="dateUpdated">
+	  		2020-09-01
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/http/" class=" ">
+			http
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h1 id="与http有关的知识点"><a href="#与http有关的知识点" class="headerlink" title="与http有关的知识点"></a>与http有关的知识点</h1><h3 id="http-status-code"><a href="#http-status-code" class="headerlink" title="http status code"></a>http status code</h3><p>http的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出来，所以这里整理了一下详细的http状态码的相关知识。</p>
+<h3 id="1xx"><a href="#1xx" class="headerlink" title="1xx"></a>1xx</h3><p><strong><em>100</em></strong>：很少出现，表示目前一切正常，client继续请求即可。客户端需要在首部的实体之前添加Expect：100-continue</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">100 continue</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>101</em></strong>：表示server收到client升级协议的请求，正在切换协议。例如你要使用WebSocket协议，就需要将http升级，升级的的协议会在response的<strong>Upgrade</strong>中展示</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">101 Switching Protocols</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>103</em></strong>：和Link这个header首部一起使用，允许client在server还在准备相应数据的时候预加载一些资源</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">103 Early Hints</span><br></pre></td></tr></table></figure>
+
+<h3 id="2xx"><a href="#2xx" class="headerlink" title="2xx"></a>2xx</h3><p><strong><em>200</em></strong>：这个最常见了，就是代表我们的http请求成功了</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">200 OK</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>201</em></strong>：表示请求成功，并且创建了一个新的资源，会返回新建资源的路径，一般用于POST方法</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">201 Created</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>206</em></strong>：表示服务器处理了部分GET请求，常用于与Range配合使用进行断点传输</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">206 Partial Content</span><br></pre></td></tr></table></figure>
+
+<h3 id="3xx"><a href="#3xx" class="headerlink" title="3xx"></a>3xx</h3><p><strong><em>300</em></strong>：被请求的资源有一系列可以选择的对象，用后或者浏览器自行选择</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">300 Mutiple Choice</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>301</em></strong>：被请求的资源已经被永久重定向到新位置，搜索引擎可以根据这个更新搜索信息</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">301 Moved Permanently</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>302</em></strong>：被请求的资源被临时重定向到新位置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">302 Found</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>304</em></strong>：被请求的资源没有改变，常用于缓存验证的响应状态码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">304 Not Modified</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>307</em></strong>：被请求的资源被临时重定向</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">307 Temporary Redirect</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>308</em></strong>：被请求的资源被永久重定向，但是接下来的请求方法必须与上一次相同</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">308 Permanent Redirect</span><br></pre></td></tr></table></figure>
+
+<h3 id="4xx"><a href="#4xx" class="headerlink" title="4xx"></a>4xx</h3><p><strong><em>400</em></strong>：用户的请求有误，例如参数错误</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">400 Bad Request</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>401</em></strong>： 请求未授权</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">401 Unauthorized</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>403</em></strong>：服务器已经解析请求，但是拒绝执行，例如用户想访问一个静态文件夹，但是我们没有开放这个权限就会出现403</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">403 Forbidden</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>404</em></strong>：请求失败，找不到相应的资源</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">404 Not Found</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>405</em></strong>：请求的方法不允许，例如你写的POST接口被GET来请求</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">405 Method Not Allowed</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>406</em></strong>：请求的资源特性无法满足，例如你的Range范围超出了资源的范围</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">406 Not Acceptable</span><br></pre></td></tr></table></figure>
+
+<h3 id="5xx"><a href="#5xx" class="headerlink" title="5xx"></a>5xx</h3><p><strong><em>500</em></strong>：服务器内部错误，例如你的接口逻辑写错了</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">500 Internal Server Error</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>501</em></strong>：服务器不支持这个类型的请求</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">501 Not Implemented</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>502</em></strong>：网关错误，表明这个服务器作为网关得到了错误的响应</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">502 Bad Gateway</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>503</em></strong>：服务器没有准备好，例如服务器因为维护停机</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">503 Service Unavailable</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>504</em></strong>：网关超时，这个服务器作为网关但是不能及时得到上游的响应</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">504 Gateway Timeout</span><br></pre></td></tr></table></figure>
+
+<h3 id="Http-Cache"><a href="#Http-Cache" class="headerlink" title="Http Cache"></a>Http Cache</h3><p>缓存是web技术中的关键一环，缓存可以帮助我们在资源请求的某个过程中将资源暂存起来，之后获取资源不用每一次都去到server。理论上来说缓存可以存在于http请求经过的任意地方，从你的browser到中间的代理，再到最终的server，缓存几乎无处不在，另外一些常见的缓存位置还包括网关、CDN等等。</p>
+<p>http的缓存通常分为两种：</p>
+<ul>
+<li>私有缓存：这种缓存仅仅用于单个用户，例如你的browser中的缓存</li>
+<li>共享缓存：这种缓存对所有用户均有效，例如代理服务器上的缓存</li>
+</ul>
+<p>在http这个范围之内，通常是对GET请求的response进行缓存，这个缓存的key是与请求的方法和请求的路径有关系。</p>
+<p>这是一个Firefox浏览器使用缓存的场景，我首次进入一个web之后再刷新，看一下这个过程的网络情况！</p>
+<p>首次进入：</p>
+<img src="http://47.102.110.56:8080/pic7.JPG">
+
+
+
+<p>刷新之后：</p>
+<img src="http://47.102.110.56:8080/pic8.JPG" alt="刷新">
+
+<p>显然GET请求的相应都会被缓存下来，第二次的web响应速度明显要快于第一次。这里你可以清楚地看到<strong>304</strong>这个状态码的作用，表示返回的是缓存的资源。</p>
+<p><strong>Cache-Control（如何控制缓存）</strong></p>
+<p>http支持用于缓存控制的header，就是Cache-Control字段，这个字段可以有以下取值（策略）：</p>
+<ul>
+<li>no-store：不执行缓存，每次的请求均去到server</li>
+<li>no-cache：使用缓存，但是每一次都要验证缓存的有效性，如果有效server返回304（上图就是此种策略）</li>
+<li>public：中间人可以缓存允许的内容，例如代理和CDN可以缓存部分内容</li>
+<li>private：中间人不能缓存，只有browser可以缓存</li>
+<li>max-age：缓存的有效时间</li>
+<li>must-revalidate：必须验证缓存的有效性</li>
+</ul>
+<p>这些字段可以用于client与server之间的缓存协商，达成缓存策略之后可以大大提高请求速度！</p>
+<p><strong>Cache Validate(如何验证缓存)</strong></p>
+<p>既然是缓存，必然会有过期的时间。一旦缓存过期我们就要重新获取资源，用户刷新之后就会开始验证缓存，通过上述的must-revalidate可以触发缓存验证，另外浏览器中设置Advanced-&gt;Cache也能强制验证缓存。</p>
+<p>缓存的验证主要有以下几种形式：</p>
+<ul>
+<li>ETags：server响应会携带一个ETags标签，client下一次请求的时候利用If-None-Match带上Etags到server，server进行验证</li>
+<li>Last-Modified：server响应会返回一个资源上一次的修改时间，client下一次请求时利用If-Modified-Since带上这个时间，server进行验证</li>
+</ul>
+<p><strong>Vary 响应</strong></p>
+<p>用户请求可以加一个Vary的header字段，只有当本次请求的Vary字段与缓存的请求和响应的Vary字段时候才会使用缓存。</p>
+<p>这个对使用缓存做了更精细的划分，你的移动端和电脑端缓存的资源不同，那么可以使用一个<strong>Vary: User-Agent</strong>来精细区分！</p>
+<h3 id="Http-Header"><a href="#Http-Header" class="headerlink" title="Http Header"></a>Http Header</h3><p>http header主要是用于传输过程中表示某些附加信息，有些请求头是request和response通用的，另外一些则是仅仅在request或者是response中使用，header通常被分成一下几个类别：</p>
+<ul>
+<li>General header：可用于request和response</li>
+<li>Request header：包含更多的是client和request的信息</li>
+<li>Response header：包含更多的是server和response的信息</li>
+<li>Entity head：包含与传输的实体有关的信息</li>
+</ul>
+<p>另外还需要注意的是有些header是端到端的，也就是说中间的代理必须原样转发，不可修改，还有一种叫做逐跳消息头，仅仅对于单个连接有效，不会通过代理缓存或者是转发！</p>
+<p><strong>headers</strong></p>
+<p>整个全部的http headers有很多，当时被面试官问到这个，因为忘记了好多，可能知道都是真么意思，但是一下子说不出来，有点尴尬。下面列举一些常见的http headers：</p>
+<table>
+<thead>
+<tr>
+<th align="center">header</th>
+<th align="center">function</th>
+<th align="center">example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Accept</td>
+<td align="center">指定MIME类型</td>
+<td align="center">Accept: text/html, application/json</td>
+</tr>
+<tr>
+<td align="center">Accept-Charset</td>
+<td align="center">指定字符集</td>
+<td align="center">Accept-Charset: utf-8</td>
+</tr>
+<tr>
+<td align="center">Accept-Encoding</td>
+<td align="center">指定客户端支持的压缩算法</td>
+<td align="center">Accept-Encoding: gzip</td>
+</tr>
+<tr>
+<td align="center">Accept-Language</td>
+<td align="center">指定客户端支持的语言</td>
+<td align="center">Accept-Language: zh-CN,zh</td>
+</tr>
+<tr>
+<td align="center">Accept-Ranges</td>
+<td align="center">指定客户端支持的范围请求单位</td>
+<td align="center">Accept-Ranges: bytes</td>
+</tr>
+<tr>
+<td align="center">Age</td>
+<td align="center">指定缓存的年龄</td>
+<td align="center">Age: 10</td>
+</tr>
+<tr>
+<td align="center">Allow</td>
+<td align="center">指定服务端支持的http方法集合（405）</td>
+<td align="center">Allow: GET, POST</td>
+</tr>
+<tr>
+<td align="center">Cache-Control</td>
+<td align="center">指定缓存使用策略</td>
+<td align="center">Cache-Control: no-cache</td>
+</tr>
+<tr>
+<td align="center">Connection</td>
+<td align="center">指定请求完毕之后是否保持TCP连接</td>
+<td align="center">Connection: keep-alive</td>
+</tr>
+<tr>
+<td align="center">Content-Type</td>
+<td align="center">指定返回资源的类型</td>
+<td align="center">Content-Type: application/json</td>
+</tr>
+<tr>
+<td align="center">Content-Length</td>
+<td align="center">指定返回资源的长度</td>
+<td align="center">Content-Lengt: 1000</td>
+</tr>
+<tr>
+<td align="center">Content-Location</td>
+<td align="center">指定返回资源的重定向</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Content-Language</td>
+<td align="center">指定返回资源的语言</td>
+<td align="center">Content-Language：zh-CN</td>
+</tr>
+<tr>
+<td align="center">Content-Encoding</td>
+<td align="center">指定返回资源的编码格式</td>
+<td align="center">Content-Encoding：gzip</td>
+</tr>
+<tr>
+<td align="center">Cookie</td>
+<td align="center">指定请求/相应的cookie</td>
+<td align="center">Cookie: k=v</td>
+</tr>
+<tr>
+<td align="center">ETag</td>
+<td align="center">指定返回资源的版本标识</td>
+<td align="center">ETag: xxx</td>
+</tr>
+<tr>
+<td align="center">Expires</td>
+<td align="center">指定相应的过期时间</td>
+<td align="center">Expires: Tur, 27 Aug 2020 16:06:00 GMT</td>
+</tr>
+<tr>
+<td align="center">Host</td>
+<td align="center">指定请求的主机和端口</td>
+<td align="center">Host: dss0.bdstatic.com</td>
+</tr>
+<tr>
+<td align="center">If-Match</td>
+<td align="center">利用ETag检验缓存</td>
+<td align="center">If-Match: xxx</td>
+</tr>
+<tr>
+<td align="center">If-None-Match</td>
+<td align="center">与If-Match相反</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">If-Modified-Since</td>
+<td align="center">如果某个时间之后资源修改</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Last-Modified</td>
+<td align="center">指定返回资源上一次的修改时间</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Location</td>
+<td align="center">指定重定向的地址（OAuth用的很多）</td>
+<td align="center">Location: xxx</td>
+</tr>
+<tr>
+<td align="center">Origin</td>
+<td align="center">请求的原站址</td>
+<td align="center">Origin: <a href="https://www.baidu.com" target="_blank" rel="noopener">https://www.baidu.com</a></td>
+</tr>
+<tr>
+<td align="center">Range</td>
+<td align="center">指定请求资源的范围</td>
+<td align="center">Range: bytes=0-499, -500</td>
+</tr>
+<tr>
+<td align="center">TE</td>
+<td align="center">指定代理希望使用的传输方式</td>
+<td align="center">TE: compress</td>
+</tr>
+<tr>
+<td align="center">Upgrade</td>
+<td align="center">指定服务升级（http -&gt; websocket，与Connection一起使用）</td>
+<td align="center">Upgrade: websocket</td>
+</tr>
+</tbody></table>
+<p>当然，http header远不止这些，还有一些我也不是很熟悉，大家可以去看更加详细的文档！</p>
+<h3 id="Http-跨域"><a href="#Http-跨域" class="headerlink" title="Http 跨域"></a>Http 跨域</h3><p>首先我们先要搞清楚跨域到底是什么？</p>
+<p>跨域全称跨域资源共享，使用额外的http header来说明运行在一个domain上的web app可以访问不同domain上的资源。这种不同domain之间的资源请求就是一个跨域的http请求。</p>
+<p><strong>怎么确定一个域？</strong></p>
+<p>总的说来主要是三个部分，协议、域名和端口，只有这三者完全相同时才是同一个域！例如<a href="http://www.test.com/test1.txt" target="_blank" rel="noopener">http://www.test.com/test1.txt</a> 、<a href="http://www.test.com/test2.txt" target="_blank" rel="noopener">http://www.test.com/test2.txt</a> 就位于同一个域，<a href="http://www.test.com:8080/test1.txt" target="_blank" rel="noopener">http://www.test.com:8080/test1.txt</a> 就处于不同的域，因为后者与他们的端口不同。</p>
+<p>常见的跨域请求：</p>
+<ul>
+<li>例如html中img标签利用src引用其他域上的资源</li>
+<li>脚本发球跨域资源请求，例如你在前端开发的时候fetch后端的接口</li>
+</ul>
+<p>这种限制决定了我们在fetch跨域资源的时候是不能正确获取的，我之前在开发的时候通常前端跑在localhost:3000之下，后端跑在localhost:8000之下，这就是典型的跨域行为。</p>
+<p>针对跨域，http中也包含了一系列的http header用于处理跨域问题：</p>
+<p><strong>response headers</strong>：</p>
+<ul>
+<li>Access-Control-Allow-Origin：表示允许来自哪些domain的跨域请求访问资源</li>
+<li>Access-Control-Expose-Headers：跨域的响应浏览器只能获得部分的headers，这个header与用于存放允许访问的白名单</li>
+<li>Access-Control-Max-Age：请求的结果能够缓存多久</li>
+<li>Access-Control-Allow-Credentials：当浏览器的credentials设置为true时是否允许浏览器读取response的内容</li>
+<li>Access-Control-Allow-Methods：允许跨域的http methods，用于响应预检请求</li>
+<li>Access-Control-Allow-Headers：允许使用的http header，用于响应预检请求</li>
+</ul>
+<p><strong>request headers</strong>：</p>
+<ul>
+<li>Origin：代表预检请求或者是实际请求的源站</li>
+<li>Access-Control-Request-Method：在预检请求中说明会用到的跨域方法</li>
+<li>Access-Control-Request-Headers：在预检请求中说明会用到的http headers</li>
+</ul>
+<p><strong>坚决不能动口不动手</strong></p>
+<p>我会制作一个小demo，用两种方法解决跨域问题：</p>
+<ul>
+<li>后端返回数据的时候添加相关的header</li>
+<li>直接请求本域，然后用Nginx做代理访问其他的域</li>
+</ul>
+<p>demo已经完成了一大半，但是因为突发状况阿里云的服务器登录不上去了，我先看看什么问题，后续会把demo补上来！</p>
+<p>2020.08.28 09:35</p>
+<p>今天终于有时间把这个demo完成了，其实demo很简单。一个简单的前端，使用nginx服务器，后端用golang编写。</p>
+<p>相关的项目信息如下：</p>
+<ul>
+<li>前端：nginx充当服务器，项目所在的域为<a href="http://47.102.110.56:3000" target="_blank" rel="noopener">http://47.102.110.56:3000</a></li>
+<li>后端：使用golang原生http服务，项目所在的域为<a href="http://47.102.110.56:9000" target="_blank" rel="noopener">http://47.102.110.56:9000</a></li>
+</ul>
+<p>这里后端中有3个接口，都是返回一个list供前端显示：</p>
+<ul>
+<li>/todolist：前端直接fetch（跨域），后端设置<strong>res.Header().Add(“Access-Control-Allow-Origin”, “<a href="http://47.102.110.56:3000&quot;" target="_blank" rel="noopener">http://47.102.110.56:3000&quot;</a>)</strong>允许跨域</li>
+<li>/somedata：前端直接fetch（跨域），后端不做任何处理</li>
+<li>/nginxdata：前端fetch本域，通过nginx代理到后端</li>
+</ul>
+<p>显而易见，1和3方法都可以很好的解决跨域问题，可以看一下展示效果：</p>
+<img src="http://47.102.110.56:8080/pic9.JPG" alt="cors">
+
+<p>其中第1种跟第3种方法都是成功获取到了另外的资源，只是第1中方法是后端设置允许跨域的header，而第3种是利用nginx转发请求获取资源，大家可以尝试一下！</p>
+<p>顺便看一下出现跨域浏览器给出的提示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access to fetch at 'http://47.102.110.56:9000/api/somedata' from origin 'http://47.102.110.56:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.</span><br></pre></td></tr></table></figure>
+
+<p>显然本次返回的data被浏览器的跨域政策给截获了，未经跨域允许我们获取不到相关的数据。</p>
+<p><strong>By the way</strong></p>
+<p>demo代码均放在gitee上：<a href="https://gitee.com/Mr_Xingjian/cross-domain-testing" target="_blank" rel="noopener">https://gitee.com/Mr_Xingjian/cross-domain-testing</a></p>
+<p>本次demo我是运行在一台阿里云服务器上，如果你想在你的环境下运行demo，可能需要按照你的条件修改部分域的信息。如果遇到问题可以联系我，我的QQ是972763217。</p>
+<p>2020.08.28 12:49</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic31.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/08/30/Interview/" title="Interview" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/08/26/漫谈AQS/" title="漫谈AQS" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/26/漫谈AQS/" title="漫谈AQS">
+								漫谈AQS			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 26日, 2020				
+							</p>
+							<p class="relate-post-content">
+								AbstractQueuedSynchronizer实习回来又要投入到秋招的浪潮当中，虽然本人目前是更加倾向于GO方面的岗位，但是也深知自己对GO的理解可能还是不够深入，Java的岗位自己也是想去尝试一下。
+因为之前一直是准备Java...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/26/漫谈AQS/" title="漫谈AQS">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic30.jpg" alt="漫谈AQS"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

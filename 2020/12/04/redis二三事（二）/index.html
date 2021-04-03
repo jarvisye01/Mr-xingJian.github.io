@@ -1,0 +1,1110 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      redis二三事（二） | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《redis二三事（二）》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2020/12/04/redis二三事（二）/" itemprop="url">
+		redis二三事（二）
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2020/12/04/redis二三事（二）/" itemprop="url">
+		<time datetime="2020-12-04T12:16:42.000Z" itemprop="datePublished">
+	  		2020-12-04
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2020/12/04/redis二三事（二）/" itemprop="url">
+		<time datetime="2020-12-04T12:16:42.000Z" itemprop="dateUpdated">
+	  		2021-02-11
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/redis/" class=" ">
+			redis
+		</a>
+	
+		<a href="/tags/c/" class=" ">
+			c
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h2 id="字符串和数字"><a href="#字符串和数字" class="headerlink" title="字符串和数字"></a>字符串和数字</h2><p>面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？</p>
+<p><strong>string</strong></p>
+<p>要想回答string相关的内容你首先要知道C语言中的一个字符串是怎么表示的，C语言的字符串由一组字符加上’\0’结尾，一般我们可以用一个char类型的指针指向或者是数组存储我们的字符串。对于字符串的存储我们一定要有一个边界意识，就是我们要能够判断一个字符串到什么地方截止，为了体现这种边界，其实有两种方法：</p>
+<ul>
+<li>用一个边界字符结尾：例如C语言中用’\0’表示</li>
+<li>存储字符串的长度：例如GO语言</li>
+</ul>
+<p>二者都有自己的优缺点，比如方法一可以很好地节省内存，但在取字符串长度时的效率并不如方法二，另外方法一表示的字符串并不是二进制安全的，因为一串二进制数据中可能包含’\0’，这时候就没办法很好地判断整个string的边界。方法二的取长度效率非常高，但是需要占用额外的内存来存储长度，对于长度很短的字符串这种空间换时间可能并不是很划算，因为有专门的长度来表示边界，所以方法二中的字符串可以存储任何字符。</p>
+<p>在这里redis采用了第二种方法表示字符串，但是却仍然保持了以’\0’为一个string的结尾，你可能会觉得这是一种多余的操作，这样做其实是为了可以使用丰富的C字符串处理函数，<strong>#include &lt;string.h&gt;</strong>你一定不会陌生吧？</p>
+<p><strong>number</strong></p>
+<p>整数的实现实际上比较直观，因为整数的长度是跟类型相关的，就是那么几个长度而非常规整。我们可能常常会看到<strong>int8_t int16_t int32_t int64_t</strong>这些整型类型，存储不同类型的整型数据需要的字节空间是不同的。这样就会出现一个场景，我们可以申请一个<strong>int64_t</strong>数组来存储所有的数字，可是如果我们的数字都很小，<strong>int8_t</strong>足以存储那不是浪费了很多的空间？确实是这样，所以redis并没说用空间最大的<strong>int64_t</strong>来存储所有的数字，而是才用了跟一种非常灵活的数据加编码的形式确定整型的类型。</p>
+<h3 id="sds-sds-h-sds-c"><a href="#sds-sds-h-sds-c" class="headerlink" title="sds[sds.h sds.c]"></a><strong>sds[sds.h sds.c]</strong></h3><p>sds模块实现了redis中的动态字符串类型，这种字符串可以灵活的伸缩长度，提供空间预分配功能，在我们表示的字符为C风格字符串时可以使用C中的标准字符串处理函数来处理。增强了C字符串的灵活性和安全性，sds在redis内部被广泛的使用。</p>
+<p>在redis的sds中，字符串按照长度被定义为5中类型，分别是<strong>sdshdr5 sdshdr8 sdshdr16 sdshdr32 sdshdr64</strong>，这是根据字符串的长度来区分的，这里我会选择<strong>sdshdr16</strong>来讲解具体的结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// sds 被定义为char*</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> *sds;</span><br><span class="line"></span><br><span class="line"><span class="comment">// __attribute__ ((__packed__)) 表示这个结构体会用紧凑模式，不会进行结构体对齐</span></span><br><span class="line"><span class="comment">// 这是因为后面需要通过buf指针获取header中的其它字段</span></span><br><span class="line"><span class="comment">// len表示的是这个字符串的长度(也就是说这个header最多只能存储MAX(uint16_t)长的字符串)</span></span><br><span class="line"><span class="comment">// alloc表示申请的内存，除了这个header和最后的null终结符</span></span><br><span class="line"><span class="comment">// flags存储与sds类型相关的信息</span></span><br><span class="line"><span class="comment">// buf是指向字符串的指针，那么字符串的具体内容在哪里呢？我们稍后来解答</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span> ((__<span class="title">packed__</span>)) <span class="title">sdshdr16</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint16_t</span> len; <span class="comment">/* used */</span></span><br><span class="line">    <span class="keyword">uint16_t</span> alloc; <span class="comment">/* excluding the header and null terminator */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> flags; <span class="comment">/* 3 lsb of type, 5 unused bits */</span></span><br><span class="line">    <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>看了这个上面的定义你肯定是很糊涂，这个是怎么表示字符串的？我来画一个图解释一下：</p>
+<img src="http://47.102.110.56:8080/pic13.jpg">
+
+<p>这个样子内存的分布就很好理解了，这是一个hello字符串的内存示意图，其中len = 5，alloc = 5。所以redis的sds中string的内存并不是与header分开申请的，而是紧紧跟在header的后面，buf则指向这一块内存，string内存的结尾是C的’\0’。这里的buf在sdshdr中并不占用实际的内存，你可以去了解一下C语言的变长数组的知识。</p>
+<p>因为所有的内存都是紧凑的，我们可以很简单的通过buf指针获取到flags的位置以及sdshdr头部的位置，便于后续的操作。</p>
+<p>flags实际上是存储了sds类型的相关信息：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 0000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SDS_TYPE_5  0</span></span><br><span class="line"><span class="comment">// 0001</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SDS_TYPE_8  1</span></span><br><span class="line"><span class="comment">// 0010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SDS_TYPE_16 2</span></span><br><span class="line"><span class="comment">// 0011</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SDS_TYPE_32 3</span></span><br><span class="line"><span class="comment">// 0100</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SDS_TYPE_64 4</span></span><br></pre></td></tr></table></figure>
+
+<p>这就是一个sds的大致内存分布，在sds.h还有两个很重要的macro，分别可以通过一个sds（char*）变量来定义一个相关的sdshdr变量，以及获取sdshdr指针：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个sh变量</span></span><br><span class="line"><span class="comment">// SDS_HDR_VAR(64, s) struct sdshdr64 *sh = (void*)((s) - (sizeof(strruct sdshdr64)))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SDS_HDR_VAR(T,s) struct sdshdr##T *sh = (void*)((s)-(sizeof(struct sdshdr##T)));</span></span><br><span class="line"><span class="comment">// 获取sdshdr##T指针</span></span><br><span class="line"><span class="comment">// SDS_HDR(64, s) ((struct sdshdr64 *)((s) - (sizeof(struct sdshdr64))))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SDS_HDR(T,s) ((struct sdshdr##T *)((s)-(sizeof(struct sdshdr##T))))</span></span><br></pre></td></tr></table></figure>
+
+<p>ok，如果真的理解了sds的内存分布，那么后面的sds的各种操作也就非常好理解了！</p>
+<p>这里我们要搞清楚的是在redis中虽然定义了sdshdr这个结构，但是最常用的还是<strong>typedef char *sds</strong>这里定义的sds结构，一般会将sdshdr中的buf赋值给sds，这样的话我们其实就能直接通过sds变量来操作字符串，而不是中间还隔了一层sdshdr，如果我们真的需要相应的sdshdr中的内容，通过buf(sds)指针的位置也是可以直接获取sdshdr指针，你可以看看上面的第二个macro。</p>
+<p><strong>sdsnewlen</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">sds <span class="title">sdsnewlen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *init, <span class="keyword">size_t</span> initlen)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *sh;</span><br><span class="line">    sds s;</span><br><span class="line">    <span class="comment">// 根据长度获取需要的sdshdr type</span></span><br><span class="line">    <span class="comment">// 不同的长度需要不同的header来管理</span></span><br><span class="line">    <span class="keyword">char</span> type = sdsReqType(initlen);</span><br><span class="line">    <span class="comment">/* Empty strings are usually created in order to append. Use type 8</span></span><br><span class="line"><span class="comment">     * since type 5 is not good at this. */</span></span><br><span class="line">    <span class="keyword">if</span> (type == SDS_TYPE_5 &amp;&amp; initlen == <span class="number">0</span>) type = SDS_TYPE_8;</span><br><span class="line">    <span class="comment">// 获取相关sdshdr type的长度</span></span><br><span class="line">    <span class="keyword">int</span> hdrlen = sdsHdrSize(type);</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *fp; <span class="comment">/* flags pointer. */</span></span><br><span class="line">    <span class="keyword">size_t</span> usable;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里sdshdr和buf使用的memory在物理上连续的</span></span><br><span class="line">    sh = s_malloc_usable(hdrlen+initlen+<span class="number">1</span>, &amp;usable);</span><br><span class="line">    <span class="keyword">if</span> (sh == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span> (init==SDS_NOINIT)</span><br><span class="line">        init = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!init)</span><br><span class="line">        <span class="comment">// init sh(header and buf)</span></span><br><span class="line">        <span class="built_in">memset</span>(sh, <span class="number">0</span>, hdrlen+initlen+<span class="number">1</span>);</span><br><span class="line">    <span class="comment">// pointer of buf</span></span><br><span class="line">    s = (<span class="keyword">char</span>*)sh+hdrlen;</span><br><span class="line">    <span class="comment">// set flags</span></span><br><span class="line">    fp = ((<span class="keyword">unsigned</span> <span class="keyword">char</span>*)s)<span class="number">-1</span>;</span><br><span class="line">    usable = usable-hdrlen<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (usable &gt; sdsTypeMaxSize(type))</span><br><span class="line">        usable = sdsTypeMaxSize(type);</span><br><span class="line">    <span class="keyword">switch</span>(type) &#123;</span><br><span class="line">        <span class="keyword">case</span> SDS_TYPE_8: &#123;</span><br><span class="line">            SDS_HDR_VAR(<span class="number">8</span>,s);</span><br><span class="line">            sh-&gt;len = initlen;</span><br><span class="line">            sh-&gt;alloc = usable;</span><br><span class="line">            *fp = type;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="comment">// 下面都是根据不同的type进行不同的初始化，代码跟SDS_TYPE_8没什么本质区别</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (initlen &amp;&amp; init)</span><br><span class="line">        <span class="comment">// 将init的内容复制到s中</span></span><br><span class="line">        <span class="built_in">memcpy</span>(s, init, initlen);</span><br><span class="line">    <span class="comment">// 设置结尾字符串</span></span><br><span class="line">    s[initlen] = <span class="string">'\0'</span>;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我来梳理一下具体的步骤：</p>
+<ul>
+<li>根据你需要初始化的string的长度initlen来确定需要什么sdshdr来容纳，例如sdshdr8管理的string的最大长度是受到uint8_t的最大值的限制的</li>
+<li>根据确定的sdshdr type来获取该header的长度，显然sdshdr8和sdshdr16的结构本身长度是不一样的</li>
+<li>根据header长度和string长度来申请内存，注意这里的内存是一起申请的，也就是存储string的内存是仅仅跟在header之后的</li>
+<li>根据相应的sdshdr type设置flags等等字段</li>
+<li>最后如果我们提供了初始化的内存，复制到我们为字符串申请的内存</li>
+</ul>
+<p>这里我们注意一下<strong>s = (char*)sh+hdrlen</strong>这一段的意思，这样的话我们就是直接在使用sdshdr中的变长数组，也就是所存储的string的内存，最后我们还给字符串的最后加上了’\0’，让它成为一个C风格的字符串，在这里你应该能从代码的层面直观地感受到string的内存是紧跟着sdshdr的。</p>
+<p>你也可以想一想为什么需要这几种sdshdr，因为在某一个特别的场景中如果我们需要处理的字符串非常短，例如配置文件的各项配置，那么sdshdr64就会比sdshdr8要浪费很多空间！</p>
+<p><strong>sdsfree</strong></p>
+<p>释放sds的内存，也很简单，但是需要注意的是sds(char *)并不是我们申请的这一段内存的开始的位置，上面我们已经看到过了，sds实际上是buf的位置，内存开始的位置还个了一个header的大小，这段代码也不是很难理解。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sdsfree</span><span class="params">(sds s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    s_free((<span class="keyword">char</span>*)s-sdsHdrSize(s[<span class="number">-1</span>]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>sdsMakeRoomFor</strong></p>
+<p>为一个sds增加更多的空间，这个函数常常用在需要将string变长的操作之上，例如常见的concate操作等等。</p>
+<p>这里一定要注意到一个问题，也就是在一个sds增加长度之后，原始的sdshdr是否还能满足string的长度要求，如果增长之后旧的type装不下就要更新sdshdr。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">sds <span class="title">sdsMakeRoomFor</span><span class="params">(sds s, <span class="keyword">size_t</span> addlen)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *sh, *newsh;</span><br><span class="line">    <span class="keyword">size_t</span> avail = sdsavail(s);</span><br><span class="line">    <span class="keyword">size_t</span> len, newlen;</span><br><span class="line">    <span class="keyword">char</span> type, oldtype = s[<span class="number">-1</span>] &amp; SDS_TYPE_MASK;</span><br><span class="line">    <span class="keyword">int</span> hdrlen;</span><br><span class="line">    <span class="keyword">size_t</span> usable;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Return ASAP if there is enough space left. */</span></span><br><span class="line">    <span class="comment">// 还有足够的空间</span></span><br><span class="line">    <span class="keyword">if</span> (avail &gt;= addlen) <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">    len = sdslen(s);</span><br><span class="line">    sh = (<span class="keyword">char</span>*)s-sdsHdrSize(oldtype);</span><br><span class="line">    newlen = (len+addlen);</span><br><span class="line">    <span class="comment">// 空间的预分配</span></span><br><span class="line">    <span class="keyword">if</span> (newlen &lt; SDS_MAX_PREALLOC)</span><br><span class="line">        newlen *= <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        newlen += SDS_MAX_PREALLOC;</span><br><span class="line"></span><br><span class="line">    type = sdsReqType(newlen);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Don't use type 5: the user is appending to the string and type 5 is</span></span><br><span class="line"><span class="comment">     * not able to remember empty space, so sdsMakeRoomFor() must be called</span></span><br><span class="line"><span class="comment">     * at every appending operation. */</span></span><br><span class="line">    <span class="keyword">if</span> (type == SDS_TYPE_5) type = SDS_TYPE_8;</span><br><span class="line"></span><br><span class="line">    hdrlen = sdsHdrSize(type);</span><br><span class="line">    <span class="keyword">if</span> (oldtype==type) &#123;</span><br><span class="line">        <span class="comment">// 增加长度，但是不需要更换相关的sdshdr type</span></span><br><span class="line">        <span class="comment">// 那么只需要一般的realloc就可以了</span></span><br><span class="line">        newsh = s_realloc_usable(sh, hdrlen+newlen+<span class="number">1</span>, &amp;usable);</span><br><span class="line">        <span class="keyword">if</span> (newsh == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        s = (<span class="keyword">char</span>*)newsh+hdrlen;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">/* Since the header size changes, need to move the string forward,</span></span><br><span class="line"><span class="comment">         * and can't use realloc */</span></span><br><span class="line">        <span class="comment">// header size changes =&gt; uint8_t =&gt; uint16_t</span></span><br><span class="line">        <span class="comment">// 长度增加之后sdshdr的类型需要改变，那么要重新构建新的header</span></span><br><span class="line">        newsh = s_malloc_usable(hdrlen+newlen+<span class="number">1</span>, &amp;usable);</span><br><span class="line">        <span class="keyword">if</span> (newsh == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">memcpy</span>((<span class="keyword">char</span>*)newsh+hdrlen, s, len+<span class="number">1</span>);</span><br><span class="line">        s_free(sh);</span><br><span class="line">        s = (<span class="keyword">char</span>*)newsh+hdrlen;</span><br><span class="line">        s[<span class="number">-1</span>] = type;</span><br><span class="line">        sdssetlen(s, len);</span><br><span class="line">    &#125;</span><br><span class="line">    usable = usable-hdrlen<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (usable &gt; sdsTypeMaxSize(type))</span><br><span class="line">        usable = sdsTypeMaxSize(type);</span><br><span class="line">    <span class="comment">// alloc是buf申请的空间</span></span><br><span class="line">    sdssetalloc(s, usable);</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里还有一个重要的问题就是空间的预分配，虽然我们给出的增加的长度是addlen，这是redis并没有老老实实只是将长度增加这么多，在空间足够的情况下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// old string = "hello" oldlen = 5</span></span><br><span class="line"><span class="comment">// addlen = 3</span></span><br><span class="line"><span class="comment">// newlen = (5 + 3) * 2 = 16</span></span><br><span class="line">newlen = (len+addlen) * <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>这种预分配是为了之后每次增长都需要进行realloc操作，我们知道realloc操作是有可能需要整体原来的内存块中的内容的，预分配可以防止连续增加长度时每次都要调用realloc的情况。</p>
+<p><strong>sdsRemoveFreeSpace</strong></p>
+<p>前面的空间预分配实际上是在内存充足的时候用空间来换取时间的典型做法，但是一旦出现内存不足的时候我们自然就需要对策略进行调整，redis依然拥有收回这部分预分配出去的内存。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">sds <span class="title">sdsRemoveFreeSpace</span><span class="params">(sds s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 原sdshdr##T，新sdshdr#T</span></span><br><span class="line">    <span class="keyword">void</span> *sh, *newsh;</span><br><span class="line">    <span class="keyword">char</span> type, oldtype = s[<span class="number">-1</span>] &amp; SDS_TYPE_MASK;</span><br><span class="line">    <span class="keyword">int</span> hdrlen, oldhdrlen = sdsHdrSize(oldtype);</span><br><span class="line">    <span class="keyword">size_t</span> len = sdslen(s);</span><br><span class="line">    <span class="keyword">size_t</span> avail = sdsavail(s);</span><br><span class="line">    sh = (<span class="keyword">char</span>*)s-oldhdrlen;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Return ASAP if there is no space left. */</span></span><br><span class="line">    <span class="comment">// 没有剩余空间</span></span><br><span class="line">    <span class="keyword">if</span> (avail == <span class="number">0</span>) <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Check what would be the minimum SDS header that is just good enough to</span></span><br><span class="line"><span class="comment">     * fit this string. */</span></span><br><span class="line">    type = sdsReqType(len);</span><br><span class="line">    hdrlen = sdsHdrSize(type);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* If the type is the same, or at least a large enough type is still</span></span><br><span class="line"><span class="comment">     * required, we just realloc(), letting the allocator to do the copy</span></span><br><span class="line"><span class="comment">     * only if really needed. Otherwise if the change is huge, we manually</span></span><br><span class="line"><span class="comment">     * reallocate the string to use the different header type. */</span></span><br><span class="line">    <span class="keyword">if</span> (oldtype==type || type &gt; SDS_TYPE_8) &#123;</span><br><span class="line">        <span class="comment">// 使用之前的sdshdr type</span></span><br><span class="line">        newsh = s_realloc(sh, oldhdrlen+len+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (newsh == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        s = (<span class="keyword">char</span>*)newsh+oldhdrlen;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 构建新的sdshdr</span></span><br><span class="line">        newsh = s_malloc(hdrlen+len+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (newsh == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">memcpy</span>((<span class="keyword">char</span>*)newsh+hdrlen, s, len+<span class="number">1</span>);</span><br><span class="line">        s_free(sh);</span><br><span class="line">        s = (<span class="keyword">char</span>*)newsh+hdrlen;</span><br><span class="line">        s[<span class="number">-1</span>] = type;</span><br><span class="line">        <span class="comment">// 新申请的sdshdr, need to set len</span></span><br><span class="line">        sdssetlen(s, len);</span><br><span class="line">    &#125;</span><br><span class="line">    sdssetalloc(s, len);</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>空间紧缩的时候也是要注意，长度减小后之前的sdshdr type还能不能适用，这决定我们到底是利用realloc紧缩还是需要重新构建sdshdr。</p>
+<p>说完了空间预分配和紧缩之后我们还是再来说一说sdshdr中是怎么管理已经使用的空间和剩余的空间的，首先我们来对sds的内存分成三个段：</p>
+<ul>
+<li><strong>header</strong></li>
+<li><strong>string</strong></li>
+<li><strong>null terminator</strong></li>
+<li><strong>rest/available(maybe)</strong></li>
+</ul>
+<p>sdshdr中有两个跟长度有关的字段，len和alloc，那么len实际上就是指string的长度，alloc实际上是整个malloc申请的内存减去header和null terminator，那么rest/available = alloc - len自然就是表示我们预分配的空间，这样应该很好理解了。</p>
+<p>这里关于sds只是说到这里，对于redis其实还是提供了很多的API，但是我觉得主要的核心还是你需要了解sds的内存的布局，不同sdshdr type之间的切换，其他的其实就跟我们的普通string差不太多，大家可以自己去研究剩余的sds代码。剩下的API主要包括：</p>
+<ul>
+<li>concate：讲一个sds风格或者是C风格的字符串接到一个sds的后面</li>
+<li>sdscpy：参考strcpy</li>
+<li>sdsll2str：long long int =&gt; sds</li>
+<li>sdsstr2ll：sds =&gt; long long int</li>
+<li>sdscatvprintf：参考format function in C</li>
+<li>sdstrim：参考strtrim</li>
+<li>sdscmp：参考strcmp</li>
+<li>……</li>
+</ul>
+<p>这里就不一一列举，很多都是string的标准API的sds风格的实现，你能够用到的字符串操作sds基本上都支持！</p>
+<h3 id="intset-intset-h-intset-c"><a href="#intset-intset-h-intset-c" class="headerlink" title="intset[intset.h intset.c]"></a><strong>intset[intset.h intset.c]</strong></h3><p>有了string的基础，intset其实还是很好理解的，intset顾名思义就是一个整数集合，一般来说我们可能就是用一个array来表示，但是遇到的问题就是这个array的类型是不好确定的，int8_t节省内存，但是表示的范围非常有限，int64_t表示的范围很大，但是浪费内存。也就是说一个固定类型的array是很难满足我们的需求的，接下来就让我们看一看redis中是如何构造intset来解决这个问题的，怎么让intset集合的类型变的可变。</p>
+<p>首先了解一下intset的结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// encoding</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INTSET_ENC_INT16 (sizeof(int16_t))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INTSET_ENC_INT32 (sizeof(int32_t))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INTSET_ENC_INT64 (sizeof(int64_t))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> encoding;</span><br><span class="line">    <span class="keyword">uint32_t</span> length;</span><br><span class="line">    <span class="keyword">int8_t</span> contents[];</span><br><span class="line">&#125; intset;</span><br></pre></td></tr></table></figure>
+
+<p>非常简洁，encoding自然就是类型，也是我们的intset中的整数集合类型，这里要额外提一下的是你一定要习惯这种encoding + data（编码 + 数据）的表示方式，这是redis中管用的一种方式。length就是intset的长度了，所以对于redis中的intset获取长度的时间是O(1)。contents是存储具体数据的地方，虽然类型是int8_t，但是并不代表里面的我们的intset是int8_t类型。</p>
+<p>我们知道一个int16_t，0x12 34在内存就是12 34，实际上也就是两个int8_t数字的空间0x12和0x34，内存中的数据是什么完全是在于我们怎么解释，我举个例子简单的表示一下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">contents = [<span class="number">00011110</span>, <span class="number">01101000</span>, <span class="number">11000101</span>, <span class="number">00011011</span>];</span><br><span class="line"><span class="keyword">int8_t</span> = &#123;<span class="number">00011110</span>, <span class="number">01101000</span>, <span class="number">11000101</span>, <span class="number">00011011</span>&#125;;</span><br><span class="line"><span class="keyword">int16_t</span> = &#123;<span class="number">0001111001101000</span>, <span class="number">1100010100011011</span>&#125;;</span><br><span class="line"><span class="keyword">int32_t</span> = &#123;<span class="number">00011110011010001100010100011011</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>redis中仅仅是将数字分为了uit16_t，uint32_t，uint64_t三种，这个颗粒度不至于过小而出现频繁的类型扩充！</p>
+<p><strong>_intsetValueEncoding</strong></p>
+<p>这个内部模块的函数，主要作用是获取一个数字的最合适的编码，尽量让存储数字的内存空间最小，这以下三个范围：</p>
+<ul>
+<li>[INT16_MIN, INT16_MAX]</li>
+<li>[INT32_MIN, INT32_MAX]</li>
+<li>[INT64_MIN, INT64_MAX]</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">uint8_t</span> _intsetValueEncoding(<span class="keyword">int64_t</span> v) &#123;</span><br><span class="line">    <span class="comment">// INT是有符号的，超过最大的正值或者最小负值都需要增加宽度</span></span><br><span class="line">    <span class="keyword">if</span> (v &lt; INT32_MIN || v &gt; INT32_MAX)</span><br><span class="line">        <span class="keyword">return</span> INTSET_ENC_INT64;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (v &lt; INT16_MIN || v &gt; INT16_MAX)</span><br><span class="line">        <span class="keyword">return</span> INTSET_ENC_INT32;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> INTSET_ENC_INT16;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>_intsetGetEncoded</strong></p>
+<p>按照给定的enc编码，取出位置pos位置的数字，这里有一个小技巧，在取值的时候会将contents指针转成我们需要的指针然后按照相应的类型去数组中的值。</p>
+<p>我说过了，对于C语言，内存中的内容是什么完全是处于你怎么解释，回到之前的contents(int8_t)数组，经过<strong>(int16_t*)is-&gt;contents</strong>之后我们实质就是将contents解释成了一个int16_t数组，内容如上所示。</p>
+<p>这个函数就可以帮助我们将contents转成一个enc代表的整型数组，取出其中的pos位置的数字，通过一个int64_t类型返回，因为int64_t是intset中可以存储的最大的数字。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int64_t</span> _intsetGetEncoded(intset *is, <span class="keyword">int</span> pos, <span class="keyword">uint8_t</span> enc) &#123;</span><br><span class="line">    <span class="keyword">int64_t</span> v64;</span><br><span class="line">    <span class="keyword">int32_t</span> v32;</span><br><span class="line">    <span class="keyword">int16_t</span> v16;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (enc == INTSET_ENC_INT64) &#123;</span><br><span class="line">        <span class="comment">// (int64_t*)is-&gt;contents 将contents转成一个int64_t类型的整型数组</span></span><br><span class="line">        <span class="built_in">memcpy</span>(&amp;v64,((<span class="keyword">int64_t</span>*)is-&gt;contents)+pos,<span class="keyword">sizeof</span>(v64));</span><br><span class="line">        <span class="comment">// little endian to big endian </span></span><br><span class="line">        <span class="comment">// redis encoding everything to little endian</span></span><br><span class="line">        memrev64ifbe(&amp;v64);</span><br><span class="line">        <span class="keyword">return</span> v64;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (enc == INTSET_ENC_INT32) &#123;</span><br><span class="line">        <span class="built_in">memcpy</span>(&amp;v32,((<span class="keyword">int32_t</span>*)is-&gt;contents)+pos,<span class="keyword">sizeof</span>(v32));</span><br><span class="line">        memrev32ifbe(&amp;v32);</span><br><span class="line">        <span class="keyword">return</span> v32;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">memcpy</span>(&amp;v16,((<span class="keyword">int16_t</span>*)is-&gt;contents)+pos,<span class="keyword">sizeof</span>(v16));</span><br><span class="line">        memrev16ifbe(&amp;v16);</span><br><span class="line">        <span class="keyword">return</span> v16;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>_intsetSet</strong></p>
+<p>设置value到intset中的pos位置，这里并没有考虑value与intset中存储数字的宽度是不是一致，在<strong>_intsetSet</strong>之前需要保证value的编码类型要能够被intset的编码类型所包围。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> _intsetSet(intset *is, <span class="keyword">int</span> pos, <span class="keyword">int64_t</span> value) &#123;</span><br><span class="line">    <span class="keyword">uint32_t</span> encoding = intrev32ifbe(is-&gt;encoding);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (encoding == INTSET_ENC_INT64) &#123;</span><br><span class="line">        <span class="comment">// 注意这个int6_t的作用，length是指有多少个数字，而不是说uint8_t的大小</span></span><br><span class="line">        ((<span class="keyword">int64_t</span>*)is-&gt;contents)[pos] = value;</span><br><span class="line">        <span class="comment">// if your machine arch is big endian, need to change it to little arch</span></span><br><span class="line">        memrev64ifbe(((<span class="keyword">int64_t</span>*)is-&gt;contents)+pos);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (encoding == INTSET_ENC_INT32) &#123;</span><br><span class="line">        ((<span class="keyword">int32_t</span>*)is-&gt;contents)[pos] = value;</span><br><span class="line">        memrev32ifbe(((<span class="keyword">int32_t</span>*)is-&gt;contents)+pos);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ((<span class="keyword">int16_t</span>*)is-&gt;contents)[pos] = value;</span><br><span class="line">        memrev16ifbe(((<span class="keyword">int16_t</span>*)is-&gt;contents)+pos);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>insetNew</strong></p>
+<p>初始化一个intset，但是contents中并不填充任何类容，默认编码为uint16_t：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Create an empty intset. */</span></span><br><span class="line"><span class="function">intset *<span class="title">intsetNew</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    intset *is = zmalloc(<span class="keyword">sizeof</span>(intset));</span><br><span class="line">    <span class="comment">// 最开始是编码成INT16类型，尽量节省内存</span></span><br><span class="line">    is-&gt;encoding = intrev32ifbe(INTSET_ENC_INT16);</span><br><span class="line">    is-&gt;length = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> is;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的<strong>intrev32ifbe</strong>是将内容转为小端序，redis中所有内容都会被编码为小端序。</p>
+<p><strong>inrsetResize</strong></p>
+<p>扩展一个intset的内存，如果向intset中插入元素，自然是要对内存进行扩充，这里使用的<strong>zmalloc</strong>模块中封装的<strong>zrealloc</strong>函数，实际上就是底层调用realloc：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> intset *<span class="title">intsetResize</span><span class="params">(intset *is, <span class="keyword">uint32_t</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// len * (encoding) dncoding = [2, 4, 8]</span></span><br><span class="line">    <span class="comment">// resize是与encoding相关的</span></span><br><span class="line">    <span class="keyword">uint32_t</span> size = len*intrev32ifbe(is-&gt;encoding);</span><br><span class="line">    <span class="comment">// realloc</span></span><br><span class="line">    is = zrealloc(is,<span class="keyword">sizeof</span>(intset)+size);</span><br><span class="line">    <span class="keyword">return</span> is;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>intsetSearch</strong></p>
+<p>从函数名字并不难理解，这个函数就是为了从intset中搜索一个数字，这仅仅是一个非常平常的操作，但是intset中有两个特殊的点：</p>
+<ul>
+<li>intset中的元素是按照顺序存储的，所以搜索用的是<strong>binary search</strong></li>
+<li>如果并没有搜索到，会根据二叉搜索的最后的位置，告知调用者被搜索的元素可以插入的位置（插入之后是有序的），这个信息被填入<strong>*pos</strong>中</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> uint8_t <span class="title">intsetSearch</span><span class="params">(intset *is, <span class="keyword">int64_t</span> value, <span class="keyword">uint32_t</span> *pos)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> min = <span class="number">0</span>, max = intrev32ifbe(is-&gt;length)<span class="number">-1</span>, mid = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int64_t</span> cur = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* The value can never be found when the set is empty */</span></span><br><span class="line">    <span class="keyword">if</span> (intrev32ifbe(is-&gt;length) == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pos) *pos = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 检查元素是不是符合我们intset的编码范围，如果不符合就必然不存，没有必要进行搜索</span></span><br><span class="line">        <span class="keyword">if</span> (value &gt; _intsetGet(is,max)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (pos) *pos = intrev32ifbe(is-&gt;length);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value &lt; _intsetGet(is,<span class="number">0</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (pos) *pos = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// binary seach</span></span><br><span class="line">    <span class="keyword">while</span>(max &gt;= min) &#123;</span><br><span class="line">        mid = ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)min + (<span class="keyword">unsigned</span> <span class="keyword">int</span>)max) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        cur = _intsetGet(is,mid);</span><br><span class="line">        <span class="keyword">if</span> (value &gt; cur) &#123;</span><br><span class="line">            min = mid+<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value &lt; cur) &#123;</span><br><span class="line">            max = mid<span class="number">-1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// exist =&gt; *pos代表元素所在的位置</span></span><br><span class="line">    <span class="comment">// no exist =&gt; *pos代表元素可以插入的位置</span></span><br><span class="line">    <span class="keyword">if</span> (value == cur) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pos) *pos = mid;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (pos) *pos = min;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>intsetUpgradeAndAdd</strong></p>
+<p>如果你的intset中本来都是int16_t类型的整数，但是现在出现了一个数字需要插入，并且这个数字的范围在<strong>[INT16_MIN, INT16_MAX]</strong>之外，这个时候整个intset的编码类型就需要提升，之前的元素的类型都需要完成提升到int32_t，这样的话需要扩充内存，然后执行数据插入。</p>
+<p>这里有一个比较隐蔽的信息，那就是一旦出现类型提升，value必然是插入到最前面或者是末尾。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> intset *<span class="title">intsetUpgradeAndAdd</span><span class="params">(intset *is, <span class="keyword">int64_t</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> curenc = intrev32ifbe(is-&gt;encoding);</span><br><span class="line">    <span class="comment">// value的encoding type</span></span><br><span class="line">    <span class="keyword">uint8_t</span> newenc = _intsetValueEncoding(value);</span><br><span class="line">    <span class="keyword">int</span> length = intrev32ifbe(is-&gt;length);</span><br><span class="line">    <span class="keyword">int</span> prepend = value &lt; <span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* First set new encoding and resize */</span></span><br><span class="line">    is-&gt;encoding = intrev32ifbe(newenc);</span><br><span class="line">    <span class="comment">// resizing is related to encoding </span></span><br><span class="line">    is = intsetResize(is,intrev32ifbe(is-&gt;length)+<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从后向前更新一下数组，不会出现数据的覆盖，具体看下面的示意图</span></span><br><span class="line">    <span class="keyword">while</span>(length--)</span><br><span class="line">        _intsetSet(is,length+prepend,_intsetGetEncoded(is,length,curenc));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (prepend)</span><br><span class="line">        <span class="comment">// 插入到最开始</span></span><br><span class="line">        _intsetSet(is,<span class="number">0</span>,value);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// 插入到末尾</span></span><br><span class="line">        _intsetSet(is,intrev32ifbe(is-&gt;length),value);</span><br><span class="line">    is-&gt;length = intrev32ifbe(intrev32ifbe(is-&gt;length)+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> is;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>内存变化示意图，在插入之前先要将旧数组调整好，这里我就不展示什么超过了范围，只是形式上表示一下插入一个两位数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">|<span class="number">1</span>|<span class="number">2</span>|<span class="number">3</span>|<span class="number">4</span>|</span><br><span class="line"><span class="comment">// 插入到后面</span></span><br><span class="line">| <span class="number">1</span>| <span class="number">2</span>| <span class="number">3</span>| <span class="number">4</span>|XX|</span><br><span class="line"><span class="comment">// 插入到前面</span></span><br><span class="line">|XX| <span class="number">1</span>| <span class="number">2</span>| <span class="number">3</span>| <span class="number">4</span>|</span><br></pre></td></tr></table></figure>
+
+<p>想一想这里为什么是要从后向前调整？因为不会出现内存的覆盖。</p>
+<p>如果你可以好好理解这种内存的变化，那么你对intset的内存分布就又向前进了一步。</p>
+<p><strong>intsetMoveTail</strong></p>
+<p>把从from位置开始的东西移动到to位置，这个会用在我们需要向intset中间插入一个元素，找到插入位置之后就要将该位置之后的元素整体后移，我还是给出一个简单的例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">|<span class="number">1</span>|<span class="number">2</span>|<span class="number">4</span>|<span class="number">5</span>|</span><br><span class="line"><span class="comment">// realloc</span></span><br><span class="line">|<span class="number">1</span>|<span class="number">2</span>|<span class="number">3</span>|<span class="number">4</span>| |</span><br><span class="line"><span class="comment">// move to tail</span></span><br><span class="line">|<span class="number">1</span>|<span class="number">2</span>| |<span class="number">4</span>|<span class="number">5</span>|</span><br><span class="line"><span class="comment">// insert 3</span></span><br><span class="line">|<span class="number">1</span>|<span class="number">2</span>|<span class="number">3</span>|<span class="number">4</span>|<span class="number">5</span>|</span><br></pre></td></tr></table></figure>
+
+<p>不知道这个时候你有没有注意到一个问题，难道这样原地移动不会出现内存覆盖吗？</p>
+<p>答案是会的，但是这里使用的一个API是<strong>memmove</strong>，这个函数会先将src处的内存移动到一个临时区，然后再移动到dst，因此不会出现内存覆盖。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">intsetMoveTail</span><span class="params">(intset *is, <span class="keyword">uint32_t</span> from, <span class="keyword">uint32_t</span> to)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *src, *dst;</span><br><span class="line">    <span class="comment">// 这里实际上是计算需要移动的元素个数</span></span><br><span class="line">    <span class="keyword">uint32_t</span> bytes = intrev32ifbe(is-&gt;length)-from;</span><br><span class="line">    <span class="keyword">uint32_t</span> encoding = intrev32ifbe(is-&gt;encoding);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (encoding == INTSET_ENC_INT64) &#123;</span><br><span class="line">        src = (<span class="keyword">int64_t</span>*)is-&gt;contents+from;</span><br><span class="line">        dst = (<span class="keyword">int64_t</span>*)is-&gt;contents+to;</span><br><span class="line">        <span class="comment">// bytes = length - from</span></span><br><span class="line">        <span class="comment">// 计算需要移动的字节数</span></span><br><span class="line">        bytes *= <span class="keyword">sizeof</span>(<span class="keyword">int64_t</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (encoding == INTSET_ENC_INT32) &#123;</span><br><span class="line">        src = (<span class="keyword">int32_t</span>*)is-&gt;contents+from;</span><br><span class="line">        dst = (<span class="keyword">int32_t</span>*)is-&gt;contents+to;</span><br><span class="line">        bytes *= <span class="keyword">sizeof</span>(<span class="keyword">int32_t</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        src = (<span class="keyword">int16_t</span>*)is-&gt;contents+from;</span><br><span class="line">        dst = (<span class="keyword">int16_t</span>*)is-&gt;contents+to;</span><br><span class="line">        bytes *= <span class="keyword">sizeof</span>(<span class="keyword">int16_t</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    memmove(dst,src,bytes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我想类似这样的功能大家肯定写过，这里只是交给<strong>memmove</strong>来完成，这个函数是按照字节来移动的，所以在得到需要移动的数字之后，还要根据数字的类型计算出字节的数量。</p>
+<p><strong>intsetAdd</strong></p>
+<p>这个函数帮助我们完成插入的功能，会自动处理需要提升类型或者是已经存在的各种情况。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">intset *<span class="title">intsetAdd</span><span class="params">(intset *is, <span class="keyword">int64_t</span> value, <span class="keyword">uint8_t</span> *success)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> valenc = _intsetValueEncoding(value);</span><br><span class="line">    <span class="keyword">uint32_t</span> pos;</span><br><span class="line">    <span class="keyword">if</span> (success) *success = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (valenc &gt; intrev32ifbe(is-&gt;encoding)) &#123;</span><br><span class="line">        <span class="comment">// 整个intset需要进行类型提升，上述已经介绍</span></span><br><span class="line">        <span class="keyword">return</span> intsetUpgradeAndAdd(is,value);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 不需要进行类型提升，但是需要检查元素是不是已经存在</span></span><br><span class="line">        <span class="keyword">if</span> (intsetSearch(is,value,&amp;pos)) &#123;</span><br><span class="line">            <span class="comment">// already exist</span></span><br><span class="line">            <span class="keyword">if</span> (success) *success = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">return</span> is;</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        <span class="comment">// realloc</span></span><br><span class="line">        is = intsetResize(is,intrev32ifbe(is-&gt;length)+<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// move to tail 可以结合上面移动的过程</span></span><br><span class="line">        <span class="keyword">if</span> (pos &lt; intrev32ifbe(is-&gt;length)) intsetMoveTail(is,pos,pos+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// set value</span></span><br><span class="line">    _intsetSet(is,pos,value);</span><br><span class="line">    is-&gt;length = intrev32ifbe(intrev32ifbe(is-&gt;length)+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> is;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过这个例子我们还能得出一个很有用的结论，那就是<strong>intset中的元素不会重复</strong>。</p>
+<p><strong>intsetRemove</strong></p>
+<p>从intset中删除一个元素，远远比插入要简单，因为remove方法并没有考虑移除一个元素导致整体编码可以减小的情况，例如一个编码为int32_t的intset中移除最后一个int32_t数字之后并不会考虑整体缩减内存。</p>
+<p>redis做的仅仅是将这个元素剔除出去，然后进行一次整体移动即可。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">intset *<span class="title">intsetRemove</span><span class="params">(intset *is, <span class="keyword">int64_t</span> value, <span class="keyword">int</span> *success)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> valenc = _intsetValueEncoding(value);</span><br><span class="line">    <span class="keyword">uint32_t</span> pos;</span><br><span class="line">    <span class="keyword">if</span> (success) *success = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 先探测value是不是在is的编码范围之内</span></span><br><span class="line">    <span class="comment">// 然后搜索value</span></span><br><span class="line">    <span class="keyword">if</span> (valenc &lt;= intrev32ifbe(is-&gt;encoding) &amp;&amp; intsetSearch(is,value,&amp;pos)) &#123;</span><br><span class="line">        <span class="keyword">uint32_t</span> len = intrev32ifbe(is-&gt;length);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* We know we can delete */</span></span><br><span class="line">        <span class="keyword">if</span> (success) *success = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// pos之后的元素整体前移</span></span><br><span class="line">        <span class="keyword">if</span> (pos &lt; (len<span class="number">-1</span>)) intsetMoveTail(is,pos+<span class="number">1</span>,pos);</span><br><span class="line">        <span class="comment">// realloc</span></span><br><span class="line">        is = intsetResize(is,len<span class="number">-1</span>);</span><br><span class="line">        is-&gt;length = intrev32ifbe(len<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> is;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ok，以上基本就是redis中的sds和intset的主要内容，我没有列出来全的API，重点介绍了理论结构和重要API，剩下的API需要大家自己去了解了！</p>
+<p><strong>By the way</strong></p>
+<p>关于redis我的想法是先将redis里面设计的一些数据结构和相关的API说完，这是我们最容易看懂也是最精华的一部分，非常值得我们学习。</p>
+<p>剩下的数据结构还有list，dict，ziplist，quicklist等等，把数据结构处理完成之后我就会写一下redis中的网络相关的模块，看看socket编程在redis中是怎么使用的。</p>
+<p>2020.12.08</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic35.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2020/12/12/demo-for-study/" title="demo for study" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/28/漫谈http/" title="漫谈http">
+								漫谈http			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 28日, 2020				
+							</p>
+							<p class="relate-post-content">
+								与http有关的知识点http status codehttp的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/26/漫谈AQS/" title="漫谈AQS">
+								漫谈AQS			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 26日, 2020				
+							</p>
+							<p class="relate-post-content">
+								AbstractQueuedSynchronizer实习回来又要投入到秋招的浪潮当中，虽然本人目前是更加倾向于GO方面的岗位，但是也深知自己对GO的理解可能还是不够深入，Java的岗位自己也是想去尝试一下。
+因为之前一直是准备Java...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/26/漫谈AQS/" title="漫谈AQS">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic30.jpg" alt="漫谈AQS"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>
