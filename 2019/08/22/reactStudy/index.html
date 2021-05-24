@@ -311,7 +311,7 @@
 
 	<a href="/2019/08/22/reactStudy/" itemprop="url">
 		<time datetime="2019-08-22T14:37:46.000Z" itemprop="dateUpdated">
-	  		2020-06-06
+	  		2021-05-24
 	  </time>
 	</a> 
 
@@ -363,7 +363,7 @@
 <li>令<div>的scrollTop=scrollHeight</div></li>
 </ul>
 <p>这两个的不同就是第一个方法是对整个浏览器窗口起作用，所以无论啥时候都会滚到最下面，并且使<div>定位到浏览器可见的区域，而第二种只是对<div>起作用，只是让聊天记录滚到最下面，但是不会影响<div>的位置，显然，这符合我的需求。</div></div></div></p>
-<p><img src="http://47.102.110.56:8080/pic1.png" alt="问答界面"></p>
+<p><img src="http://1.15.14.201:8080/pic1.png" alt="问答界面"></p>
 <p>想想看，如果聊天框上面有内容，你一进入界面就把来聊天框显示在中间不是太好吧。</p>
 <p>要解决这个问题就需要操作dom，显然这不是react最擅长的部分，这是被人们逐渐遗忘的jQuery的强项，但是还好react团队给我们留了后路，ref属性不就是可以直接操作dom吗？虽然以前看了很多ref的内容，但是这确实第一次应用，还是解决一个比较棘手的问题，有点小骄傲。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.messageRef.current.scrollTop = this.messageRef.current.scrollHeight</span><br></pre></td></tr></table></figure>
@@ -375,7 +375,7 @@
 <ol start="3">
 <li><p>关于react-router的url改变但是界面不刷新的问题：</p>
 <p>本次医疗问答系统有一个问答部分，所以我写了一个类似聊天的界面：</p>
-<p><img src="http://47.102.110.56:8080/pic2.png" alt="问答界面全局"></p>
+<p><img src="http://1.15.14.201:8080/pic2.png" alt="问答界面全局"></p>
 <p>通过点击右边的聊天列表来切换左边的聊天对象，实际是通过/doctor/:doctor_id来跳转，但是发现只有第一次有效（右边的每一个都是<link>包裹的组件）。</p>
 <p>我认为这应该是react-router的一个设计缺陷，大家给出的比较好的解决方法就是在componentWillReceiveProps这个生命周期函数中根据id的变化来进行各种操作。</p>
 <p>我是在函数中按照新id重新获取数据：</p>

@@ -311,7 +311,7 @@
 
 	<a href="/2020/06/05/初探Go的RPC实现/" itemprop="url">
 		<time datetime="2020-06-05T14:35:25.000Z" itemprop="dateUpdated">
-	  		2020-07-26
+	  		2021-05-24
 	  </time>
 	</a> 
 
@@ -360,7 +360,7 @@
 </ol>
 <p><strong>GO中的rpc是怎么实现的？</strong></p>
 <p>GO作为一门非常年轻的语言已经帮我们写好了rpc这个包，我们可以直接调用了，博主这里先给出这个rpc包的主要架构（在研究源码的时候，博主也建议可以首先了解源码的大致结构，这是我整理的思维导图，用mindmaster可以打开）：</p>
-<p><a href="http://47.102.110.56:8000/GO_Rpc.emmx" target="_blank">rpc package导图</a></p>
+<p><a href="http://1.15.14.201:8000/GO_Rpc.emmx" target="_blank">rpc package导图</a></p>
 <p>其中client的包十分的简单，定义了Call、Client和gobClientCodec这三个成员：</p>
 <ul>
 <li>Call表示一次rcp调用的结构体，包含了调用的参数和结果。</li>
@@ -392,7 +392,7 @@
 <p>这也是博主第一次浏览GO的rpc中的代码，可能也没有非常深刻的理解，后面也会继续去深入这方面的内容，希望与大家共同进步。</p>
 <p>如果大家想要和我分享学习心得或者是指出我的错误，都十分欢迎，博主的联系方式将会通过by the way中的rpc调用返回给你。</p>
 <p><strong>By the way</strong></p>
-<p>为了让大家感受一下rpc的remote，也就是远程，博主在自己的云服务器上开了一个GO的rpc应用，大家在刚开始学习的时候根据教程的小demo把address改为”47.102.110.56:8001”，博主提供的服务是””WelcomeService”，方法是welcome(msg string, reply *string) error，为了让你体验这个过程，博主设置了5秒之后才会返回，相信你一定可以调用成功！！！</p>
+<p>为了让大家感受一下rpc的remote，也就是远程，博主在自己的云服务器上开了一个GO的rpc应用，大家在刚开始学习的时候根据教程的小demo把address改为”1.15.14.201:8001”，博主提供的服务是””WelcomeService”，方法是welcome(msg string, reply *string) error，为了让你体验这个过程，博主设置了5秒之后才会返回，相信你一定可以调用成功！！！</p>
 <p>深圳真的又湿又热，现在是22:33，今天是周五，周末愉快！</p>
 	
 	</div>

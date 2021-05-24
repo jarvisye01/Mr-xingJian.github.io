@@ -311,7 +311,7 @@
 
 	<a href="/2020/08/28/漫谈http/" itemprop="url">
 		<time datetime="2020-08-28T01:32:50.000Z" itemprop="dateUpdated">
-	  		2020-09-01
+	  		2021-05-24
 	  </time>
 	</a> 
 
@@ -415,12 +415,12 @@
 <p>在http这个范围之内，通常是对GET请求的response进行缓存，这个缓存的key是与请求的方法和请求的路径有关系。</p>
 <p>这是一个Firefox浏览器使用缓存的场景，我首次进入一个web之后再刷新，看一下这个过程的网络情况！</p>
 <p>首次进入：</p>
-<img src="http://47.102.110.56:8080/pic7.JPG">
+<img src="http://1.15.14.201:8080/pic7.JPG">
 
 
 
 <p>刷新之后：</p>
-<img src="http://47.102.110.56:8080/pic8.JPG" alt="刷新">
+<img src="http://1.15.14.201:8080/pic8.JPG" alt="刷新">
 
 <p>显然GET请求的相应都会被缓存下来，第二次的web响应速度明显要快于第一次。这里你可以清楚地看到<strong>304</strong>这个状态码的作用，表示返回的是缓存的资源。</p>
 <p><strong>Cache-Control（如何控制缓存）</strong></p>
@@ -636,21 +636,21 @@
 <p>今天终于有时间把这个demo完成了，其实demo很简单。一个简单的前端，使用nginx服务器，后端用golang编写。</p>
 <p>相关的项目信息如下：</p>
 <ul>
-<li>前端：nginx充当服务器，项目所在的域为<a href="http://47.102.110.56:3000" target="_blank" rel="noopener">http://47.102.110.56:3000</a></li>
-<li>后端：使用golang原生http服务，项目所在的域为<a href="http://47.102.110.56:9000" target="_blank" rel="noopener">http://47.102.110.56:9000</a></li>
+<li>前端：nginx充当服务器，项目所在的域为<a href="http://1.15.14.201:3000" target="_blank" rel="noopener">http://1.15.14.201:3000</a></li>
+<li>后端：使用golang原生http服务，项目所在的域为<a href="http://1.15.14.201:9000" target="_blank" rel="noopener">http://1.15.14.201:9000</a></li>
 </ul>
 <p>这里后端中有3个接口，都是返回一个list供前端显示：</p>
 <ul>
-<li>/todolist：前端直接fetch（跨域），后端设置<strong>res.Header().Add(“Access-Control-Allow-Origin”, “<a href="http://47.102.110.56:3000&quot;" target="_blank" rel="noopener">http://47.102.110.56:3000&quot;</a>)</strong>允许跨域</li>
+<li>/todolist：前端直接fetch（跨域），后端设置<strong>res.Header().Add(“Access-Control-Allow-Origin”, “<a href="http://1.15.14.201:3000&quot;" target="_blank" rel="noopener">http://1.15.14.201:3000&quot;</a>)</strong>允许跨域</li>
 <li>/somedata：前端直接fetch（跨域），后端不做任何处理</li>
 <li>/nginxdata：前端fetch本域，通过nginx代理到后端</li>
 </ul>
 <p>显而易见，1和3方法都可以很好的解决跨域问题，可以看一下展示效果：</p>
-<img src="http://47.102.110.56:8080/pic9.JPG" alt="cors">
+<img src="http://1.15.14.201:8080/pic9.JPG" alt="cors">
 
 <p>其中第1种跟第3种方法都是成功获取到了另外的资源，只是第1中方法是后端设置允许跨域的header，而第3种是利用nginx转发请求获取资源，大家可以尝试一下！</p>
 <p>顺便看一下出现跨域浏览器给出的提示：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access to fetch at 'http://47.102.110.56:9000/api/somedata' from origin 'http://47.102.110.56:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access to fetch at 'http://1.15.14.201:9000/api/somedata' from origin 'http://1.15.14.201:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.</span><br></pre></td></tr></table></figure>
 
 <p>显然本次返回的data被浏览器的跨域政策给截获了，未经跨域允许我们获取不到相关的数据。</p>
 <p><strong>By the way</strong></p>

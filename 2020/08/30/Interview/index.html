@@ -311,7 +311,7 @@
 
 	<a href="/2020/08/30/Interview/" itemprop="url">
 		<time datetime="2020-08-30T12:15:42.000Z" itemprop="dateUpdated">
-	  		2020-10-12
+	  		2021-05-24
 	  </time>
 	</a> 
 
@@ -644,10 +644,10 @@
 <p>最终的结果是我们不能使用GET携带Body数据，原因主要是这里的fetch和xhr均不支持GET携带Body。POST是显然可以在url中添加参数的，没有任何问题。</p>
 <p>考虑到这里的GET不让携带Body是受到fetch和xhr的影响，另外我没有查到可以让GET携带Body的js库，所以用其它工具试一下，这里使用curl和postman，话不多说直接看一下结果：</p>
 <p><strong>使用curl</strong></p>
-<img src="http://47.102.110.56:8080/pic11.JPG" alt="curl发送带body的get请求">
+<img src="http://1.15.14.201:8080/pic11.JPG" alt="curl发送带body的get请求">
 
 <p><strong>使用postman</strong></p>
-<img src="http://47.102.110.56:8080/pic10.JPG" alt="postman发送带body的get请求">
+<img src="http://1.15.14.201:8080/pic10.JPG" alt="postman发送带body的get请求">
 
 <p>如图咱们的请求是完全成功的，所以我们可以得出结论，GET同样可以在Body中携带数据，取决于你发http请求的那个库是不是支持，我们也要思考一下为什么阻止我们在GET中携带数据，因为我们本身设计GET就是希望大家用这个来获取资源，尽量使GET成为一个幂等性的API，这样我们就可以对GET的数据进行缓存，GET和POST背负着不同的使命！</p>
 <p><strong>2.http状态码</strong></p>
