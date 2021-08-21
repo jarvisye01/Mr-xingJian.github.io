@@ -311,7 +311,7 @@
 
 	<a href="/2021/01/19/Linux下的线程操作/" itemprop="url">
 		<time datetime="2021-01-19T08:04:36.000Z" itemprop="dateUpdated">
-	  		2021-01-20
+	  		2021-07-18
 	  </time>
 	</a> 
 
@@ -412,7 +412,7 @@
 <li>rdlock：find</li>
 </ul>
 <p><strong>2.条件变量</strong></p>
-<p>条件变量是另外一种线程同步机制，给多个线程提供了一个会和的场所。</p>
+<p>条件变量是另外一种线程同步机制，给多个线程提供了一个汇合的场所。</p>
 <p>相关API如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_init</span><span class="params">(<span class="keyword">pthread_cond_t</span>* cond, <span class="keyword">const</span> <span class="keyword">pthread_condattr_t</span>* cond_attr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_destroy</span><span class="params">(<span class="keyword">pthread_cond_t</span>* cond)</span></span>;</span><br><span class="line"><span class="comment">// wake up all threads waiting cond</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_broadcast</span><span class="params">(<span class="keyword">pthread_cond_t</span>* cond)</span></span>;</span><br><span class="line"><span class="comment">// wake up a threads wiating cond</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_signal</span><span class="params">(<span class="keyword">pthread_cond_t</span>* cond)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_wait</span><span class="params">(<span class="keyword">pthread_cond_t</span>* cond, <span class="keyword">pthread_mutex_t</span>* mutex)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_timedwait</span><span class="params">(<span class="keyword">pthread_cond_t</span>* cond, <span class="keyword">pthread_mutex_t</span>* mutex, <span class="keyword">const</span> struct timespec * tsptr)</span></span>;</span><br></pre></td></tr></table></figure>
 
@@ -573,7 +573,7 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
 		
-			<a href="/2021/02/26/GO的闭包/" title="GO的闭包" rel="prev">
+			<a href="/2021/02/11/redis二三事（三）/" title="redis二三事（三）" rel="prev">
 				&laquo;Pre post
 			</a>
 		
@@ -617,6 +617,31 @@ Golang是兼...
 							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/11/redis二三事（三）/" title="redis二三事（三）">
+								redis二三事（三）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 11日, 2021				
+							</p>
+							<p class="relate-post-content">
+								字典background
+我们常常将redis成为一种键值对数据库，这也就是体现了redis的本质，你甚至可以将redis看作是一个大型的哈希表，我们对于redis的操作基本都是利用相关的key去操作相关的value。
+如果你想学习过...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/11/redis二三事（三）/" title="redis二三事（三）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic40.jpg" alt="redis二三事（三）"/>
 							</a>
 						</div>
 					</li>											
@@ -812,30 +837,6 @@ redis作为常...
 							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
 								
 								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/08/26/漫谈AQS/" title="漫谈AQS">
-								漫谈AQS			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								八月 26日, 2020				
-							</p>
-							<p class="relate-post-content">
-								AbstractQueuedSynchronizer实习回来又要投入到秋招的浪潮当中，虽然本人目前是更加倾向于GO方面的岗位，但是也深知自己对GO的理解可能还是不够深入，Java的岗位自己也是想去尝试一下。
-因为之前一直是准备Java...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2020/08/26/漫谈AQS/" title="漫谈AQS">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic30.jpg" alt="漫谈AQS"/>
 							</a>
 						</div>
 					</li>											

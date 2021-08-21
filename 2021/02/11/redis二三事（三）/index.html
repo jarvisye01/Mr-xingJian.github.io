@@ -1,0 +1,1043 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      redis二三事（三） | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《redis二三事（三）》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2021/02/11/redis二三事（三）/" itemprop="url">
+		redis二三事（三）
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2021/02/11/redis二三事（三）/" itemprop="url">
+		<time datetime="2021-02-11T01:30:01.000Z" itemprop="datePublished">
+	  		2021-02-11
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2021/02/11/redis二三事（三）/" itemprop="url">
+		<time datetime="2021-02-11T01:30:01.000Z" itemprop="dateUpdated">
+	  		2021-08-21
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/redis/" class=" ">
+			redis
+		</a>
+	
+		<a href="/tags/c/" class=" ">
+			c
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p><strong>background</strong></p>
+<p>我们常常将redis成为一种键值对数据库，这也就是体现了redis的本质，你甚至可以将redis看作是一个大型的哈希表，我们对于redis的操作基本都是利用相关的key去操作相关的value。</p>
+<p>如果你想学习过任何一门编程语言的容器库，那么你肯定接触过哈希表这个东西，Java中的HashMap就是一个非常好的例子。对于一门编程语言来说，一个哈希表中的value的数据类型一般是固定的，例如<strong>HashMap&lt;String, Integer&gt;</strong>中的value的类型就是整型，这也就意味着我们只能将整型值放入到哈希表中。</p>
+<p>所以我们需要关注的第一个点就是redis是如何屏蔽这些类型差异，让之前介绍过的一些redis定义的数据类型都能进入哈希表。</p>
+<p>当然，对于哈希表的研究无外乎就是哈希过程、增删改查、碰撞解决、扩容过程这几个大的方面，我接下来就简单的带大家看一下redis中的哈希。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>每种哈希表的实现都会有一些比较通用的结构，特别是利用拉链来解决冲突的哈希表设计。有些地方可能会将一个哈希节点叫做Node，同时另外的地方可能叫做Entry，我们应该知道这其实都是一个概念。为了明白redis中是怎么实现的，我们就先介绍一下redis中的一些基本概念。</p>
+<p>当然，在接触哈希表之前你还是要了解基本的概念，例如哈希函数将一个key映射成一个值，正好对应哈希表中的一个位置等等，这篇博客并不会介绍哈希的工作原理，我只是介绍redis中的哈希表是怎么设计的。</p>
+<p><strong>dictEntry</strong></p>
+<p>这就是redis中的节点结构体，就跟我们平时一样，这个节点会存储相关的存放着相应的key和value，同时为了实现碰撞时的链表结构，需要一个指针帮助构成链表，直接看看代码就行了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> &#123;</span></span><br><span class="line">    <span class="keyword">void</span> *key;				<span class="comment">// key</span></span><br><span class="line">    <span class="keyword">union</span> &#123;					<span class="comment">// value(union)</span></span><br><span class="line">        <span class="keyword">void</span> *val;				</span><br><span class="line">        <span class="keyword">uint64_t</span> u64;</span><br><span class="line">        <span class="keyword">int64_t</span> s64;</span><br><span class="line">        <span class="keyword">double</span> d;</span><br><span class="line">    &#125; v;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span>	<span class="comment">// next(for list)</span></span><br><span class="line">&#125; dictEntry;</span><br></pre></td></tr></table></figure>
+
+<p>这结构是非常简单的，主要的是redis中的值并不是一个具体的类型，如果是简单的数字可以直接用数字代表，如果是更加复杂的结构，value就是相应的值的指针，这样能够使值的表示更加的灵活。</p>
+<p><strong>dictht</strong></p>
+<p>上面只是定义了一个字典的节点，显然为了将不同哈希值的键值放入到哈希表中，自然还需要一个表来存储。不同的哈希值对应的是表中不同的节点，这样我们自然可以设计一个二维的表格来表示，例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// **dictEntry -&gt; | *dictEntry | *dictEntry | *dictEntry |...</span></span><br><span class="line"><span class="comment">//                       |            |            |</span></span><br><span class="line"><span class="comment">//                  *dictEntry   *dictEntry   *dictEntry</span></span><br><span class="line"><span class="comment">//                       |            |            |</span></span><br><span class="line"><span class="comment">//                  *dictEntry   *dictEntry   *dictEntry</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这就是最简单直观的拉链法的一个表示，这也是处理哈希碰撞的主流方法，一定要有成竹在胸</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span> &#123;</span></span><br><span class="line">    dictEntry **table;			<span class="comment">// table</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size;			<span class="comment">// length of table</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;		<span class="comment">// mask</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> used;			<span class="comment">// used cell of table</span></span><br><span class="line">&#125; dictht;</span><br></pre></td></tr></table></figure>
+
+<p>如果了解了拉链的结构，那么字典表格的设计也就不难理解。需要一个表格(二级指针)来存储dictEntry，size是用来记录table的长度，掩码是为了将我们计算的哈希值映射到table的某一个位置，used表示表格中已经用了多少个位置。</p>
+<p><strong>dict</strong></p>
+<p>有了上面的dictht之后我们的哈希表基本就有了雏形，但是为了使用方便，redis继续封装了一层，用一个dict结构来表示字典。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span></span><br><span class="line">    dictType *type;			<span class="comment">// dictType 存储相关的操作，集中管理</span></span><br><span class="line">    <span class="keyword">void</span> *privdata;			</span><br><span class="line">    dictht ht[<span class="number">2</span>];			<span class="comment">// 两个table，为了扩容时使用</span></span><br><span class="line">    <span class="keyword">long</span> rehashidx;			<span class="comment">// rehashing not in progress if rehashidx == -1</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> iterators;	<span class="comment">// number of iterators currently running</span></span><br><span class="line">&#125; dict;</span><br></pre></td></tr></table></figure>
+
+<p>这里的两个表格主要是为了扩容方便，因为当一个table中的节点越来越多，拉链就会越来越长，为了缩短拉链的长度减少搜索时间，就需要扩大table的空间，这个过程会有一部分的节点需要转移到新的位置。redis中的扩容过程就是遍历旧的table，对其中的节点进行相关的哈希计算得到新位置，放到新表对应的位置上，最后就会产生一个新的表格，用新表格取代了旧表格就相当于完成了相关的扩容过程。</p>
+<p>rehashidx是表示扩容的过程处理到了哪里，redis为了性能并不会一次性完成扩容，下一次会从上一次的位置继续开始。iterators与dict字典的迭代有关，并不是重点。</p>
+<p><strong>dictType</strong></p>
+<p>dict中还有一个重要的东西就是dictType这个东西，我们知道如果要将一个键值对放入到字典中要经历如下步骤：</p>
+<ul>
+<li>通过hash function为key计算hash value</li>
+<li>将key和value复制一份组成dictEntry放到相应的位置</li>
+</ul>
+<p>这里我们需要了解为什么需要复制一份，因为在C语言中没有泛型模板这种东西，为了使dictEntry中的key和value可以是任何类型，其中存储的其实是指针，而void*又恰好可以代表任意指针。</p>
+<p>如果是指针的话就会有一个问题，外部的修改会影响到容器的内部元素，这是我们不希望看到的，所以在元素进入容器的时候我们都是将元素复制一份放进去的。</p>
+<p>如果要从字典中查找一个键值对，主要的步骤如下：</p>
+<ul>
+<li>通过hash function为key计算hash value</li>
+<li>一次比较该条链表上的key是不是相等(hash value相等不代表key是一样的)</li>
+</ul>
+<p>这里的一个比较过程也是我们理解哈希表中的关键，想一想Java中的Object.hashCode()和Object.equals()两个方法。</p>
+<p>所以一旦我们确定需要某种key和value的类型来生成一个dict就需要提供一些辅助方法，例如键值复制、键比较等等，来看看redis是怎么做的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictType</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint64_t</span> (*hashFunction)(<span class="keyword">const</span> <span class="keyword">void</span> *key);</span><br><span class="line">    <span class="comment">// duplicate function of key and val</span></span><br><span class="line">    <span class="keyword">void</span> *(*keyDup)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *key);</span><br><span class="line">    <span class="keyword">void</span> *(*valDup)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *obj);</span><br><span class="line">    <span class="comment">// compare function of key</span></span><br><span class="line">    <span class="keyword">int</span> (*keyCompare)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *key1, <span class="keyword">const</span> <span class="keyword">void</span> *key2);</span><br><span class="line">    <span class="comment">// free function of key and val</span></span><br><span class="line">    <span class="keyword">void</span> (*keyDestructor)(<span class="keyword">void</span> *privdata, <span class="keyword">void</span> *key);</span><br><span class="line">    <span class="keyword">void</span> (*valDestructor)(<span class="keyword">void</span> *privdata, <span class="keyword">void</span> *obj);</span><br><span class="line">&#125; dictType;</span><br></pre></td></tr></table></figure>
+
+<p>redis抽象出了一个dictType类型，其中包括dict中的key和value需要的各种方法，是一种高级抽象。C中没有对象、接口这些概念，所以redis是利用一组函数指针来完成相应的处理。</p>
+<p>这部分的内容其实很关键，我来举个例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>* (*genericDup) (<span class="keyword">const</span> <span class="keyword">void</span>*);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">struct Student *<span class="title">dupStudent</span><span class="params">(<span class="keyword">const</span> struct Student *stu)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Student</span> *<span class="title">newStu</span> = (<span class="title">struct</span> <span class="title">Student</span> *)<span class="title">malloc</span>(<span class="title">sizeof</span>(<span class="title">struct</span> <span class="title">Student</span>));</span></span><br><span class="line">    newStu-&gt;name = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (<span class="built_in">strlen</span>(stu-&gt;name) + <span class="number">1</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">memcpy</span>(newStu-&gt;name, stu-&gt;name, <span class="built_in">strlen</span>(stu-&gt;name) + <span class="number">1</span>);</span><br><span class="line">    newStu-&gt;age = stu-&gt;age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> newStu;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">dupStudentG</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *ptr)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> dupStudent((struct Student *)ptr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">(struct Student *stu)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"&#123;\"name\": \"%s\", \"age\": %d&#125;\n"</span>, stu-&gt;name, stu-&gt;age);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Vector</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">void</span> *table[<span class="number">100</span>];</span><br><span class="line">    <span class="keyword">int</span> idx;</span><br><span class="line">    genericDup dup;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(struct Vector *vec, <span class="keyword">const</span> <span class="keyword">void</span> *ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vec-&gt;table[vec-&gt;idx++] = vec-&gt;dup(ptr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">pop</span><span class="params">(struct Vector *vec)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> vec-&gt;table[--vec-&gt;idx];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Vector</span> <span class="title">vec</span>;</span></span><br><span class="line">    vec.idx = <span class="number">0</span>;</span><br><span class="line">    vec.dup = dupStudentG;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// stu is a local var</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">Student</span> <span class="title">stu</span>;</span></span><br><span class="line">        stu.name = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * <span class="number">7</span>);</span><br><span class="line">        <span class="built_in">memcpy</span>(stu.name, <span class="string">"hello"</span>, <span class="number">6</span>);</span><br><span class="line">        stu.name[<span class="number">6</span>] = <span class="string">'\0'</span>;</span><br><span class="line">        stu.age = <span class="number">18</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"address: %x\n"</span>, &amp;stu);</span><br><span class="line">        display(&amp;stu);</span><br><span class="line"></span><br><span class="line">        push(&amp;vec, &amp;stu);</span><br><span class="line">        <span class="built_in">free</span>(stu.name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Student</span> *<span class="title">s</span> = (<span class="title">struct</span> <span class="title">Student</span> *)<span class="title">pop</span>(&amp;<span class="title">vec</span>);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"address: %x\n"</span>, &amp;s);</span><br><span class="line">    display(s);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(s-&gt;name);</span><br><span class="line">    <span class="built_in">free</span>(s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output</span></span><br><span class="line"><span class="comment">// address: cf475420</span></span><br><span class="line"><span class="comment">// &#123;"name": "hello", "age": 18&#125;</span></span><br><span class="line"><span class="comment">// address: cf475438</span></span><br><span class="line"><span class="comment">// &#123;"name": "hello", "age": 18&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>用函数指针配合void<em>在一定的程度上可以实现泛型，例如如果我们想要这个Vector可以放别的类型，只需要定义出相关的dup函数就可以了。为什么说指针是C语言的精化，大概就是如此，函数指针和void\</em>是精化中的精化！</p>
+<p>所以dictType让我们的dict可以存放任何类型的元素，只需要实现相关的dictType中的方法，dictType是dict和kv之间的桥梁！</p>
+<p><strong>dict summary</strong></p>
+<p>这里基本就是把redis中的dict结构的基本给说完了，那么这个时候我们再来看看为什么redis被称为一个键值对的数据库，在redis中有一个redisDB的结构体代表着redis数据库，我们知道启动一个redis服务是有很多个数据库的，setdb命令可以以切换数据库，我们来看一下这里对于数据库的定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span> &#123;</span></span><br><span class="line">    <span class="comment">// key =&gt; value</span></span><br><span class="line">    dict *dict;                 <span class="comment">/* The keyspace for this DB */</span></span><br><span class="line">    dict *expires;              <span class="comment">/* Timeout of keys with a timeout set */</span></span><br><span class="line">    dict *blocking_keys;        <span class="comment">/* Keys with clients waiting for data (BLPOP)*/</span></span><br><span class="line">    dict *ready_keys;           <span class="comment">/* Blocked keys that received a PUSH */</span></span><br><span class="line">    dict *watched_keys;         <span class="comment">/* WATCHED keys for MULTI/EXEC CAS */</span></span><br><span class="line">    <span class="keyword">int</span> id;                     <span class="comment">/* Database ID */</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> avg_ttl;          <span class="comment">/* Average TTL, just for stats */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> expires_cursor; <span class="comment">/* Cursor of the active expire cycle. */</span></span><br><span class="line">    <span class="built_in">list</span> *defrag_later;         <span class="comment">/* List of key names to attempt to defrag one by one, gradually. */</span></span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
+
+<p>这是一个非常清晰的定义了，一个dict结构中存储本数据库的键值对，expires中存储设置了过期时间的键值对，剩余的几个dict作用大家可以自己去查。</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>其实当我们将dict的结构有了一个全局的把握之后，其相关实现也就不是那么神秘了，常规的增删查改以及dict的扩容。加上redis又是一个单线程的模型，所以整个代码也并没有出现任何多线程相关的东西，所以还是很好的理解的，来看一下相关的一些API吧。</p>
+<p><strong>rehash</strong></p>
+<p>rehash是每一个哈希表的实现都要注意的东西，那么在redis中rehash是如何实现的呢？之前我们在dict中看到有2个dictht，其中有一个便是为了辅助rehash的。</p>
+<p>我们大概知道rehash是将一个哈希表上的元素迁移到另外一个表上的（具体原理不再详细解释），那么这个过程其实也是一个有很多要注意的地方，我就按照我的理解说两个比较重要的点：</p>
+<ul>
+<li>rehash是不是一次性完成的：可以肯定的是在redis中rehash并不是一次性完成的，我们知道redis是一个单线程模型，如果一次性完成rehash可能会导致每一次事件处理的时间过长，导致redis的性能下降，所以redis的rehash设计是渐进式的rehash</li>
+<li>rehash过程的数据存取：既然rehash是渐进式的，那么在rehash的这个时间段内，必然存在两个dictht上同时有数据的情况，那么相应的存取函数的实现也必然会体现出这一点</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对dcit *d这个字典进行rehash</span></span><br><span class="line"><span class="comment">// 这个函数的作用的对d从table[rehashidx]开始的n条链表上的元素进行rehash</span></span><br><span class="line"><span class="comment">// 如果rehash完毕返回0，否则返回1</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dictRehash</span><span class="params">(dict *d, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 如果table中的空链表过多而导致rehash时间过长，所以遇到一定数目的空链表就会结束这次rehash</span></span><br><span class="line">    <span class="keyword">int</span> empty_visits = n*<span class="number">10</span>; <span class="comment">/* Max number of empty buckets to visit. */</span></span><br><span class="line">    <span class="keyword">if</span> (!dictIsRehashing(d)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理从rehashidx开始的n条链表</span></span><br><span class="line">    <span class="keyword">while</span>(n-- &amp;&amp; d-&gt;ht[<span class="number">0</span>].used != <span class="number">0</span>) &#123;</span><br><span class="line">        dictEntry *de, *nextde;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Note that rehashidx can't overflow as we are sure there are more</span></span><br><span class="line"><span class="comment">         * elements because ht[0].used != 0 */</span></span><br><span class="line">        assert(d-&gt;ht[<span class="number">0</span>].size &gt; (<span class="keyword">unsigned</span> <span class="keyword">long</span>)d-&gt;rehashidx);</span><br><span class="line">        <span class="keyword">while</span>(d-&gt;ht[<span class="number">0</span>].table[d-&gt;rehashidx] == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            d-&gt;rehashidx++;</span><br><span class="line">            <span class="comment">// 遇到了很多empty buckets就直接返回</span></span><br><span class="line">            <span class="keyword">if</span> (--empty_visits == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 获取一条链表</span></span><br><span class="line">        de = d-&gt;ht[<span class="number">0</span>].table[d-&gt;rehashidx];</span><br><span class="line">        <span class="comment">// 对这条链表上的元素进行rehash</span></span><br><span class="line">        <span class="comment">// 也就是重新计算hash值并放入新的链表</span></span><br><span class="line">        <span class="keyword">while</span>(de) &#123;</span><br><span class="line">            <span class="keyword">uint64_t</span> h;</span><br><span class="line"></span><br><span class="line">            nextde = de-&gt;next;</span><br><span class="line">            <span class="comment">// h是这个节点的元素在新表中的位置</span></span><br><span class="line">            h = dictHashKey(d, de-&gt;key) &amp; d-&gt;ht[<span class="number">1</span>].sizemask;</span><br><span class="line">            <span class="comment">// 显然这是一种头插法</span></span><br><span class="line">            de-&gt;next = d-&gt;ht[<span class="number">1</span>].table[h];</span><br><span class="line">            d-&gt;ht[<span class="number">1</span>].table[h] = de;</span><br><span class="line">            <span class="comment">// 修改 ht[0] ht[1] 中元素的数量</span></span><br><span class="line">            d-&gt;ht[<span class="number">0</span>].used--;</span><br><span class="line">            d-&gt;ht[<span class="number">1</span>].used++;</span><br><span class="line">            de = nextde;</span><br><span class="line">        &#125;</span><br><span class="line">        d-&gt;ht[<span class="number">0</span>].table[d-&gt;rehashidx] = <span class="literal">NULL</span>;</span><br><span class="line">        d-&gt;rehashidx++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当ht[0]中没有任何元素的时候就说明rehash完成了，释放相关的空间，并且将ht[1]赋值给ht[0]</span></span><br><span class="line">    <span class="keyword">if</span> (d-&gt;ht[<span class="number">0</span>].used == <span class="number">0</span>) &#123;</span><br><span class="line">        zfree(d-&gt;ht[<span class="number">0</span>].table);</span><br><span class="line">        d-&gt;ht[<span class="number">0</span>] = d-&gt;ht[<span class="number">1</span>];</span><br><span class="line">        _dictReset(&amp;d-&gt;ht[<span class="number">1</span>]);</span><br><span class="line">        d-&gt;rehashidx = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* More to rehash... */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>dict add</strong></p>
+<p>向字典中增加相关的键值对，就像我们平时向map中塞东西一样，redis的dict也有这个操作，这里我们需要注意的是刚刚我们提到了rehash的逻辑，所以在rehash的过程中新的键值对会插入到哪个表上。</p>
+<p>redis中的<strong>add</strong>有两个相关的函数，先来看看这个外层的函数，也是非常的简洁，就是两个步骤：</p>
+<ul>
+<li>利用key将dict中对应的entry找出来</li>
+<li>将val放置到相关的entry中</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dictAdd</span><span class="params">(dict *d, <span class="keyword">void</span> *key, <span class="keyword">void</span> *val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    dictEntry *entry = dictAddRaw(d,key,<span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!entry) <span class="keyword">return</span> DICT_ERR;</span><br><span class="line">    dictSetVal(d, entry, val);	<span class="comment">// set value</span></span><br><span class="line">    <span class="keyword">return</span> DICT_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里看了之后我们应该有个比较疑惑的地方：</p>
+<ul>
+<li>entry是如何找到的？</li>
+</ul>
+<p>所有的答案都在<strong>dictAddRaw</strong>这个函数的代码中，我们直接来看：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">dictEntry *<span class="title">dictAddRaw</span><span class="params">(dict *d, <span class="keyword">void</span> *key, dictEntry **existing)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> index;</span><br><span class="line">    dictEntry *entry;</span><br><span class="line">    dictht *ht;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果正在rehash, 帮助rehash one step</span></span><br><span class="line">    <span class="keyword">if</span> (dictIsRehashing(d)) _dictRehashStep(d);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果对应的key已经存在，_dictKeyIndex函数会返回-1，并用existing这个二级指针指向相应的entry</span></span><br><span class="line">    <span class="keyword">if</span> ((index = _dictKeyIndex(d, key, dictHashKey(d,key), existing)) == <span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果正在rehash，则会将新创建的entry插入到ht[1]中</span></span><br><span class="line">    ht = dictIsRehashing(d) ? &amp;d-&gt;ht[<span class="number">1</span>] : &amp;d-&gt;ht[<span class="number">0</span>];</span><br><span class="line">    entry = zmalloc(<span class="keyword">sizeof</span>(*entry));</span><br><span class="line">    entry-&gt;next = ht-&gt;table[index];</span><br><span class="line">    ht-&gt;table[index] = entry;</span><br><span class="line">    ht-&gt;used++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// set the key</span></span><br><span class="line">    dictSetKey(d, entry, key);</span><br><span class="line">    <span class="keyword">return</span> entry;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数有个特点，如果key已经存在，会返回NULL，并将原来的*entry保存到existing中，如果不存在会新创建一个entry并返回指针，我们一定要记住这一点，看看redis是如何处理key存在和不存在的情况的。</p>
+<p>仿佛看了还是很疑惑，因为所有的hash搜索逻辑都放到了<strong>_dictKeyIndex</strong>这个函数中，这个函数实际就是表中查找相关的entry：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">long</span> _dictKeyIndex(dict *d, <span class="keyword">const</span> <span class="keyword">void</span> *key, <span class="keyword">uint64_t</span> hash, dictEntry **existing)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> idx, table;</span><br><span class="line">    dictEntry *he;</span><br><span class="line">    <span class="keyword">if</span> (existing) *existing = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Expand the hash table if needed */</span></span><br><span class="line">    <span class="keyword">if</span> (_dictExpandIfNeeded(d) == DICT_ERR)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="comment">// 在两个表中搜索</span></span><br><span class="line">    <span class="keyword">for</span> (table = <span class="number">0</span>; table &lt;= <span class="number">1</span>; table++) &#123;</span><br><span class="line">        idx = hash &amp; d-&gt;ht[table].sizemask;</span><br><span class="line">        <span class="comment">// 找到相关的链</span></span><br><span class="line">        he = d-&gt;ht[table].table[idx];</span><br><span class="line">        <span class="keyword">while</span>(he) &#123;</span><br><span class="line">            <span class="keyword">if</span> (key==he-&gt;key || dictCompareKeys(d, key, he-&gt;key)) &#123;</span><br><span class="line">                <span class="comment">// 如果已经存在会将entry赋值给existing</span></span><br><span class="line">                <span class="keyword">if</span> (existing) *existing = he;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            he = he-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果没有正在rehash，就不去ht[1]中查找，反之需要查找ht[1]</span></span><br><span class="line">        <span class="keyword">if</span> (!dictIsRehashing(d)) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回的是entry应该所在的位置</span></span><br><span class="line">    <span class="comment">// 如果不存在entry，则说明新的entry需要插入到这个位置</span></span><br><span class="line">    <span class="keyword">return</span> idx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到这里我们大概有了眉目了，dictAdd函数应该就是将一个新的key插入到dict中，但是dictAddRaw似乎还考虑到了key已经存在的情况，在redis中对已存在的key的val进行修改成为replace操作，这个时候dict中会已经存在相关的entry。</p>
+<p>这个函数非常的简单，考虑到了key已经存在的情况，如果不存在dictAddRaw返回新创建的entry，如果存在则原来的entry被existing接收，我们只要设置值即可。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dictReplace</span><span class="params">(dict *d, <span class="keyword">void</span> *key, <span class="keyword">void</span> *val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    dictEntry *entry, *existing, auxentry;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// not exist</span></span><br><span class="line">    entry = dictAddRaw(d,key,&amp;existing);</span><br><span class="line">    <span class="keyword">if</span> (entry) &#123;</span><br><span class="line">        dictSetVal(d, entry, val);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// exist</span></span><br><span class="line">    auxentry = *existing;</span><br><span class="line">    dictSetVal(d, existing, val);</span><br><span class="line">    dictFreeVal(d, &amp;auxentry);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h2><p>以上基本就是redis中hash的实现了，在redis中整个全局的key和val的存储都是通过这个结构来实现的。通过拉链来解决hash冲突也是非常经典的方法，有了这些理解就可以对hash有一个全局的认识了。</p>
+<p><strong>by the way</strong></p>
+<p>这篇blog基本上就算是烂尾了，大四下学期开始写的，结果一直拖到现在，上班都一个月了。继续重新去补充完整代价太大，也没那么多精力，因此这篇blog就写到这里了。</p>
+<p>上班之后真的很忙很累，虽然每天学习的东西变多了，但是整理成博客还是有点难，需要经历和时间，希望能坚持下去，毕竟人总是需要一种东西来约束自己。</p>
+<p>2021.08.21</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic40.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+			<a href="/2021/02/26/GO的闭包/" title="GO的闭包" rel="prev">
+				&laquo;Pre post
+			</a>
+		
+		
+			<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/30/Interview/" title="Interview">
+								Interview			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 30日, 2020				
+							</p>
+							<p class="relate-post-content">
+								面试常见问题秋招每天都会复习很多的知识点，顺便也整理一下复习过的东西，希望映像更加深刻一点！
+说实话这样复习是很消耗时间和精力的，需要我们有耐心，同时也要有信心去面对各种各样的问题！
+Redis1.redis为什么快
+redis作为常...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/30/Interview/" title="Interview">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic32.jpg" alt="Interview"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/08/28/漫谈http/" title="漫谈http">
+								漫谈http			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 28日, 2020				
+							</p>
+							<p class="relate-post-content">
+								与http有关的知识点http status codehttp的状态码应该是最基础，但也是非常重要的知识点，平时我们可能不会很重视，通常200，3XX，4XX，5XX我们可能可以说出一个大概，但是真要深入研究一下的话我们可能又会说不出...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/08/28/漫谈http/" title="漫谈http">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic31.jpg" alt="漫谈http"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>
