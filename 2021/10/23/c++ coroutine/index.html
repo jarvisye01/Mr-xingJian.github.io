@@ -322,12 +322,12 @@
 			<i class="fa fa-tags"></i>
 			
 	
-		<a href="/tags/c/" class=" ">
-			c++
-		</a>
-	
 		<a href="/tags/coroutine/" class=" ">
 			coroutine
+		</a>
+	
+		<a href="/tags/c/" class=" ">
+			c++
 		</a>
 	
 		
@@ -344,7 +344,7 @@
 <p>c++20终于支持了协程，c++实现的是无栈协程，首先还是区分一下有栈协程和无栈协程：</p>
 <ul>
 <li>有栈协程：最典型的就是go语言的协程，每一个协程函数都有自己的栈，协程函数在这个栈上运行，一般会实现调度器调度协程的运行，这个跟线程的工作模式很像；</li>
-<li>无栈协程：协程函数没有自己的栈，协程函数的运行状态会另外保存，无栈协程一般没有调度器需要用户自己挂起或者恢复协程；</li>
+<li>无栈协程：协程函数没有自己的栈，协程函数的运行状态会另外保存，无栈协程一般没有调度器，需要用户自己挂起或者恢复协程；</li>
 </ul>
 <p>本篇blog只是自己对coroutine的一个浅薄认识，并没有很详细的概念介绍，如果需要了解协程可以参考：</p>
 <ul>
@@ -377,36 +377,39 @@
 
 <p>Awaitable：</p>
 <ul>
-<li>await_ready：判断协程是否直接挂起</li>
-<li>await_resume：协程恢复后执行</li>
-<li>await_suspend：这个方法很重要，这个函数会在协程挂起前执行（await_suspend执行之后协程就会挂起，协程函数返回给Caller）</li>
+<li>await_ready：判断协程是否直接挂起；</li>
+<li>await_resume：协程恢复后执行，可以返回一个值；</li>
+<li>await_suspend：这个方法很重要，这个函数会在协程挂起前执行（await_suspend执行之后协程就会挂起，协程函数返回给Caller）；</li>
 </ul>
 <p>在await_suspend中我们会获得一个handle句柄，执行handle.resume()可以恢复协程的执行，所以<strong>谁获得了这个handle谁就可以在将来恢复协程的执行</strong>，先记住这句话。</p>
 <p><strong>co_yield</strong></p>
-<p>co_yield返回的值会传给yield_value函数，你可以在这里将值传出去；</p>
+<p>co_yield返回的值会传给yield_value函数，如果有需要，你可以在这里将值传出去；</p>
 <p><strong>co_return</strong></p>
-<p>co_return返回的值会传给return_value函数，你可以在这里将值传出去；</p>
+<p>co_return返回的值会传给return_value函数，如果有需要，你可以在这里将值传出去；</p>
 <p><strong>如何获取coroutine_handle</strong></p>
 <p>我们知道只有获取了协程对应的coroutine_handle实例才能恢复协程的执行，那么该如何获取呢？主要两个方法：</p>
 <ul>
-<li>获取promise_type对象，通过coroutine_handle<promise_type>::from_promise函数获取；</promise_type></li>
-<li>在await_suspend函数中将handle传出去；</li>
+<li>获取promise_type对象，通过<strong>coroutine_handle<promise_type>::from_promise</promise_type></strong>函数获取；</li>
+<li>在<strong>await_suspend</strong>函数中将handle传出去；</li>
 </ul>
+<p>这样不是很好理解，可以看着两个例子理解一下。</p>
 <p><strong>example 1</strong></p>
 <p>假如有这样的两个操作：</p>
 <ul>
 <li>计算两个数相加（假设这个操作及其耗时）</li>
 <li>将相加的结果传给用户</li>
 </ul>
-<p>我们做一个抽象，看看到底是怎么样的：</p>
+<p><strong>1.同步写法</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sleep(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">send_res</span><span class="params">(<span class="keyword">int</span> res)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"result is "</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sync_add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = add(a, b);</span><br><span class="line">    send_res(res);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"sync_add over!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样就是同步代码，这意味着我们需要等待至少5秒钟sync_add函数才能执行完毕！</p>
+<p><strong>2.异步写法</strong></p>
 <p>上面自然是最简单效率最低的写法，下面换一种异步的写法，我们注册一个回调函数重新开一个线程去执行：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread_arg</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    <span class="keyword">void</span> (*send) (<span class="keyword">int</span>);</span><br><span class="line">    thread_arg(<span class="keyword">int</span> aa, <span class="keyword">int</span> bb): a(aa), b(bb) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    thread_arg *targ = (thread_arg*)arg;</span><br><span class="line">    <span class="keyword">int</span> res = add(targ-&gt;a, targ-&gt;b);</span><br><span class="line">    targ-&gt;send(res);</span><br><span class="line">    <span class="keyword">delete</span> targ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">register_callback</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">void</span> (*send) (<span class="keyword">int</span>))</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> tid;</span><br><span class="line">    pthread_create(&amp;tid, <span class="literal">NULL</span>, thread_func, (<span class="keyword">void</span>*)<span class="keyword">new</span> thread_arg(a, b));</span><br><span class="line">    pthread_detach(tid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">async_add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    register_callback(a, b, send_res);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"async_add over!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样我们的async_add函数就可以迅速返回，因为耗时的操作被我们封装了另外一个线程去执行，该线程执行完add操作之后会将结果通过send_msg函数发回。</p>
 <p>这样确实是一个好办法，但是看看我们增加了多少代码，如果这个async_add或者add函数里面不止一个耗时操作怎么办？可能最优解是注册多个回调，那样的代码不仅不好看，也不利于编写。</p>
+<p><strong>3.协程</strong></p>
 <p>来看看协程是如何简化异步写法的：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyResult</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">promise_type</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="function">MyResult <span class="title">get_return_object</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="built_in">std</span>::<span class="function">suspend_never <span class="title">initial_suspend</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="built_in">std</span>::<span class="function">suspend_never <span class="title">final_suspend</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">return_void</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">unhandled_exception</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Awaiter</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    Awaiter(<span class="keyword">int</span> aa, <span class="keyword">int</span> bb): a(aa), b(bb) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">await_ready</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">await_resume</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">await_suspend</span><span class="params">(<span class="built_in">std</span>::coroutine_handle&lt;&gt; handle)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ghandle = handle;</span><br><span class="line">        pthread_create(&amp;tid, <span class="literal">NULL</span>, thread_func, (<span class="keyword">void</span>*)<span class="keyword">this</span>);</span><br><span class="line">        pthread_detach(tid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">set_res</span><span class="params">(<span class="keyword">int</span> r)</span> </span>&#123; res = r; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get_res</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> res; &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="keyword">pthread_t</span> tid;</span><br><span class="line">    <span class="built_in">std</span>::coroutine_handle&lt;&gt; ghandle;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Awaiter *waiter = (Awaiter*)arg;</span><br><span class="line">    <span class="keyword">int</span> res = jarvis::add(waiter-&gt;a, waiter-&gt;b);</span><br><span class="line">    waiter-&gt;set_res(res);</span><br><span class="line">    waiter-&gt;ghandle.resume();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">MyResult <span class="title">co_add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = co_await Awaiter(a, b);</span><br><span class="line">    jarvis::send_res(res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -422,12 +425,12 @@
 <p>前文说过想要回复一个挂起的协程就一定要通过对应的coroutine_handle的resume方法来恢复，这两个例子就是两种不同的暴露方式：</p>
 <ul>
 <li>例子一：<strong>在await_suspend中将handle保存</strong>，作为线程参数的一部分传递给新开的线程，所以后续的线程可以恢复协程执行co_add方法中co_await之后的部分；</li>
-<li>例子二：通过<strong>std::coroutine_handle<promise_type>::from_promise</promise_type></strong>获得，将编译器生成的promise_type对象的指针保存到MyResult中，通过协程函数的返回值进行相应的回复，例子二MyResult每次调用get_val都会使协程恢复执行到下一个co_yield；</li>
+<li>例子二：通过<strong>std::coroutine_handle<promise_type>::from_promise</promise_type></strong>获得，将编译器生成的promise_type对象的指针保存到MyResult中，通过协程函数的返回值进行相应的回复，例子二MyResult每次调用get_val都会使协程恢复并执行到下一个co_yield继续挂起；</li>
 </ul>
 <p><strong>by the way</strong></p>
-<p>c++的协程和之前接触到的go的协程还是很不一样的，整个c++的协程实际上都需要程序员自己挂起和回复，我们的编码能力要求很高。</p>
-<p>c++ coroutine里面的东西还很多，这里只写了一个皮毛而已，后面会继续写！</p>
-<p>本本篇blog的代码：<a href="https://github.com/Mr-xingJian/cpp_coroutine_demo" target="_blank" rel="noopener">https://github.com/Mr-xingJian/cpp_coroutine_demo</a></p>
+<p>c++的协程和之前接触到的go的协程还是很不一样的，整个c++的协程实际上都需要程序员自己挂起和回复，对我们的编码能力要求很高。</p>
+<p>c++ coroutine里面的东西还很多，这里只写了一个皮毛而已，后面会继续写。</p>
+<p>本篇blog的代码：<a href="https://github.com/Mr-xingJian/cpp_coroutine_demo" target="_blank" rel="noopener">https://github.com/Mr-xingJian/cpp_coroutine_demo</a></p>
 <p>2021.10.23 14:26</p>
 	
 	</div>
