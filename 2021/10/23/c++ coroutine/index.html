@@ -1,0 +1,1038 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      c++ coroutine | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《c++ coroutine》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2021/10/23/c++ coroutine/" itemprop="url">
+		c++ coroutine
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2021/10/23/c++ coroutine/" itemprop="url">
+		<time datetime="2021-10-23T06:26:17.000Z" itemprop="datePublished">
+	  		2021-10-23
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2021/10/23/c++ coroutine/" itemprop="url">
+		<time datetime="2021-10-23T06:26:17.000Z" itemprop="dateUpdated">
+	  		2021-10-23
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/c/" class=" ">
+			c++
+		</a>
+	
+		<a href="/tags/coroutine/" class=" ">
+			coroutine
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h2 id="c-coroutine"><a href="#c-coroutine" class="headerlink" title="c++ coroutine"></a>c++ coroutine</h2><p><strong>background</strong></p>
+<p>c++20终于支持了协程，c++实现的是无栈协程，首先还是区分一下有栈协程和无栈协程：</p>
+<ul>
+<li>有栈协程：最典型的就是go语言的协程，每一个协程函数都有自己的栈，协程函数在这个栈上运行，一般会实现调度器调度协程的运行，这个跟线程的工作模式很像；</li>
+<li>无栈协程：协程函数没有自己的栈，协程函数的运行状态会另外保存，无栈协程一般没有调度器需要用户自己挂起或者恢复协程；</li>
+</ul>
+<p>本篇blog只是自己对coroutine的一个浅薄认识，并没有很详细的概念介绍，如果需要了解协程可以参考：</p>
+<ul>
+<li><a href="https://en.cppreference.com/w/cpp/language/coroutines" target="_blank" rel="noopener">https://en.cppreference.com/w/cpp/language/coroutines</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/237952115" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/237952115</a></li>
+<li><a href="https://www.cnblogs.com/ishen/p/14617708.html" target="_blank" rel="noopener">https://www.cnblogs.com/ishen/p/14617708.html</a></li>
+</ul>
+<p><strong>coroutine</strong></p>
+<p>c++对协程的定义很简单，凡是包含了以下关键字的函数都可以成为一个协程函数，可以启动为一个协程：</p>
+<ul>
+<li>co_await</li>
+<li>co_yield</li>
+<li>co_return</li>
+</ul>
+<p>当然这只是最简单的定义，需要在将一个普通函数改造成协程函数除了添加这三个关键字还需要做很多工作。</p>
+<p>普通函数的执行只能从开始到结尾，而协程函数的执行可以从中间返回，下一次执行可以从上一次恢复的地方开始，怎么理解呢？还是举个简单的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    func1();</span><br><span class="line">    co_func();	<span class="comment">// coroutine</span></span><br><span class="line">    func2();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>线程1需要执行三个函数，第一个是普通函数func1，第二个是一个协程函数，线程1在执行co_func中被挂起（协程函数的特性）返回，那么线程1就会继续执行func2。</p>
+<p>一个直观的感受就是co_func<strong>只是被执行了一部分</strong>，还是有一部分没有执行，那么剩余的部分会由谁去执行呢？答案是<strong>哪个线程执行了对该协程的恢复操作就会执行该函数的剩余部分</strong>。</p>
+<p>显然接下来的问题就是如何去暂停和恢复一个协程的执行，我来简单介绍一下。</p>
+<p><strong>协程函数的返回值</strong></p>
+<p>协程函数的返回值不能是普通的类型，编译器要从该类型推断出T::promise_type这个类型，promise_type需要具有一些方法，还是直接看例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Result</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">promise_type</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="built_in">std</span>::experimental::<span class="function">suspend_never <span class="title">initial_suspend</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="built_in">std</span>::experimental::<span class="function">suspend_never <span class="title">final_suspend</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">return_void</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">unhandled_exception</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 如果协程要使用co_yield，这个T根据你想要返回的类型确定</span></span><br><span class="line">        <span class="built_in">std</span>::experimental::<span class="function">suspend_always <span class="title">yield_value</span><span class="params">(<span class="keyword">const</span> T&amp; v)</span> </span>&#123; &#125;</span><br><span class="line">        <span class="comment">// 如果协程要使用co_return</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">return_value</span><span class="params">(<span class="keyword">const</span> T&amp; v)</span></span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如果你好好读了介绍c++ coroutine的文章就应该知道了编译器在协程开始就会帮助我们构造一个promise_type对象，当我们在协程函数中调用的co_yield <strong>v</strong>和co_return <strong>v**</strong>的时候<strong>v</strong>实际上会被传给yield_value和return_value函数，有一点抽象，先不用着急，后面我举例子来帮助理解。</p>
+<p><strong>co_await</strong></p>
+<p>co_await是一个关键字，可以执行<strong>co_await expr</strong>，这个expr一般是一个对象，对这个对象必须符合Awaitable，也就是需要具备几个方法，下面举一个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyAwait</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">await_ready</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 协程恢复之后会返回一个值，注意例子2</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">await_resume</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">await_suspend</span><span class="params">(<span class="built_in">std</span>::experimental::coroutine_handle&lt;&gt; handle)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// logic</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>Awaitable：</p>
+<ul>
+<li>await_ready：判断协程是否直接挂起</li>
+<li>await_resume：协程恢复后执行</li>
+<li>await_suspend：这个方法很重要，这个函数会在协程挂起前执行（await_suspend执行之后协程就会挂起，协程函数返回给Caller）</li>
+</ul>
+<p>在await_suspend中我们会获得一个handle句柄，执行handle.resume()可以恢复协程的执行，所以<strong>谁获得了这个handle谁就可以在将来恢复协程的执行</strong>，先记住这句话。</p>
+<p><strong>co_yield</strong></p>
+<p>co_yield返回的值会传给yield_value函数，你可以在这里将值传出去；</p>
+<p><strong>co_return</strong></p>
+<p>co_return返回的值会传给return_value函数，你可以在这里将值传出去；</p>
+<p><strong>如何获取coroutine_handle</strong></p>
+<p>我们知道只有获取了协程对应的coroutine_handle实例才能恢复协程的执行，那么该如何获取呢？主要两个方法：</p>
+<ul>
+<li>获取promise_type对象，通过coroutine_handle<promise_type>::from_promise函数获取；</promise_type></li>
+<li>在await_suspend函数中将handle传出去；</li>
+</ul>
+<p><strong>example 1</strong></p>
+<p>假如有这样的两个操作：</p>
+<ul>
+<li>计算两个数相加（假设这个操作及其耗时）</li>
+<li>将相加的结果传给用户</li>
+</ul>
+<p>我们做一个抽象，看看到底是怎么样的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sleep(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">send_res</span><span class="params">(<span class="keyword">int</span> res)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"result is "</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sync_add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = add(a, b);</span><br><span class="line">    send_res(res);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"sync_add over!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就是同步代码，这意味着我们需要等待至少5秒钟sync_add函数才能执行完毕！</p>
+<p>上面自然是最简单效率最低的写法，下面换一种异步的写法，我们注册一个回调函数重新开一个线程去执行：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread_arg</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    <span class="keyword">void</span> (*send) (<span class="keyword">int</span>);</span><br><span class="line">    thread_arg(<span class="keyword">int</span> aa, <span class="keyword">int</span> bb): a(aa), b(bb) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    thread_arg *targ = (thread_arg*)arg;</span><br><span class="line">    <span class="keyword">int</span> res = add(targ-&gt;a, targ-&gt;b);</span><br><span class="line">    targ-&gt;send(res);</span><br><span class="line">    <span class="keyword">delete</span> targ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">register_callback</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">void</span> (*send) (<span class="keyword">int</span>))</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> tid;</span><br><span class="line">    pthread_create(&amp;tid, <span class="literal">NULL</span>, thread_func, (<span class="keyword">void</span>*)<span class="keyword">new</span> thread_arg(a, b));</span><br><span class="line">    pthread_detach(tid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">async_add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    register_callback(a, b, send_res);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"async_add over!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样我们的async_add函数就可以迅速返回，因为耗时的操作被我们封装了另外一个线程去执行，该线程执行完add操作之后会将结果通过send_msg函数发回。</p>
+<p>这样确实是一个好办法，但是看看我们增加了多少代码，如果这个async_add或者add函数里面不止一个耗时操作怎么办？可能最优解是注册多个回调，那样的代码不仅不好看，也不利于编写。</p>
+<p>来看看协程是如何简化异步写法的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyResult</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">promise_type</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="function">MyResult <span class="title">get_return_object</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="built_in">std</span>::<span class="function">suspend_never <span class="title">initial_suspend</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="built_in">std</span>::<span class="function">suspend_never <span class="title">final_suspend</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">return_void</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">unhandled_exception</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Awaiter</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    Awaiter(<span class="keyword">int</span> aa, <span class="keyword">int</span> bb): a(aa), b(bb) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">await_ready</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">await_resume</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">await_suspend</span><span class="params">(<span class="built_in">std</span>::coroutine_handle&lt;&gt; handle)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ghandle = handle;</span><br><span class="line">        pthread_create(&amp;tid, <span class="literal">NULL</span>, thread_func, (<span class="keyword">void</span>*)<span class="keyword">this</span>);</span><br><span class="line">        pthread_detach(tid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">set_res</span><span class="params">(<span class="keyword">int</span> r)</span> </span>&#123; res = r; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get_res</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> res; &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="keyword">pthread_t</span> tid;</span><br><span class="line">    <span class="built_in">std</span>::coroutine_handle&lt;&gt; ghandle;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">thread_func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Awaiter *waiter = (Awaiter*)arg;</span><br><span class="line">    <span class="keyword">int</span> res = jarvis::add(waiter-&gt;a, waiter-&gt;b);</span><br><span class="line">    waiter-&gt;set_res(res);</span><br><span class="line">    waiter-&gt;ghandle.resume();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">MyResult <span class="title">co_add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = co_await Awaiter(a, b);</span><br><span class="line">    jarvis::send_res(res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>乍一看你可能会说这哪里简化了异步的写法了？但是如果这个异步过程非常复杂我们的co_add可能像下面这样：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MyResult <span class="title">co_add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = co_await Awaiter(a, b);</span><br><span class="line">    <span class="comment">// co_await ...</span></span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">    <span class="comment">// co_await ...</span></span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">    jarvis::send_res(res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就类似于一种同步的方法编写异步代码，复杂起来的时候自然比异步回调简单多了！</p>
+<p><strong>example 2</strong></p>
+<p>第二个例子是我们用协程构造一个生成器，生成器的概念可以具体百度。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;coroutine&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyResult</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">promise_type</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="function">MyResult <span class="title">get_return_object</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> MyResult(<span class="keyword">this</span>); &#125;</span><br><span class="line">        <span class="built_in">std</span>::<span class="function">suspend_never <span class="title">initial_suspend</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="built_in">std</span>::<span class="function">suspend_never <span class="title">final_suspend</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">return_void</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">        <span class="built_in">std</span>::<span class="function">suspend_always <span class="title">yield_value</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            val = v;</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">unhandled_exception</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">resume</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">std</span>::coroutine_handle&lt;promise_type&gt;::from_promise(*<span class="keyword">this</span>).resume();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">get_val</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> val;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> val;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    MyResult(promise_type *p): ptr(p) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get_val</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> v = ptr-&gt;get_val();</span><br><span class="line">        resume();</span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">resume</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ptr-&gt;resume();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    promise_type *ptr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">MyResult <span class="title">generator</span><span class="params">(<span class="keyword">int</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = num; ; i = i + <span class="number">5</span>)</span><br><span class="line">        co_yield i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    MyResult y = generator(<span class="number">5</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; y.get_val() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; y.get_val() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; y.get_val() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; y.get_val() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; y.get_val() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>coroutine_handle的暴露方式</strong></p>
+<p>前文说过想要回复一个挂起的协程就一定要通过对应的coroutine_handle的resume方法来恢复，这两个例子就是两种不同的暴露方式：</p>
+<ul>
+<li>例子一：<strong>在await_suspend中将handle保存</strong>，作为线程参数的一部分传递给新开的线程，所以后续的线程可以恢复协程执行co_add方法中co_await之后的部分；</li>
+<li>例子二：通过<strong>std::coroutine_handle<promise_type>::from_promise</promise_type></strong>获得，将编译器生成的promise_type对象的指针保存到MyResult中，通过协程函数的返回值进行相应的回复，例子二MyResult每次调用get_val都会使协程恢复执行到下一个co_yield；</li>
+</ul>
+<p><strong>by the way</strong></p>
+<p>c++的协程和之前接触到的go的协程还是很不一样的，整个c++的协程实际上都需要程序员自己挂起和回复，我们的编码能力要求很高。</p>
+<p>c++ coroutine里面的东西还很多，这里只写了一个皮毛而已，后面会继续写！</p>
+<p>本本篇blog的代码：<a href="https://github.com/Mr-xingJian/cpp_coroutine_demo" target="_blank" rel="noopener">https://github.com/Mr-xingJian/cpp_coroutine_demo</a></p>
+<p>2021.10.23 14:26</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic42.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+		
+			<a href="/2021/08/21/tcpdump/" title="tcpdump" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/08/21/tcpdump/" title="tcpdump">
+								tcpdump			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 21日, 2021				
+							</p>
+							<p class="relate-post-content">
+								tcpdump1.简介
+一个网络抓包工具，可以分析网络的行为、性能和各种应用的流量。开发的时候可能因为复杂的网络需要在测试环境调通，毕竟不是自己倒腾项目一台机器，很容易知道通不通，企业级的环境可能会十分复杂，偶尔可能会用得上tcpdu...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/08/21/tcpdump/" title="tcpdump">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic41.jpg" alt="tcpdump"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/11/redis二三事（三）/" title="redis二三事（三）">
+								redis二三事（三）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 11日, 2021				
+							</p>
+							<p class="relate-post-content">
+								字典background
+我们常常将redis成为一种键值对数据库，这也就是体现了redis的本质，你甚至可以将redis看作是一个大型的哈希表，我们对于redis的操作基本都是利用相关的key去操作相关的value。
+如果你想学习过...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/11/redis二三事（三）/" title="redis二三事（三）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic40.jpg" alt="redis二三事（三）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/10/12/leetcode_3/" title="leetcode_3">
+								leetcode_3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+艰难的秋招终于结束了，比较幸运，虽然秋招开始的很晚，自己一度以为大厂hc所剩无几，准备好去小厂了，但是最终还是收获了腾讯wxg的录用意向。
+秋招一路走来其实并不顺利，中间遇到了很多困难，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/10/12/leetcode_3/" title="leetcode_3">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_3"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>
