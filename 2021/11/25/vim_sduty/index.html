@@ -1,0 +1,1007 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.9.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      开始使用vim | Sweet Blog
+    
+  </title>
+  <meta name="author" content="Sweet Coder">
+  <meta name="keywords" content>
+  <meta name="description" content>
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/" data-random-max="7" data-random-src="/img/Random_img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/Signature.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">Catalog</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			Current post&nbsp;:&nbsp;《开始使用vim》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2021/11/25/vim_sduty/" itemprop="url">
+		开始使用vim
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	Posted on
+
+	<a href="/2021/11/25/vim_sduty/" itemprop="url">
+		<time datetime="2021-11-25T15:06:06.000Z" itemprop="datePublished">
+	  		2021-11-25
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	Updated on
+
+	<a href="/2021/11/25/vim_sduty/" itemprop="url">
+		<time datetime="2021-11-25T15:06:06.000Z" itemprop="dateUpdated">
+	  		2021-11-25
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/vim/" class=" ">
+			vim
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><p>这次真的要下决心使用vim了，当然我用vim其实已经很长时间了，但是都是一些最简单的编辑，往往是到了服务器上没办法了，只有vim可以用才会用vim，从没把vim当成主力编码编辑器。</p>
+<p>刚刚毕业上班的时候搞了一个github上面别人配置好的vim来用，已经装了一 些插件，很多人都会说自己一个一个去配置没必要，拿来即用就可以。这样说的大哥可能本身就是vim高手了，当你有了足够的基础之后这些才不重要，新手开始的时候自己去配置自己的vim还是很有帮助的，在探索中你才会对vim越来越熟悉</p>
+<p>众所周知，vim刚开始的学习路线十分陡峭，所以一般情况是要么用vim一个星期，要么一直用vim。之所以下定决定用vim是因为看到团队的其他同事结合vim和一些配套工具可以非常高效的进行开发（当然这一切都要基于你十分熟练）。</p>
+<p>我平时一般是用vscode进行远程开发，但是这其中还是存在一些问题：</p>
+<ul>
+<li>代码补全：虽然安装了cpp的插件，但是项目代码量实在是太大了，代码补全效果还是不理想；</li>
+<li>鼠标和键盘切换：每次插入删除移动光标都需要鼠标，次数多了很麻烦；</li>
+<li>终端能力不足：虽然vscode也集成了终端，但是应该很少人去把那个终端当成主力，一般会专门开一个终端比如iterm什么的，需要频繁的进行切换；</li>
+<li>渲染卡顿：因为项目的代码量实在是太大了，不少时候vscode都会出现渲染失败，各种关键字的颜色都不对，需要手动reload恢复；</li>
+</ul>
+<p>这其中最主要的是第一点吧，手残党每次记不住打字又慢，只能靠代码补全苟活了，但是vscode的cpp插件在代码量过大、include路径不规范的时候几乎没什么作用，别说什么语义补全，就连符号补全都不是很靠谱。因为之前用过YouCompleteMe补全go效果不错，就想着能不能让vim变成自己的主力编辑器，看看自己到底是会用vim一个星期还是能一直用vim。</p>
+<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p>选择编译安装vim8版本，代码在github。可能需要安装一些前置依赖，例如你之后需要使用lua、ruyb、python的插件就要在编译时打开这些支持。用yum和apt这些工具可能没办法安装最新的vim，编译安装是个好方法，这里强烈建议在编译安装之前先升级gcc版本。</p>
+<p>这是我的configure命令参数，这样配置安装的vim可以支持lua、ruby、python2、python3编写的插件，在配置的时候注意你的python相关路径：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-features=huge \</span><br><span class="line">--<span class="built_in">enable</span>-multibyte \</span><br><span class="line">--<span class="built_in">enable</span>-rubyinterp \</span><br><span class="line">--<span class="built_in">enable</span>-luainterp  \</span><br><span class="line">--<span class="built_in">enable</span>-pythoninterp=dynamic \</span><br><span class="line">--with-python-config-dir=/usr/lib64/python2.7/config \</span><br><span class="line">--<span class="built_in">enable</span>-python3interp=dynamic \</span><br><span class="line">--with-python3-config-dir=/usr/lib64/python3.6/config-3.6m-x86_64-linux-gnu \</span><br><span class="line">--<span class="built_in">enable</span>-cscope \</span><br><span class="line">--<span class="built_in">enable</span>-gui=auto \</span><br><span class="line">--<span class="built_in">enable</span>-gtk2-check \</span><br><span class="line">--<span class="built_in">enable</span>-fontset \</span><br><span class="line">--<span class="built_in">enable</span>-largefile \</span><br><span class="line">--<span class="built_in">disable</span>-netbeans \</span><br><span class="line">--with-compiledby=<span class="string">"jarvisye"</span> \</span><br><span class="line">--<span class="built_in">enable</span>-fail-if-missing \</span><br><span class="line">--prefix=/usr/<span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+
+<p>如果成功直接make &amp;&amp; make install即可，安装后顺便看一眼vim –version是不是确实打开了支持项。</p>
+<h2 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h2><p>一些很好的vim教程，这些教程需要你有一点基础（以后会持续更新）：</p>
+<ul>
+<li><a href="https://coolshell.cn/articles/5426.html" target="_blank" rel="noopener">https://coolshell.cn/articles/5426.html</a></li>
+<li><a href="https://stevelosh.com/blog/2010/09/coming-home-to-vim/" target="_blank" rel="noopener">https://stevelosh.com/blog/2010/09/coming-home-to-vim/</a></li>
+</ul>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>vim在安装插件的时候一般会选择一个插件管理工具，其实都大差不差，一般可以选择vim-plug和vbundle，这里我选择前者，我安装了以下插件：</p>
+<ul>
+<li>NERDtree：目录插件；</li>
+<li>Ack：搜索插件(用于代替grep)；</li>
+<li>SmipMate：帮助偷懒补全的插件；</li>
+<li>Command_T：最近使用文件搜索插件；</li>
+<li>Vim-Airline：状态栏美化插件；</li>
+<li>Vim-Color-Solarized：界面美化插件；</li>
+<li>YouCompleteMe：补全插件（一个大杀器）；</li>
+</ul>
+<p>上述的插件除了YouCompleteMe都很好安装，具体去看看vim-plug如何使用就可以。而至于YouComplete的安装就需要你的耐心了，这其中一定会出现各种各样的问题，运气不好可能最后也没办法安装成功，在安装前建议做好如下准备工作：</p>
+<ul>
+<li>准备好python2和python3的环境；</li>
+<li>升级gcc到gcc8.0及以上，千万不要侥幸用低版本的gcc来完成，因为不知道会出什么问题；</li>
+<li>准备好符合版本的cmake，可以用升级之后的gcc来编译；</li>
+<li>安装好clangd或者是libclang；</li>
+</ul>
+<p>然后基本上按照官方的步骤就基本没什么问题，这个过程中问题最多的还是环境问题，无论是什么时候请保持耐心，就算你已经重试了很多次。</p>
+<p>多扯一句，对于vim插件我们不要在一开始就搞特别多，因为你可能根本不会用，毕竟使用这些插件也是需要一定时间学习的，对于插件的安装一定要符合你自己的需求，例如在开始使用vim的时候很不习惯没有目录，那么NERDTree就出现了，没有补全我们就安装YouCompleteMe，所有的插件一定是要根据你的需求来，慢慢的丰富你的插件，要相信慢慢来的比较快！</p>
+<h2 id="vimrc"><a href="#vimrc" class="headerlink" title="vimrc"></a>vimrc</h2><p>熟悉了vim之后每个人的vim配置应该都是不一样的，毕竟不可能所有人使用键盘的习惯都是一样的。个人建议是弄清楚一些基本的配置，然后根据自己的使用习惯来配置，让你的vim只属于你自己，细细想来vim还是很方便，有了这样一份自己倒腾的配置，到什么地方都只需要将这个配置一贴就行了，困难的真的就是第一次而已。</p>
+<p>对于配置文件大致可以分为三个部分：</p>
+<ul>
+<li>vim基础配置：例如换行、tab、文件编码、搜索这些，需要尽量搞清楚这些常用的配置；</li>
+<li>快捷键配置：例如不同模式下的快捷键怎么配置、配置快捷键的基本逻辑、leader到底是个什么东西；</li>
+<li>插件配置：慢慢学会阅读插件文档，让你的插件用起来更舒服；</li>
+</ul>
+<p>以下是我的vimrc配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">set background=dark</span><br><span class="line">syntax on</span><br><span class="line">filetype plugin on</span><br><span class="line"></span><br><span class="line">set number</span><br><span class="line">set autoindent</span><br><span class="line">set smartindent</span><br><span class="line"></span><br><span class="line">set tabstop=4</span><br><span class="line">set shiftwidth=4</span><br><span class="line">set softtabstop=4</span><br><span class="line">set expandtab</span><br><span class="line"></span><br><span class="line">set nocompatible</span><br><span class="line">set backspace=indent,eol,start</span><br><span class="line"></span><br><span class="line">set fileencodings=gb18030,utf-8,gb2312,gbk</span><br><span class="line">set encoding=utf-8</span><br><span class="line">set wildmenu</span><br><span class="line">set ignorecase</span><br><span class="line">set smartcase</span><br><span class="line">set incsearch</span><br><span class="line">set hlsearch</span><br><span class="line">set scrolloff=5</span><br><span class="line"></span><br><span class="line">&quot; key map</span><br><span class="line">let mapleader = &quot;,&quot;</span><br><span class="line">inoremap jj &lt;Esc&gt;</span><br><span class="line">inoremap kk &lt;Esc&gt;:wq&lt;CR&gt;</span><br><span class="line">nnoremap &lt;leader&gt;&lt;space&gt; :noh&lt;CR&gt;</span><br><span class="line">nnoremap &lt;tab&gt; %</span><br><span class="line">nnoremap &lt;leader&gt;w &lt;C-w&gt;v&lt;C-w&gt;l</span><br><span class="line">noremap &lt;C-h&gt; &lt;C-w&gt;h</span><br><span class="line">noremap &lt;C-j&gt; &lt;C-w&gt;j</span><br><span class="line">noremap &lt;C-k&gt; &lt;C-w&gt;k</span><br><span class="line">noremap &lt;C-l&gt; &lt;C-w&gt;l</span><br><span class="line">noremap &lt;leader&gt;a :Ack&lt;space&gt;-i&lt;space&gt;</span><br><span class="line">noremap qq :q&lt;CR&gt;</span><br><span class="line">nnoremap &lt;C-n&gt; :bn&lt;CR&gt;</span><br><span class="line">nnoremap &lt;C-p&gt; :bp&lt;CR&gt;</span><br><span class="line"></span><br><span class="line">&quot; nerdtree plugin settings</span><br><span class="line">map &lt;F9&gt; :NERDTree&lt;CR&gt;</span><br><span class="line">map &lt;F10&gt; :NERDTreeToggle&lt;CR&gt;</span><br><span class="line">map &lt;C-f&gt; :NERDTreeFind&lt;CR&gt;</span><br><span class="line"></span><br><span class="line">&quot; snipmate plugin settings</span><br><span class="line">let g:snipMate = &#123; &apos;snippet_version&apos; : 1 &#125;</span><br><span class="line">imap &lt;Tab&gt; &lt;Plug&gt;snipMateNextOrTrigger</span><br><span class="line"></span><br><span class="line">&quot; airline plugin settings</span><br><span class="line">let g:airline_theme=&apos;bubblegum&apos;</span><br><span class="line">let g:airline_base16_improved_contrast = 1</span><br><span class="line">let g:airline_base16_monotone = 1</span><br><span class="line">let g:airline_left_sep=&apos;&gt;&apos;</span><br><span class="line">let g:airline_right_sep=&apos;&lt;&apos;</span><br><span class="line">let g:airline#extensions#tabline#enabled=1</span><br><span class="line"></span><br><span class="line">&quot; YouCompleteMe plugin settings</span><br><span class="line">let g:ycm_server_interpreter=&apos;/usr/bin/python3&apos;</span><br><span class="line">let g:ycm_use_cland = 1 </span><br><span class="line">let g:ycm_clangd_binary_path=&apos;/usr/local/tools/llvm/bin/clangd&apos;</span><br><span class="line">let g:ycm_seed_identifiers_from_tags_files = 1</span><br><span class="line">let g:ycm_collect_identifiers_from_tags_files = 1</span><br><span class="line">let g:ycm_complement_in_comments = 1</span><br><span class="line">let g:ycm_complement_in_strings = 1</span><br><span class="line">let g:ycm_key_invoke_completion = &apos;&lt;leader&gt;&lt;tab&gt;&apos;</span><br><span class="line">&quot; let g:ycm_min_num_identifier_candidate_chars = 2</span><br><span class="line">let g:ycm_semantic_triggers = &#123;</span><br><span class="line">            \ &apos;c,cpp&apos;: [&apos;re!\w&#123;5&#125;&apos;],</span><br><span class="line">            \&#125;</span><br><span class="line">let g:ycm_show_diagnostics_ui = 0</span><br><span class="line">let g:ycm_confirm_extra_conf = 0 </span><br><span class="line">set completeopt=menu,menuone</span><br><span class="line">let g:ycm_add_preview_to_completeopt = 0</span><br><span class="line"></span><br><span class="line">&quot; plugin 采用vim-plug管理插件</span><br><span class="line">call plug#begin(&quot;~/.vim/plugged&quot;)</span><br><span class="line">    Plug &apos;preservim/nerdtree&apos;</span><br><span class="line">    Plug &apos;wincent/command-t&apos;</span><br><span class="line">    Plug &apos;mileszs/ack.vim&apos;</span><br><span class="line">    Plug &apos;garbas/vim-snipmate&apos;</span><br><span class="line">    Plug &apos;tomtom/tlib_vim&apos;</span><br><span class="line">    Plug &apos;marcweber/vim-addon-mw-utils&apos;</span><br><span class="line">    Plug &apos;vim-airline/vim-airline&apos;</span><br><span class="line">    Plug &apos;vim-airline/vim-airline-themes&apos;</span><br><span class="line">    Plug &apos;altercation/vim-colors-solarized&apos;</span><br><span class="line">    Plug &apos;ycm-core/YouCompleteMe&apos;</span><br><span class="line">call plug#end()</span><br></pre></td></tr></table></figure>
+
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p>这是我在安装了以上插件之后的vim，还是很漂亮的，补全什么的感觉非常不错，比我平时用的vscode的cpp插件补全要好很多。</p>
+<p>至于插件和快捷键什么的我并有搞很多，人比较笨脑子记不住，还是先熟悉vim的基本操作。</p>
+<p>所以最后的效果究竟怎么样呢？来看一下吧(用firefox打开，chrome可能会屏蔽)：</p>
+<img src="http://1.15.14.201:8080/pic14.png" alt="vim">
+
+
+
+<h2 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h2><p>总结一下就是vim可以让你更集中的在终端里面工作，而vscode在一些场景之下让你的工作更加简单，如果是一些小的项目显然用vscode更好，但是当代码量陡增的时候vscode的优势就会减小，甚至出现一些让人接受不了的地方，如果想尝试一种新的编辑方式，不妨可以试试vim。也许用过vim之后会慢慢发现原来可以彻底的脱离鼠标是如此的舒畅，很多操作可以如此简单的完成，当然如果不习惯你还是可以回去使用自己的编辑器。vim的开始学习是有一定阵痛的，刚开始脱离鼠标你会不习惯在各种模式之间切换，也会连简单的复制粘贴都不能快速完成，不过只要你坚持一段时间你总会在vim身上找到你不想失去的优点，例如搜索不需要control+f，而是直接/就能开始，又或者在行内编辑的时候可以通过f来快速定位，再也不需要鼠标和方向键，总之你越熟悉vim你就会越离不开vim。</p>
+<p>虽然现在将编辑工作切换到vim上来了，但是并不代表我就彻底放弃了vscode，相反vscode成了我浏览代码的主要工具，我个人觉得vim在浏览代码这方面还是没有vscode舒服，毕竟vim的滚动还是没有vscode那样丝滑，我虽然不习惯鼠标一直点点点，但是那个滚轮我还是很喜欢的。</p>
+<p>不过说到底，单单一个vim并不能帮你把所有的事情都做好，相应的你最好还要熟悉一些linux配套工具，例如find、grep什么的，这样才能真正让你在繁杂的源码中自由的穿行。</p>
+<p>2021.11.25</p>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/post-cover/pic38.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">Related post</div>
+				<div>Comment</div>
+				<div>Share</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">To Top</a>
+		
+		
+			<a href="/2021/10/23/c++ coroutine/" title="c++ coroutine" rel="next">
+				Next post&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/10/23/c++ coroutine/" title="c++ coroutine">
+								c++ coroutine			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 23日, 2021				
+							</p>
+							<p class="relate-post-content">
+								c++ coroutinebackground
+c++20终于支持了协程，c++实现的是无栈协程，首先还是区分一下有栈协程和无栈协程：
+
+有栈协程：最典型的就是go语言的协程，每一个协程函数都有自己的栈，协程函数在这个栈上运行，一般会...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/10/23/c++ coroutine/" title="c++ coroutine">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic42.jpg" alt="c++ coroutine"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/08/21/tcpdump/" title="tcpdump">
+								tcpdump			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 21日, 2021				
+							</p>
+							<p class="relate-post-content">
+								tcpdump1.简介
+一个网络抓包工具，可以分析网络的行为、性能和各种应用的流量。开发的时候可能因为复杂的网络需要在测试环境调通，毕竟不是自己倒腾项目一台机器，很容易知道通不通，企业级的环境可能会十分复杂，偶尔可能会用得上tcpdu...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/08/21/tcpdump/" title="tcpdump">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic41.jpg" alt="tcpdump"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/26/GO的闭包/" title="GO的闭包">
+								GO的闭包			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 26日, 2021				
+							</p>
+							<p class="relate-post-content">
+								GO的闭包background
+Golang作为一门新生代的编程语言，在近10年得到了巨大的发展，目前除了像字节跳动这样的以Golang为主要编程语言的公司，还有诸如腾讯、阿里内部也有部分项目开始用Golang编写。
+Golang是兼...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/26/GO的闭包/" title="GO的闭包">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic38.jpg" alt="GO的闭包"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/11/redis二三事（三）/" title="redis二三事（三）">
+								redis二三事（三）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 11日, 2021				
+							</p>
+							<p class="relate-post-content">
+								字典background
+我们常常将redis成为一种键值对数据库，这也就是体现了redis的本质，你甚至可以将redis看作是一个大型的哈希表，我们对于redis的操作基本都是利用相关的key去操作相关的value。
+如果你想学习过...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/11/redis二三事（三）/" title="redis二三事（三）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic40.jpg" alt="redis二三事（三）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">
+								Linux下的线程操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 19日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Linux下的线程background
+最近在学c++的时候看到了一些用c++实现web server的项目，觉得很是新奇，这也体现了c++造轮子的能力。
+这一层相比我平常做的一些业务逻辑来说更加贴近底层，这么说并非意味着这些是什么很...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/19/Linux下的线程操作/" title="Linux下的线程操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic37.jpg" alt="Linux下的线程操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/05/leetcode_4/" title="leetcode_4">
+								leetcode_4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 5日, 2021				
+							</p>
+							<p class="relate-post-content">
+								LeetcodeBackground（题外话）
+上一篇刷题的blog已经有60题了，今天再重新开一篇出来记录，刷的题目数量已经超过200了，全站排名也在上升，还是比较有成就感的。
+今天的寒假放的很早，人生中的最后一个寒假了。
+这个寒假...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/05/leetcode_4/" title="leetcode_4">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic29.jpg" alt="leetcode_4"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/12/demo-for-study/" title="demo for study">
+								demo for study			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Demo for studybackground
+在我们日常学习的时候，一个很有效的方式就是自己敲代码，通过实践来不断加深自己的理解。在很多时候，我们刚开始学习一个知识点的时候，一个好方法就是从copy开始，当然这个copy还必须是手...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/12/demo-for-study/" title="demo for study">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic36.jpg" alt="demo for study"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">
+								redis二三事（二）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								字符串和数字面试的时候常常会被问到redis的数据类型，首当其冲的自然就是string和数字，那么你知道string和数字在redis的底层是怎样实现的吗？
+string
+要想回答string相关的内容你首先要知道C语言中的一个字符串...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/12/04/redis二三事（二）/" title="redis二三事（二）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic35.jpg" alt="redis二三事（二）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">
+								redis二三事（一）			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 17日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Redisredis是一款非常优秀的开源软件，目前被广泛的应用于缓存、消息中间件等多个领域。Redis完全基于内运行，使用多路复用IO模型，用C语言实现了丰富的数据结构，这些优点使得Redis越来越流行，几乎所有公司的后端都会用到Re...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/17/redis二三事（一）/" title="redis二三事（一）">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic34.jpg" alt="redis二三事（一）"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">
+								c++实现经典数据结构			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 4日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Data Structure(c++)因为确定这次秋招是去到鹅厂，微信的技术栈还是以c++为主，所以最近也是一直在学习c++，俗话说得好实践是检验真理的唯一标准。c++这门语言本身的特点就是语法十分繁杂，整个语言包含的东西十分的广泛，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/11/04/c++实现经典数据结构/" title="c++实现经典数据结构">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/post-cover/pic33.jpg" alt="c++实现经典数据结构"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/5809441156/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2021, content by Sweet Coder. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>
